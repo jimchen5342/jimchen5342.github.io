@@ -72,21 +72,3 @@ system.isTeacher = function(){
 	let i = window.location.href.indexOf("localhost");
 	return i > -1 ? true : false;
 }
-
-
-/*
-var x = document.createElement("SCRIPT");
-var t = document.createTextNode("alert('Hello World!')");
-x.appendChild(t);
-document.body.appendChild(x);
-
-// 沒試過
-var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
-
-    var newlink = document.createElement("link");
-    newlink.setAttribute("rel", "stylesheet");
-    newlink.setAttribute("type", "text/css");
-    newlink.setAttribute("href", cssFile);
-
-    document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink)
-*/
