@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>第九課：事件</title>
+    <style type="text/css">
+      div {
+        border: 1px solid green;
+        height: 100px;
+        text-align: center;
+        margin: 10px 40px;
+      }
+      h4 {
+        color: blue;
+      }
+      ol {
+        font-size: 1.2em;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>第九課：事件(event</h3>
+    
+    <h4>事件清單：</h4>
+    <ol>
+      <li>load, unload, click, dblclick, change, focus, blur, abort, sumbit, select</li>
+      <li>keydonw, keyup, keypress</li>
+      <li>mousein, mouseout, mousemove, mouseover, mousedown, mouseup, mousewheel</li>
+      <li>touchstart, touchmove, touchend</li>
+      <li>drag, dragstart, dragend, dragenter, dragleave, dragover, drop,</li>
+      <li>resize, scroll</li>
+      <li>afterprint, beforeprint</li>
+      <li>online, offline</li>
+      <li>cut, paste, redo, undo, ctextmenu</li>
+    </ol>
+    
+    <div id='div'>請移動滑鼠</div>
+  
+    <h4>事件方法</h4>
+    <ol>
+      <li>preventDefault()</li>
+      <li>stopImmediatePropagation()</li>
+      <li>stopPropagation()</li>
+    </ol>
+    
+    <h4>事件物件</h4>
+    <ol>
+      <li>x, y</li>
+      <li>clientX, clientY, offsetX, offsetY, pageX, pageY, screenX, screenY</li>
+      <li>altKey, ctrlKey, shiftKey, metaKey, keyCode, which</li>
+      <li>target, srcElement, fromElement, toElement</li>
+      <li>button, buttons</li>
+      <li>cancelBubble</li>
+    </ol>
+    
+    <hr />
+    <a href='http://www.w3school.com.cn/tags/html_ref_eventattributes.asp'>參考網站</a><br />
+    <a href='https://zh.wikipedia.org/wiki/ASCII'>
+    ASCII 表(維基百科)</a>
+  </body>
+  
+  <script>
+    document.getElementById("div").onmouseout = function(e){
+      this.innerHTML = "請移動滑鼠";
+    }
+    document.getElementById("div").onmousemove = function(e){
+      this.innerHTML = "X: " + e.offsetX + "; Y: " + e.offsetY;
+    }
+  </script>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>第六課：表單</title>
+  </head>
+  <body>
+    <h3>第六課：表單</h3>
+    <form actin="./index.html" method='post'>
+      帳號：<input type='text' value='Jim chen' /><br/>
+      密碼：<input type='password' value='12345' />
+      <br /><br />
+
+      <fieldset>
+        <legend>性別</legend>
+        <input type='radio' name='sex' value='none' id='none' />
+        <label for="none">無</label>
+
+        <input type='radio' name='sex' value='male' id='male' />
+        <label for="male">男</label>
+
+        <input type='radio' name='sex' value='female' id='female'  checked />
+        <label for="female">女</label>
+      </fieldset><br ./>
+
+      <fieldset>
+        <legend>選修科目</legend>
+        <input type='checkbox' value='0' checked id='english' />
+        <label for="english">英文</label>
+        
+        <input type='checkbox' value='1' id='math'/>
+        <label for="math">數學</label>
+        
+        <input type='checkbox' value='2' id='programming' />
+        <label for="programming">程式設計</label>
+      </fieldset><br />
+      
+      <textarea rows="5" cols="50">多行輸入元件</textarea><br />
+    
+      國籍<select>
+        <option value=''>不詳</option>
+        <option value='1' selected>台灣</option>
+        <option value='2'>美國</option>
+        <option value='3'>英國</option>
+      </select>
+      <br /><br />
+      <input type='submit' type='submit' style='font-size: 16px; padding: 200px;' />
+      <button disabled>提交</button>
+    </form>
+    <br />
+    
+    <hr />
+    <a href="http://www.w3school.com.cn/html/html_forms.asp" target="_blank">表單說明</a>
+    <br />
+    <a href="http://www.w3school.com.cn/html/html_form_elements.asp" target="_blank">表單元素說明</a> 
+  </body>
+</html>

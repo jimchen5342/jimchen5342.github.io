@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>tutor</title>
+	  <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <link href="codeMirror/lib/codemirror.css" rel="stylesheet" />
+    <script src="codeMirror/lib/codemirror.js"></script>
+
+    <link href="codeMirror/theme/monokai.css" rel="stylesheet" type="text/css">
+    
+    <script type="text/javascript" src="codeMirror/keymap/sublime.js"></script>
+    <script type="text/javascript" src="codeMirror/addon/selection/active-line.js"></script>
+    <script type="text/javascript" src="codeMirror/addon/edit/matchbrackets.js"></script>
+    <script type="text/javascript" src="codeMirror/addon/display/fullscreen.js"></script>
+
+
+    <!--支持代碼摺疊-->
+    <link rel="stylesheet" href="codeMirror/addon/fold/foldgutter.css"/>
+    <script src="codeMirror/addon/fold/foldcode.js"></script>
+    <script src="codeMirror/addon/fold/foldgutter.js"></script>
+    <script src="codeMirror/addon/fold/brace-fold.js"></script>
+    <script src="codeMirror/addon/fold/comment-fold.js"></script>
+
+    <link rel="stylesheet" href="codeMirror/addon/hint/show-hint.css" />
+    <script src="codeMirror/addon/hint/show-hint.js"></script>
+    <script src="codeMirror/addon/hint/anyword-hint.js"></script>
+    <script src="system/system.js"></script>
+    
+    <style type="text/css">
+      html, body{
+          margin: 0;
+          padding: 0;
+          height:100%;
+          overflow: hidden;
+      }
+      body{
+          /*background-color: #1399ce; */
+      }
+      .CodeMirror {
+        /* Set height, width, borders, and global font properties here */
+        font-family: Menlo, Monaco, 'Courier New', monospace;
+        height: 100%;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+  </body>
+  <script>
+    let editor = null, mode = "";
+    window.onload = function() {
+      mode = system.urlElement("mode", "javascript");
+      //if(mode != "javascript")
+      //  mode = "text/x-mysql";
+      let arr = [];
+      if(mode == "text/x-mysql"){
+        arr.push("codeMirror/mode/sql/sql.js");
+        arr.push("codeMirror/addon/hint/sql-hint.js");
+      } else if(mode == "javascript"){
+        arr.push("codeMirror/mode/javascript/javascript.js");
+        arr.push("codeMirror/addon/hint/javascript-hint.js");
+      } else if(mode == "text/html"){
+        arr.push("codeMirror/addon/hint/html-hint.js");
+        arr.push("codeMirror/addon/hint/css-hint.js");
+        arr.push("codeMirror/addon/hint/javascript-hint.js");
+        arr.push("codeMirror/addon/hint/xml-hint.js");
+        arr.push("codeMirror/mode/xml/xml.js");
+        arr.push("codeMirror/mode/javascript/javascript.js");
+        arr.push("codeMirror/mode/css/css.js");
+        arr.push("codeMirror/mode/htmlmixed/htmlmixed.js");
+      } else if(mode == "css"){
+        arr.push("codeMirror/mode/css/css.js");
+        arr.push("codeMirror/addon/hint/css-hint.js");
+      }
+      system.loadScript(arr, create)
+    };
+
+    function create(){
+      editor = CodeMirror(document.body, {
+        styleActiveLine: true, // 当前行背景高亮
+        matchBrackets: true,   // 括号匹配
+        mode: mode,
+        theme: "monokai",
+        autoCloseTags: true,
+        lineNumbers: true, /*行号*/ 
+        lineWrapping: true, /*自动换行*/
+        indentUnit: 2,   /*设置缩进的字符数，默认为2*/
+        indentWithTabs: true,
+        smartIndent: true, /*自动缩进，默认为true*/
+        tabSize: 2, /*tab字符的宽度，默认为4*/
+        lineWiseCopyCut: false,  /*true时，如果当前没有选中文本，会自动选中当前行*/
+        dragDrop: true,   /*是否可以被拖拽*/
+        autofocus: true,
+        //fullScreen: true,
+        keyMap: "sublime",
+        //hint: CodeMirror.hint.sql,
+        foldGutter: true,
+        gutters:["CodeMirror-linenumbers", "breakpoints", "CodeMirror-foldgutter"],
+      });
+      editor.on("change", function (Editor, changes) {
+        if(typeof window.changeValue == "function"){
+          window.changeValue({orginal: mode, data: editor.getValue()})
+        }
+      });
+      editor.on("gutterClick", function(cm, n) {
+        var info = cm.lineInfo(n);
+        cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
+      });
+      function makeMarker() {
+        var marker = document.createElement("div");
+        marker.style.color = "#822";
+        marker.innerHTML = "●";
+        marker.style.marginLeft = "-12px"
+        return marker;
+      }
+
+      editor.setOption("extraKeys", {
+          "F1": "autocomplete",
+          // Tab: function(cm) {// Tab键换成4个空格
+          //     var spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
+          //     cm.replaceSelection(spaces);
+          // },
+          "F11": function(cm) {// F11键切换全屏, mac 不能 F11.....
+              cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+          },
+          "Esc": function(cm) {// Esc键退出全屏
+              if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+          }
+      });
+      /*
+      if(mode == "text/x-mysql"){
+        sql();
+      } else if(mode == "javascript"){
+        js();
+      } else if(mode == "text/html"){
+        htmlmixed()
+      } else if(mode == "css"){
+        css()
+      }
+      */
+      function css(){
+        editor.setValue('div{\n  color: red;\n}');
+      }
+      function htmlmixed(){
+        editor.setValue('<!DOCTYPE html>\n <html>\n <head>\n <meta charset="utf-8">\n <meta name="viewport" content="width=device-width, initial-scale=1">\n <title>tutor</title>\n <link href="codeMirror/lib/codemirror.css" rel="stylesheet" />\n\n <style type="text/css">\n </style>\n </head>\n <body>\n </body>\n</html>');
+      }
+      function js(){
+        editor.setValue("function test(){\n  alert('test')\n}");
+      }
+      function sql(){
+        editor.setOption("hint", CodeMirror.hint.sql);
+        CodeMirror.commands.autocomplete = function(cm) { // ok 可以用的 jim chen
+          CodeMirror.showHint(cm, CodeMirror.hint.sql, { 
+              tables: {
+                  "table1": [ "col_A", "col_B", "col_C" ],
+                  "table2": [ "other_columns1", "other_columns2" ]
+              }
+          } );
+        }
+        editor.setValue("Select * from table1")
+      }
+    }
+
+    function setValue(path, file){
+      if(editor == null){
+        setTimeout(function(){
+          setValue(path, file);
+        }, 500);
+        return;
+      }
+      if(typeof file == "undefined" )
+        editor.setValue("");
+      else {
+        $.ajax({
+          type :"GET",
+          url  : "./tutor/" + path + "/" + file,
+          dataType: "text",
+          success : function(result) {
+            editor.setValue(result);
+          }
+        })
+      }
+    }
+  </script>
+</html>

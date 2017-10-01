@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>網頁教學</title>
+	<link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/color.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+	<style type="text/css">
+		html, body{
+				margin: 0;
+				padding: 0;
+				height:100%;
+				overflow: hidden;
+		}
+		iframe {
+			overflow: hidden;
+			height: -webkit-calc(100% - (0px)); 
+			width: 100%;
+		}
+		.myPanel {
+			padding: 0px; 
+			height: 100%; 
+			overflow: hidden;
+			height: -webkit-calc(100% - (0px));
+		}
+    .flexV {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+    }
+	</style>
+	<script src="./menu.js"></script>
+</head>
+<body class="easyui-layout" style="width: 100%; height: 100%;">
+	<!--
+	<div data-options="region:'north'" style="height:50px"></div>
+	<div data-options="region:'south',split:true" style="height:50px;"></div>
+	-->
+	<div data-options="region:'west',split:true" title="課程" style="width:200px;">
+		<div class="flexV" style="padding: 5px;">
+			<select id="menu" class="easyui-combobox" style="width: 90%;" 
+				data-options="valueField: 'id', textField: 'text'">
+			</select>
+			<div style="flex: 1; width: 100%; padding: 10px; zoom: 1.2;">
+					<ul id="tree"></ul>
+			</div>
+		</div>
+	</div>
+	<div data-options="region:'east',split:true" id="east" style="width:400px; overflow: hidden;">
+			<div class="easyui-tabs" id="source" style="width: 100%; height: 100%">
+				<div title="講義" class='myPanel'>
+						<iframe id='context' scrolling='yes' frameborder='0' seamless='seamless'
+						sandbox='allow-scripts allow-top-navigation allow-same-origin allow-modals'>
+					</iframe>
+				</div>
+				<div title="結果" class='myPanel'>
+					<iframe id='result' scrolling='yes' frameborder='0' seamless='seamless'
+						sandbox='allow-scripts allow-top-navigation allow-same-origin allow-modals'>
+					</iframe>
+				</div>
+			</div>
+	</div>
+	<div id='center' data-options="region:'center', title:'',iconCls:'icon-ok'" style="overflow: hidden;">
+			<div class="easyui-tabs" id="source" style="width: 100%; height: 100%">
+				<div title="HTML" class='myPanel' src='text/html'></div>
+				<div title="CSS" class='myPanel' src='css'></div>
+				<div title="Javascript" class='myPanel' src='javascript'></div>
+			</div>
+	</div>
+</body>
+<script type="text/javascript">
+let iframe = {}, enabled = false;
+let setting = {
+	HTML: "lesson00", 
+	CSS: "lesson00", 
+	JavaScript: "lesson00",
+	current: 0
+};
+$( document ).ready(function(){
+	let x = localStorage["setting"];
+	if(typeof x == "string" && x.length > 0){
+		setting = Object.assign(setting, JSON.parse(x));
+	}
+	adjust();
+	let s = "<iframe scrolling='yes' frameborder='0' seamless='seamless' " +
+			"sandbox='allow-scripts allow-top-navigation allow-same-origin allow-modals'></iframe>";
+	let arr = $("div[src]").get();
+	for(let i = 0; i < arr.length; i++){
+		let obj = $(s).appendTo(arr[i]);
+		$(obj).attr("src", "codeMirror.html?mode=" + $(arr[i]).attr("src"));
+
+		$(obj).load(function(){
+			iframe[$(arr[i]).attr("src")] = $(obj).prop('contentWindow');
+			iframe[$(arr[i]).attr("src")].window.changeValue = changeValue;
+		});
+	}
+	//iframe["javascript"].window.changeCodeMirror("a {\n color: blue \n}");
+	//$("#result").prop("srcdoc", "<span style='color: red; '>hello! world!!</span>");
+	for(let i = 0; i < menu.length; i++){
+		menu[i].id = i;
+	}
+	$('#tree').tree({
+		onClick: function(node){
+			treeClick(node);  // alert node text property when clicked
+		}
+	});
+
+	$('#menu').combobox({
+		data: menu,
+		onChange: function(newValue, oldValue){
+			changeMenu(newValue);
+		}
+	});
+	if(setting.current == 0)
+		changeMenu(0);
+	else 
+		$('#menu').combobox('setValue', setting.current);
+});
+function adjust(){
+	console.log(typeof setting.east)
+	if(typeof setting.east == "number"){
+		var p = $('body').layout('panel','east');  
+		p.panel('resize',{width: setting.east});
+		$('body').layout('resize');
+	}
+
+	var p = $('body').layout('panel','east').panel({
+		onCollapse:function(){
+			//alert('collapse');
+		},
+		onExpand:function(){
+			//alert('expand');
+		},
+		onResize:function(w, h){
+			setting.east = w;
+			localStorage["setting"] = JSON.stringify(setting);
+			console.log(localStorage["setting"])			
+		}
+	});
+}
+function changeMenu(index){
+	setting.current = index;
+	let s = menu[index].text;
+	$('#tree').tree({
+		data: menu[index].data
+	});
+	findTree(setting[s])
+}
+
+function findTree(node){
+	if(menu[setting.current].data.length > 0){
+		if(typeof node == "string")
+			node = $('#tree').tree('find', node);
+		$('#tree').tree('select', node.target);
+		treeClick(node)
+	}
+}
+function treeClick(node){
+	let s = menu[setting.current].text;
+	setting[s] = node.id;
+	localStorage["setting"] = JSON.stringify(setting);
+	
+	let path =  menu[setting.current].text + "/";
+	$("#context").attr("src", "./tutor/" + path + node["context"]);
+	let arr = [{
+			src: 'text/html', node: 'html'
+		},{
+			 src: 'css', node: 'css'
+		}, {
+			src: 'javascript', node: 'js'
+		}];
+	if(typeof node.html == "string"){
+		$("#result").attr("src", "./tutor/" + path + node["html"]);
+	}
+	function loadEditor(index){
+		if(index >= arr.length){
+		} else if (typeof iframe[arr[index].src] == "object"){
+			iframe[arr[index].src].setValue(path, node[arr[index].node]);
+			loadEditor(index + 1);
+		} else {
+			setTimeout(function(){
+				loadEditor(index)
+			}, 500);
+		}		
+	}
+	loadEditor(0);
+}
+
+function changeValue(e){ // 來自 iframe 修改資料
+	//if(enabled)
+		//console.log(e)
+}
+/*
+cd /Users/jimc/nodeJS/ && node index
+*/
+</script>
+</html>
