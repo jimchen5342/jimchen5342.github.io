@@ -33,6 +33,15 @@
       align-items: center;
       box-sizing: border-box;
     }
+		.icon-left {
+			background: url(https://www.jeasyui.com/easyui/themes/default/images/layout_arrows.png) no-repeat 0 0;
+		}
+		.icon-right {
+			background: url(https://www.jeasyui.com/easyui/themes/default/images/layout_arrows.png) no-repeat 0 -16px;
+		}
+		.icon-reload{
+			background:url('./icons/reload.png') no-repeat center center;
+		}
 	</style>
 	<script src="./menu.js"></script>
 </head>
@@ -52,7 +61,7 @@
 		</div>
 	</div>
 	<div data-options="region:'east',split:true" id="east" style="width:400px; overflow: hidden;">
-			<div class="easyui-tabs" id="source" style="width: 100%; height: 100%">
+			<div class="easyui-tabs" id="doc" style="width: 100%; height: 100%">
 				<div title="講義" class='myPanel'>
 						<iframe id='context' scrolling='yes' frameborder='0' seamless='seamless'
 						sandbox='allow-scripts allow-top-navigation allow-same-origin allow-modals'>
@@ -74,7 +83,7 @@
 	</div>
 </body>
 <script type="text/javascript">
-let iframe = {}, enabled = false;
+let iframe = {}, enabled = false, result, panel = 0;
 let setting = {
 	HTML: "lesson00", 
 	CSS: "lesson00", 
@@ -99,8 +108,7 @@ $( document ).ready(function(){
 			iframe[$(arr[i]).attr("src")].window.changeValue = changeValue;
 		});
 	}
-	//iframe["javascript"].window.changeCodeMirror("a {\n color: blue \n}");
-	//$("#result").prop("srcdoc", "<span style='color: red; '>hello! world!!</span>");
+
 	for(let i = 0; i < menu.length; i++){
 		menu[i].id = i;
 	}
@@ -120,16 +128,35 @@ $( document ).ready(function(){
 		changeMenu(0);
 	else 
 		$('#menu').combobox('setValue', setting.current);
+	result = $("#result").prop('contentWindow');
+	console.log(result)
 });
 function adjust(){
-	console.log(typeof setting.east)
-	if(typeof setting.east == "number"){
-		var p = $('body').layout('panel','east');  
-		p.panel('resize',{width: setting.east});
-		$('body').layout('resize');
+	let collapsed = true;
+	let west = $('body').layout('panel','west').panel({
+		minWidth: 160,
+		//collapsed: (typeof setting["west-collapse"] == "string" && setting["west-collapse"] == "Y") ? true : false,
+		onCollapse:function(){
+			setting["west-collapse"] = "Y";
+			localStorage["setting"] = JSON.stringify(setting);
+		},
+		onExpand:function(){
+			setting["west-collapse"] = "N";
+			localStorage["setting"] = JSON.stringify(setting);
+		},
+		onResize:function(w, h){
+		}
+	});
+
+	if(typeof setting["west-collapse"] == "string" && setting["west-collapse"] == "Y") {
+		$('body').layout('collapse', 'west');
+		setTimeout(function(){
+			$('body').layout('resize');
+		}, 600);		
 	}
 
-	var p = $('body').layout('panel','east').panel({
+	let east = $('body').layout('panel','east').panel({
+		minWidth: 160,
 		onCollapse:function(){
 			//alert('collapse');
 		},
@@ -137,11 +164,79 @@ function adjust(){
 			//alert('expand');
 		},
 		onResize:function(w, h){
-			setting.east = w;
-			localStorage["setting"] = JSON.stringify(setting);
-			console.log(localStorage["setting"])			
+			if(collapsed == false){
+				setting.east = w;
+				localStorage["setting"] = JSON.stringify(setting);
+			}
+			eastResizeIcon(w);
 		}
 	});
+	$('#doc').tabs({ // east
+			onSelect:function(title){
+					//alert(title+' is selected');
+			},
+			tools:[{
+        iconCls:'icon-left',
+        handler:function(){
+					collapsed = true;
+					eastResize(setting.east);
+					setTimeout(function(){
+						collapsed = false;
+					}, 500);
+        }
+    },{
+        iconCls:'icon-right',
+        handler:function(){
+					collapsed = true;
+					eastResize(160);
+					setTimeout(function(){
+						collapsed = false;
+					}, 500);
+        }
+    }]
+	});
+	$('#source').tabs({ // center, 還沒寫
+		onSelect:function(title){
+			panel = title;
+		},
+		tools:[{
+			iconCls:'icon-reload',
+			handler:function(){
+				for(let key in iframe){
+					iframe[key].reset();
+				}
+				$("#result").attr("src", "./empty.html");
+			}/*, {
+			iconCls:'icon-save',
+			handler:function(){
+					alert('還正在思考....');
+			}*/
+    }]
+	});
+
+	function eastResizeIcon(w){
+		if($("#doc .tabs-tool table td").size() == 0){
+			setTimeout(function(){
+				eastResizeIcon(w);
+			}, 500);
+		} else {
+			let max = w > 160 ? true : false;
+			$("#doc .tabs-tool table td:nth-child(1)").css("display", max == false ? "table-cell" : "none");
+			$("#doc .tabs-tool table td:nth-child(2)").css("display", max == true ? "table-cell" : "none");
+		}
+	}
+	function eastResize(w){
+		var p = $('body').layout('panel','east');  
+		p.panel('resize',{width: w});
+		$('body').layout('resize');
+		eastResizeIcon(w);
+	}
+
+	let w = typeof setting.east == "number" ? setting.east : 300;
+	eastResize(w);
+	setTimeout(function(){
+		collapsed = false;
+	}, 500);
 }
 function changeMenu(index){
 	setting.current = index;
@@ -179,6 +274,9 @@ function treeClick(node){
 	}
 	function loadEditor(index){
 		if(index >= arr.length){
+			setTimeout(function(){
+				enabled = true;
+			}, 600)
 		} else if (typeof iframe[arr[index].src] == "object"){
 			iframe[arr[index].src].setValue(path, node[arr[index].node]);
 			loadEditor(index + 1);
@@ -189,11 +287,60 @@ function treeClick(node){
 		}		
 	}
 	loadEditor(0);
+	$("#doc").tabs("select",0);
+	$("#source").tabs("select",0);
 }
 
 function changeValue(e){ // 來自 iframe 修改資料
-	//if(enabled)
-		//console.log(e)
+	if(enabled){
+		if(e.orginal == "css"){
+			changeCSS(e.data);
+		} else if(e.orginal == "javascript"){
+			changeJS(e.data);
+		} else {
+			try{
+				$("#result").prop("srcdoc", e.data);
+			} catch (e) {
+
+			}
+		}
+	}
+		//iframe["javascript"].window.changeCodeMirror("a {\n color: blue \n}");
+	//$("#result").prop("srcdoc", "<span style='color: red; '>hello! world!!</span>");
+}
+
+function changeJS(js) {
+	let ext = result.document.querySelector("script[src]");
+	if(ext != null){
+		ext.setAttribute("src", "");
+		ext.parentNode.removeChild(ext);
+	}
+
+	let newJS = result.document.querySelector("#newJS");
+	if(newJS != null){
+		newJS.parentNode.removeChild(newJS);
+	}
+	newJS = result.document.createElement("script");
+	newJS.id = "newJS"
+	result.document.getElementsByTagName("head")[0].appendChild(newJS);
+	newJS.innerHTML = js; 
+}
+
+function changeCSS(css) { // ok
+	let ext = result.document.querySelector("link");
+	if(ext != null){
+		ext.setAttribute("href", "");
+		ext.parentNode.removeChild(ext);
+	}
+
+	let newCSS = result.document.querySelector("#newCSS");
+	if(newCSS != null){
+		newCSS.parentNode.removeChild(newCSS);
+	}
+	newCSS = result.document.createElement("style");
+	newCSS.id = "newCSS"
+	result.document.getElementsByTagName("head")[0].appendChild(newCSS);
+	newCSS.innerHTML = css; 
 }
 /*
 cd /Users/jimc/nodeJS/ && node index

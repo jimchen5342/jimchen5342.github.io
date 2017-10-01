@@ -6,61 +6,22 @@
     <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="style.css" rel="stylesheet">
     <style type="text/css">
-      button{
-        color: blue;
+      button.btn{
+        color: green !important;
       }
     </style>
-    <script type="text/javascript" src="system.js"></script>
+    <script type="text/javascript" src="system.js" id='js'></script>
     <script>
       function sayHi2(who){
         alert(who + ": 內部");
       }
     </script>
-    
-    <!-- CodeMirror-->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.js"></script>
-
-    <!-- 下列的其實都為了 讓html +js 語言混和必需的js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/javascript/javascript.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/htmlmixed/htmlmixed.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/css/css.js"></script>
   </head>	
   <body>
     <!-- 這是備註 -->
     <h4>基本架構</h4>
-    <button onclick='sayHi1("jim")' style='color: red;'>外部 JS</button>
-    <button onclick="sayHi2('jim')">內部 JS</button>
-    <button onclick='alert("jim" + "內聯")'>內聯 JS</button>
-    <hr style="margin: 30px 0 30px 0;" />
-    <pre>
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;meta charset="utf-8"&gt;
-    &lt;title&gt;基本架構&lt;/title&gt;
-    &lt;meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"&gt;
-    &lt;link href="style.css" rel="stylesheet"&gt;
-    &lt;style type="text/css"&gt;
-      button{
-        color: blue;
-      }
-    &lt;/style&gt;
-    &lt;script type="text/javascript" src="system.js"&gt;&lt;/script&gt;
-    &lt;script&gt;
-      function sayHi2(who){
-        alert(who + ": 內部");
-      }
-    &lt;/script&gt;
-  &lt;/head&gt;	
-  &lt;body&gt;
-    &lt;!-- 這是備註 --&gt;
-    &lt;h4&gt;基本架構&lt;/h4&gt;
-    &lt;button onclick='sayHi1("jim")' style='color: red;'&gt;外部 JS&lt;/button&gt;
-    &lt;button onclick="sayHi2('jim')"&gt;內部 JS&lt;/button&gt;
-    &lt;button onclick='alert("jim" + "內聯")'&gt;內聯 JS&lt;/button&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-    </pre>
+    <button onclick='sayHi1("jim")'>外部 JS</button>
+    <button onclick="sayHi2('jim')" class='btn'>內部 JS</button>
+    <button onclick='alert("jim" + "內聯")' style='color: red;'>內聯 JS</button>
   </body>
 </html>

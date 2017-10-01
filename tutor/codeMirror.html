@@ -95,9 +95,8 @@
         autofocus: true,
         //fullScreen: true,
         keyMap: "sublime",
-        //hint: CodeMirror.hint.sql,
         foldGutter: true,
-        gutters:["CodeMirror-linenumbers", "breakpoints", "CodeMirror-foldgutter"],
+        gutters: ["CodeMirror-linenumbers", "breakpoints", "CodeMirror-foldgutter"],
       });
       editor.on("change", function (Editor, changes) {
         if(typeof window.changeValue == "function"){
@@ -115,7 +114,6 @@
         marker.style.marginLeft = "-12px"
         return marker;
       }
-
       editor.setOption("extraKeys", {
           "F1": "autocomplete",
           // Tab: function(cm) {// Tab键换成4个空格
@@ -129,38 +127,20 @@
               if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
           }
       });
-      /*
-      if(mode == "text/x-mysql"){
-        sql();
-      } else if(mode == "javascript"){
-        js();
-      } else if(mode == "text/html"){
-        htmlmixed()
-      } else if(mode == "css"){
-        css()
-      }
-      */
-      function css(){
-        editor.setValue('div{\n  color: red;\n}');
-      }
-      function htmlmixed(){
-        editor.setValue('<!DOCTYPE html>\n <html>\n <head>\n <meta charset="utf-8">\n <meta name="viewport" content="width=device-width, initial-scale=1">\n <title>tutor</title>\n <link href="codeMirror/lib/codemirror.css" rel="stylesheet" />\n\n <style type="text/css">\n </style>\n </head>\n <body>\n </body>\n</html>');
-      }
-      function js(){
-        editor.setValue("function test(){\n  alert('test')\n}");
-      }
-      function sql(){
-        editor.setOption("hint", CodeMirror.hint.sql);
-        CodeMirror.commands.autocomplete = function(cm) { // ok 可以用的 jim chen
-          CodeMirror.showHint(cm, CodeMirror.hint.sql, { 
-              tables: {
-                  "table1": [ "col_A", "col_B", "col_C" ],
-                  "table2": [ "other_columns1", "other_columns2" ]
-              }
-          } );
-        }
-        editor.setValue("Select * from table1")
-      }
+    }
+
+    function reset(){
+      if(mode.indexOf("html") > -1){
+        $.ajax({
+          type :"GET",
+          url  : "./empty.html",
+          dataType: "text",
+          success : function(result) {
+            editor.setValue(result);
+          }
+        })
+      } else
+        editor.setValue("")
     }
 
     function setValue(path, file){

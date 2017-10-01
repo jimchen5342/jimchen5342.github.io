@@ -5,14 +5,14 @@ let menu = [
 			{
 				id: "lesson00",
 				text: "基本架構",
-				context: "lesson00.html",
+				context: "lesson00.t.html",
 				html: "lesson00.html",
 				css: "style.css",
 				js: "system.js"
 			}, {
 				id: "lesson01",
 				text: "區塊/標題",
-				context: "lesson01.html",
+				context: "lesson01.t.html",
 				html: "lesson01.html",
 			}, {
 				id: "lesson02",
@@ -29,22 +29,3 @@ let menu = [
 		data: []
 	}
 ];
-/*
-, {
-				text: "",
-				context: "",
-				html: "",
-			}
-	HTML: [
-		{
-			title: "",
-			context: "",
-			html: "",
-			css: "",
-			javascript: ""
-		}
-	],
-	CSS: [],
-	JavaScript: []
-
-*/

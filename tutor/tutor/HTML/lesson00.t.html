@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>基本架構</title>
+    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="style.css" rel="stylesheet">
+    </style>
+  </head>	
+  <body>
+    <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;基本架構&lt;/title&gt;
+    &lt;meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"&gt;
+    &lt;link href="style.css" rel="stylesheet"&gt;
+    &lt;style type="text/css"&gt;
+      button{
+        color: blue;
+      }
+    &lt;/style&gt;
+    &lt;script type="text/javascript" src="system.js"&gt;&lt;/script&gt;
+    &lt;script&gt;
+      function sayHi2(who){
+        alert(who + ": 內部");
+      }
+    &lt;/script&gt;
+  &lt;/head&gt;	
+  &lt;body&gt;
+    &lt;!-- 這是備註 --&gt;
+    &lt;h4&gt;基本架構&lt;/h4&gt;
+    &lt;button onclick='sayHi1("jim")' style='color: red;'&gt;外部 JS&lt;/button&gt;
+    &lt;button onclick="sayHi2('jim')"&gt;內部 JS&lt;/button&gt;
+    &lt;button onclick='alert("jim" + "內聯")'&gt;內聯 JS&lt;/button&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+  </body>
+</html>
