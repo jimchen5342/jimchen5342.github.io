@@ -73,6 +73,7 @@ system.isTeacher = function(){
 	return i > -1 ? true : false;
 }
 
+
 /*
 var x = document.createElement("SCRIPT");
 var t = document.createTextNode("alert('Hello World!')");
