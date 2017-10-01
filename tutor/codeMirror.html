@@ -27,7 +27,6 @@
     <script src="codeMirror/addon/hint/show-hint.js"></script>
     <script src="codeMirror/addon/hint/anyword-hint.js"></script>
     <script src="system/system.js"></script>
-    
     <style type="text/css">
       html, body{
           margin: 0;
@@ -99,7 +98,9 @@
         gutters: ["CodeMirror-linenumbers", "breakpoints", "CodeMirror-foldgutter"],
       });
       editor.on("change", function (Editor, changes) {
+
         if(typeof window.changeValue == "function"){
+          if(mode.indexOf("html") > -1 && changes.text == "<") return;
           window.changeValue({orginal: mode, data: editor.getValue()})
         }
       });
@@ -151,7 +152,7 @@
       }
       if(typeof file == "undefined" )
         editor.setValue("");
-      else {
+      else if(typeof file == "string" && file.length > 0){
         $.ajax({
           type :"GET",
           url  : "./tutor/" + path + "/" + file,
@@ -159,7 +160,9 @@
           success : function(result) {
             editor.setValue(result);
           }
-        })
+        });
+      } else {
+        editor.setValue(path);
       }
     }
   </script>

@@ -65,6 +65,13 @@ system.loadScript = function(filename, callback ){
 	}
 	start(0);
 }
+system.isSignon = function(){
+	return false;
+}
+system.isTeacher = function(){
+	let i = window.location.href.indexOf("localhost");
+	return i > -1 ? true : false;
+}
 
 /*
 var x = document.createElement("SCRIPT");

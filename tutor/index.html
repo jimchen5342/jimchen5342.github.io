@@ -42,21 +42,44 @@
 		.icon-reload{
 			background:url('./icons/reload.png') no-repeat center center;
 		}
+		#ver {
+			color: blue;
+			font-size: 16px;
+			padding: 5px;
+		}
+		#divTree {
+			flex: 1;
+			width: 100%; 
+			padding: 5px 5px;
+			margin: 5px 0;
+			zoom: 1.2;
+			border-color: #eee;
+			border-style: solid;
+			border-top-width: 1px;
+			border-bottom-width: 1px;
+		}
 	</style>
-	<script src="./menu.js"></script>
+	<script src="./system/menu.js"></script>
+	<script src="./system/system.js"></script>
 </head>
 <body class="easyui-layout" style="width: 100%; height: 100%;">
 	<!--
 	<div data-options="region:'north'" style="height:50px"></div>
 	<div data-options="region:'south',split:true" style="height:50px;"></div>
 	-->
-	<div data-options="region:'west',split:true" title="課程" style="width:200px;">
-		<div class="flexV" style="padding: 5px;">
+	<div data-options="region:'west',split:true" title="課程" style="width:200px; overflow: hidden;">
+		<div class="flexV" style="padding: 5px; height: 100%;">
 			<select id="menu" class="easyui-combobox" style="width: 90%;" 
 				data-options="valueField: 'id', textField: 'text'">
 			</select>
-			<div style="flex: 1; width: 100%; padding: 10px; zoom: 1.2;">
+			<div id='divTree' >
 					<ul id="tree"></ul>
+			</div>
+			<select id="user" class="easyui-combobox" style="width: 90%;" 
+				data-options="valueField: 'id', textField: 'text'">
+			</select>
+			<div>
+				<div id='ver'>Jim Chen 2017/10/01</div>
 			</div>
 		</div>
 	</div>
@@ -84,10 +107,12 @@
 </body>
 <script type="text/javascript">
 let iframe = {}, enabled = false, result, panel = 0;
+let user = [{id: 0, text: "教師版"}];
+
 let setting = {
-	HTML: "lesson00", 
-	CSS: "lesson00", 
-	JavaScript: "lesson00",
+	HTML: "00-basic", 
+	CSS: "00-basic", 
+	JavaScript: "00-basic",
 	current: 0
 };
 $( document ).ready(function(){
@@ -95,7 +120,7 @@ $( document ).ready(function(){
 	if(typeof x == "string" && x.length > 0){
 		setting = Object.assign(setting, JSON.parse(x));
 	}
-	adjust();
+	adjustPanel();
 	let s = "<iframe scrolling='yes' frameborder='0' seamless='seamless' " +
 			"sandbox='allow-scripts allow-top-navigation allow-same-origin allow-modals'></iframe>";
 	let arr = $("div[src]").get();
@@ -124,14 +149,28 @@ $( document ).ready(function(){
 			changeMenu(newValue);
 		}
 	});
+
+	adjustUser();
+
 	if(setting.current == 0)
 		changeMenu(0);
 	else 
 		$('#menu').combobox('setValue', setting.current);
 	result = $("#result").prop('contentWindow');
-	console.log(result)
 });
-function adjust(){
+
+function adjustUser(){
+	if(system.isTeacher() == false){
+		user = [{id: 1, text: "自學版"}];
+	}
+	$('#user').combobox({
+		data: user,
+		onChange: function(newValue, oldValue){
+			//changeMenu(newValue);
+		}
+	});
+}
+function adjustPanel(){
 	let collapsed = true;
 	let west = $('body').layout('panel','west').panel({
 		minWidth: 160,
@@ -244,34 +283,52 @@ function changeMenu(index){
 	$('#tree').tree({
 		data: menu[index].data
 	});
-	findTree(setting[s])
+	findTree(setting[s]);
 }
 
 function findTree(node){
 	if(menu[setting.current].data.length > 0){
-		if(typeof node == "string")
+		if(typeof node == "string") {
+			if(node.indexOf("-") == -1){
+				node = "00-basic";
+			}
 			node = $('#tree').tree('find', node);
-		$('#tree').tree('select', node.target);
-		treeClick(node)
+		}
+		if(node != null){
+			$('#tree').tree('select', node.target);
+			treeClick(node);
+		}
 	}
 }
+let path = "";
 function treeClick(node){
 	let s = menu[setting.current].text;
 	setting[s] = node.id;
 	localStorage["setting"] = JSON.stringify(setting);
 	
-	let path =  menu[setting.current].text + "/";
-	$("#context").attr("src", "./tutor/" + path + node["context"]);
-	let arr = [{
-			src: 'text/html', node: 'html'
-		},{
-			 src: 'css', node: 'css'
-		}, {
-			src: 'javascript', node: 'js'
-		}];
-	if(typeof node.html == "string"){
+	path =  menu[setting.current].text + "/";
+	if(typeof node.context == "string" && node.context.length > 0){
+		$("#context").attr("src", "./tutor/" + path + node["context"]);
+	} else 
+		$("#context").attr("src", "");
+	loadPage(node);
+}
+
+function loadPage(node){
+	enabled = false;
+	if(typeof node.html == "string" && node.html.length > 0){
 		$("#result").attr("src", "./tutor/" + path + node["html"]);
-	}
+	} else 
+		$("#result").attr("src", "");
+
+	let arr = [{
+		src: 'text/html', node: 'html'
+	},{
+			src: 'css', node: 'css'
+	}, {
+		src: 'javascript', node: 'js'
+	}];
+
 	function loadEditor(index){
 		if(index >= arr.length){
 			setTimeout(function(){
@@ -305,7 +362,7 @@ function changeValue(e){ // 來自 iframe 修改資料
 			}
 		}
 	}
-		//iframe["javascript"].window.changeCodeMirror("a {\n color: blue \n}");
+	//iframe["javascript"].window.changeCodeMirror("a {\n color: blue \n}");
 	//$("#result").prop("srcdoc", "<span style='color: red; '>hello! world!!</span>");
 }
 
