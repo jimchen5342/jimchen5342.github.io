@@ -189,7 +189,7 @@
 	</div>
 </body>
 <script type="text/javascript">
-let iframe = {}, enabled = false, result, panel = 0, storage = undefined, student = "";
+let iframe = {}, result, panel = 0, storage = undefined, student = "";
 let subject = "", lesson = "";
 let readOnly = true;
 let mode = [{
@@ -208,6 +208,7 @@ let setting = {
 };
 $( document ).ready(function(){
 	//console.log(setting)
+	result = $("#result").prop('contentWindow');
 	let x = localStorage["setting"];
 	if(typeof x == "string" && x.length > 0){
 		setting = Object.assign(setting, JSON.parse(x));
@@ -247,7 +248,6 @@ $( document ).ready(function(){
 		changeMenu(0);
 	else 
 		$('#menu').combobox('setValue', setting.current);
-	result = $("#result").prop('contentWindow');
 
 	$("#switch").bind("click", function(){ // 學生版, 修改否; 還沒寫.....
 		readOnly = $("#switch").prop("checked");
@@ -443,7 +443,6 @@ function adjustPanel(){
 			iconCls: 'icon-reload',
 			id: 'reload',
 			handler:function(){
-				enabled = false;
 				for(let key in iframe){
 					iframe[key].reset();
 				}
@@ -451,7 +450,6 @@ function adjustPanel(){
 				setTimeout(function(){
 					delete storage[lesson];
 					localStorage[subject] = JSON.stringify(storage);
-					enabled = true;				
 				}, 1000)
 				// firebase 要刪除，遝沒寫.....todo
 			}
@@ -562,8 +560,7 @@ function treeClick(node){
 	} else 
 		$("#context").attr("src", "");
 	$("#source").tabs("select",0);
-	$("#doc").tabs("select",0);
-	
+	//$("#doc").tabs("select",0);
 	loadPage(node, true);
 }
 
@@ -576,20 +573,18 @@ function loadPage(node, changed){
 			readOnly = true;
 		$("#switch").prop("checked", readOnly);
 	}
-
 	$("#divSubject").text(subject+ ": " + node.text);
-	enabled = false;
 
 	if(readOnly == true && typeof node.html == "string" && node.html.length > 0){
 		$("#result").attr("src", "./tutor/" + subject + "/" + node["html"]);
-	} else 
-		$("#result").attr("src", "");
-
+		result.location.assign("./tutor/" + subject + "/" + node["html"]);
+	} else {
+		result.location.assign("./empty.html");
+	}
 	function loadEditor(index){
 		if(index >= mode.length){
 			setTimeout(function(){
 				centerIcon();
-				enabled = true;
 			}, 600)
 		} else if (typeof iframe[mode[index].src] == "object") {
 			let key = mode[index].src, key2 = mode[index].node;
@@ -598,12 +593,12 @@ function loadPage(node, changed){
 					? storage[lesson][key] : "";
 				if(s.length == 0 && key2 == "html"){
 					iframe[key].reset();
-					$("#result").attr("src", "./empty.html");
+					result.location.assign("./empty.html");
 				} else {
 					iframe[key].setValue(s);
-					changeValue({orginal: key2, data: s}, false);
+					changeValue({orginal: key, data: s}, false);
 				}
-				console.log(key + ": " + s)
+				//console.log(key + ": " + s)
 				iframe[key].readOnly(readOnly);
 				loadEditor(index + 1);
 			} else {
@@ -624,24 +619,25 @@ function loadPage(node, changed){
 	loadEditor(0);
 }
 
-function changeValue(e){ // 來自 iframe 修改資料
-	if(enabled){
-		if(e.orginal == "css"){
-			changeCSS(e.data);
-		} else if(e.orginal == "javascript"){
-			changeJS(e.data);
-		} else {
-			try{
-				$("#result").prop("srcdoc", e.data);
-			} catch (e) {
+function changeValue(e, changed){ // 來自 iframe 修改資料
+	if(e.orginal == "css"){
+		changeCSS(e.data);
+	} else if(e.orginal == "javascript"){
+		changeJS(e.data);
+	} else {
+		try{
+			$("#result").prop("srcdoc", e.data);
+		} catch (e) {
 
-			}
 		}
-		if(typeof storage[lesson] == "undefined")
-			storage[lesson] = {};
-		storage[lesson][e.orginal] = e.data;
-		localStorage[subject] = JSON.stringify(storage);
 	}
+	if(typeof changed == "undefined" || changed == true){
+		if(typeof storage[lesson] == "undefined")
+				storage[lesson] = {};
+			storage[lesson][e.orginal] = e.data;
+			localStorage[subject] = JSON.stringify(storage);		
+	}
+
 	//iframe["javascript"].window.changeCodeMirror("a {\n color: blue \n}");
 	//$("#result").prop("srcdoc", "<span style='color: red; '>hello! world!!</span>");
 }

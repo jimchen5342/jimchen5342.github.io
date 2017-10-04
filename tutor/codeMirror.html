@@ -48,7 +48,7 @@
   <body>
   </body>
   <script>
-  let editor = null, mode = "";
+  let editor = null, mode = "", enabled = false;
   window.onload = function() {
     mode = system.urlElement("mode", "javascript");
     //if(mode != "javascript")
@@ -98,7 +98,7 @@
       gutters: ["CodeMirror-linenumbers", "breakpoints", "CodeMirror-foldgutter"],
     });
     editor.on("change", function (Editor, changes) {
-      if(typeof window.changeValue == "function"){
+      if(typeof window.changeValue == "function" && enabled == true){
         if(mode.indexOf("html") > -1 && changes.text == "<") return;
         window.changeValue({orginal: mode, data: editor.getValue()})
       }
@@ -143,15 +143,17 @@
   }
 
   function setValue(path, file){
+    enabled = false;
     if(editor == null){
       setTimeout(function(){
         setValue(path, file);
       }, 500);
       return;
     }
-    if(typeof file == "undefined" )
+    if(typeof file == "undefined" ){
       editor.setValue(typeof path == "string" ? path : "");
-    else if(typeof file == "string" && file.length > 0){
+      enabled = true;
+    } else if(typeof file == "string" && file.length > 0){
       $.ajax({
         type :"GET",
         url  : "./tutor/" + path + "/" + file,
@@ -161,10 +163,9 @@
           //console.log(info);
           //console.log(editor)
           editor.setValue(result);
+          enabled = true;
         }
       });
-    } else {
-      editor.setValue(path);
     }
   }
 
