@@ -15,7 +15,6 @@
     <script type="text/javascript" src="codeMirror/addon/edit/matchbrackets.js"></script>
     <script type="text/javascript" src="codeMirror/addon/display/fullscreen.js"></script>
 
-
     <!--支持代碼摺疊-->
     <link rel="stylesheet" href="codeMirror/addon/fold/foldgutter.css"/>
     <script src="codeMirror/addon/fold/foldcode.js"></script>
@@ -31,11 +30,8 @@
       html, body{
           margin: 0;
           padding: 0;
-          height:100%;
+          height: 100%;
           overflow: hidden;
-      }
-      body{
-          /*background-color: #1399ce; */
       }
       .CodeMirror {
         /* Set height, width, borders, and global font properties here */
@@ -76,6 +72,11 @@
     system.loadScript(arr, create)
   };
 
+  function myfocus(){
+    console.log("focus: " + mode);
+    editor.focus();
+  }
+
   function create(){
     editor = CodeMirror(document.body, {
       styleActiveLine: true, // 当前行背景高亮
@@ -107,6 +108,7 @@
       var info = cm.lineInfo(n);
       cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
     });
+
     function makeMarker() {
       var marker = document.createElement("div");
       marker.style.color = "#822";
@@ -135,11 +137,12 @@
         url  : "./empty.html",
         dataType: "text",
         success : function(result) {
-          editor.setValue(result);
+          setValue(result);
         }
       })
-    } else
-      editor.setValue("")
+    } else {
+      setValue();
+    }
   }
 
   function setValue(path, file){
@@ -150,7 +153,7 @@
       }, 500);
       return;
     }
-    if(typeof file == "undefined" ){
+    if(typeof file == "undefined" || file.length == 0){
       editor.setValue(typeof path == "string" ? path : "");
       enabled = true;
     } else if(typeof file == "string" && file.length > 0){
