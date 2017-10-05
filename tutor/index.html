@@ -600,7 +600,10 @@ function loadPage(node, changed){
 				}
 				//console.log(key + ": " + s)
 				iframe[key].readOnly(readOnly);
-				loadEditor(index + 1);
+				setTimeout(function(){
+					loadEditor(index + 1);
+				}, 600)
+				
 			} else {
 				if(typeof node[key2] == "undefined")
 					iframe[key].setValue("");
@@ -626,6 +629,19 @@ function changeValue(e, changed){ // 來自 iframe 修改資料
 		changeJS(e.data);
 	} else {
 		try{
+			
+			if(typeof changed == "undefined" || changed == true){
+				if(readOnly == false && typeof storage[lesson].css == "string" && storage[lesson].css.length > 0){
+					let newCSS = '<style type="text/css" id="newCSS">' + storage[lesson].css + '</style>';
+					e.data = e.data.replace("</head>", newCSS + "</head>");
+				}
+				if(readOnly == false && typeof storage[lesson].javascript == "string" && storage[lesson].javascript.length > 0){
+					let newJS = '<script id="newJS">' + storage[lesson].javascript + '<\/script>';
+
+					e.data = e.data.replace("</head>", newJS + "</head>");
+				}
+				
+			}
 			$("#result").prop("srcdoc", e.data);
 		} catch (e) {
 
@@ -637,7 +653,6 @@ function changeValue(e, changed){ // 來自 iframe 修改資料
 			storage[lesson][e.orginal] = e.data;
 			localStorage[subject] = JSON.stringify(storage);		
 	}
-
 	//iframe["javascript"].window.changeCodeMirror("a {\n color: blue \n}");
 	//$("#result").prop("srcdoc", "<span style='color: red; '>hello! world!!</span>");
 }
@@ -656,7 +671,7 @@ function changeJS(js) {
 	newJS = result.document.createElement("script");
 	newJS.id = "newJS"
 	result.document.getElementsByTagName("head")[0].appendChild(newJS);
-	newJS.innerHTML = js; 
+	newJS.innerHTML = js;
 }
 
 function changeCSS(css) { // ok
@@ -673,7 +688,7 @@ function changeCSS(css) { // ok
 	newCSS = result.document.createElement("style");
 	newCSS.id = "newCSS"
 	result.document.getElementsByTagName("head")[0].appendChild(newCSS);
-	newCSS.innerHTML = css; 
+	newCSS.innerHTML = css;
 }
 /*
 cd /Users/jimc/nodeJS/ && node index
