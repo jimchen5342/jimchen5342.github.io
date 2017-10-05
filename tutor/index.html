@@ -217,6 +217,7 @@ $( document ).ready(function(){
 	let s = "<iframe scrolling='yes' frameborder='0' seamless='seamless' " +
 			"sandbox='allow-scripts allow-top-navigation allow-same-origin allow-modals'></iframe>";
 	let arr = $("div[src]").get();
+	//console.log(arr)
 	for(let i = 0; i < arr.length; i++){
 		let obj = $(s).appendTo(arr[i]);
 		$(obj).attr("src", "codeMirror.html?mode=" + $(arr[i]).attr("src"));
@@ -435,9 +436,20 @@ function adjustPanel(){
         }
     }]
 	});
-	$('#source').tabs({ // center, 還沒寫
+	$('#source').tabs({ // center,
 		onSelect:function(title){
 			panel = title;
+			for(let i = 0; i < mode.length; i++){
+				let key = mode[i].src;
+				if(key.replace("text/", "").toLowerCase() == panel.toLowerCase()){
+					let x = $("div[src='" + key + "'] iframe").get();
+					if(x.length == 1){
+						x[0].focus();
+						iframe[key].myfocus();
+					}
+					break;
+				}
+			}
 		},
 		tools:[{
 			iconCls: 'icon-reload',
@@ -629,7 +641,6 @@ function changeValue(e, changed){ // 來自 iframe 修改資料
 		changeJS(e.data);
 	} else {
 		try{
-			
 			if(typeof changed == "undefined" || changed == true){
 				if(readOnly == false && typeof storage[lesson].css == "string" && storage[lesson].css.length > 0){
 					let newCSS = '<style type="text/css" id="newCSS">' + storage[lesson].css + '</style>';
@@ -637,10 +648,8 @@ function changeValue(e, changed){ // 來自 iframe 修改資料
 				}
 				if(readOnly == false && typeof storage[lesson].javascript == "string" && storage[lesson].javascript.length > 0){
 					let newJS = '<script id="newJS">' + storage[lesson].javascript + '<\/script>';
-
 					e.data = e.data.replace("</head>", newJS + "</head>");
 				}
-				
 			}
 			$("#result").prop("srcdoc", e.data);
 		} catch (e) {
