@@ -159,7 +159,7 @@
     } else if(typeof file == "string" && file.length > 0){
       $.ajax({
         type :"GET",
-        url  : "./tutor/" + path + "/" + file,
+        url  : "./handout/" + path + "/" + file,
         dataType: "text",
         success : function(result) {
           //var info = editor.lineInfo(0);

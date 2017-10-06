@@ -28,7 +28,7 @@
 						}
 					} else {
 						fireBase.connected = snap.val();
-						showOnlineToast();
+						//showOnlineToast();
 					} 
 				});
 			} else {
@@ -200,13 +200,16 @@
 			firebase.auth().signInWithEmailAndPassword(email, password)
 			.then(()=>{
 				fireBase.email = email;
+				
 				var user = firebase.auth().currentUser;
 				if (user != null) {
 					user.providerData.forEach(function (profile) {
 						fireBase.user = profile.email;
 					});
+					fireBase.uid = user.uid;
 					if(callback) callback("ok");
 				}
+				console.log("uid: " + fireBase.uid)
 			})
 			.catch(function(error) {
 				var errorCode = error.code;
@@ -238,10 +241,114 @@
 		});
 	}
 
+	fireBase.userData = function(folder, callback){
+		fireBase.database().ref(folder).once("value", function(snap) {
+			let json = snap.val();
+			console.log(json)
+		}, function(err) {
+			alert("無法下載'" + title + "'資料.....");
+		});
+	}
 	window.fireBase = fireBase;
-	/*
-	fireBase.load(function(result){
-		console.log(result)
-	});
-	*/
 })(window);
+/*
+-------------------------------------
+			let updates = {};
+			for(let i = 0; i < ds.length; i++){
+				let num = (i + 1) * 10;
+				if(ds[i].sort != num && ds[i].sort < 9999999999) {
+					updates[ "projects/" + projectName + "/_pages/" + ds[i].id + '/sort'] = num;
+				}
+			}
+			firebase.database().ref().update(updates)
+			.then((snap)=>{
+				system.loading(false);
+				$("#editWin").window("close");
+				getProjectData(projectName);
+			}).catch(arg=>{
+				console.log(arg);
+				bHandle = false;
+			});
+-----------------------------
+for(let i = 0; i < ds.length; i++){
+				let row2 = ds[i];
+				let obj2 = {};
+				for(let key in row2){
+					if(key == "code")
+						continue;
+					else {
+						obj2[key] = row2[key];
+					}
+				}
+				json[row2.code] = obj2;
+			}
+			fireBase.database().ref("projects/" + projectName + "/" + row.id).set(json)
+			.then(()=>{
+				parseDatas(index + 1);
+				//$("#modifyDate").remove();
+				//updateProject();
+			}).catch(arg=>{
+				console.log(arg)
+			});
+--------------------
+	let ref = fireBase.database().ref("projects/" + projectName + "/_pages");
+	ref.on("value", readValue);
+	ref.on("child_added", readAdd);
+	ref.on("child_changed", readChange);
+	ref.on("child_removed", readRemove);
+
+		let ref = fireBase.database().ref("projects/" + projectName + "/_pages");
+		ref.off("value", readValue);
+		ref.off("child_added", readAdd);
+		ref.off("child_changed", readChange);
+		ref.off("child_removed", readRemove);
+-----
+
+function readValue(){
+	newItems = true;
+}
+function readAdd(snap){ // 不用寫
+	if(newItems == false) return;
+}
+function readChange(snap){
+	if(newItems == false) return;
+	let json = $.extend({id: snap.getKey()}, snap.val());
+	if(typeof json.user == "undefined") return;
+	//console.log("user: " + json.user + "==" + fireBase.user + "->" + (json.user != fireBase.user))
+	if(json.user != fireBase.user && !isKeyMan){
+		let b = false;
+		for(let i = 0; i < ds.length; i++){
+			if(ds[i].id == json.id){
+				let node = $('#tree').tree('find', json.id);
+				$('#tree').tree('update', {
+					target: node.target,
+					text: json.page
+				});
+				b = true;
+				system.information("更新原功能 '" + ds[i].page + "' 為 '" + json.page + "'!!<br /><br/>操作者：" + json.user);
+				break;
+			}
+		}
+		if(b== false){
+			addPage(json);
+			system.information("新增功能 '" + json.page + "'!!<br /><br/>操作者：" + json.user);
+		}
+	}
+}
+function readRemove(snap){
+	if(newItems == false) return;
+	let json = $.extend({id: snap.getKey()}, snap.val());
+	if(typeof json.user == "undefined") return;
+	if(json.user != fireBase.user && !isKeyMan){
+		let b = false;
+		for(let i = 0; i < ds.length; i++){
+			if(ds[i].id == json.id){
+				let node = $("#tree").tree('find', ds[i].id);
+				$("#tree").tree('remove', node.target);
+				system.information("功能 '" + json.page + "' 已刪除!!<br /><br/>操作者：" + json.user);
+				break;
+			}
+		}
+	}
+}
+*/

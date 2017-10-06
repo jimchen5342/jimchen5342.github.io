@@ -543,7 +543,7 @@ function changeMenu(index){
 		data: menu[index].data
 	});
 	$("#divSubject").text(subject);
-	if(system.isSignon() == true || ! system.isTeacher() || student.length > 0){ // 自 firebase 撈資料, 或 localstorage
+	if((system.isSignon() == true && ! system.isTeacher()) || student.length > 0){ // 自 firebase 撈資料, 或 localstorage
 		loadData(function(){
 			findTree(setting[subject]);
 		});
@@ -558,12 +558,12 @@ function loadData(callback){ // firebase 還沒寫完...........
 	else
 		userData = {};
 
-	if(system.isSignon() == true || student.length > 0){ // 自 firebase 撈資料
+	if((!system.isTeacher() && system.isSignon() == true) || student.length > 0){ // 自 firebase 撈資料
 		system.loading.show("系統登入中......");
 		fireBase.signIn(storage.System().user, storage.System().pwd, function(result){
-			console.log(result)
 			if(result == "ok"){
-				callback();
+				//fireBase.userData()
+				//callback();
 				system.loading.close();
 			} else 
 				system.loading.show("系統無法登入!!");
@@ -592,7 +592,7 @@ function treeClick(node){
 	setting[subject] = node.id;
 	storage.Setting(setting);
 	if(typeof node.context == "string" && node.context.length > 0){
-		$("#context").attr("src", "./tutor/" + subject + "/" + node["context"]);
+		$("#context").attr("src", "./handout/" + subject + "/" + node["context"]);
 	} else 
 		$("#context").attr("src", "");
 	$("#source").tabs("select",0);
@@ -612,8 +612,8 @@ function loadPage(node, changed){
 	$("#divSubject").text(subject+ ": " + node.text);
 
 	if(readOnly == true && typeof node.html == "string" && node.html.length > 0){
-		$("#result").attr("src", "./tutor/" + subject + "/" + node["html"]);
-		result.location.assign("./tutor/" + subject + "/" + node["html"]);
+		$("#result").attr("src", "./handout/" + subject + "/" + node["html"]);
+		result.location.assign("./handout/" + subject + "/" + node["html"]);
 	} else {
 		result.location.assign("./empty.html");
 	}

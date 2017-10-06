@@ -1,7 +1,7 @@
 (function () {
 	omniChannel = {};
 	var url = "http://rd.jabezpos.com:12345";
-	var setting = {}, title = "", P_ID = "";
+	var setting = {};
 
 	omniChannel.ajax = function(api, arg, success, error){
 		let headers = {

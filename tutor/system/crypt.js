@@ -4,7 +4,6 @@
 	crypt.initial = function(){
 		if(typeof this.key == "undefined"){
 			let iv = storage.System().aes;
-			console.log("iv: " + iv)
 			if(typeof s == "undefined") s = "";
 			this.key = CryptoJS.enc.Utf8.parse("toutor");
 			this.iv = CryptoJS.enc.Utf8.parse(iv);
