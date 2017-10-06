@@ -31,7 +31,7 @@
 			type: 'POST',
 			async: true,
 			"headers": headers,	
-			success: function (result) {
+			success: function (result) {	
 				success(result);
 			},
 			error: function (XMLHttpRequest, textStatus, errorThrown){
@@ -52,8 +52,10 @@
 					success(result.data)
 			},
 			function(){
+				if(error)
+					error();
 			});
-		});
+		}, error);
 	}
 	
 	function signon(success, error){
@@ -63,11 +65,17 @@
 			SITE: $("#SITE").val(), //"BSMS000032"
 		}, 
 		function(result){
-			omniChannel.ID_NO = result.data.ID_NO;
-			omniChannel.token = result.data.token;
-			success({token: omniChannel.token, ID_NO: omniChannel.ID_NO});
+			console.log(result);
+			if(typeof result.data == "object" && typeof result.data.token == "string"){
+				omniChannel.ID_NO = result.data.ID_NO;
+				omniChannel.token = result.data.token;
+				success({token: omniChannel.token, ID_NO: omniChannel.ID_NO});				
+			} else if(error) {
+				error("登入失敗");
+			}
 		},
 		function(){
+			if(error) error("登入失敗");
 		});
 	}
 

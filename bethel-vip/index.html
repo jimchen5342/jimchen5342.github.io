@@ -31,9 +31,7 @@
 		SITE: <input type="text"  id='SITE' /><br />
 		<button id='topUp'>儲值碼</button>
 	</fieldset>
-	<div id='wrapper' style="display: inline-block;">
-		<div id='qrcode' style="margin: 20px;" />
-	</div>
+	<div id='wrapper' style="display: inline-block;"> </div>
 </body>
 <script type="text/javascript">
 var isLocal = window.location.href.indexOf("localhost") > -1 
@@ -48,9 +46,13 @@ $(document).ready(function(){
 
 	$("#topUp").bind("click", function(){
 		omniChannel.topUp(function(result){
-			$("#code").remove();
+			$("#wrapper").html("");
+			$("<div id='qrcode' style='margin: 20px;' ></div>").appendTo("#wrapper");
 			$("#qrcode").qrcode({text: '' + result, ecLevel: 'M', size: 100});
 			$("<div style='text-align: center; color: blue;' >" + result + "</div>").appendTo("#wrapper");
+		}, function(err){
+			$("#wrapper").html("");
+			alert(err)
 		});
 	});
 });
