@@ -1,22 +1,9 @@
-/*  
-* 名稱：全通路-支付－反向
-* 2017/02/18
-* LinePay: 706, 
-* 支付寶(台新): 703
-* 支付寶(永豐): 707
-* 票券核銷 － 503
-* linepay QRCode: http://sandbox-web-pay.line.me/web/sandbox/payment/otk
-*/
-
 (function () {
-	//--------------------------------------------------------------
 	omniChannel = {};
 	var url = "http://rd.jabezpos.com:12345";
-	//console.log(url);
 	var setting = {}, title = "", P_ID = "";
-	
+
 	omniChannel.ajax = function(api, arg, success, error){
-		console.log(api + ": " + JSON.stringify(arg));
 		let headers = {
 			"content-type": "application/x-www-form-urlencoded",
 			"cache-control": "no-cache",
@@ -47,7 +34,6 @@
 				ID_NO: result.ID_NO, //'0937170831',
 			}, 
 			function(result){
-				console.log(result.data)
 				if(success)
 					success(result.data)
 			},
@@ -65,7 +51,6 @@
 			SITE: $("#SITE").val(), //"BSMS000032"
 		}, 
 		function(result){
-			console.log(result);
 			if(typeof result.data == "object" && typeof result.data.token == "string"){
 				omniChannel.ID_NO = result.data.ID_NO;
 				omniChannel.token = result.data.token;
