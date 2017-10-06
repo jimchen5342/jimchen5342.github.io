@@ -54,7 +54,8 @@
 			if(typeof result.data == "object" && typeof result.data.token == "string"){
 				omniChannel.ID_NO = result.data.ID_NO;
 				omniChannel.token = result.data.token;
-				success({token: omniChannel.token, ID_NO: omniChannel.ID_NO});				
+				success({token: omniChannel.token, ID_NO: omniChannel.ID_NO});
+				console.log(omniChannel.token)			
 			} else if(error) {
 				error("登入失敗");
 			}

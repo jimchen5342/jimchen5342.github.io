@@ -19,17 +19,29 @@
 		button {
 			font-size: 1em;
 		}
+		label {
+			width: 60px;
+			display: inline-block;
+			text-align: right;
+			padding-right: 5px;
+		}
+		button {
+			margin-top: 10px;
+		}
+		input {
+			font-size: 1em;
+			margin-top: 5px;
+		}
 	</style>
 	<script type="text/javascript" src="api.js"></script>
 </head>
 <body>
-	
-	<fieldset>
+	<fieldset style="display: inline-block; width: 280px;">
 		<legend>會員資料</legend>
-		ID: <input type="text" id='VERIFY_ID' /><br />
-		PW: <input type="text" id='VERIFY_PW' /><br />
-		SITE: <input type="text"  id='SITE' /><br />
-		<button id='topUp'>儲值碼</button>
+		<label>ID：</label><input type="text" id='VERIFY_ID' /><br />
+		<label>PW：</label><input type="text" id='VERIFY_PW' /><br />
+		<label>SITE：</label><input type="text"  id='SITE' /><br />
+		<button id='topUp'>儲值/扣款 QRCode</button>
 	</fieldset>
 	<div id='wrapper' style="display: inline-block;"> </div>
 </body>
