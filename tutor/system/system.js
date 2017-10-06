@@ -1,5 +1,5 @@
 window.system = {};
-
+//console.log(storage)
 system.urlElement = function(key, defaultKey){
 	let value = null;
 	let i = window.location.href.indexOf("?");
@@ -66,7 +66,7 @@ system.loadScript = function(filename, callback ){
 	start(0);
 }
 system.isSignon = function(){
-	return false;
+	return window.storage.System().user.length > 0 ? true : false;
 }
 system.isTeacher = function(){
 	let i = -1; //window.location.href.indexOf("localhost");
@@ -101,9 +101,9 @@ window.showToast = function(msg){
 	});
 }
 
-var MaskUtil = (function(){ 
+system.loading = (function(){ 
 	var $mask, $maskMsg; 
-	var defMsg = '正在處理，請稍待。。。'; 
+	var defMsg = '正在處理，請稍待......'; 
 	function init(){ 
 		if(!$mask){ 
 			$mask = $("<div class=\"datagrid-mask mymask\"></div>").appendTo("body"); 
@@ -124,18 +124,20 @@ var MaskUtil = (function(){
 		}); 
 	} 
 	return { 
-		mask:function(msg){ 
+		show:function(msg){ 
 			init(); 
 			$mask.show(); 
 			$maskMsg.html(msg||defMsg).show(); 
 		},
-		unmask:function(){ 
-			$mask.remove(); 
-			$maskMsg.remove(); 
-			$mask = undefined;
-			$maskMsg = undefined;
+		close:function(){
+			if(typeof $mask == "object") {
+				$mask.remove(); 
+				$maskMsg.remove(); 
+				$mask = undefined;
+				$maskMsg = undefined;
+			}
 		}
-	} 
+	}
  }());
 
 

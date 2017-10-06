@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>會員 API</title>
+	<link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/color.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+	<style type="text/css">
+		html, body{
+				margin: 0;
+				padding: 0;
+				height: 100%;
+				overflow: hidden;
+		}
+		button {
+			font-size: 1em;
+		}
+	</style>
+	<script type="text/javascript" src="api.js"></script>
+</head>
+<body>
+	
+	<fieldset>
+		<legend>會員資料</legend>
+		ID: <input type="text" id='VERIFY_ID' /><br />
+		PW: <input type="text" id='VERIFY_PW' /><br />
+		SITE: <input type="text"  id='SITE' /><br />
+		<button id='topUp'>儲值碼</button>
+	</fieldset>
+	<div id='wrapper' style="display: inline-block;">
+		<div id='qrcode' style="margin: 20px;" />
+	</div>
+</body>
+<script type="text/javascript">
+var isLocal = window.location.href.indexOf("localhost") > -1 
+	|| window.location.href.indexOf("file:///") > -1 
+	? true : false;
+$(document).ready(function(){
+	if(isLocal){
+		$("#VERIFY_ID").val("0937170831");
+		$("#VERIFY_PW").val("12345");
+		$("#SITE").val("BSMS000032");
+	}
+
+	$("#topUp").bind("click", function(){
+		omniChannel.topUp(function(result){
+			$("#code").remove();
+			$("#qrcode").qrcode({text: '' + result, ecLevel: 'M', size: 100});
+			$("<div style='text-align: center; color: blue;' >" + result + "</div>").appendTo("#wrapper");
+		});
+	});
+});
+</script>
+</html>
