@@ -1,10 +1,11 @@
 
 (function(window, undefined) {
-	// aes 雷達
+	// aes AN/雷達
 	let isConnected = false, offset = 0;
-	var fireBase = {
+	let fireBase = {
 		loaded: false, user: undefined, uid: "", email: null,
-		connected: false, loginTime: null
+		connected: false, loginTime: null,
+		datas: {}
 	};
 
 	fireBase.load = function(callback){
@@ -24,7 +25,6 @@
 					if(isConnected == false){
 						if(snap.val() === true){
 							isConnected = true;
-							fireBase.loginTime = fireBase.serverTime();
 						}
 					} else {
 						fireBase.connected = snap.val();
@@ -241,14 +241,75 @@
 		});
 	}
 
-	fireBase.userData = function(folder, callback){
+	fireBase.getUserData = function(folder, callback){
 		fireBase.database().ref(folder).once("value", function(snap) {
 			let json = snap.val();
-			console.log(json)
+			if(callback)
+				callback(json)
 		}, function(err) {
 			alert("無法下載'" + title + "'資料.....");
 		});
 	}
+
+	let syncTimes = undefined;
+	fireBase.setUserData = function(folder, data, callback){
+		fireBase.datas[folder] = data;
+		if(typeof idTimes != "undefined"){
+			clearTimeout(syncTimes);
+		}
+		syncTimes = setTimeout(function(){
+			fireBase.database().ref().update(fireBase.datas)
+			.then((snap)=>{
+				if(callback) callback();
+				firebase.datas = {};
+			}).catch(err=>{
+				console.log(err);
+			});
+		}, 5 * 1000);
+	}
+	let newItems = false, changeValue = "";
+	fireBase.listenClear = function(){
+		if(typeof fireBase.ref != "undefined"){
+			fireBase.ref.off("value", readValue);
+			fireBase.ref.off("child_added", readAdd);
+			fireBase.ref.off("child_changed", listener);
+			fireBase.ref.off("child_removed", listener);
+			fireBase.ref = undefined;
+			delete fireBase.ref;			
+		}
+	}
+	fireBase.listen = function(folder){
+		fireBase.listenClear();
+		newItems = false;
+		fireBase.ref = fireBase.database().ref(folder);
+		fireBase.ref.on("value", readValue);
+		fireBase.ref.on("child_added", readAdd);
+		fireBase.ref.on("child_changed", readChange);
+		fireBase.ref.on("child_removed", readRemove);
+	}
+	function readValue(){
+		newItems = true;
+	}
+	function readAdd(snap){ // 不用寫
+		if(newItems == false) return;
+	}
+	function readChange(snap){
+		if(newItems == false) return;
+		let s = (snap.key + "=" + snap.val())
+		if(s != changeValue){
+			listener({event: 'change', data: snap.val(), key: snap.key});
+			changeValue = s;
+		}
+	}
+	function readRemove(snap){
+		if(newItems == false) return;
+		let s = (snap.key + "=" + snap.val())
+		if(s != changeValue){
+			listener({event: 'remove', data: snap.val(), key: snap.key});
+			changeValue = s;
+		}
+	}
+
 	window.fireBase = fireBase;
 })(window);
 /*

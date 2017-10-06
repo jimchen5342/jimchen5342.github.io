@@ -208,7 +208,7 @@
 	<div id='center' data-options="region:'center', title:'',iconCls:'icon-ok'" style="overflow: hidden;">
 		<div style="height: 100%; " class="flexV">
 			<div class="easyui-tabs" id="source" style="width: 100%; flex: 1; height: 100%;">
-				<div title="HTML" class='myPanel' src='text/html'></div>
+				<div title="HTML" class='myPanel' src='html'></div>
 				<div title="CSS" class='myPanel' src='css'></div>
 				<div title="Javascript" class='myPanel' src='javascript'></div>
 			</div>
@@ -231,7 +231,7 @@ let iframe = {}, result, panel = 0, userData = undefined, student = "";
 let subject = "", lesson = "";
 let readOnly = true;
 let mode = [{
-		src: 'text/html', node: 'html'
+		src: 'html', node: 'html'
 	},{
 			src: 'css', node: 'css'
 	}, {
@@ -280,9 +280,9 @@ $( document ).ready(function(){
 	} else 
 		$('#menu').combobox('setValue', setting.current);
 
-	$("#switch").bind("click", function(){ // 學生版, 修改否; 還沒寫.....
+	$("#switch").bind("click", function(){ // 學生版, 修改否
 		readOnly = $("#switch").prop("checked");
-		if(setting.information.switch < 3) {
+		if(system.isSignon() == false && setting.information.switch < 3) {
 			setting.information.switch++;
 			storage.Setting(setting);
 			if(readOnly == false){
@@ -318,6 +318,7 @@ function reload(){
 	}
 }
 function information(){
+	if(system.isSignon() == true) return;
 	//setting.information = undefined; // for test ...................
 	setting.information = Object.assign({
 		version: 0,
@@ -344,6 +345,7 @@ function information(){
 }
 
 function tooltips(){
+	if(system.isSignon() == true) return;
 	$('#reload').tooltip({
 			position: 'bottom',
 			content: '清空',
@@ -384,7 +386,9 @@ function adjustUser(){
 		let user = [{
 			id: 0, text: "教師版"
 		}, {
-			id: "Penny", text: "Penny"
+			text: "JimC", id: "nkBcFd5Gqig1Qr6nXEuC1tZZcOj1"
+		}, {
+			text: "Penny", id: "xxxx"
 		}];
 		$(".lblSwitch").remove();
 		$('#user').combobox({
@@ -395,8 +399,24 @@ function adjustUser(){
 				loadData(function(){
 					reload();
 				});
+				if(student.length > 0){
+					fireBase.listen(student + "/" + subject + "/" + lesson);
+				} else {
+					fireBase.listenClear();
+				}
 			}
 		});
+	}
+}
+function listener(result){
+	if(student.length > 0 && result.event == "change"){
+		iframe[result.key].setValue(result.data);		
+		changeValue(result, true);
+		window.showToast({
+			msg: "修改了 " + result.key.toUpperCase(), 
+			icon: "info",
+			allowToastClose: false
+		});	
 	}
 }
 function adjustPanel(){
@@ -460,12 +480,12 @@ function adjustPanel(){
         }
     }]
 	});
-	$('#source').tabs({ // center, toolbar 還沒寫
+	$('#source').tabs({ // center, toolbar
 		onSelect:function(title){
 			panel = title;
 			for(let i = 0; i < mode.length; i++){
 				let key = mode[i].src;
-				if(key.replace("text/", "").toLowerCase() == panel.toLowerCase()){
+				if(key.toLowerCase() == panel.toLowerCase()){
 					let x = $("div[src='" + key + "'] iframe").get();
 					if(x.length == 1){
 						x[0].focus();
@@ -486,6 +506,8 @@ function adjustPanel(){
 				setTimeout(function(){
 					delete userData[lesson];
 					storage[subject] = JSON.stringify(userData);
+					fireBase.setUserData(fireBase.uid + "/" + subject + "/" + lesson, null, function(){
+					});
 				}, 1000)
 				// firebase 要刪除，遝沒寫.....todo
 			}
@@ -553,26 +575,27 @@ function changeMenu(index){
 		findTree(setting[subject]);
 }
 
-function loadData(callback){ // firebase 還沒寫完...........
+function loadData(callback){ //
 	let x = storage[subject];
-	if(typeof x == "string" && x.length > 0)
+	if(!system.isTeacher() && x == "string" && x.length > 0)
 		userData = JSON.parse(x);
 	else
 		userData = {};
 
-	if((!system.isTeacher() && system.isSignon() == true) || student.length > 0){ // 自 firebase 撈資料
-		system.loading.show("系統登入中......");
-		fireBase.signIn(storage.System().user, storage.System().pwd, function(result){
-			if(result == "ok"){
-				//fireBase.userData()
-				//callback();
+	system.loading.show("系統登入中......");
+	fireBase.signIn(storage.System().user, storage.System().pwd, function(result){
+		if(result == "ok"){
+			let user = student.length > 0 ? student : fireBase.uid;
+			fireBase.getUserData(user + "/" + subject, function(result){
+				if(typeof result == "object" && result != null){
+					userData = Object.assign(userData, result);
+				}
+				callback();
 				system.loading.close();
-			} else 
-				system.loading.show("系統無法登入!!");
-		});
-	} else {
-		callback();
-	}
+			});
+		} else 
+			system.loading.show("系統無法登入!!");
+	});
 }
 
 function findTree(node){
@@ -604,6 +627,9 @@ function treeClick(node){
 
 function loadPage(node, changed){
 	lesson = node.id;
+	if(student.length > 0){
+		fireBase.listen(student + "/" + subject + "/" + lesson);
+	}
 	if(typeof changed == "boolean" && changed == true){
 		if((!system.isTeacher() || student.length > 0) && typeof userData == "object" && typeof userData[lesson] == "object"){
 			readOnly = false;
@@ -634,7 +660,7 @@ function loadPage(node, changed){
 					result.location.assign("./empty.html");
 				} else {
 					iframe[key].setValue(s);
-					changeValue({orginal: key, data: s}, false);
+					changeValue({key: key, data: s}, false);
 				}
 				//console.log(key + ": " + s)
 				iframe[key].readOnly(readOnly);
@@ -661,35 +687,40 @@ function loadPage(node, changed){
 }
 
 function changeValue(e, changed){ // 來自 iframe 修改資料
-	if(e.orginal == "css"){
+	if(e.key == "css"){
 		changeCSS(e.data);
-	} else if(e.orginal == "javascript"){
+	} else if(e.key == "javascript"){
 		changeJS(e.data);
 	} else {
 		try{
+			let html = e.data;
 			if(typeof changed == "undefined" || changed == true){
 				if(readOnly == false && typeof userData[lesson].css == "string" && userData[lesson].css.length > 0){
 					let newCSS = '<style type="text/css" id="newCSS">' + userData[lesson].css + '</style>';
-					e.data = e.data.replace("</head>", newCSS + "</head>");
+					html = html.replace("</head>", newCSS + "</head>");
 				}
 				if(readOnly == false && typeof userData[lesson].javascript == "string" && userData[lesson].javascript.length > 0){
 					let newJS = '<script id="newJS">' + userData[lesson].javascript + '<\/script>';
-					e.data = e.data.replace("</head>", newJS + "</head>");
+						html = html.replace("</head>", newJS + "</head>");
 				}
 			}
-			$("#result").prop("srcdoc", e.data);
+			$("#result").prop("srcdoc", html);
 		} catch (e) {
 
 		}
 	}
-	if(typeof changed == "undefined" || changed == true){
+	if(!system.isTeacher() && (typeof changed == "undefined" || changed == true)){
 		if(typeof userData[lesson] == "undefined")
 				userData[lesson] = {};
-			userData[lesson][e.orginal] = e.data;
-			storage[subject] = JSON.stringify(userData);		
+			userData[lesson][e.key] = e.data;
+			storage[subject] = JSON.stringify(userData);
+
+			if(system.isSignon() == true && ! system.isTeacher()){
+				fireBase.setUserData(fireBase.uid + "/" + subject + "/" + lesson + "/" + e.key, e.data, function(){
+
+				});
+			}
 	}
-	//iframe["javascript"].window.changeCodeMirror("a {\n color: blue \n}");
-	//$("#result").prop("srcdoc", "<span style='color: red; '>hello! world!!</span>");
 }
 
 function changeJS(js) {

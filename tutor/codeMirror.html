@@ -50,13 +50,13 @@
     //if(mode != "javascript")
     //  mode = "text/x-mysql";
     let arr = [];
-    if(mode == "text/x-mysql"){
+    if(mode == "mysql"){
       arr.push("codeMirror/mode/sql/sql.js");
       arr.push("codeMirror/addon/hint/sql-hint.js");
     } else if(mode == "javascript"){
       arr.push("codeMirror/mode/javascript/javascript.js");
       arr.push("codeMirror/addon/hint/javascript-hint.js");
-    } else if(mode == "text/html"){
+    } else if(mode == "html"){
       arr.push("codeMirror/addon/hint/html-hint.js");
       arr.push("codeMirror/addon/hint/css-hint.js");
       arr.push("codeMirror/addon/hint/javascript-hint.js");
@@ -73,15 +73,19 @@
   };
 
   function myfocus(){
-    console.log("focus: " + mode);
     editor.focus();
   }
 
   function create(){
+    let myMode = mode;
+    if(myMode == "html") 
+      myMode = "text/" + mode;
+    else if(myMode == "mysql")
+      myMode = "text/x-" + mode;
     editor = CodeMirror(document.body, {
       styleActiveLine: true, // 当前行背景高亮
       matchBrackets: true,   // 括号匹配
-      mode: mode,
+      mode: myMode,
       theme: "monokai",
       autoCloseTags: true,
       lineNumbers: true, /*行号*/ 
@@ -101,7 +105,7 @@
     editor.on("change", function (Editor, changes) {
       if(typeof window.changeValue == "function" && enabled == true){
         if(mode.indexOf("html") > -1 && changes.text == "<") return;
-        window.changeValue({orginal: mode, data: editor.getValue()})
+        window.changeValue({key: mode, data: editor.getValue()})
       }
     });
     editor.on("gutterClick", function(cm, n) {

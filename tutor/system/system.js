@@ -89,7 +89,7 @@ window.showToast = function(msg){
 		text: typeof msg == "string" ? msg : msg.msg,
 		icon: typeof msg == "object" && typeof msg.icon == "string" ? msg.icon : "", //'info', 'error', 'success', 'warning'
 		position: typeof msg == "object" && typeof msg.position == "string" ? msg.position : "top-right", //'top-right', 'top-left'
-		hideAfter: typeof msg == "object" && typeof msg.hideAfter == "number" ? msg.hideAfter : 10 * 1000,
+		hideAfter: typeof msg == "object" && typeof msg.hideAfter == "number" ? msg.hideAfter : 3 * 1000,
 		//stack: false,
 		allowToastClose: typeof msg == "object" && typeof msg.allowToastClose == "boolean" ? msg.allowToastClose : true,
 		afterShown: function(arg){
