@@ -42,6 +42,10 @@ $(document).ready(function(){
 		$("#VERIFY_ID").val("0937170831");
 		$("#VERIFY_PW").val("12345");
 		$("#SITE").val("BSMS000032");
+	} else {
+		$("#VERIFY_ID").val(localStorage["VERIFY_ID"]);
+		$("#VERIFY_PW").val(localStorage["VERIFY_PW"]);
+		$("#SITE").val(localStorage["SITE"]);
 	}
 
 	$("#topUp").bind("click", function(){
@@ -50,6 +54,10 @@ $(document).ready(function(){
 			$("<div id='qrcode' style='margin: 20px;' ></div>").appendTo("#wrapper");
 			$("#qrcode").qrcode({text: '' + result, ecLevel: 'M', size: 100});
 			$("<div style='text-align: center; color: blue;' >" + result + "</div>").appendTo("#wrapper");
+			localStorage["VERIFY_ID"] = $("#VERIFY_ID").val();
+			localStorage["VERIFY_PW"] = $("#VERIFY_PW").val();
+			localStorage["SITE"] = $("#SITE").val();
+
 		}, function(err){
 			$("#wrapper").html("");
 			alert(err)
