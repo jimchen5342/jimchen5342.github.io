@@ -573,7 +573,7 @@ function centerIcon(){ //
 		}, 500);
 	} else {
 		$("#center .tabs-tool table td:nth-child(1)").css("display", 
-			readOnly ? "none" : "table-cell");
+			system.isTeacher() || readOnly ? "none" : "table-cell");
 		$("#center .tabs-tool table td:nth-child(2)").css("display", 
 			system.isSignon() ? "none" : "table-cell");
 		//$("#center .tabs-tool").remove();
