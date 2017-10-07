@@ -401,15 +401,15 @@ function adjustUser(){
 			data: user,
 			onSelect(value){
 				student = value.id == 0 ? "" : value.id;
-				readOnly = value.id == 0 ? true : false; 
-				loadData(function(){
-					reload();
-				});
+				readOnly = value.id == 0 ? true : false;
 				if(student.length > 0){
 					fireBase.listen(student + "/" + subject + "/" + lesson);
 				} else {
 					fireBase.listenClear();
-				}
+				} 
+				loadData(function(){
+					reload();
+				});
 			}
 		});
 	}
@@ -631,14 +631,14 @@ function treeClick(node){
 		$("#context").attr("src", "");
 	$("#source").tabs("select",0);
 	//$("#doc").tabs("select",0);
+	if(student.length > 0){
+		fireBase.listen(student + "/" + subject + "/" + node.id);
+	}
 	loadPage(node, true);
 }
 
 function loadPage(node, changed){
 	lesson = node.id;
-	if(student.length > 0){
-		fireBase.listen(student + "/" + subject + "/" + lesson);
-	}
 	if(typeof changed == "boolean" && changed == true){
 		if((!system.isTeacher() || student.length > 0) && typeof userData == "object" && typeof userData[lesson] == "object"){
 			readOnly = false;

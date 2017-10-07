@@ -5,12 +5,12 @@
   <title>第一課：區塊/標題</title>
   <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<style type="text/css">
-	  span {
+	  #mySpan {
 			color: blue;
 			cursor: pointer;
 			border: 1px solid red;
-			padding: 5px;
-			margin: 3px;
+			padding: 15px;
+			margin: 0px;
   	}
 	</style>
 </head>	
@@ -25,21 +25,13 @@
 	<p>我是 p</p>
 	<div>我是 div</div>
 	<br />
-	<span id='span'>我是 span, 請按我</span>
+	<span>我是 span</span>
 	<br /><br />
-  <hr />
-
-	<a href="http://www.w3school.com.cn/tags/tag_hn.asp" target="_blank">h 說明</a>
-	<br/>
-	<a href="http://www.w3school.com.cn/tags/tag_p.asp" target="_blank">p 說明</a>
-	<br/>
-	<a href="http://www.w3school.com.cn/tags/tag_div.asp" target="_blank">div 說明</a>
-	<br/>
-	<a href="http://www.w3school.com.cn/tags/tag_span.asp" target="_blank">span 說明</a>
+	<span id='mySpan'>我是 mySpan, 請按我</span>
 </body>
 <script>
-	document.getElementById("span").onclick = function(){
-    alert("你按了 span")
+	document.getElementById("mySpan").onclick = function(){
+    alert("你按了 mySpan")
   }
 </script>
 </html>

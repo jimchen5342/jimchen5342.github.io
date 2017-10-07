@@ -269,24 +269,26 @@
 		}, 3 * 1000);
 	}
 	let newItems = false, changeValue = "";
-	fireBase.listenClear = function(){
+	fireBase.listenClear = function(success){
 		if(typeof fireBase.ref != "undefined"){
 			fireBase.ref.off("value", readValue);
 			fireBase.ref.off("child_added", readAdd);
-			fireBase.ref.off("child_changed", listener);
-			fireBase.ref.off("child_removed", listener);
+			fireBase.ref.off("child_changed", readChange);
+			fireBase.ref.off("child_removed", readRemove);
 			fireBase.ref = undefined;
-			delete fireBase.ref;			
+			delete fireBase.ref;
 		}
+		if(success) success();
 	}
 	fireBase.listen = function(folder){
-		fireBase.listenClear();
-		newItems = false;
-		fireBase.ref = fireBase.database().ref(folder);
-		fireBase.ref.on("value", readValue);
-		fireBase.ref.on("child_added", readAdd);
-		fireBase.ref.on("child_changed", readChange);
-		fireBase.ref.on("child_removed", readRemove);
+		fireBase.listenClear(function(){
+			newItems = false;
+			fireBase.ref = fireBase.database().ref(folder);
+			fireBase.ref.on("value", readValue);
+			fireBase.ref.on("child_added", readAdd);
+			fireBase.ref.on("child_changed", readChange);
+			fireBase.ref.on("child_removed", readRemove);
+		});
 	}
 	function readValue(){
 		newItems = true;
