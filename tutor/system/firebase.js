@@ -139,10 +139,6 @@
 			});
 			$(".btn").bind("click", click);
 			$("#email").focus();
-
-			// $("#email").val("jimc@bethel.com.tw");
-			// $("#password").val("firebase5342");
-			// $("#aes").val("AN/SPS-60");
 		}
 		function click(){
 			if(this.id == "btnCancel"){
