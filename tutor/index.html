@@ -81,6 +81,11 @@
 			box-sizing: border-box;
 			font-size: 14px;
 		}
+		#divSubject {
+			overflow : hidden;
+			text-overflow : ellipsis;
+			white-space : nowrap;
+		}
 		.switch {
 			position: relative;
 			display: inline-block;
@@ -188,7 +193,7 @@
 					<ul id="tree"></ul>
 			</div>
 
-			<div id='ver'>Jim Chen 2017/10/06</div>
+			<div id='ver'></div>
 		</div>
 	</div>
 	<div data-options="region:'east',split:true" id="east" style="width:400px; overflow: hidden;">
@@ -240,6 +245,7 @@ let mode = [{
 
 let setting = storage.Setting();
 $( document ).ready(function(){
+	$("#ver").text("Jim Chen 2017/10/06");
 	//console.log(setting)
 	result = $("#result").prop('contentWindow');
 	adjustPanel();
@@ -410,6 +416,7 @@ function adjustUser(){
 }
 function listener(result){
 	if(student.length > 0 && result.event == "change"){
+		console.log("now: " + (new Date()));
 		iframe[result.key].setValue(result.data);		
 		changeValue(result, true);
 		window.showToast({
@@ -457,10 +464,12 @@ function adjustPanel(){
 		}
 	});
 	$('#doc').tabs({ // east
-			onSelect:function(title){
-					//alert(title+' is selected');
-			},
-			tools:[{
+		//tabPosition: "right",
+		//headerWidth: 60,
+		onSelect:function(title){
+				//alert(title+' is selected');
+		},
+		tools:[{
         iconCls:'icon-left',
         handler:function(){
 					collapsed = true;

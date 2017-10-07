@@ -1,41 +1,250 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
     <title>基本架構</title>
+    <meta charset="utf-8">
     <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/color.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+    <style type="text/css">
+      html, body{
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        font-family: 'Helvetica Neue', 微軟正黑體, 'Microsoft Jhenghei', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+      }
+      .panel-body {
+        padding: 10px;
+      }
+      .panel-body * {
+        font-size: 18px !important;
+      }
+      .panel-body > h3 {
+        font-size: 1.5em;
+        color: blue;
+        margin: 2px 0;
+      }
+      .panel-body > ol {
+        margin-top: 2px;
+      }
+      th, td:nth-child(1) {
+        text-align: center;
+      }
+      td, th {
+        padding: 6px 15px 6px 6px;
+        border: 1px solid #aaa;
+      }
     </style>
   </head>	
-  <body>
+<body class="easyui-tabs" style="width: 100%; height: 100%;" onresize="$('body').tabs('resize')">
+  <div title="基本架構">
     <pre>
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
-    &lt;meta charset="utf-8"&gt;
     &lt;title&gt;基本架構&lt;/title&gt;
+    &lt;meta charset="utf-8"&gt;
     &lt;meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"&gt;
-    &lt;link href="style.css" rel="stylesheet"&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
     &lt;style type="text/css"&gt;
-      button{
-        color: blue;
-      }
+      /**/
     &lt;/style&gt;
     &lt;script type="text/javascript" src="system.js"&gt;&lt;/script&gt;
     &lt;script&gt;
-      function sayHi2(who){
-        alert(who + ": 內部");
-      }
+      /**/
     &lt;/script&gt;
   &lt;/head&gt;	
   &lt;body&gt;
     &lt;!-- 這是備註 --&gt;
-    &lt;h4&gt;基本架構&lt;/h4&gt;
-    &lt;button onclick='sayHi1("jim")' style='color: red;'&gt;外部 JS&lt;/button&gt;
-    &lt;button onclick="sayHi2('jim')"&gt;內部 JS&lt;/button&gt;
-    &lt;button onclick='alert("jim" + "內聯")'&gt;內聯 JS&lt;/button&gt;
   &lt;/body&gt;
 &lt;/html&gt;
     </pre>
-  </body>
+  </div>
+  <div title="說明">
+    <h3>標籤(tag)</h3>
+    <ol>
+      <li>html</li>
+      <li>title</li>
+      <li>meta
+        <ul>
+          <li>name="description" content="網頁簡短描述"</li>
+          <li>name="keywords" content="網頁關鍵字"</li>
+          <li>name="author" content="作者姓名"</li>
+          <li>charset="utf-8"</li>
+          <li>name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"</li>
+          <li>http-equiv="cache-control" content="no-cache"</li>
+        </ul>
+      </li>
+      <li>style：外部，內部，內聯</li>
+      <li>javascript：外部，內部，內聯</li>
+      <li>body</li>
+    </ol>
+
+    <h3>通用屬性(property/attribute)</h3>
+    <ol>
+      <li>name</li>
+      <li>id</li>
+      <li>class</li>
+      <li>style</li>
+    </ol>
+  
+    <h3>注意事項</h3>
+    <ol>
+      <li>tag：
+        <ul>
+          <li>&lt;tagName&gt;內容&lt;/tagName&gt;</li>
+          <li>自閉合標籤：&lt;br /&gt;，&lt;hr /&gt;</li>
+        </ul>
+        <span style='color: red;'>
+            不可用自閉合標籤：iframe，textarea，script，canvas<br />
+        </span>
+      </li>
+      <li>element，node，parent，child，sibling</li>
+      <li>大小寫，駝峰式</li>
+      <li>單引號，雙引號</li>
+      <li>備註：
+        <ul>
+          <li>HTML：&lt;!-- --&gt;</li>
+          <li>CSS/JavaScript：/* */</li>
+        </ul>
+      </li>
+      <li>URI/URL：絕對位置，相對位置
+        <ul>
+          <li>a.href，link.href</li>
+          <li>img.src，javascript.src，iframe.src</li>
+          <li>form.action</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+  <div title='特殊符號'>
+    <table style="border-collapse: collapse; border: 1px solid #aaa; width: 100%;">
+      <tr>
+        <th style="width:20%">显示结果</th>
+        <th style="width:20%">描述</th>
+        <th style="width:30%">实体名称</th>
+        <th style="width:30%">实体编号</th>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>空格</td>
+        <td>&amp;nbsp;</td>
+        <td>&amp;#160;</td>
+      </tr>
+      <tr>
+        <td>&lt;</td>
+        <td>小于号</td>
+        <td>&amp;lt;</td>
+        <td>&amp;#60;</td>
+      </tr>
+      <tr>
+        <td>&gt;</td>
+        <td>大于号</td>
+        <td>&amp;gt;</td>
+        <td>&amp;#62;</td>
+      </tr>
+      <tr>
+        <td>&amp;</td>
+        <td>和号</td>
+        <td>&amp;amp;</td>
+        <td>&amp;#38;</td>
+      </tr>
+      <tr>
+        <td>"</td>
+        <td>引号</td>
+        <td>&amp;quot;</td>
+        <td>&amp;#34;</td>
+      </tr>
+      <tr>
+        <td>'</td>
+        <td>撇号&nbsp;</td>
+        <td>&amp;apos; (IE不支持)</td>
+        <td>&amp;#39;</td>
+      </tr>
+      <tr>
+        <td>￠</td>
+        <td>分（cent）</td>
+        <td>&amp;cent;</td>
+        <td>&amp;#162;</td>
+      </tr>
+      <tr>
+        <td>£</td>
+        <td>镑（pound）</td>
+        <td>&amp;pound;</td>
+        <td>&amp;#163;</td>
+      </tr>
+      <tr>
+        <td>¥</td>
+        <td>元（yen）</td>
+        <td>&amp;yen;</td>
+        <td>&amp;#165;</td>
+      </tr>
+      <tr>
+        <td>€</td>
+        <td>欧元（euro）</td>
+        <td>&amp;euro;</td>
+        <td>&amp;#8364;</td>
+      </tr>
+      <tr>
+        <td>§</td>
+        <td>小节</td>
+        <td>&amp;sect;</td>
+        <td>&amp;#167;</td>
+      </tr>
+      <tr>
+        <td>©</td>
+        <td>版权（copyright）</td>
+        <td>&amp;copy;</td>
+        <td>&amp;#169;</td>
+      </tr>
+      <tr>
+        <td>®</td>
+        <td>注册商标</td>
+        <td>&amp;reg;</td>
+        <td>&amp;#174;</td>
+      </tr>
+      <tr>
+        <td>™</td>
+        <td>商标</td>
+        <td>&amp;trade;</td>
+        <td>&amp;#8482;</td>
+      </tr>
+      <tr>
+        <td>×</td>
+        <td>乘号</td>
+        <td>&amp;times;</td>
+        <td>&amp;#215;</td>
+      </tr>
+      <tr>
+        <td>÷</td>
+        <td>除号</td>
+        <td>&amp;divide;</td>
+        <td>&amp;#247;</td>
+      </tr>
+    </table>
+    <a href='http://www.w3school.com.cn/html/html_entities.asp'>參考自 W3 School</a>
+  </div>
+  <div title="好站連結">
+    <a href="http://www.w3school.com.cn/html/index.asp" target='_blank'>W3 school：HTML 教程</a>
+    <br />
+    <a href='http://www.w3school.com.cn/tags/index.asp' target='_blank'>W3 school：tag 說明</a>
+    <br />
+    <a href='https://zh.wikipedia.org/wiki/ASCII' target='_blank'>
+      ASCII 表(維基百科)</a>
+  </div>
+</body>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('body').tabs({
+		tabPosition: "right",
+    headerWidth: 70,
+  });
+});
+</script>
 </html>

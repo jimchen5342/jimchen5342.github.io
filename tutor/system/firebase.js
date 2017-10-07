@@ -209,7 +209,6 @@
 					fireBase.uid = user.uid;
 					if(callback) callback("ok");
 				}
-				console.log("uid: " + fireBase.uid)
 			})
 			.catch(function(error) {
 				var errorCode = error.code;
@@ -253,11 +252,13 @@
 
 	let syncTimes = undefined;
 	fireBase.setUserData = function(folder, data, callback){
+		if(fireBase.datas[folder] == data) return;
 		fireBase.datas[folder] = data;
-		if(typeof idTimes != "undefined"){
+		if(typeof syncTimes != "undefined"){
 			clearTimeout(syncTimes);
 		}
 		syncTimes = setTimeout(function(){
+			console.log("now: " + (new Date()));
 			fireBase.database().ref().update(fireBase.datas)
 			.then((snap)=>{
 				if(callback) callback();
@@ -265,7 +266,7 @@
 			}).catch(err=>{
 				console.log(err);
 			});
-		}, 5 * 1000);
+		}, 3 * 1000);
 	}
 	let newItems = false, changeValue = "";
 	fireBase.listenClear = function(){

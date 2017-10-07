@@ -1,3 +1,3 @@
-function sayHi1(who){
+function external(who){
   alert(who + ": 外部");
 }
