@@ -28,6 +28,11 @@ let menu = [
 				text: "字體",
 				context: "lesson04.t.html",
 				html: "lesson04.html",				
+			}, {
+				id: "05-table",
+				text: "表格",
+				context: "lesson05.t.html",
+				html: "lesson05.html",				
 			}
 		] //
 	}, {
