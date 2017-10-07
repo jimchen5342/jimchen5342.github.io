@@ -23,6 +23,11 @@ let menu = [
 				text: "圖片和超連結",
 				context: "lesson03.t.html",
 				html: "lesson03.html",
+			}, {
+				id: "04-font",
+				text: "字體",
+				context: "lesson04.t.html",
+				html: "lesson04.html",				
 			}
 		] //
 	}, {
