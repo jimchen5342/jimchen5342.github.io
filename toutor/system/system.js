@@ -85,7 +85,7 @@ window.showToast = function(msg){
 	}
 
 	$.toast({
-		heading: 'tutor', // 
+		heading: 'toutor', // 
 		text: typeof msg == "string" ? msg : msg.msg,
 		icon: typeof msg == "object" && typeof msg.icon == "string" ? msg.icon : "", //'info', 'error', 'success', 'warning'
 		position: typeof msg == "object" && typeof msg.position == "string" ? msg.position : "top-right", //'top-right', 'top-left'
