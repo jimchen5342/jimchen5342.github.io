@@ -416,7 +416,14 @@ function adjustUser(){
 }
 function listener(result){
 	if(student.length > 0 && result.event == "change"){
-		console.log("now: " + (new Date()));
+		//console.log("now: " + (new Date()));
+		console.log(result.key);
+		if(result.key == "html")
+			$("#source").tabs("select",0);
+		else if(result.key == "css")
+			$("#source").tabs("select",1);
+		else
+			$("#source").tabs("select",2);
 		iframe[result.key].setValue(result.data);		
 		changeValue(result, true);
 		window.showToast({
@@ -515,10 +522,11 @@ function adjustPanel(){
 				setTimeout(function(){
 					delete userData[lesson];
 					storage[subject] = JSON.stringify(userData);
-					fireBase.setUserData(fireBase.uid + "/" + subject + "/" + lesson, null, function(){
-					});
+					if(system.isSignon()){
+						fireBase.setUserData(fireBase.uid + "/" + subject + "/" + lesson, null, function(){
+						});						
+					}
 				}, 1000)
-				// firebase 要刪除，遝沒寫.....todo
 			}
 		}, {
 			iconCls:'icon-man',
@@ -590,21 +598,24 @@ function loadData(callback){ //
 		userData = JSON.parse(x);
 	else
 		userData = {};
-
-	system.loading.show("系統登入中......");
-	fireBase.signIn(storage.System().user, storage.System().pwd, function(result){
-		if(result == "ok"){
-			let user = student.length > 0 ? student : fireBase.uid;
-			fireBase.getUserData(user + "/" + subject, function(result){
-				if(typeof result == "object" && result != null){
-					userData = Object.assign(userData, result);
-				}
-				callback();
-				system.loading.close();
-			});
-		} else 
-			system.loading.show("系統無法登入!!");
-	});
+	if((system.isSignon() == true && ! system.isTeacher()) || student.length > 0){ // 自 firebase 撈資料, 或 localstorage
+		system.loading.show("系統登入中......");
+		fireBase.signIn(storage.System().user, storage.System().pwd, function(result){
+			if(result == "ok"){
+				let user = student.length > 0 ? student : fireBase.uid;
+				fireBase.getUserData(user + "/" + subject, function(result){
+					if(typeof result == "object" && result != null){
+						userData = Object.assign(userData, result);
+					}
+					callback();
+					system.loading.close();
+				});
+			} else 
+				system.loading.show("系統無法登入!!");
+		});
+	} else {
+		callback();
+	}
 }
 
 function findTree(node){
