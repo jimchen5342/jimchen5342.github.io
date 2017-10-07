@@ -402,6 +402,10 @@ function adjustUser(){
 			onSelect(value){
 				student = value.id == 0 ? "" : value.id;
 				readOnly = value.id == 0 ? true : false;
+				if(student.length > 0 && !system.isSignon()){
+					alert("尚未登入!!");
+					return;
+				}
 				if(student.length > 0){
 					fireBase.listen(student + "/" + subject + "/" + lesson);
 				} else {
@@ -571,7 +575,7 @@ function centerIcon(){ //
 		$("#center .tabs-tool table td:nth-child(1)").css("display", 
 			readOnly ? "none" : "table-cell");
 		$("#center .tabs-tool table td:nth-child(2)").css("display", 
-			system.isTeacher() || system.isSignon() ? "none" : "table-cell");
+			system.isSignon() ? "none" : "table-cell");
 		//$("#center .tabs-tool").remove();
 		$('body').layout('resize');
 	}
@@ -598,7 +602,7 @@ function loadData(callback){ //
 		userData = JSON.parse(x);
 	else
 		userData = {};
-	if((system.isSignon() == true && ! system.isTeacher()) || student.length > 0){ // 自 firebase 撈資料, 或 localstorage
+	if(system.isSignon() == true){ // 自 firebase 撈資料, 或 localstorage
 		system.loading.show("系統登入中......");
 		fireBase.signIn(storage.System().user, storage.System().pwd, function(result){
 			if(result == "ok"){
@@ -651,7 +655,9 @@ function treeClick(node){
 function loadPage(node, changed){
 	lesson = node.id;
 	if(typeof changed == "boolean" && changed == true){
-		if((!system.isTeacher() || student.length > 0) && typeof userData == "object" && typeof userData[lesson] == "object"){
+		if(system.isTeacher())
+			readOnly = true;
+		else if((!system.isTeacher() || student.length > 0) && typeof userData == "object" && typeof userData[lesson] == "object"){
 			readOnly = false;
 		} else 
 			readOnly = true;
