@@ -363,7 +363,7 @@ function tooltips(){
 	});
 	$('#signon').tooltip({
 			position: 'bottom',
-			content: '註冊',
+			content: system.isSignon() ? '登出' : '註冊',
 			//trackMouse:true,
 			deltaX: 0,
 			deltaY: 0,
@@ -392,9 +392,9 @@ function adjustUser(){
 		let user = [{
 			id: 0, text: "教師版"
 		}, {
-			text: "Jim Chen", id: "nkBcFd5Gqig1Qr6nXEuC1tZZcOj1"
+			text: "Penny", id: "VqmNunNWbdanHfvoXHAzlWmiR8e2"
 		}, {
-			text: "Penny", id: "nkBcFd5Gqig1Qr6nXEuC1tZZcOj1"
+			text: "Jim Chen", id: "nkBcFd5Gqig1Qr6nXEuC1tZZcOj1"
 		}];
 
 		$(".lblSwitch").remove();
@@ -411,7 +411,8 @@ function adjustUser(){
 					fireBase.listen(student + "/" + subject + "/" + lesson);
 				} else {
 					fireBase.listenClear();
-				} 
+				}
+				userData = {};
 				loadData(function(){
 					reload();
 				});
@@ -537,7 +538,14 @@ function adjustPanel(){
 			iconCls:'icon-man',
 			id: "signon",
 			handler:function(){
-				fireBase.login();
+				if(system.isSignon()){
+					var r = confirm("是否確定登出!");
+					if (r == true) {
+						storage.clear();
+						location.reload();
+					} 
+				} else
+					fireBase.login();
 			}
     }]
 	});
@@ -575,8 +583,8 @@ function centerIcon(){ //
 	} else {
 		$("#center .tabs-tool table td:nth-child(1)").css("display", 
 			system.isTeacher() || readOnly ? "none" : "table-cell");
-		$("#center .tabs-tool table td:nth-child(2)").css("display", 
-			system.isSignon() ? "none" : "table-cell");
+		// $("#center .tabs-tool table td:nth-child(2)").css("display", 
+		// 	system.isSignon() ? "none" : "table-cell");
 		//$("#center .tabs-tool").remove();
 		$('body').layout('resize');
 	}
@@ -599,15 +607,18 @@ function changeMenu(index){
 
 function loadData(callback){ //
 	let x = storage[subject];
+	//console.log("isTeacher: " + system.isTeacher())
 	if(!system.isTeacher() && x == "string" && x.length > 0)
 		userData = JSON.parse(x);
 	else
 		userData = {};
+
 	if(system.isSignon() == true){ // 自 firebase 撈資料, 或 localstorage
 		system.loading.show("系統登入中......");
 		fireBase.signIn(storage.System().user, storage.System().pwd, function(result){
 			if(result == "ok"){
 				let user = student.length > 0 ? student : fireBase.uid;
+				//console.log(user)
 				fireBase.getUserData(user + "/" + subject, function(result){
 					if(typeof result == "object" && result != null){
 						userData = Object.assign(userData, result);
