@@ -16,8 +16,13 @@ let menu = [
 			}, {
 				id: "02-ul",
 				text: "項目清單",
-				context: "lesson02.html",
+				context: "lesson02.t.html",
 				html: "lesson02.html",
+			}, {
+				id: "03-ul",
+				text: "圖片和超連結",
+				context: "lesson03.t.html",
+				html: "lesson03.html",
 			}
 		] //
 	}, {
