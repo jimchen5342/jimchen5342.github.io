@@ -22,67 +22,111 @@
     </style>
   </head>	
 <body>
-  <h3>表格(table)</h3>
+  <h3>table</h3>
   <ol>
+		<li>用途：表格</li>
+		<li>特性：display: table;</li>
 		<li>屬性
 			<ul>
-				<li>border：格線粗細(number)</li>
-				<li>cellpadding：(number)</li>
-				<li>cellspacing：(number)</li>
+				<li>border：格線粗細(number; 0: 無框)</li>
+				<li>cellspacing：格外緣距離(number, default: 2)</li>
+				<li>cellpadding：格內緣距離(number)</li>
 				<li>width：寬度(px, %)</li>
 			</ul>
 		</li>
-		<li></li>
-		<li></li>
-		<li></li>
 	</ol>
 
   <h3>tr</h3>
   <ol>
+		<li>用途：列；table 的子節點，可包含 th, td 標籤</li>
+		<li>特性：display: table-row;</li>
 		<li>屬性
 			<ul>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
+				<li>height: px</li>
+				<li>align
+						<ul>
+							<li>left(default)</li>
+							<li>center</li>
+							<li>right</li>
+							<li>justify</li>
+						</ul>
+				</li>
+				<li>valign
+						<ul>
+							<li>top</li>
+							<li>middle(default)</li>
+							<li>bottom</li>
+							<li>baseline</li>
+						</ul>
+				</li>
 			</ul>
 		</li>
-		<li></li>
-		<li></li>
-		<li></li>
 	</ol>
 
 	<h3>th</h3>
   <ol>
+		<li>用途：標題格；tr 的子節點</li>
+		<li>特性：display: table-cell; font-weight: bold; text-align: center;</li>
 		<li>屬性
 			<ul>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
+				<li>height: px</li>
+				<li>width: px, %</li>
+				<li>align
+						<ul>
+							<li>left(default)</li>
+							<li>center</li>
+							<li>right</li>
+							<li>justify</li>
+						</ul>
+				</li>
+				<li>valign
+						<ul>
+							<li>top</li>
+							<li>middle(default)</li>
+							<li>bottom</li>
+							<li>baseline</li>
+						</ul>
+				</li>
+				<li>colspan</li>
+				<li>rowspan</li>
 			</ul>
 		</li>
-		<li></li>
-		<li></li>
-		<li></li>
   </ol> 
 
 	<h3>td</h3>
   <ol>
+		<li>用途：格；tr 的子節點</li>
+		<li>特性：display: table-cell;</li>
 		<li>屬性
 			<ul>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
+				<li>height: px</li>
+				<li>width: px, %</li>
+				<li>align
+						<ul>
+							<li>left(default)</li>
+							<li>center</li>
+							<li>right</li>
+							<li>justify</li>
+						</ul>
+				</li>
+				<li>valign
+						<ul>
+							<li>top</li>
+							<li>middle(default)</li>
+							<li>bottom</li>
+							<li>baseline</li>
+						</ul>
+				</li>
+				<li>colspan</li>
+				<li>rowspan</li>
 			</ul>
 		</li>
-		<li></li>
-		<li></li>
-		<li></li>
   </ol> 
   
   <hr /> 
-	<a href="http://www.w3school.com.cn/html/html_tables.asp" target="_parent">表格說明</a>
+	<a href="http://www.w3school.com.cn/tags/tag_table.asp" target="_parent">table 說明</a><br />
+	<a href="http://www.w3school.com.cn/tags/tag_tr.asp" target="_parent">tr 說明</a><br />
+	<a href="http://www.w3school.com.cn/tags/tag_th.asp" target="_parent">th 說明</a><br />
+	<a href="http://www.w3school.com.cn/tags/tag_td.asp" target="_parent">td 說明</a><br />
 </body>
 </html>
