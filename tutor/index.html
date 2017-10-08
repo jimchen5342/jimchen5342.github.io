@@ -418,9 +418,11 @@ function adjustUser(){
 					fireBase.listenClear();
 				}
 				userData = {};
-				loadData(function(){
-					reload();
-				});
+				if(student.length > 0){
+					loadData(function(){
+						reload();
+					});					
+				}
 			}
 		});
 	}
@@ -611,16 +613,17 @@ function changeMenu(index){
 		findTree(setting[subject]);
 }
 
-function loadData(callback){ //
+function loadData(callback){
+	userData = {};
 	if(!system.isTeacher()){ // 先自 localstorage
 		let x = storage[subject];
 		if(typeof x == "string" && x.length > 0)
 			userData = JSON.parse(x);
-	} else
-		userData = {};
+	}
 
 	if(system.isSignon() == true){ // 如有登錄, 再自 firebase 撈資料
 		system.loading.show("系統登入中......");
+
 		fireBase.signIn(storage.System().user, storage.System().pwd, function(result){
 			if(result == "ok"){
 				let user = student.length > 0 ? student : fireBase.uid;

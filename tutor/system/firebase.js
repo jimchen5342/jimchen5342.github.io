@@ -46,6 +46,15 @@
 					projectId: "tutor-html",
 					storageBucket: "tutor-html.appspot.com"
 				};
+				/*
+				config = {
+					apiKey : "AIzaSyB63jddZcnNpT5bn88HbhtIcg4RhwPJbpI",
+					authDomain: "tutor-html.firebaseapp.com",
+					databaseURL : "https://tutor-html.firebaseio.com",
+					projectId : "tutor-html",
+					storageBucket : "tutor-html.appspot.com"
+				}
+				*/
 				firebase.initializeApp(config);
 				fireBase.database = firebase.database;
 				fireBase.storage = firebase.storage();

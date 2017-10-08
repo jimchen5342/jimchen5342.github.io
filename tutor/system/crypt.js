@@ -3,7 +3,7 @@
 	crypt.initial = function(){
 		if(typeof this.key == "undefined"){
 			let iv = storage.System().aes;
-			if(typeof s == "undefined") s = "";
+			//if(typeof s == "undefined") s = "";
 			this.key = CryptoJS.enc.Utf8.parse("tutor");
 			this.iv = CryptoJS.enc.Utf8.parse(iv);
 			this.key = (this.key + "0123456789ABCDEF").substr(0, 16);
@@ -28,5 +28,5 @@
 		});
 		return CryptoJS.enc.Utf8.stringify(decrypted);
 	}
-	window.crypt = crypt;
+	window.crypt = crypt; 
 })(window);
