@@ -33,6 +33,11 @@ let menu = [
 				text: "表格",
 				context: "lesson05.t.html",
 				html: "lesson05.html",				
+			}, {
+				id: "06-form",
+				text: "表單",
+				context: "lesson06.t.html",
+				html: "lesson06.html",				
 			}
 		] //
 	}, {

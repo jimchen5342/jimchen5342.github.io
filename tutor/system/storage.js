@@ -10,7 +10,8 @@ Storage.prototype.Setting = function(data){
 				HTML: "00-basic", 
 				CSS: "00-basic", 
 				JavaScript: "00-basic",
-				current: 0
+				current: 0,
+				doc: 0
 			}, json);			
 		}
 		return setting;

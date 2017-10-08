@@ -397,9 +397,9 @@ function adjustUser(){
 		let user = [{
 			id: 0, text: "教師版"
 		}, {
-			text: "Penny", id: "VqmNunNWbdanHfvoXHAzlWmiR8e2"
+			text: "Penny", id: "74vCj2kSTDY70fd4a4DErl5GPdv2"
 		}, {
-			text: "Jim Chen", id: "nkBcFd5Gqig1Qr6nXEuC1tZZcOj1"
+			text: "Jim", id: "bnEpBSqpnLewYXEuCjSFxUWR8EJ3"
 		}];
 
 		$(".lblSwitch").remove();
@@ -482,7 +482,8 @@ function adjustPanel(){
 		}
 	});
 	$('#doc').tabs({ // east
-		onSelect:function(title){
+		onSelect:function(title, index){
+			storage.Setting({doc: index});
 		},
 		tools:[{
         iconCls:'icon-left',
@@ -505,7 +506,7 @@ function adjustPanel(){
     }]
 	});
 	$('#source').tabs({ // center, toolbar
-		onSelect:function(title){
+		onSelect:function(title, index){
 			panel = title;
 			for(let i = 0; i < mode.length; i++){
 				let key = mode[i].src;
@@ -575,10 +576,8 @@ function adjustPanel(){
 	eastResize(w);
 	setTimeout(function(){
 		collapsed = false;
-		let i = system.urlElement("doc", 0);
-		if(i > 0){
-			$("#doc").tabs("select", 1);
-		}
+		if(setting.doc != 0)
+			$("#doc").tabs("select", setting.doc);
 	}, 500);
 }
 function centerIcon(){ // 

@@ -1,6 +1,5 @@
 (function(window, undefined) {
 	var crypt = {};
-	
 	crypt.initial = function(){
 		if(typeof this.key == "undefined"){
 			let iv = storage.System().aes;

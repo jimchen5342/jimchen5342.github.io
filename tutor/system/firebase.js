@@ -38,13 +38,13 @@
 		system.loadScript("https://www.gstatic.com/firebasejs/4.1.3/firebase.js", loaded);
 		function loaded(result){
 			if(result.code == "ok"){
-				let s1 = "U2FsdGVkX19qjzyM8izX7tzjC8fU4oj3aAfI0lBsKKSGngnBl16yKiOjCLw624QxOk0mLxncZWtqdxVkE5LUAw==";
+				let s1 = "U2FsdGVkX1/B1Gu2Cd5QXx/pQoF0JD3VmxTyclj2ktwJy8G2cVCKMmEvqAmZdZnYiBPHYVzdPZSDIljiXhjw8g==";
 				let config = {
 					apiKey: crypt.decrypt(s1),
-					authDomain: "toutor-c913d.firebaseapp.com",
-					databaseURL: "https://toutor-c913d.firebaseio.com",
-					projectId: "toutor-c913d",
-					storageBucket: "toutor-c913d.appspot.com"
+					authDomain: "tutor-html.firebaseapp.com",
+					databaseURL: "https://tutor-html.firebaseio.com",
+					projectId: "tutor-html",
+					storageBucket: "tutor-html.appspot.com"
 				};
 				firebase.initializeApp(config);
 				fireBase.database = firebase.database;
