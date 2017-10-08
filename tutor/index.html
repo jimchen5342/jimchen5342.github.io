@@ -303,6 +303,8 @@ $( document ).ready(function(){
 				});				
 			}
 		}
+		if(typeof userData == "undefined")
+			userData = {};
 		reload();
 	});
 	//console.log("teacher: " + system.isTeacher())
@@ -480,10 +482,7 @@ function adjustPanel(){
 		}
 	});
 	$('#doc').tabs({ // east
-		//tabPosition: "right",
-		//headerWidth: 60,
 		onSelect:function(title){
-				//alert(title+' is selected');
 		},
 		tools:[{
         iconCls:'icon-left',
@@ -552,7 +551,8 @@ function adjustPanel(){
 			}
     }]
 	});
-
+	//
+	
 	function eastResizeIcon(w){
 		if($("#doc .tabs-tool table td").size() == 0){
 			setTimeout(function(){
@@ -575,6 +575,10 @@ function adjustPanel(){
 	eastResize(w);
 	setTimeout(function(){
 		collapsed = false;
+		let i = system.urlElement("doc", 0);
+		if(i > 0){
+			$("#doc").tabs("select", 1);
+		}
 	}, 500);
 }
 function centerIcon(){ // 
@@ -600,7 +604,7 @@ function changeMenu(index){
 		data: menu[index].data
 	});
 	$("#divSubject").text(subject);
-	if((system.isSignon() == true && ! system.isTeacher()) || student.length > 0){ // 自 firebase 撈資料, 或 localstorage
+	if((system.isSignon() == true || ! system.isTeacher()) || student.length > 0){ // 自 firebase 撈資料, 或 localstorage
 		loadData(function(){
 			findTree(setting[subject]);
 		});
@@ -610,8 +614,7 @@ function changeMenu(index){
 
 function loadData(callback){ //
 	let x = storage[subject];
-	//console.log("isTeacher: " + system.isTeacher())
-	if(!system.isTeacher() && x == "string" && x.length > 0)
+	if(!system.isTeacher() && typeof x == "string" && x.length > 0)
 		userData = JSON.parse(x);
 	else
 		userData = {};
@@ -751,6 +754,8 @@ function changeValue(e, changed){ // 來自 iframe 修改資料
 		}
 	}
 	if(!system.isTeacher() && (typeof changed == "undefined" || changed == true)){
+		if(typeof userData == "undefined")
+			userData = {};
 		if(typeof userData[lesson] == "undefined")
 				userData[lesson] = {};
 			userData[lesson][e.key] = e.data;
