@@ -38,7 +38,7 @@
 		system.loadScript("https://www.gstatic.com/firebasejs/4.1.3/firebase.js", loaded);
 		function loaded(result){
 			if(result.code == "ok"){
-				let s1 = "U2FsdGVkX1/GpsAcWPNdhaqOjxIXDapwwWCki2RQeMjn3N39cj7DBT6R6tAlLrzyUcjCRxT/WTv2WfZ/b2uwFQ=="
+				let s1 = "U2FsdGVkX19qjzyM8izX7tzjC8fU4oj3aAfI0lBsKKSGngnBl16yKiOjCLw624QxOk0mLxncZWtqdxVkE5LUAw==";
 				let config = {
 					apiKey: crypt.decrypt(s1),
 					authDomain: "toutor-c913d.firebaseapp.com",

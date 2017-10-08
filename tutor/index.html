@@ -248,7 +248,7 @@ let mode = [{
 
 let setting = storage.Setting();
 $( document ).ready(function(){
-	$("#ver").text("Jim Chen 2017/10/06");
+	$("#ver").text("Jim Chen 2017/10/08");
 	//console.log(setting)
 	result = $("#result").prop('contentWindow');
 	adjustPanel();
@@ -613,13 +613,14 @@ function changeMenu(index){
 }
 
 function loadData(callback){ //
-	let x = storage[subject];
-	if(!system.isTeacher() && typeof x == "string" && x.length > 0)
-		userData = JSON.parse(x);
-	else
+	if(!system.isTeacher()){ // 先自 localstorage
+		let x = storage[subject];
+		if(typeof x == "string" && x.length > 0)
+			userData = JSON.parse(x);
+	} else
 		userData = {};
 
-	if(system.isSignon() == true){ // 自 firebase 撈資料, 或 localstorage
+	if(system.isSignon() == true){ // 如有登錄, 再自 firebase 撈資料
 		system.loading.show("系統登入中......");
 		fireBase.signIn(storage.System().user, storage.System().pwd, function(result){
 			if(result == "ok"){

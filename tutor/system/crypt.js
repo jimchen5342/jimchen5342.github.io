@@ -5,7 +5,7 @@
 		if(typeof this.key == "undefined"){
 			let iv = storage.System().aes;
 			if(typeof s == "undefined") s = "";
-			this.key = CryptoJS.enc.Utf8.parse("toutor");
+			this.key = CryptoJS.enc.Utf8.parse("tutor");
 			this.iv = CryptoJS.enc.Utf8.parse(iv);
 			this.key = (this.key + "0123456789ABCDEF").substr(0, 16);
 			this.iv = (this.iv + "0123456789ABCDEF").substr(0, 16);			

@@ -24,7 +24,7 @@ Storage.prototype.Setting = function(data){
 	}
 }
 Storage.prototype.System = function(data){
-	let tbl = "toutor";
+	let tbl = "tutor";
 	if(typeof data == "undefined"){
 		let s = localStorage.getItem(tbl);
 		let json = typeof s == "undefined" || s == null ? {} : JSON.parse(s);
