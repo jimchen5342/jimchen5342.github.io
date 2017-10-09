@@ -648,11 +648,10 @@ function centerIcon(){ //
 		// $("#center .tabs-tool table td:nth-child(2)").css("display", 
 		// 	system.isSignon() ? "none" : "table-cell");
 		//$("#center .tabs-tool").remove();		
-	}
-	//background: url(icons/man.png) no-repeat center center;
 
-	$(".icon-man").css("background", "url(icons/user.png) no-repeat center center");
-    
+		if(system.isSignon())
+			$(".icon-man").css("background", "url(icons/user.png) no-repeat center center");
+	}
 }
 
 function changeMenu(index){
