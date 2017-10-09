@@ -56,6 +56,10 @@
 		.icon-reload{
 			background:url('./icons/reload.png') no-repeat center center;
 		}
+		.icon-speech{
+			background:url('./icons/speech.png') no-repeat center center;
+			background-size: 16px 16px;
+		}
 		#ver {
 			border-top-width: 1px;
 			padding: 7px 0;
@@ -143,7 +147,7 @@
 			border-radius: 50%;
 		}
 
-		#win .footer {
+		#winLogin .footer {
 			padding: 5px; 
 			width: 100%;  
 			flex-direction: row;
@@ -152,23 +156,23 @@
 			justify-content: flex-end;
 			/*padding: 10px 0 10px 10px;*/
 		} 
-		#win {
+		#winLogin {
 			padding: 5px;
 			box-sizing: border-box;
 			overflow: hidden;
 			background-color: white;
 			font-size: 1.0em;
 		}
-		#win label {
+		#winLogin label {
 			color: blue;
 			font-size: 1.0em;
 		} 
-		#win input {
+		#winLogin input {
 			font-size: 1.0em;
 			width: 100%;
 			height: 26px;
 		}
-		#win button {
+		#winLogin button {
 			width: 100px;
 			font-size: 1.0em;
 			margin-left: 5px;
@@ -181,6 +185,10 @@
 	<script src="./system/firebase.js"></script>
 	<script src="./system/AES.js"></script>
 	<script src="./system/crypt.js"></script>
+	<script src="./extend/String.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="./components/speech.css" />
+	<script src="./components/speech.js"></script>
 </head>
 <body class="easyui-layout" style="width: 100%; height: 100%; visibility: hidden;">
 	<!--
@@ -231,6 +239,28 @@
 					<span class="slider round"></span>
 				</label>
 			</div>
+		</div>
+	</div>
+	<div id="winSpeech" class="easyui-window" title="訊息" style="width:300px;height:450px"
+		data-options="iconCls:'icon-save',modal:false,closed:true,resizable:false,minimizable:false">
+		<div class="easyui-layout" data-options="fit:true" id='layoutSpeech'>
+			<div data-options="region:'north',split:true" style="height:300px">
+				<div id='divSpeech'>
+
+				</div>
+			</div>
+			<div data-options="region:'south'" style="overflow: hidden;">
+				<div class='flexH' style="padding: 5px;">
+					<input type='radio' id='rdAll' name='rdSpeech' />
+					<label for='rdAll' style="margin-right: 10px;font-size: 16px;">全部</label>
+					<input type='radio' id='rdstudent' name='rdSpeech' checked/>
+					<label for='rdstudent' id='lblStudent' style='font-size: 16px;'>學生</label>
+				</div>
+			</div>
+			<div data-options="region:'center'" style="overflow: hidden;">
+				<textarea id='taSpeech'></textarea>
+			</div>
+		</div>
 		</div>
 	</div>
 </body>
@@ -317,6 +347,8 @@ $( document ).ready(function(){
 	setTimeout(function(){
 		$("body").css("visibility", "visible");
 	}, 300);
+	if(system.isSignon())
+		speech.adjust();
 });
 
 function reload(){
@@ -356,7 +388,16 @@ function information(){
 }
 
 function tooltips(){
-	if(system.isSignon() == true) return;
+	$('#speech').tooltip({
+			position: 'bottom',
+			content: '訊息',
+			//trackMouse:true,
+			deltaX: 0,
+			deltaY: 0,
+			showDelay:300,
+			hideDelay:500
+	});
+	//if(system.isSignon() == true) return;
 	$('#reload').tooltip({
 			position: 'bottom',
 			content: '清空',
@@ -368,7 +409,7 @@ function tooltips(){
 	});
 	$('#signon').tooltip({
 			position: 'bottom',
-			content: system.isSignon() ? '登出' : '註冊',
+			content: system.isSignon() ? '登出：<br />' + storage.System().user : '註冊',
 			//trackMouse:true,
 			deltaX: 0,
 			deltaY: 0,
@@ -394,14 +435,9 @@ function adjustUser(){
 	if(system.isTeacher() == false){
 		$('#divUser').remove();
 	} else {
-		let user = [{
-			id: 0, text: "教師版"
-		}, {
-			text: "Penny", id: "74vCj2kSTDY70fd4a4DErl5GPdv2"
-		}, {
-			text: "Jim", id: "bnEpBSqpnLewYXEuCjSFxUWR8EJ3"
-		}];
-
+		let user = [{id: 0, text: "教師版"}];
+		if(storage.System().students.length > 0)
+			user = user.concat(JSON.parse(storage.System().students));
 		$(".lblSwitch").remove();
 		$('#user').combobox({
 			data: user,
@@ -417,7 +453,8 @@ function adjustUser(){
 				} else {
 					fireBase.listenClear();
 				}
-				userData = {};
+				if(userData == "undefined")
+					userData = {};
 				if(student.length > 0){
 					loadData(function(){
 						reload();
@@ -427,20 +464,20 @@ function adjustUser(){
 		});
 	}
 }
-function listener(result){
-	if(student.length > 0 && result.event == "change"){
+function listener(ret){
+	if(student.length > 0 && ret.event == "change"){
 		//console.log("now: " + (new Date()));
-		console.log(result.key);
-		if(result.key == "html")
+		console.log(ret.key);
+		if(ret.key == "html")
 			$("#source").tabs("select",0);
-		else if(result.key == "css")
+		else if(ret.key == "css")
 			$("#source").tabs("select",1);
 		else
 			$("#source").tabs("select",2);
-		iframe[result.key].setValue(result.data);		
-		changeValue(result, true);
+		iframe[ret.key].setValue(ret.data);		
+		changeValue(ret, true);
 		window.showToast({
-			msg: "修改了 " + result.key.toUpperCase(), 
+			msg: "修改了 " + ret.key.toUpperCase(), 
 			icon: "info",
 			allowToastClose: false
 		});	
@@ -552,10 +589,19 @@ function adjustPanel(){
 				} else
 					fireBase.login();
 			}
+		}, {
+			iconCls:'icon-speech',
+			id: "speech",
+			handler:function(){
+				if(!system.isTeacher() || student.length > 0){
+					$('#winSpeech').window('open');
+				} else {
+					alert("請先選取學生才可進行對話!!")
+				}
+			}
     }]
 	});
-	//
-	
+
 	function eastResizeIcon(w){
 		if($("#doc .tabs-tool table td").size() == 0){
 			setTimeout(function(){
@@ -582,6 +628,7 @@ function adjustPanel(){
 			$("#doc").tabs("select", setting.doc);
 	}, 500);
 }
+let speechOpened = false;
 function centerIcon(){ // 
 	//console.log("icon: " + $("#center .tabs-tool table td").size())
 	if($("#center .tabs-tool table td").size() == 0){
@@ -594,6 +641,8 @@ function centerIcon(){ //
 		// $("#center .tabs-tool table td:nth-child(2)").css("display", 
 		// 	system.isSignon() ? "none" : "table-cell");
 		//$("#center .tabs-tool").remove();
+		$("#center .tabs-tool table td:nth-child(3)").css("display", 
+			! system.isSignon() ? "none" : "table-cell");
 		$('body').layout('resize');
 	}
 }
@@ -624,13 +673,13 @@ function loadData(callback){
 	if(system.isSignon() == true){ // 如有登錄, 再自 firebase 撈資料
 		system.loading.show("系統登入中......");
 
-		fireBase.signIn(storage.System().user, storage.System().pwd, function(result){
-			if(result == "ok"){
+		fireBase.signIn(storage.System().user, storage.System().pwd, function(ret){
+			if(ret == "ok"){
 				let user = student.length > 0 ? student : fireBase.uid;
 				//console.log(user)
-				fireBase.getUserData(user + "/" + subject, function(result){
-					if(typeof result == "object" && result != null){
-						userData = Object.assign(userData, result);
+				fireBase.getUserData(user + "/" + subject, function(ret){
+					if(typeof ret == "object" && ret != null){
+						userData = Object.assign(userData, ret);
 					}
 					callback();
 					system.loading.close();
@@ -674,11 +723,10 @@ function treeClick(node){
 }
 
 function loadPage(node, changed){
+	console.log(userData)
 	lesson = node.id;
-	if(typeof changed == "boolean" && changed == true){
-		if(system.isTeacher())
-			readOnly = true;
-		else if((!system.isTeacher() || student.length > 0) && typeof userData == "object" && typeof userData[lesson] == "object"){
+	if(typeof changed == "boolean" && changed == true && !system.isTeacher()){
+		if(typeof userData == "object" && typeof userData[lesson] == "object"){
 			readOnly = false;
 		} else 
 			readOnly = true;
@@ -699,12 +747,20 @@ function loadPage(node, changed){
 			}, 600)
 		} else if (typeof iframe[mode[index].src] == "object") {
 			let key = mode[index].src, key2 = mode[index].node;
-			if(readOnly == false && typeof userData == "object"){
+			if((readOnly == false || student.length > 0) && typeof userData == "object"){
 				let s = typeof userData[lesson] == "object" && typeof userData[lesson][key] == "string"
 					? userData[lesson][key] : "";
 				if(s.length == 0 && key2 == "html"){
-					iframe[key].reset();
-					result.location.assign("./empty.html");
+					if(student.length > 0){
+						iframe[key].setValue(subject, node[key2]);
+						readOnly = true;
+						if(index == 0){
+							result.location.assign("./handout/" + subject + "/" + node["html"]);
+						}
+					} else {
+						iframe[key].reset();
+						result.location.assign("./empty.html");
+					}
 				} else {
 					iframe[key].setValue(s);
 					changeValue({key: key, data: s}, false);
@@ -785,8 +841,11 @@ function changeJS(js) {
 	}
 	newJS = result.document.createElement("script");
 	newJS.id = "newJS"
-	result.document.getElementsByTagName("head")[0].appendChild(newJS);
-	newJS.innerHTML = js;
+	if(result.document.getElementsByTagName("head").length > 0){
+		result.document.getElementsByTagName("head")[0].appendChild(newJS);
+		newJS.innerHTML = js;		
+	}
+
 }
 
 function changeCSS(css) { // ok
@@ -802,8 +861,10 @@ function changeCSS(css) { // ok
 	}
 	newCSS = result.document.createElement("style");
 	newCSS.id = "newCSS"
-	result.document.getElementsByTagName("head")[0].appendChild(newCSS);
-	newCSS.innerHTML = css;
+	if(result.document.getElementsByTagName("head").length > 0){
+		result.document.getElementsByTagName("head")[0].appendChild(newCSS);
+		newCSS.innerHTML = css;
+	}
 }
 /*
 cd /Users/jimc/nodeJS/ && node index

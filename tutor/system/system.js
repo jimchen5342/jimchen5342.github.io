@@ -72,7 +72,9 @@ system.isTeacher = function(){
 	let i = -1; //window.location.href.indexOf("localhost");
 	if(window.location.href.indexOf("student=") > -1)
 		i = -1;
-	else 
+	else if(storage.System().rule == "teacher"){
+		i = 1;
+	} else 
 		i = window.location.href.indexOf("localhost");
 	return i >= 0 ? true : false;
 }

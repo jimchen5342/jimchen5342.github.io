@@ -46,15 +46,6 @@
 					projectId: "tutor-html",
 					storageBucket: "tutor-html.appspot.com"
 				};
-				/*
-				config = {
-					apiKey : "AIzaSyB63jddZcnNpT5bn88HbhtIcg4RhwPJbpI",
-					authDomain: "tutor-html.firebaseapp.com",
-					databaseURL : "https://tutor-html.firebaseio.com",
-					projectId : "tutor-html",
-					storageBucket : "tutor-html.appspot.com"
-				}
-				*/
 				firebase.initializeApp(config);
 				fireBase.database = firebase.database;
 				fireBase.storage = firebase.storage();
@@ -67,15 +58,18 @@
 		}
 	}
 	fireBase.serverTime = function(){
-		return new Date().getTime() + offset;
+		return (new Date()).getTime() + offset;
 	}
 	function openWindow(arg){
-		console.log(storage.System());
-		if($("#win").get().length > 0) $("#win").remove();
+		if(speechOpened) $('#winSpeech').window('close');
+		//console.log(storage.System());
+		if($("#winLogin").get().length > 0) {
+				$("#winLogin").remove();
+		}
 		if($(".panel.window").get().length > 0) $(".panel.window").remove();
 		if($(".window-mask").get().length > 0) $(".window-mask").remove();
 	
-		let div = $("<div id='win' class='flexV' style='overflow: hidden; padding: 3px;' />").appendTo("body");
+		let div = $("<div id='winLogin' class='flexV' style='overflow: hidden; padding: 3px;' />").appendTo("body");
 		$(div).window({
 			title: arg.title ? arg.title : "undefined",
 			minimizable: arg.minimizable ? arg.minimizable : false,
@@ -133,7 +127,7 @@
 				"  <button id='btnOk' class='btn'>確定</button>" +
 				"  <button id='btnCancel' class='btn'>取消</button>" +
 				"</div>";
-			$(tbl).appendTo("#win");
+			$(tbl).appendTo("#winLogin");
 			$("#tblLogin tr > td").css({
 				"padding": "5px"
 			});
@@ -151,7 +145,7 @@
 		}
 		function click(){
 			if(this.id == "btnCancel"){
-				$("#win").window("close");
+				$("#winLogin").window("close");
 			} else {
 				let email = $("#email").val().trim();
 				let password = $("#password").val().trim();
@@ -166,16 +160,41 @@
 	
 					fireBase.signIn(email, password, function(arg){
 						if(arg == "ok"){
-							storage.System({user: email, pwd: password});
-						
-							alert("登入成功, 系統更新...");
-							location.reload();
+							storage.System({user: email, pwd: password, rule: 'student'});
+							getTeacher(function(){
+								alert("登入成功, 系統更新...");
+								location.reload();								
+							});
 						} else {
 							loading(false);
 						}
 					});						
 				}
 			}
+		}
+		function getTeacher(callback){
+			fireBase.database().ref("teachers").once("value", function(snap) {
+				let val = snap.val();
+				for(let key in val){
+					if(key == fireBase.uid){
+						storage.System({students: JSON.stringify(val[key]), rule: 'teacher'});
+						break;
+					} else {
+						let arr = val[key];
+						for(let i = 0; i < arr.length; i++){
+							let row = arr[i];
+							if(row.id == fireBase.uid){
+								storage.System({teacher: key});
+								break;
+							}
+						}
+					}
+				}
+				callback();
+			}, function(err) {
+				console.log(err);
+				alert("無法下載資料.....");
+			});
 		}
 		function loading(b){
 			if(b == true){
@@ -205,13 +224,13 @@
 			firebase.auth().signInWithEmailAndPassword(email, password)
 			.then(()=>{
 				fireBase.email = email;
-				
 				var user = firebase.auth().currentUser;
 				if (user != null) {
 					user.providerData.forEach(function (profile) {
 						fireBase.user = profile.email;
 					});
 					fireBase.uid = user.uid;
+					fireBase.listenSpeech();
 					if(callback) callback("ok");
 				}
 			})
@@ -223,7 +242,23 @@
 			});						
 		}
 	}
-
+	fireBase.listenSpeech = function(){
+		let key = storage.System().teacher.length > 0 ? storage.System().teacher : fireBase.uid;
+		let ref = fireBase.database().ref("speech/" + key);
+		ref.once("value", function(snap){
+			//speech.listen(snap.val())
+		});
+		
+		ref.on("child_added", function(snap){
+			//console.log(snap.key)
+			speech.listen(snap);
+		});
+		ref.on("child_changed", function(snap){
+			//console.log(snap.key)
+			speech.listen(snap)
+		});
+		
+	}
 	fireBase.signOut = function(){ // ok
 		firebase.auth().signOut().then(function() {
 			// Sign-out successful.
@@ -290,7 +325,7 @@
 			newItems = false;
 			fireBase.ref = fireBase.database().ref(folder);
 			fireBase.ref.on("value", readValue);
-			fireBase.ref.on("child_added", readAdd);
+			//fireBase.ref.on("child_added", readAdd);
 			fireBase.ref.on("child_changed", readChange);
 			fireBase.ref.on("child_removed", readRemove);
 		});
@@ -317,7 +352,6 @@
 			changeValue = s;
 		}
 	}
-
 	window.fireBase = fireBase;
 })(window);
 /*

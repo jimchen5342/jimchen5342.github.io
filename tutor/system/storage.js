@@ -11,7 +11,12 @@ Storage.prototype.Setting = function(data){
 				CSS: "00-basic", 
 				JavaScript: "00-basic",
 				current: 0,
-				doc: 0
+				doc: 0,
+				information: {
+					version: 0,
+					signOn: 0,
+					switch: 0,
+				}
 			}, json);			
 		}
 		return setting;
@@ -29,7 +34,8 @@ Storage.prototype.System = function(data){
 	if(typeof data == "undefined"){
 		let s = localStorage.getItem(tbl);
 		let json = typeof s == "undefined" || s == null ? {} : JSON.parse(s);
-		return Object.assign({user: "", pwd: "", aes: ""}, json);
+		return Object.assign({user: "", pwd: "", aes: "", rule: "student", teacher: "",
+		students: ""}, json);
 	} else if(data == null){
 		delete localStorage[tbl];
 	} else {
