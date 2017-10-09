@@ -63,13 +63,13 @@
 	function openWindow(arg){
 		if(speechOpened) $('#winSpeech').window('close');
 		//console.log(storage.System());
-		if($("#winLogin").get().length > 0) {
-				$("#winLogin").remove();
+		if($("#winEdit").get().length > 0) {
+				$("#winEdit").remove();
 		}
 		if($(".panel.window").get().length > 0) $(".panel.window").remove();
 		if($(".window-mask").get().length > 0) $(".window-mask").remove();
 	
-		let div = $("<div id='winLogin' class='flexV' style='overflow: hidden; padding: 3px;' />").appendTo("body");
+		let div = $("<div id='winEdit' class='flexV' style='overflow: hidden; padding: 3px;' />").appendTo("body");
 		$(div).window({
 			title: arg.title ? arg.title : "undefined",
 			minimizable: arg.minimizable ? arg.minimizable : false,
@@ -127,7 +127,7 @@
 				"  <button id='btnOk' class='btn'>確定</button>" +
 				"  <button id='btnCancel' class='btn'>取消</button>" +
 				"</div>";
-			$(tbl).appendTo("#winLogin");
+			$(tbl).appendTo("#winEdit");
 			$("#tblLogin tr > td").css({
 				"padding": "5px"
 			});
@@ -145,7 +145,7 @@
 		}
 		function click(){
 			if(this.id == "btnCancel"){
-				$("#winLogin").window("close");
+				$("#winEdit").window("close");
 			} else {
 				let email = $("#email").val().trim();
 				let password = $("#password").val().trim();

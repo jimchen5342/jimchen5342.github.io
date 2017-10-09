@@ -147,7 +147,7 @@
 			border-radius: 50%;
 		}
 
-		#winLogin .footer {
+		#winEdit .footer {
 			padding: 5px; 
 			width: 100%;  
 			flex-direction: row;
@@ -156,23 +156,23 @@
 			justify-content: flex-end;
 			/*padding: 10px 0 10px 10px;*/
 		} 
-		#winLogin {
+		#winEdit {
 			padding: 5px;
 			box-sizing: border-box;
 			overflow: hidden;
 			background-color: white;
 			font-size: 1.0em;
 		}
-		#winLogin label {
+		#winEdit label {
 			color: blue;
 			font-size: 1.0em;
 		} 
-		#winLogin input {
+		#winEdit input {
 			font-size: 1.0em;
 			width: 100%;
 			height: 26px;
 		}
-		#winLogin button {
+		#winEdit button {
 			width: 100px;
 			font-size: 1.0em;
 			margin-left: 5px;
@@ -415,6 +415,16 @@ function tooltips(){
 			hideDelay:500
 	});
 
+	$('#student').tooltip({
+			position: 'bottom',
+			content: '學生管理',
+			//trackMouse:true,
+			deltaX: 0,
+			deltaY: 0,
+			showDelay:300,
+			hideDelay:500
+	});
+
 	if(setting.information.switch < 3) {
 		$("#lblSwitch").tooltip({
 				position: 'top',
@@ -427,6 +437,94 @@ function tooltips(){
 				showDelay: 300,
 				hideDelay: 500
 		});
+	}
+}
+function studentAdd(){
+	if(speechOpened) $('#winSpeech').window('close');
+	//console.log(storage.System());
+	if($("#winEdit").get().length > 0) {
+			$("#winEdit").remove();
+	}
+
+	let div = $("<div id='winEdit' class='flexV' style='overflow: hidden; padding: 3px;' />").appendTo("body");
+	$(div).window({
+		title: "學生管理",
+		minimizable: false,
+		maximizable: false,
+		collapsible: false,
+		draggable: false,
+		resizable: false,
+		inline: false,
+		width: 600,
+		height: 500,
+		modal: true,
+		shadow: false,
+		onOpen: function(){
+			let w1 = $(".panel.window").width();
+			let h1 = $(".panel.window").height();
+			let w2 = $("body").width();
+			let h2 = $("body").height();
+			let left = Math.floor((w2 - w1) / 2);
+			let top = Math.floor((h2 - h1) / 2);
+			$(div).window('move', {top: top * 0.8});
+			build();
+		},
+		onClose: function(){
+			$(".btn").unbind("click", click);
+			$(div).remove();
+		}
+	});
+
+	function build(){
+		let tbl = "<div style='flex: 1; width: 100%; '>" +
+			"  <textarea id='taStudent' style='width: -webkit-calc(100% - 5px); height: -webkit-calc(100% - 5px); border-width: 1px; outline: none; resize: none; font-size: 16px !important;'></textarea>" +
+			"</div>" +
+			"<div class='footer'>" +
+			"  <button id='btnOk' class='btn'>確定</button>" +
+			"  <button id='btnCancel' class='btn'>取消</button>" +
+			"</div>";
+		$(tbl).appendTo("#winEdit");
+		
+		$(".btn").bind("click", click);
+		$("#taStudent").focus();
+		$("#taStudent").val(storage.System().students);
+	}
+	function click(){
+		if(this.id == "btnCancel"){
+			$("#winEdit").window("close");
+		} else {
+			let ta = $("#taStudent").val().trim();
+			try {
+				let arr = JSON.parse(ta);
+				if(Array.isArray(arr)){
+					for(let i = 0; i < arr.length; i++){
+						let row = arr[i], msg = "";
+						if(typeof row.id == "undefined" || (row.id + "").length == 0){
+							msg = "請在第 " + (i + 1) + "列輸入 id";
+						} else if(typeof row.text == "undefined" || (row.text + "").length == 0){
+							msg = "請在第 " + (i + 1) + "列輸入 text";
+						}
+						if(msg.length > 0){
+							alert(msg)
+							return;
+						}
+					}
+					system.loading.show("上傳中......");
+					fireBase.database().ref("teachers/" + fireBase.uid).set(arr)
+					.then(()=>{
+						system.loading.close();
+						storage.System({students: ta});
+						$("#winEdit").window("close");
+					}).catch(arg=>{
+						system.loading.show("無法上傳......");
+					});
+				} else {
+					alert("格式不正確")
+				}
+			} catch(e){
+				alert(e);
+			}
+		}
 	}
 }
 function adjustUser(){
@@ -592,6 +690,12 @@ function adjustPanel(){
 				}
 			}		
 		}, {
+			iconCls:'icon-student',
+			id: "student",
+			handler:function(){
+				studentAdd();
+			}
+		}, {
 			iconCls:'icon-man',
 			id: "signon",
 			handler:function(){
@@ -635,20 +739,22 @@ function adjustPanel(){
 }
 let speechOpened = false;
 function centerIcon(){ // 
-	//console.log("icon: " + $("#center .tabs-tool table td").size())
 	if($("#center .tabs-tool table td").size() == 0){
 		setTimeout(function(){
 		}, 500);
 	} else {
-		$("#center .tabs-tool table td:nth-child(1)").css("display", 
+		$("#center .tabs-tool table td:nth-child(1)").css("display", // reload
 			(system.isTeacher() && student.length == 0) || (!system.isTeacher() && readOnly) ? "none" : "table-cell");
 		$("#center .tabs-tool table td:nth-child(2)").css("display", // msg
 			! system.isSignon() ? "none" : "table-cell");
+			$("#center .tabs-tool table td:nth-child(3)").css("display", // msg
+			! system.isTeacher() ? "none" : "table-cell");
 		$('body').layout('resize');
 		// $("#center .tabs-tool table td:nth-child(2)").css("display", 
 		// 	system.isSignon() ? "none" : "table-cell");
 		//$("#center .tabs-tool").remove();		
-
+		if(system.isTeacher())
+			$(".icon-student").css("background", "url(icons/student.png) no-repeat center center");
 		if(system.isSignon())
 			$(".icon-man").css("background", "url(icons/user.png) no-repeat center center");
 	}
