@@ -245,9 +245,7 @@
 		data-options="iconCls:'icon-save',modal:false,closed:true,resizable:false,minimizable:false">
 		<div class="easyui-layout" data-options="fit:true" id='layoutSpeech'>
 			<div data-options="region:'north',split:true" style="height:300px">
-				<div id='divSpeech'>
-
-				</div>
+				<div id='divSpeech'></div>
 			</div>
 			<div data-options="region:'south'" style="overflow: hidden;">
 				<div class='flexH' style="padding: 5px;">
@@ -340,8 +338,8 @@ $( document ).ready(function(){
 	//console.log("teacher: " + system.isTeacher())
 	if(system.isTeacher() == false){
 		information();
-		tooltips();
 	}
+	tooltips();
 	//MaskUtil.mask("test"); // ok
 	//window.showToast({msg: "hi", icon: "info"}) // ok
 	setTimeout(function(){
@@ -400,7 +398,7 @@ function tooltips(){
 	//if(system.isSignon() == true) return;
 	$('#reload').tooltip({
 			position: 'bottom',
-			content: '清空',
+			content: system.isTeacher() ? 'reload' : '清空',
 			//trackMouse:true,
 			deltaX: 0,
 			deltaY: 0,
@@ -453,9 +451,9 @@ function adjustUser(){
 				} else {
 					fireBase.listenClear();
 				}
-				if(userData == "undefined")
-					userData = {};
-				if(student.length > 0){
+				//if(userData == "undefined")
+				userData = {};
+				if(fireBase.loaded){
 					loadData(function(){
 						reload();
 					});					
@@ -566,16 +564,33 @@ function adjustPanel(){
 				for(let key in iframe){
 					iframe[key].reset();
 				}
-				$("#result").attr("src", "./empty.html");
-				setTimeout(function(){
-					delete userData[lesson];
-					storage[subject] = JSON.stringify(userData);
-					if(system.isSignon()){
-						fireBase.setUserData(fireBase.uid + "/" + subject + "/" + lesson, null, function(){
-						});						
-					}
-				}, 1000)
+				if(student.length > 0){
+					userData = {};
+					loadData(function(){
+						reload();
+					});
+				} else {
+					$("#result").attr("src", "./empty.html");
+					setTimeout(function(){
+						delete userData[lesson];
+						storage[subject] = JSON.stringify(userData);
+						if(system.isSignon()){
+							fireBase.setUserData(fireBase.uid + "/" + subject + "/" + lesson, null, function(){
+							});						
+						}
+					}, 1000);				
+				}
 			}
+		}, {
+			iconCls:'icon-speech',
+			id: "speech",
+			handler:function(){
+				if(!system.isTeacher() || student.length > 0){
+					$('#winSpeech').window('open');
+				} else {
+					alert("請先選取學生才可進行對話!!")
+				}
+			}		
 		}, {
 			iconCls:'icon-man',
 			id: "signon",
@@ -588,16 +603,6 @@ function adjustPanel(){
 					} 
 				} else
 					fireBase.login();
-			}
-		}, {
-			iconCls:'icon-speech',
-			id: "speech",
-			handler:function(){
-				if(!system.isTeacher() || student.length > 0){
-					$('#winSpeech').window('open');
-				} else {
-					alert("請先選取學生才可進行對話!!")
-				}
 			}
     }]
 	});
@@ -633,17 +638,16 @@ function centerIcon(){ //
 	//console.log("icon: " + $("#center .tabs-tool table td").size())
 	if($("#center .tabs-tool table td").size() == 0){
 		setTimeout(function(){
-			//centerIcon();
 		}, 500);
 	} else {
 		$("#center .tabs-tool table td:nth-child(1)").css("display", 
-			system.isTeacher() || readOnly ? "none" : "table-cell");
-		// $("#center .tabs-tool table td:nth-child(2)").css("display", 
-		// 	system.isSignon() ? "none" : "table-cell");
-		//$("#center .tabs-tool").remove();
-		$("#center .tabs-tool table td:nth-child(3)").css("display", 
+			(system.isTeacher() && student.length == 0) || (!system.isTeacher() && readOnly) ? "none" : "table-cell");
+		$("#center .tabs-tool table td:nth-child(2)").css("display", // msg
 			! system.isSignon() ? "none" : "table-cell");
 		$('body').layout('resize');
+		// $("#center .tabs-tool table td:nth-child(2)").css("display", 
+		// 	system.isSignon() ? "none" : "table-cell");
+		//$("#center .tabs-tool").remove();		
 	}
 }
 
@@ -672,7 +676,6 @@ function loadData(callback){
 
 	if(system.isSignon() == true){ // 如有登錄, 再自 firebase 撈資料
 		system.loading.show("系統登入中......");
-
 		fireBase.signIn(storage.System().user, storage.System().pwd, function(ret){
 			if(ret == "ok"){
 				let user = student.length > 0 ? student : fireBase.uid;
@@ -723,7 +726,6 @@ function treeClick(node){
 }
 
 function loadPage(node, changed){
-	console.log(userData)
 	lesson = node.id;
 	if(typeof changed == "boolean" && changed == true && !system.isTeacher()){
 		if(typeof userData == "object" && typeof userData[lesson] == "object"){
@@ -740,11 +742,11 @@ function loadPage(node, changed){
 	} else {
 		result.location.assign("./empty.html");
 	}
+	centerIcon();
 	function loadEditor(index){
 		if(index >= mode.length){
-			setTimeout(function(){
-				centerIcon();
-			}, 600)
+			//setTimeout(function(){
+			//}, 600)
 		} else if (typeof iframe[mode[index].src] == "object") {
 			let key = mode[index].src, key2 = mode[index].node;
 			if((readOnly == false || student.length > 0) && typeof userData == "object"){
@@ -845,7 +847,6 @@ function changeJS(js) {
 		result.document.getElementsByTagName("head")[0].appendChild(newJS);
 		newJS.innerHTML = js;		
 	}
-
 }
 
 function changeCSS(css) { // ok
