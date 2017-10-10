@@ -244,10 +244,8 @@
 	<div id="winSpeech" class="easyui-window" title="訊息" style="width:300px;height:450px"
 		data-options="iconCls:'icon-save',modal:false,closed:true,resizable:false,minimizable:false">
 		<div class="easyui-layout" data-options="fit:true" id='layoutSpeech'>
-			<div data-options="region:'north',split:true" style="height:300px">
-				<div id='divSpeech'></div>
-			</div>
-			<div data-options="region:'south'" style="overflow: hidden;">
+			<!--
+			<div data-options="region:'north'" style="overflow: hidden;">
 				<div class='flexH' style="padding: 5px;">
 					<input type='radio' id='rdAll' name='rdSpeech' />
 					<label for='rdAll' style="margin-right: 10px;font-size: 16px;">全部</label>
@@ -255,8 +253,13 @@
 					<label for='rdstudent' id='lblStudent' style='font-size: 16px;'>學生</label>
 				</div>
 			</div>
-			<div data-options="region:'center'" style="overflow: hidden;">
+			-->
+			<div data-options="region:'south',split:true" style="height:80px">
 				<textarea id='taSpeech'></textarea>
+			</div>
+
+			<div data-options="region:'center'" style="overflow: hidden;">
+					<div id='divSpeech'></div>
 			</div>
 		</div>
 		</div>

@@ -50,12 +50,11 @@ speech.adjust = function(){
 			console.log("onMinimize");
 		}
 	});
-	//$('#winSpeech').window('open');
 
-	delete setting.winSpeech;
+	//delete setting.winSpeech;
 	let left = 0, top = 0;
 	if(typeof setting.winSpeech == "undefined"){
-		top = document.body.clientHeight - 450; //$("#winSpeech").height;
+		top = document.body.clientHeight - 480; //$("#winSpeech").height;
 		left = 5; //document.body.clientWidth - 320; //$("#winSpeech").width;
 	} else {
 		top = setting.winSpeech.top;
@@ -66,10 +65,12 @@ speech.adjust = function(){
 	if(system.isTeacher()){
 
 	} else {
-		$('#layoutSpeech').layout('remove',  "south");
-		let p = $('#layoutSpeech').layout('panel', "north");
+		/*
+		//$('#layoutSpeech').layout('remove',  "north"); // 目前沒 show , 也沒寫多人版
+		let p = $('#layoutSpeech').layout('panel', "south");
 		$(p).panel("resize", {height: 320})
-		$('#layoutSpeech').layout('resize');		
+		$('#layoutSpeech').layout('resize');
+		*/
 	}
 
 	$("#taSpeech").bind("keyup", function(e){
@@ -87,6 +88,7 @@ speech.adjust = function(){
 		} else {
 		}
 	});
+	//$('#winSpeech').window('open'); // for test
 }
 
 function send(data){
