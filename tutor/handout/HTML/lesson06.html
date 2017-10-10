@@ -9,18 +9,20 @@
     <style type="text/css">
       html, body{
         font-family: 'Helvetica Neue', 微軟正黑體, 'Microsoft Jhenghei', Helvetica, Arial, sans-serif;
-        font-size: 1em;
       }
       fieldset {
         display: inline-block;
-        width: 200px;
+        width: 300px;
+      }
+      form * {
+        font-size: 16px !important;
       }
     </style>
   </head>
   <body>
-    <h3>第六課：表單</h3>
-    <form actin="./index.html" method='post'>
-      帳號：<input type='text' value='Jim chen' /><br/>
+    <h3 style="color: blue">第六課：表單</h3>
+    <form actin="./index.html" method='post' target="_self">
+      帳號：<input type='text' value='Jim Chen' /><br/>
       密碼：<input type='password' value='12345' />
       <br /><br />
 
@@ -57,9 +59,10 @@
         <option value='3'>英國</option>
       </select>
       <br /><br />
-      <input type='submit' type='submit' style='font-size: 16px; padding: 200px;' />
-      <button disabled>提交</button>
+      <input type='button' width='80px' value='提交' />
+      <input type='submit' width='80px' />
+      <input type='reset' width='80px' />
+      <button disabled style='padding: 10px; width: 80px;'>存檔</button>
     </form>
-    <br />
   </body>
 </html>

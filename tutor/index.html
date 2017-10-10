@@ -384,7 +384,6 @@ function information(){
 	}
 	storage.Setting(setting);
 }
-
 function tooltips(){
 	$('#speech').tooltip({
 			position: 'bottom',
@@ -747,8 +746,8 @@ function centerIcon(){ //
 			(system.isTeacher() && student.length == 0) || (!system.isTeacher() && readOnly) ? "none" : "table-cell");
 		$("#center .tabs-tool table td:nth-child(2)").css("display", // msg
 			! system.isSignon() ? "none" : "table-cell");
-			$("#center .tabs-tool table td:nth-child(3)").css("display", // msg
-			! system.isTeacher() ? "none" : "table-cell");
+			$("#center .tabs-tool table td:nth-child(3)").css("display", // student
+			system.isTeacher() && system.isSignon() ? "table-cell" : "none");
 		$('body').layout('resize');
 		// $("#center .tabs-tool table td:nth-child(2)").css("display", 
 		// 	system.isSignon() ? "none" : "table-cell");

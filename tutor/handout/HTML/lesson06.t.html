@@ -5,7 +5,6 @@
     <meta charset="utf-8">
   	<meta http-equiv="cache-control" content="no-cache">
 	  <meta http-equiv="expires" content="0">
-    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/color.css">
@@ -25,58 +24,96 @@
         padding: 10px;
       }
       .panel-body * {
-        font-size: 18px !important;
+        font-size: 16px !important;
       }
       .panel-body > h3 {
-        font-size: 1.5em;
+        font-size: 20px !important;
         color: blue;
-        margin: 2px 0;
+        margin: 5px 0;
       }
       .panel-body > ol {
         margin-top: 2px;
       }
-      th, td:nth-child(1) {
-        text-align: center;
-      }
-      td, th {
-        padding: 6px 15px 6px 6px;
-        border: 1px solid #aaa;
+			h4 {
+        font-size: 16px !important;
+        color: blue;
+        margin: 2px 0;
       }
     </style>
   </head>	
 <body class="easyui-tabs" style="width: 100%; height: 100%;" onresize="$('body').tabs('resize')">
   <div title="form">
-		<h3>form</h3>
+		<h3 style="color: blue">form</h3>
     <ol>
-			<li>用途：表單用於收集不同類型的使用者輸入的資訊，回傳給主機</li>
+			<li>用途：表單用於收集各類型的使用者輸入的資訊，回傳給主機</li>
 			<li>表單元素：input, textarea, select</li>
 			<li>表單輔助元素：label, fieldset, legend</li>
 			<li>action：URL, 當表單提交時，向何處發送數據</li>
 			<li>method：
 				<ul>
-					<li>get：(default)</li>
+					<li>get(default)：網址會帶有 HTML Form 表單的參數與資料；以 ? 開頭，& 為間隔；如：<br />
+						<span style='color: blue;'>https://www.google.com.tw/search?source=hp&q=html5</span>
+					</li>
 					<li>post：</li>
 				</ul>
 			</li>
-			<li>屬性：id, name, class, style</li>
-			<li>事件：onfocus, onblur, oninput, onreset, onsubmit</li></li>
+			<li>target：<br/>
+				  _self (default)<br/>
+					_blank<br/>
+					_parent<br/>
+					_top
+			</li>
+			<li>屬性：id, name</li>
+			<li>事件：onreset, onsubmit</li></li>
 		</ol>
 	</div>
 
 	<div title="input">
 		<h3>input</h3>
+		<h4>type='text'</h4>
     <ol>
-			<li>用途：</li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
+			<li>用途：文字輸入</li>
+			<li>屬性：name, id, class, style, size, maxlength, value, placeholder, readonly,
+				disabled
+			</li>
+			<li>事件：onclick, ondblclick, onfocus, onblur, onchange, onmousedown, onmouseup, onmouseover, onmousemove, onmouseout</li>
+		</ol>
+
+		<h4 style="color: blue">type='password'</h4>
+    <ol>
+			<li>用途：密碼輸入</li>
+			<li>屬性：name, id, class, style, size, maxlength, value, placeholder, readonly,
+					disabled</li>
+			<li>事件：onclick, ondblclick, onfocus, onblur, onchange, onmousedown, onmouseup, onmouseover, onmousemove, onmouseout</li>
+		</ol>
+
+		<h4 style="color: blue">type='radio'</h4>
+    <ol>
+			<li>用途：單選圓鈕</li>
+			<li>屬性：name, id, class, style, value, checked, disabled</li>
+			<li>事件：onclick, onfocus, onblur, onchange, onmousedown, onmouseup, onmouseover, onmousemove, onmouseout</li>
+			<div style='color: red'>註一：同一個群組 radio，其 name 的值要相同<br/>
+				註二：建議搭配 label 使用</div>
+		</ol>
+
+		<h4 style="color: blue">type='checkbox'</h4>
+    <ol>
+			<li>用途：核取盒</li>
+			<li>屬性：name, id, class, style, value, checked, disabled</li>
+			<li>事件：onclick, onfocus, onblur, onchange, onmousedown, onmouseup, onmouseover, onmousemove, onmouseout</li>
+			<div style='color: red'>註：建議搭配 label 使用</div>
+		</ol>
+
+		<h4 style="color: blue">type='button'</h4>
+    <ol>
+			<li>用途：按鈕</li>
+			<li>屬性：name, id, class, style, value, disabled</li>
+			<li>事件：onclick, onfocus, onblur, onchange, onmousedown, onmouseup, onmouseover, onmousemove, onmouseout</li>
 		</ol>
     
 	</div>
 	<div title="textarea">
-		<h3></h3>
+		<h3 style="color: blue">textarea</h3>
     <ol>
 			<li>用途：</li>
 			<li></li>
@@ -89,7 +126,7 @@
 	</div>
 	
 	<div title="select">
-		<h3></h3>
+		<h3 style="color: blue">select</h3>
 		<ol>
 			<li>用途：</li>
 			<li></li>
@@ -101,7 +138,7 @@
 	</div>
 
 	<div title="button">
-		<h3></h3>
+		<h3 style="color: blue">button</h3>
 		<ol>
 			<li>用途：</li>
 			<li></li>
@@ -113,6 +150,16 @@
 	</div>
 
 	<div title="fieldset<br/>legend">
+		<h3 style="color: blue">fieldset</h3>
+    <ol>
+			<li>用途：</li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ol>
+		<h3 style="color: blue">legend</h3>
     <ol>
 			<li>用途：</li>
 			<li></li>
@@ -124,6 +171,7 @@
 	</div>
 
 	<div title="label">
+		<h3 style="color: blue">label</h3>
     <ol>
 			<li>用途：</li>
 			<li></li>
@@ -134,13 +182,27 @@
 		</ol>
 	</div>
   <div title="好站連結">
-    <a href="http://www.w3school.com.cn/html/html_forms.asp" target="_parent">表單說明</a>
+    <a href="http://www.w3school.com.cn/html/html_forms.asp" target="_parent">表單說明(W3 School)</a>
 		<br />
-		<a href="http://www.w3school.com.cn/tags/tag_form.asp" target="_parent">表單標籤說明</a>
+		<a href="http://www.w3school.com.cn/tags/att_form_method.asp" target="_parent">表單 method 說明(W3 School)</a>
+		<br />
+		<a href="http://www.w3school.com.cn/tags/tag_form.asp" target="_parent">表單標籤說明(W3 School)</a>
+		<br />
+    <a href="http://www.w3school.com.cn/html/html_form_elements.asp" target="_parent">表單元素說明(W3 School)</a> 
 		<br />
 		
-    <a href="http://www.w3school.com.cn/html/html_form_elements.asp" target="_parent">表單元素說明</a> 
-    <br />
+    <a href="http://www.w3school.com.cn/tags/tag_input.asp" target="_parent">input (W3 School)</a> 
+		<br />
+		<a href="http://www.w3school.com.cn/tags/tag_textarea.asp" target="_parent">textarea (W3 School)</a> 
+		<br />
+
+		<a href="http://www.w3school.com.cn/tags/tag_select.asp" target="_parent">select (W3 School)</a> 
+		<br />
+		<a href="http://www.w3school.com.cn/tags/tag_option.asp" target="_parent">option (W3 School)</a> 
+		<br />
+		<a href="http://www.w3school.com.cn/tags/tag_button.asp" target="_parent">button (W3 School)</a> 
+		<br /><br />
+    <a href="https://www.ithome.com.tw/node/80062" target="_parent">HTTP請求方法</a> 
   </div>
 </body>
 <script type="text/javascript">
