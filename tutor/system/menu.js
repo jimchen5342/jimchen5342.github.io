@@ -32,12 +32,17 @@ let menu = [
 				id: "05-table",
 				text: "表格",
 				context: "lesson05.t.html",
-				html: "lesson05.html",				
+				html: "lesson05.html",
 			}, {
 				id: "06-form",
 				text: "表單",
 				context: "lesson06.t.html",
-				html: "lesson06.html",				
+				html: "lesson06.html",	
+			}, {
+				id: "07-iframe",
+				text: "框窗",
+				context: "lesson07.t.html",
+				html: "lesson07.html",	
 			}
 		] //
 	}, {
