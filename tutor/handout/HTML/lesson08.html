@@ -1,53 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>第八課：屬性</title>
+    <title>第九課：事件</title>
     <meta charset="utf-8">
     <style type="text/css">
-      span {
-        color: green;
-        font-weight: bold;
+      #mouse {
+        border: 1px solid green;
+        height: 200px;
+        text-align: center;
+        margin: 10px 40px;
       }
     </style>
   </head>
   <body>
-    <h3 style="color: blue;">第八課：屬性(attribute/property)</h3>
-    <ol style='font-size: 20px;'>
-      <li>id, name, class, style, disabled</li>
-      <li>color, bgcolor, width, height</li>
-      <li><span>input：</span><br />
-        type
-        <ul>
-          <li>text (預設)</li>
-          <li>password</li>
-          <li>radio (name)</li>
-          <li>checkbox</li>
-          <li>button</li>
-          <li>submit</li>
-          <li style='color: red;'>HTML5：number, date, url, phone, search, color</li>
-        </ul> 
-        value, readonly
-        <br />
-        size, maxlength, placeholder
-        <br/>
-        <span>radio/checkbox：</span>checked
-      </li>
-      <li><span>textarea：</span>cols, rows, value</li>
-      <li><span>option：</span>selected, value</li>
-      <li><span>a：</span>href</li>
-      <li><span>img：</span>src</li>
-      <li><span>form：</span>action, method</li>
-      <li><span>table：</span>border, cellpadding, cellspacing</li>
-      <li><span>td：</span>colspsn, rowspan</li>
-      <li><span>a：</span><br />
-        target
-        <ul>
-          <li>_slef (預設)</li>
-          <li>_blank</li>
-          <li>_parent</li>
-        </ul>
-        sandbox</li>
-      <li><span>label：</span>for</li>
-    </ol>
+    <h3 style="color: blue;">第九課：事件(event)</h3>
+    <input onkeydown='keydown(event)' placeholder="請輸入文字" />
+    <div id='code' style='height: 25px; margin: 5px 0;'></div>
+    <br/>
+    <div id='mouse'>請移動滑鼠</div>
   </body>
+  
+  <script>
+    function keydown(e){
+      console.log(e)
+      document.getElementById("code").innerHTML = e.keyCode + ": " + e.key;
+    }
+    document.getElementById("mouse").onmouseout = function(e){
+      this.innerHTML = "請移動滑鼠";
+    }
+
+    document.getElementById("mouse").onclick = function(e){
+      this.innerHTML = "滑鼠事件移除";
+      document.getElementById("mouse").removeEventListener("mousemove", move, false);
+    }
+
+    document.getElementById("mouse").addEventListener("mousemove", move, false);
+
+    function move(e){
+      this.innerHTML = "X: " + e.offsetX + "; Y: " + e.offsetY;
+    }
+  </script>
 </html>

@@ -43,6 +43,11 @@ let menu = [
 				text: "框窗",
 				context: "lesson07.t.html",
 				html: "lesson07.html",	
+			}, {
+				id: "08-event",
+				text: "事件",
+				context: "lesson08.t.html",
+				html: "lesson08.html",	
 			}
 		] //
 	}, {
