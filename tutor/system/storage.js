@@ -1,3 +1,7 @@
+// window.addEventListener('storage', function(e) { 
+// 	console.log(e)
+// }, false); // 沒效
+
 (function(window, undefined) {
 let setting = undefined;
 Storage.prototype.Setting = function(data){

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>test</title>
+    <meta charset="utf-8">
+  	<meta http-equiv="cache-control" content="no-cache">
+	  <meta http-equiv="expires" content="0">
+
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>	
+		<link href="https://apps.bdimg.com/libs/highlight.js/9.1.0/styles/monokai-sublime.min.css" rel="stylesheet">
+		<script src="http://apps.bdimg.com/libs/highlight.js/9.1.0/highlight.min.js"></script>
+		<script src="./extend/String.js"></script>
+  </head>	
+<body>
+	<pre><code>
+		1. &lt;input type="" onclick="alert('test')" /&gt;
+		2. &lt;input type="" onclick="alert('test')" /&gt;
+		function() {
+			alert("1")
+		}
+	</code></pre>
+</body>
+<script>
+	//hljs.initHighlightingOnLoad();
+	$(document).ready(function() {
+		$('pre code').each(function(i, block) {
+			let arr = block.innerHTML.split("\n");
+			for(let i = 0; i < arr.length; i++){
+				arr[i] = arr[i].replace("\t\t", "");
+				arr[i] = arr[i].replaceAll("\t", "  ");
+			}
+			block.innerHTML = arr.join("\n");
+		});
+		$('pre code').each(function(i, block) {
+			//console.log(block)
+			hljs.highlightBlock(block);
+		});
+	});
+</script>
+</html>

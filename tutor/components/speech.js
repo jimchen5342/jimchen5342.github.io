@@ -1,5 +1,5 @@
 (function(window, undefined) {
-speech = {}, date = fireBase.serverTime();
+let speech = {}, date = fireBase.serverTime(), collapsed = false;
 let s = localStorage.getItem("speech");
 if(typeof s == "string" && s.length > 0){
 	speech.storage = JSON.parse(s);
@@ -10,6 +10,7 @@ if(typeof s == "string" && s.length > 0){
 }
 speech.adjust = function(){
 	$('#winSpeech').window({
+		maximizable: false,
 		onOpen:function(){ 
 			speechOpened = true;
 			$("#taSpeech").focus();
@@ -18,12 +19,9 @@ speech.adjust = function(){
 			speechOpened = false;
 		},
 		onMove: function(left, top) {
-			if(speechOpened){
-				storage.Setting({
-					winSpeech: {
-						left, top
-					}
-				})
+			if(speechOpened && collapsed == false){
+				speech.storage.winSpeech = { left, top };
+				localStorage.setItem("speech", JSON.stringify(speech.storage));
 			}
 		},
 		onResize: function(width, height) {
@@ -32,10 +30,13 @@ speech.adjust = function(){
 			//console.log("onResize")
 		},
 		onCollapse:function(){
-			//console.log("onCollapse")
+			collapsed = true;
+			$("#winSpeech").window('move', {top: document.body.clientHeight - 60});
+			//	$(".panel-tool-max").css({display: "none"});
 		},
 		onExpand:function(){
-			//console.log("onExpand")
+			$("#winSpeech").window('move', {top: setting.winSpeech.top});
+			collapsed = false;
 		},
 		onFocus: function(){
 			console.log("onFocus")
@@ -44,26 +45,23 @@ speech.adjust = function(){
 			console.log("onBlur")
 		},
 		onMaximize: function(){
-			console.log("onMaximize")
 		},
 		onMinimize: function(){
-			console.log("onMinimize");
 		}
 	});
-
 	//delete setting.winSpeech;
 	let left = 0, top = 0;
-	if(typeof setting.winSpeech == "undefined"){
+	if(typeof speech.storage.winSpeech == "undefined"){
 		top = document.body.clientHeight - 480; //$("#winSpeech").height;
 		left = 5; //document.body.clientWidth - 320; //$("#winSpeech").width;
+		speech.storage.winSpeech = {top, left};
+		localStorage.setItem("speech", JSON.stringify(speech.storage));
 	} else {
-		top = setting.winSpeech.top;
-		left = setting.winSpeech.left;
+		top = speech.storage.winSpeech.top;
+		left = speech.storage.winSpeech.left;
 	}
-
 	$("#winSpeech").window('move', {left: left, top: top});
 	if(system.isTeacher()){
-
 	} else {
 		/*
 		//$('#layoutSpeech').layout('remove',  "north"); // 目前沒 show , 也沒寫多人版
@@ -111,7 +109,7 @@ function send(data){
 		date: fireBase.serverTime(),
 		uid: fireBase.uid,
 		data: data,
-		to: system.isTeacher() ? student : null
+		to: system.isTeacher() ? student : "All"
 	}
 	//console.log(obj)
 	let key = storage.System().teacher.length > 0 ? storage.System().teacher : fireBase.uid;

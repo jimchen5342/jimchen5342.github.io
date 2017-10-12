@@ -6,19 +6,12 @@
   	<meta http-equiv="cache-control" content="no-cache">
 	  <meta http-equiv="expires" content="0">
     <style type="text/css">
-      html, body{
-        font-family: 'Helvetica Neue', 微軟正黑體, 'Microsoft Jhenghei', Helvetica, Arial, sans-serif;
-        font-size:16px;
-      }
-      h3 {
-        font-size: 18px;
-        color: blue;
-        margin: 2px 0;
-      }
-      ol {
-        margin-top: 2px;
-      }
-    </style>
+
+		</style>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src="../../system/system.js"></script>
+		<script src="../highlight.js"></script>
+		<link rel="stylesheet" href="../pattern.css">
   </head>	
 <body>
 	<h3>事件屬性：</h3>
@@ -34,13 +27,38 @@
 		<li>cut, paste, redo, undo, ctextmenu</li>
 	</ol>
 
-	<h3>事件屬性：</h3>
+	<h3>事件用法：</h3>
 	<ol>
-		<li>
+		<li>內聯
+			<pre><code>
+				&lt;input type="button" onclick="alert('jim')" /&gt;
+				<br/><br/>
+				&lt;input type="button" onclick="click('jim')" /&gt;
 
+				function click(data) {
+					alert(data)
+				}
+			</code></pre>			
+		</li>
+		<li>外部／內部：事件綁定／移除
+			<pre><code>
+				document.getElementById("mouse").onclick = function(e){
+					this.innerHTML = "滑鼠事件移除";
+				}
+
+				document.getElementById("code").addEventListener("keydown", function(e){
+					document.getElementById("code").innerHTML = e.keyCode + ": " + e.key;
+				}, false);
+		
+				document.getElementById("mouse").addEventListener("mousemove", move, false);
+				document.getElementById("mouse").removeEventListener("mousemove", move, false);
+				function move(e){
+					this.innerHTML = "X: " + e.offsetX + "; Y: " + e.offsetY;
+				}
+			</code></pre>			
 		</li>
 	</ol>
-	
+
 	<h3>DOM Event Object - 方法</h3>
 	<ol>
 		<li>preventDefault()</li>

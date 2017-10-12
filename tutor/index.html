@@ -278,7 +278,7 @@ let mode = [{
 }];
 
 let setting = storage.Setting();
-$( document ).ready(function(){
+$(document).ready(function(){
 	$("#ver").text("Jim Chen 2017/10/08");
 	//console.log(setting)
 	result = $("#result").prop('contentWindow');
@@ -978,6 +978,10 @@ function changeCSS(css) { // ok
 		newCSS.innerHTML = css;
 	}
 }
+
+window.onmessage = function(e){ // 通知 screensnap 完成
+	console.log(e.data)
+};
 /*
 cd /Users/jimc/nodeJS/ && node index
 */
