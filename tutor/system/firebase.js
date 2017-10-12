@@ -1,7 +1,7 @@
 
 (function(window, undefined) {
 	// aes AN/雷達
-	let isConnected = false, offset = 0;
+	let isConnected = false, offset = 0, date;
 	let fireBase = {
 		loaded: false, user: undefined, uid: "", email: null,
 		connected: false, loginTime: null,
@@ -230,7 +230,7 @@
 						fireBase.user = profile.email;
 					});
 					fireBase.uid = user.uid;
-					fireBase.listenSpeech();
+					fireBase.listenBroadcase();
 					if(callback) callback("ok");
 				}
 			})
@@ -242,22 +242,31 @@
 			});						
 		}
 	}
-	fireBase.listenSpeech = function(){
+	fireBase.listenBroadcase = function(){
+		date = fireBase.serverTime();
 		let key = storage.System().teacher.length > 0 ? storage.System().teacher : fireBase.uid;
-		let ref = fireBase.database().ref("speech/" + key);
+		let ref = fireBase.database().ref("broadcast/" + key);
 		ref.once("value", function(snap){
 			//speech.listen(snap.val())
 		});
 		
 		ref.on("child_added", function(snap){
-			//console.log(snap.key)
-			speech.listen(snap);
+			retrieve(snap);
 		});
 		ref.on("child_changed", function(snap){
-			//console.log(snap.key)
-			speech.listen(snap)
+			retrieve(snap);
 		});
-		
+
+		function retrieve(snap){
+			if(snap.key != fireBase.uid){
+				if(student.length == 0 && snap.val().to != fireBase.uid)
+					return;
+				if(snap.val().date > date){
+					speech.listen(snap);
+				}
+			}
+			date = snap.val().date;
+		}
 	}
 	fireBase.signOut = function(){ // ok
 		firebase.auth().signOut().then(function() {

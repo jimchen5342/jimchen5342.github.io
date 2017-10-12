@@ -1,6 +1,7 @@
 (function(window, undefined) {
 	let board = {}, canvas;
 	board.load = function(base64){
+		$('#winBoard').window('open');
 		//console.log(base64)
 		$("#layoutBoard").html("")
 		var img = new Image();
@@ -15,7 +16,7 @@
 			$(canvas).appendTo("#layoutBoard")
 		};
 		img.src = base64;
-		$('#winBoard').window('open');
+		
 	}
 	function adjust(){
 		$('#winBoard').window({
