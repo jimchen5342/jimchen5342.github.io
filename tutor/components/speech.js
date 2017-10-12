@@ -111,8 +111,8 @@ function send(data){
 		uid: fireBase.uid,
 		data: data
 	}
-	// if(system.isTeacher())
-	//  	obj.to = student; // : "All"
+	if(system.isTeacher())
+	  obj.to = student; // : "All"
 	//console.log(obj)
 	let key = storage.System().teacher.length > 0 ? storage.System().teacher : fireBase.uid;
 	fireBase.database().ref("broadcast/" + key + "/" + fireBase.uid).set(obj)

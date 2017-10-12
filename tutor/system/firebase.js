@@ -263,7 +263,9 @@
 					return;
 				else if(snap.val().date < date)
 					return;
-				if(snap.val().type == "speech")
+				if(snap.val().type == "canvas")
+					board.listen(snap)
+				else if(snap.val().type == "speech")
 					speech.listen(snap);
 			}
 			date = snap.val().date;

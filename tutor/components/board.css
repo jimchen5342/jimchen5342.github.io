@@ -1,0 +1,16 @@
+.c10,.c1:hover,.c10>.panel-header{
+	color: #fff;
+	border-color: rgba(248,248,248,1);
+	background: rgba(255,255,255,1);;
+	/*background: -webkit-linear-gradient(top,#4cae4c 0,#449d44 100%);
+	background: linear-gradient(to bottom,#4cae4c 0,#449d44 100%);
+	*/
+	background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(248,248,248,1) 41%, rgba(237,237,237,1) 100%);
+}
+a.c10:hover{
+	background: rgba(255,255,255,1);;
+	filter: none;
+}
+.c10>.panel-body{
+	border-color: rgba(255,255,255,1);;
+}
