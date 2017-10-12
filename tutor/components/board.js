@@ -1,6 +1,6 @@
 (function(window, undefined) {
-	let board = {}, canvas;
-	board.load = function(base64){
+	let board = {}, canvas, rate = 1;
+	board.load = function(base64){ // 由 chrome extension 通知
 		$('#winBoard').window('open');
 		//console.log(base64)
 		$("#layoutBoard").html("")
@@ -10,8 +10,16 @@
 		img.onload = function() {
 			canvas = document.createElement('canvas');
 			let ctx = canvas.getContext("2d");
-			canvas.width = $("#layoutBoard").width() - 0;
-			canvas.height = $("#layoutBoard").height() - 0;
+
+			let r1 = $("#layoutBoard").width() / img.width;
+			let r2 = $("#layoutBoard").height() / img.height;
+			if(r2 < r1){
+				canvas.width = img.width * r2;
+				canvas.height = $("#layoutBoard").height();				
+			} else {
+				canvas.height = img.height * r1;
+				canvas.width = $("#layoutBoard").width();			
+			}
 			ctx.drawImage(img,0,0, img.width, img.height, 0, 0, canvas.width, canvas.height);
 			$(canvas).appendTo("#layoutBoard")
 		};
@@ -100,8 +108,17 @@
 			img.onload = function() {
 				canvas = document.createElement('canvas');
 				let ctx = canvas.getContext("2d");
-				canvas.width = $("#layoutBoard").width() - 0;
-				canvas.height = $("#layoutBoard").height() - 0;
+				let r1 = $("#layoutBoard").width() / img.width;
+				let r2 = $("#layoutBoard").height() / img.height;
+				if(r2 < r1){
+					canvas.width = img.width * r2;
+					canvas.height = $("#layoutBoard").height();
+					rate = r2;
+				} else {
+					canvas.height = img.height * r1;
+					canvas.width = $("#layoutBoard").width();
+					rate = r1;
+				}
 				ctx.drawImage(img,0,0, img.width, img.height, 0, 0, canvas.width, canvas.height);
 				$(canvas).appendTo("#layoutBoard")
 			};
