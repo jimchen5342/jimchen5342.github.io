@@ -109,9 +109,10 @@ function send(data){
 		type: "speech",
 		date: fireBase.serverTime(),
 		uid: fireBase.uid,
-		data: data,
-		to: system.isTeacher() ? student : "All"
+		data: data
 	}
+	// if(system.isTeacher())
+	//  	obj.to = student; // : "All"
 	//console.log(obj)
 	let key = storage.System().teacher.length > 0 ? storage.System().teacher : fireBase.uid;
 	fireBase.database().ref("broadcast/" + key + "/" + fireBase.uid).set(obj)
@@ -141,20 +142,9 @@ function formatter(data){
 	return data;
 }
 speech.listen = function(snap){
-	/*
-	if(snap.key != fireBase.uid){
-		if(student.length == 0 && snap.val().to != fireBase.uid)
-			return;
-		if(snap.val().date > date){
-			receive(snap.val().data);
-			speech.storage.msg.push(snap.val());
-			date = snap.val().date;
-		}
-	}*/
 	receive(snap.val().data);
-	speech.storage.msg.push(snap.val());
-	
-	localStorage.setItem("speech", JSON.stringify(speech.storage));
+	//speech.storage.msg.push(snap.val());
+	//localStorage.setItem("speech", JSON.stringify(speech.storage));
 }
 window.speech = speech
 })(window);

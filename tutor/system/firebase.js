@@ -259,11 +259,12 @@
 
 		function retrieve(snap){
 			if(snap.key != fireBase.uid){
-				if(student.length == 0 && snap.val().to != fireBase.uid)
+				if(typeof snap.val().to == "string" && student.length == 0 && snap.val().to != fireBase.uid)
 					return;
-				if(snap.val().date > date){
+				else if(snap.val().date < date)
+					return;
+				if(snap.val().type == "speech")
 					speech.listen(snap);
-				}
 			}
 			date = snap.val().date;
 		}
