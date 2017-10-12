@@ -65,6 +65,5 @@
 		});
 	}
 
-	
 	window.omniChannel = omniChannel;
 	})();
