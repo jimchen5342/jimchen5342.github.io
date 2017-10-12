@@ -19,7 +19,7 @@ let menu = [
 				context: "lesson02.t.html",
 				html: "lesson02.html",
 			}, {
-				id: "03-ul",
+				id: "03-img",
 				text: "圖片和超連結",
 				context: "lesson03.t.html",
 				html: "lesson03.html",
