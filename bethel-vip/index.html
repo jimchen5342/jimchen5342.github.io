@@ -83,7 +83,8 @@ $(document).ready(function(){
 		let sec = ((new Date()).getTime() - now) / 1000;
 		sec = ( 5 * 60) - Math.ceil( sec );
 		$("#times").html(sec);
-		times = setTimeout(countDown, 1000);
+		if(sec > 0)
+			times = setTimeout(countDown, 1000);
 	}
 
 	function formatter(data){

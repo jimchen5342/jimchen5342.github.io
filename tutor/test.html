@@ -7,33 +7,47 @@
 	  <meta http-equiv="expires" content="0">
 
 		<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>	
-		<link href="https://apps.bdimg.com/libs/highlight.js/9.1.0/styles/monokai-sublime.min.css" rel="stylesheet">
-		<script src="http://apps.bdimg.com/libs/highlight.js/9.1.0/highlight.min.js"></script>
-		<script src="./extend/String.js"></script>
+		<script src="./jQuery/fabric.min.js"></script>
   </head>	
 <body>
-	<pre><code>
-		1. &lt;input type="" onclick="alert('test')" /&gt;
-		2. &lt;input type="" onclick="alert('test')" /&gt;
-		function() {
-			alert("1")
-		}
-	</code></pre>
+	<canvas id="c" width="600" height="300">
+  </canvas>
 </body>
 <script>
 	//hljs.initHighlightingOnLoad();
 	$(document).ready(function() {
-		$('pre code').each(function(i, block) {
-			let arr = block.innerHTML.split("\n");
-			for(let i = 0; i < arr.length; i++){
-				arr[i] = arr[i].replace("\t\t", "");
-				arr[i] = arr[i].replaceAll("\t", "  ");
-			}
-			block.innerHTML = arr.join("\n");
+		var canvas = new fabric.Canvas('c', {
+			selection: false
 		});
-		$('pre code').each(function(i, block) {
-			//console.log(block)
-			hljs.highlightBlock(block);
+
+		var line, isDown;
+
+		canvas.on('mouse:down', function(o) {
+			isDown = true;
+			var pointer = canvas.getPointer(o.e);
+			var points = [pointer.x, pointer.y, pointer.x, pointer.y];
+			line = new fabric.Line(points, {
+				strokeWidth: 5,
+				fill: 'red',
+				stroke: 'red',
+				originX: 'center',
+				originY: 'center'
+			});
+			canvas.add(line);
+		});
+
+		canvas.on('mouse:move', function(o) {
+			if (!isDown) return;
+			var pointer = canvas.getPointer(o.e);
+			line.set({
+				x2: pointer.x,
+				y2: pointer.y
+			});
+			canvas.renderAll();
+		});
+
+		canvas.on('mouse:up', function(o) {
+			isDown = false;
 		});
 	});
 </script>
