@@ -227,7 +227,7 @@
 					top: points.y1,
 					width: Math.abs(points.x2 - points.x1),
 					height: Math.abs(points.y2 - points.y1),
-					stroke: color,
+					stroke: json.color,
 					strokeWidth: 2,
 					originX: "left",
 					originY: "top",
