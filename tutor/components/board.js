@@ -223,10 +223,10 @@
 				self.canvas.renderAll();
 			} else if(json.cmd == "rect"){
 				rect = new fabric.Rect({
-					left: points.x1,
-					top: points.y1,
-					width: Math.abs(points.x2 - points.x1),
-					height: Math.abs(points.y2 - points.y1),
+					left: points[0],
+					top: points[1],
+					width: Math.abs(points[2] - points[0]),
+					height: Math.abs(points[3] - points[1]),
 					stroke: json.color,
 					strokeWidth: 2,
 					originX: "left",
