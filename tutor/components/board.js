@@ -222,7 +222,6 @@
 				self.canvas.add(line);
 				self.canvas.renderAll();
 			} else if(json.cmd == "rect"){
-
 				rect = new fabric.Rect({
 					left: points.x1,
 					top: points.y1,
