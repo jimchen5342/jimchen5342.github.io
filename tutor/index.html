@@ -583,8 +583,7 @@ function adjustUser(){
 				} else {
 					fireBase.listenClear();
 				}
-				console.log(student)
-				
+				//console.log(student)
 				//if(userData == "undefined")
 				userData = {};
 				if(fireBase.loaded){
@@ -595,7 +594,6 @@ function adjustUser(){
 				}
 			}
 		});
-		
 	}
 }
 function listener(ret){
@@ -706,7 +704,7 @@ function adjustPanel(){
 						reload();
 					});
 				} else {
-					$("#result").attr("src", "./empty.html");
+					result.location.assign("./empty.html");
 					setTimeout(function(){
 						delete userData[lesson];
 						storage[subject] = JSON.stringify(userData);
@@ -893,7 +891,7 @@ function loadPage(node, changed){
 	$("#divSubject").text(subject+ ": " + node.text);
 
 	if(readOnly == true && typeof node.html == "string" && node.html.length > 0){
-		$("#result").attr("src", "./handout/" + subject + "/" + node["html"]);
+		//$("#result").attr("src", "./handout/" + subject + "/" + node["html"]);
 		result.location.assign("./handout/" + subject + "/" + node["html"]);
 	} else {
 		result.location.assign("./empty.html");
