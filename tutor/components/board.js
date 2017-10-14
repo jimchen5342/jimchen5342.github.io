@@ -2,27 +2,6 @@
 	let board = {}, whiteBoard;
 
 	function adjust(){
-		let tools = [];
-		if(system.isSignon() && system.isTeacher()){
-			tools.push({
-				iconCls: 'icon-ok',
-				handler: function(){
-					system.loading.show();
-					let data = whiteBoard.canvas.toDataURL();
-					send({data}, 
-						function(){
-							system.loading.close();
-							window.showToast({
-								msg: "圖檔已送出", 
-								icon: "info",
-								allowToastClose: false
-							});
-						}
-					)
-				}
-			});
-		}
-
 		$('#winBoard').window({
 			border:'thin',
 			cls:'c10',
@@ -35,10 +14,40 @@
 				if(system.isSignon() && system.isTeacher() && student.length > 0)
 					send({cmd: "close"})
 				whiteBoard = undefined;
-			},
-			tools: tools
+			}
 		});
 		//$('#winBoard').window('open');
+	}
+	function tools(){ // 調色盤
+		$("#cmd > li").bind("click", function(){
+			if($(this).text() == "close"){
+				$('#winBoard').window('close');
+			} else if(typeof whiteBoard == "object"){
+				if($(this).text() == "share")
+					whiteBoard.send();
+				else if($(this).text() == "undo")
+					whiteBoard.set("undo");
+				else
+					whiteBoard.set("clearAll");
+			}
+		});
+		$("#sharp > li").bind("click", function(){
+			$("#sharp > li").removeClass("active");
+			$(this).addClass("active");
+			console.log($(this).text())
+			if(typeof whiteBoard == "object"){
+				whiteBoard.set("mode", ($(this).text() == "edit") ? "line" : "rect");
+			}
+		});
+		$("#palette > li").bind("click", function(){
+			$("#palette > li").removeClass("active");
+			$(this).addClass("active");
+			let color = $("#palette > li.active > i").css("color");
+			console.log(color)
+			if(typeof whiteBoard == "object"){
+				whiteBoard.set("color", color);
+			}
+		});
 	}
 	function send(json, success, error){
 		if(system.isSignon() == false){
@@ -72,6 +81,9 @@
 	}
 	setTimeout(function(){
 		adjust();
+		tools();
+		//$('#winBoard').window('open');
+		//$("#layoutTool").remove();
 	}, 600);
 
 	board.load = function(base64){ // 由 chrome extension 通知
@@ -131,31 +143,32 @@
 		};
 		img.src = base64;
 
-		let line, rect, isDown, drawingMode = true, position = {}, mode = "line", color = "red";
+		let line, rect, isDown, drawingMode = true, position = {};
+		self.mode = "line"; self.color = "red";
 		function handle(){
-			mode = "rect";
+			//self.mode = "rect";
 			self.canvas.on('mouse:down', function(o){
 				isDown = true;
-				if(mode == "line"){
+				if(self.mode == "line"){
 					let pointer = self.canvas.getPointer(o.e);
 					let points = [ pointer.x, pointer.y, pointer.x, pointer.y ];
 					line = new fabric.Line(points, {
 						strokeWidth: 2,
-						fill: color,
-						stroke: color,
+						fill: self.color,
+						stroke: self.color,
 						originX: 'center',
 						originY: 'center'
 					});
 					self.canvas.add(line);
 					position = {x1: pointer.x, y1: pointer.y};
-				} else if(mode == "rect"){
+				} else if(self.mode == "rect"){
 					position = {x1: o.e.offsetX, y1: o.e.offsetY};
 					rect = new fabric.Rect({
             left: position.x1, //o.e.clientX,
             top: position.y1, //o.e.clientY,
             width: 0,
             height: 0,
-            stroke: color,
+            stroke: self.color,
 						strokeWidth: 2,
 						originX: "left",
 						originY: "top",
@@ -168,11 +181,11 @@
 			
 			self.canvas.on('mouse:move', function(o){
 				if (!isDown || !drawingMode) return;
-				if(mode == "line"){
+				if(self.mode == "line"){
 					var pointer = self.canvas.getPointer(o.e);
 					line.set({x2: pointer.x, y2: pointer.y});
 					position = Object.assign(position, {x2: pointer.x, y2: pointer.y});
-				} else if(mode == "rect"){
+				} else if(self.mode == "rect"){
 					position = Object.assign(position, {x2: o.e.offsetX, y2: o.e.offsetY});
 					rect.width = Math.abs(position.x2 - position.x1);
 					rect.height = Math.abs(position.y2 - position.y1);
@@ -184,9 +197,9 @@
 				isDown = false;
 				if(system.isSignon() && (!system.isTeacher() || (system.isTeacher() && student.length > 0))){
 					let json = {
-						cmd: mode,
+						cmd: self.mode,
 						position,
-						color,
+						color: self.color,
 						width: self.canvas.width
 					}
 					send(json, 
@@ -235,6 +248,35 @@
 				});
 				rect.set('selectable', false);
 				self.canvas.add(rect);
+			}
+		},
+		send: function(){
+			system.loading.show();
+			let data = this.canvas.toDataURL();
+			send({data}, 
+				function(){
+					system.loading.close();
+					window.showToast({
+						msg: "圖檔已送出", 
+						icon: "info",
+						allowToastClose: false
+					});
+				}
+			)
+		},
+		set: function(option, cmd){
+			//console.log(option + " == " + cmd)
+			if(option == "color"){
+				this.color = cmd;
+			} else if(option == "mode"){
+				this.mode = cmd;
+			} else {
+				let objs = this.canvas.getObjects();
+				for(let i = objs.length - 1; i > 0; i-- ){
+					this.canvas.remove(objs[i]);
+					if(option == "undo")
+						break;
+				}
 			}
 		}
 	};

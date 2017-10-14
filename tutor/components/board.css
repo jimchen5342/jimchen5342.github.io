@@ -14,3 +14,38 @@ a.c10:hover{
 .c10>.panel-body{
 	border-color: rgba(255,255,255,1);;
 }
+
+#layoutTool li {
+	user-select: none;
+	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	height: 25px;
+	width: 25px;
+	padding: 5px;
+	font-size: 1rem;
+	margin-top: 2px;
+	background-color: #cccccc;
+	border:1px solid #d7dada; 
+	border-radius: 3px; 
+	background-image: -webkit-linear-gradient(top, #E6E6E6, #CCCCCC);
+}
+#layoutTool li:hover {
+    box-shadow: 0 0 .1em rgba(0,0,0,0.4) !important;
+}
+#layoutTool li.active{
+	position:relative;
+	top:1px;
+	/*box-shadow: inset 1px 1px 1px 1px #ffffff;*/
+	background-image: -webkit-linear-gradient(top, #f2f5f6, #c8d7dc);
+}
+#layoutTool ul {
+	margin: 20px 0 0 0; 
+	padding: 0px;
+	list-style-type:none;
+}
+#layoutTool ul:nth-child(1), #layoutTool ul > li:nth-child(1) {
+	margin-top: 0px !important;
+}

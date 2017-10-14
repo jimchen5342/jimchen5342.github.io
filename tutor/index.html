@@ -80,7 +80,6 @@
 			border-top-width: 1px;
 			border-bottom-width: 1px;
 		}
-
 		#footer {
 			height: 36px; 
 			background-color: #E0ECFF;
@@ -192,6 +191,8 @@
 	<script src="./components/speech.js"></script>
 	<link rel="stylesheet" type="text/css" href="./components/board.css" />
 	<script src="./components/board.js"></script>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
 </head>
 <body class="easyui-layout" style="width: 100%; height: 100%; visibility: hidden;">
 	<!--
@@ -267,8 +268,31 @@
 		</div>
 	</div>
 	<div id="winBoard" class="easyui-window" title="白板" style="width:100%;height:100%;"
-	  data-options="iconCls:'icon-save',modal:false,closed:true,resizable:false,minimizable:false">
-		<div id='layoutBoard' style="width: 100%; height: 100%; overflow: hidden; background-color: #eee;" class="flexV"> </div>
+		data-options="iconCls:'icon-save',modal:false,closed:true,resizable:false,minimizable:false">
+		<div style="width: 100%; height: 100%; overflow: hidden; background-color: #eee; box-sizing: border-box;" class="flexH">
+			<div id='layoutTool' style="width: 50px; height: 100%; overflow: hidden; padding: 0px 2px;box-sizing: border-box;">
+					<ul id='cmd'> 
+						<li><i class="material-icons">close</i></li>
+						<li><i class="material-icons">share</i></li>
+						<li><i class="material-icons">undo</i></li>
+						<li><i class="material-icons">refresh</i></li>
+					</ul> 
+					<ul id='sharp'>  
+						<li class='active'><i class="material-icons">edit</i></li>
+						<li><i class="material-icons">crop_free</i></li>
+					</ul> 
+					<ul id='palette'> 
+						<li class='active'><i class="material-icons"  style='color:red'>stop</i></li>
+						<li><i class="material-icons" style='color: #2ecc71'>stop</i></li>
+						<li><i class="material-icons" style='color:white'>stop</i></li>
+						<li><i class="material-icons" style='color: #3498db;'>stop</i></li>
+						<li><i class="material-icons" style='color: #f1c40f;'>stop</i></li>
+						<li><i class="material-icons">stop</i></li>  
+					</ul>
+			</div>
+			<div id='layoutBoard' style="width: 100%; height: 100%; overflow: hidden; flex: 1;" class="flexV"> </div>
+		</div>
+		
 	</div>
 </div>
 </body>
@@ -285,6 +309,7 @@ let mode = [{
 }];
 
 let setting = storage.Setting();
+//console.log(setting)
 $(document).ready(function(){
 	$("#ver").text("Jim Chen 2017/10/14");
 	//console.log(setting)
@@ -558,15 +583,19 @@ function adjustUser(){
 				} else {
 					fireBase.listenClear();
 				}
+				console.log(student)
+				
 				//if(userData == "undefined")
 				userData = {};
 				if(fireBase.loaded){
+					storage.Setting({student});
 					loadData(function(){
 						reload();
 					});					
 				}
 			}
 		});
+		
 	}
 }
 function listener(ret){
@@ -745,6 +774,12 @@ function adjustPanel(){
 		if(setting.doc != 0)
 			$("#doc").tabs("select", setting.doc);
 	}, 500);
+	if(typeof setting.student == "string" && setting.student.length > 0){
+		setTimeout(function(){
+			if(fireBase.loaded)
+				$('#user').combobox('setValue', setting.student);
+		}, 3000);
+	}
 }
 let speechOpened = false;
 function centerIcon(){ // 

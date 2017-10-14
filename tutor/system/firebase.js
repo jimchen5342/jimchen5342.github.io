@@ -246,10 +246,7 @@
 		date = fireBase.serverTime();
 		let key = storage.System().teacher.length > 0 ? storage.System().teacher : fireBase.uid;
 		let ref = fireBase.database().ref("broadcast/" + key);
-		ref.once("value", function(snap){
-			//speech.listen(snap.val())
-		});
-		
+	
 		ref.on("child_added", function(snap){
 			retrieve(snap);
 		});
@@ -346,7 +343,12 @@
 		newItems = true;
 	}
 	function readAdd(snap){ // 不用寫
-		if(newItems == false) return;
+		//if(newItems == false) return;
+		let s = (snap.key + "=" + snap.val())
+		if(s != changeValue){
+			listener({event: 'change', data: snap.val(), key: snap.key});
+			changeValue = s;
+		}
 	}
 	function readChange(snap){
 		if(newItems == false) return;
