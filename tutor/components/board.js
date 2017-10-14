@@ -136,8 +136,8 @@
 			self.canvas.on('mouse:down', function(o){
 				isDown = true;
 				if(mode == "line"){
-					var pointer = self.canvas.getPointer(o.e);
-					var points = [ pointer.x, pointer.y, pointer.x, pointer.y ];
+					let pointer = self.canvas.getPointer(o.e);
+					let points = [ pointer.x, pointer.y, pointer.x, pointer.y ];
 					line = new fabric.Line(points, {
 						strokeWidth: 2,
 						fill: color,
@@ -209,7 +209,10 @@
 			let self = this;
 			console.log(json)
 			if(json.cmd == "line"){
-				var points = [json.position.x1, json.position.y1, json.position.x2, json.position.y2];
+				let rate = jsow.width / self.canvas.width;
+				console.log("rate: " + rate)
+				let points = [json.position.x1 * rate, json.position.y1 * rate, 
+					json.position.x2 * rate, json.position.y2 * rate];
 				line = new fabric.Line(points, {
 					strokeWidth: 2,
 					fill: json.color,
