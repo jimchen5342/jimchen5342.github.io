@@ -208,8 +208,7 @@
 		execute: function(json){
 			let self = this;
 			console.log(json)
-			if(json.mode == "line"){
-				var pointer = self.canvas.getPointer(o.e);
+			if(json.cmd == "line"){
 				var points = [json.position.x1, json.position.y1, json.position.x2, json.position.y2];
 				line = new fabric.Line(points, {
 					strokeWidth: 2,
@@ -219,8 +218,8 @@
 					originY: 'center'
 				});
 				self.canvas.add(line);
-				position = {x1: pointer.x, y1: pointer.y};
-			} else if(mode == "rect"){
+			} else if(json.cmd == "rect"){
+				/*
 				position = {x1: o.e.offsetX, y1: o.e.offsetY};
 				rect = new fabric.Rect({
 					left: position.x1, //o.e.clientX,
@@ -235,6 +234,7 @@
 				});
 				rect.set('selectable', false);
 				self.canvas.add(rect);
+				*/
 			}
 		}
 	};
