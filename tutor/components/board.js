@@ -2,32 +2,9 @@
 	let board = {}, whiteBoard;
 
 	function adjust(){
-		$('#winBoard').window({
-			border:'thin',
-			cls:'c10',
-			maximizable: false,
-			collapsible: false,
-			draggable: false,
-			onOpen:function(){ 
-			},
-			onBeforeClose:function(){
-				if(system.isSignon() && system.isTeacher()){
-					send({cmd: "close"})
-				}
-			},
-			onMove: function(left, top) {
-			},
-			onResize: function(width, height) {
-			},
-			onCollapse:function(){
-			},
-			onExpand:function(){
-			},
-			onMaximize: function(){
-			},
-			onMinimize: function(){
-			},
-			tools:[{
+		let tools = [];
+		if(system.isSignon() && system.isTeacher()){
+			tools.push({
 				iconCls: 'icon-ok',
 				handler: function(){
 					system.loading.show();
@@ -43,18 +20,23 @@
 						}
 					)
 				}
-			/*}, {
-				iconCls:'icon-speech',
-				id: "speech",
-				handler:function(){
-				}		
-			}, {
-				iconCls:'icon-man',
-				id: "man",
-				handler:function(){
+			});
+		}
 
-				}*/
-			}]
+		$('#winBoard').window({
+			border:'thin',
+			cls:'c10',
+			maximizable: false,
+			collapsible: false,
+			draggable: false,
+			onOpen:function(){ 
+			},
+			onBeforeClose:function(){
+				if(system.isSignon() && system.isTeacher() && student.length > 0)
+					send({cmd: "close"})
+				whiteBoard = undefined;
+			},
+			tools: tools
 		});
 		//$('#winBoard').window('open');
 	}
@@ -102,7 +84,7 @@
 		if(typeof row.cmd == "string"){
 			if(row.cmd == "close")
 				$('#winBoard').window('close');
-			else {
+			else if(typeof whiteBoard == "object") {
 				whiteBoard.execute(row);
 			}
 		} else if(typeof row.data == "string"){
@@ -150,7 +132,7 @@
 
 		let line, rect, isDown, drawingMode = true, position = {}, mode = "line", color = "red";
 		function handle(){
-			mode = "rect";
+			//mode = "rect";
 			self.canvas.on('mouse:down', function(o){
 				isDown = true;
 				if(mode == "line"){
@@ -208,10 +190,8 @@
 					}
 					send(json, 
 						function(){
-
 						}, 
 						function(){
-							
 						}
 					)
 				}
@@ -227,6 +207,34 @@
 	WhiteBoard.prototype = {
 		execute: function(json){
 			console.log(json)
+			if(json.mode == "line"){
+				var pointer = self.canvas.getPointer(o.e);
+				var points = [json.position.x1, json.position.y1, json.position.x2, json.position.y2];
+				line = new fabric.Line(points, {
+					strokeWidth: 2,
+					fill: json.color,
+					stroke: json.color,
+					originX: 'center',
+					originY: 'center'
+				});
+				self.canvas.add(line);
+				position = {x1: pointer.x, y1: pointer.y};
+			} else if(mode == "rect"){
+				position = {x1: o.e.offsetX, y1: o.e.offsetY};
+				rect = new fabric.Rect({
+					left: position.x1, //o.e.clientX,
+					top: position.y1, //o.e.clientY,
+					width: 0,
+					height: 0,
+					stroke: color,
+					strokeWidth: 2,
+					originX: "left",
+					originY: "top",
+					fill: ''
+				});
+				rect.set('selectable', false);
+				self.canvas.add(rect);
+			}
 		}
 	};
 
