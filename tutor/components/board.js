@@ -10,7 +10,10 @@
 			draggable: false,
 			onOpen:function(){ 
 			},
-			onBeforeClose:function(){ 
+			onBeforeClose:function(){
+				if(system.isSignon() && system.isTeacher()){
+					send({cmd: "close"})
+				}
 			},
 			onMove: function(left, top) {
 			},
@@ -26,7 +29,20 @@
 			},
 			tools:[{
 				iconCls: 'icon-ok',
-				handler: send
+				handler: function(){
+					system.loading.show();
+					let data = whiteBoard.canvas.toDataURL();
+					send({data}, 
+						function(){
+							system.loading.close();
+							window.showToast({
+								msg: "圖檔已送出", 
+								icon: "info",
+								allowToastClose: false
+							});
+						}
+					)
+				}
 			/*}, {
 				iconCls:'icon-speech',
 				id: "speech",
@@ -42,31 +58,32 @@
 		});
 		//$('#winBoard').window('open');
 	}
-	function send(){
+	function send(json, success, error){
 		if(system.isSignon() == false){
-			alert("請先登入!!")
+			system.loading.close();
+			alert("請先登入!!");
+			if(error) error();
+			return;
+		} else if(system.isTeacher() && student.length == 0){
+			system.loading.close();
+			alert("請先指定學生!!");
+			if(error) error();
 			return;
 		}
-		system.loading.show();
-		let data = whiteBoard.canvas.toDataURL();
-		console.log(data)
+	
 		let obj = {
 			type: "canvas",
 			date: fireBase.serverTime(),
 			uid: fireBase.uid,
-			data: data
 		}
 		if(system.isTeacher())
 			obj.to = student; // : "All"
+		obj = Object.assign(obj, json);
+
 		let key = storage.System().teacher.length > 0 ? storage.System().teacher : fireBase.uid;
 		fireBase.database().ref("broadcast/" + key + "/" + fireBase.uid).set(obj)
 		.then(()=>{
-			system.loading.close();
-			window.showToast({
-				msg: "圖檔已送出", 
-				icon: "info",
-				allowToastClose: false
-			});
+			if(success) success();
 		}).catch(arg=>{
 
 		});
@@ -80,41 +97,16 @@
 	}
 
 	board.listen = function(snap){
-		
 		let row = snap.val();
 		//console.log(base64)
 		if(typeof row.cmd == "string"){
+			if(row.cmd == "close")
+			$('#winBoard').window('close');
 
 		} else if(typeof row.data == "string"){
 			whiteBoard = new WhiteBoard(row.data);
-			
-			return;
-			$("#layoutBoard").html("")
-			var img = new Image();
-			img.onerror = function() {
-			};
-			img.onload = function() {
-				canvas = document.createElement('canvas');
-				let ctx = canvas.getContext("2d");
-				let r1 = $("#layoutBoard").width() / img.width;
-				let r2 = $("#layoutBoard").height() / img.height;
-				if(r2 < r1){
-					canvas.width = img.width * r2;
-					canvas.height = $("#layoutBoard").height();
-					rate = r2;
-				} else {
-					canvas.height = img.height * r1;
-					canvas.width = $("#layoutBoard").width();
-					rate = r1;
-				}
-				ctx.drawImage(img,0,0, img.width, img.height, 0, 0, canvas.width, canvas.height);
-				$(canvas).appendTo("#layoutBoard")
-			};
-			img.src = row.data;			
 		}
 	}
-
-	window.board = board;
 
 	let WhiteBoard = function(base64){
 		$("#layoutBoard").html("");
@@ -150,54 +142,90 @@
 			});
 			self.canvas.add(imgInstance);
 			imgInstance.set('selectable', false);
-			
 			handle();
 		};
 		img.src = base64;
 
-		let line, isDown, position = {}, mode = "line";
+		let line, rect, isDown, drawingMode = true, position = {}, mode = "line", color = "red";
 		function handle(){
+			mode = "rect";
 			self.canvas.on('mouse:down', function(o){
 				isDown = true;
-				var pointer = self.canvas.getPointer(o.e);
 				if(mode == "line"){
+					var pointer = self.canvas.getPointer(o.e);
 					var points = [ pointer.x, pointer.y, pointer.x, pointer.y ];
 					line = new fabric.Line(points, {
 						strokeWidth: 2,
-						fill: 'red',
-						stroke: 'red',
+						fill: color,
+						stroke: color,
 						originX: 'center',
 						originY: 'center'
 					});
-					self.canvas.add(line);					
+					self.canvas.add(line);
+					position = {x1: pointer.x, y1: pointer.y};
+				} else if(mode == "rect"){
+					position = {x1: o.e.offsetX, y1: o.e.offsetY};
+					rect = new fabric.Rect({
+            left: position.x1, //o.e.clientX,
+            top: position.y1, //o.e.clientY,
+            width: 0,
+            height: 0,
+            stroke: color,
+						strokeWidth: 2,
+						originX: "left",
+						originY: "top",
+            fill: ''
+					});
+					rect.set('selectable', false);
+					self.canvas.add(rect);
 				}
-				position = {x1: pointer.x, y1: pointer.y};
 			});
 			
 			self.canvas.on('mouse:move', function(o){
-				if (!isDown) return;
-				var pointer = canvas.getPointer(o.e);
+				if (!isDown || !drawingMode) return;
 				if(mode == "line"){
-					line.set({ x2: pointer.x, y2: pointer.y });
+					var pointer = self.canvas.getPointer(o.e);
+					line.set({x2: pointer.x, y2: pointer.y});
+					position = Object.assign(position, {x2: pointer.x, y2: pointer.y});
+				} else if(mode == "rect"){
+					position = Object.assign(position, {x2: o.e.offsetX, y2: o.e.offsetY});
+					rect.width = Math.abs(position.x2 - position.x1);
+					rect.height = Math.abs(position.y2 - position.y1);
 				}
 				self.canvas.renderAll();
-				position = Object.assign(position, { x2: pointer.x, y2: pointer.y });
-				//console.log(position)
 			});
 			
 			self.canvas.on('mouse:up', function(o){
 				isDown = false;
-				setTimeout(function(){
-					//self.canvas.remove(line);
-				}, 3000)
-				
+				if(system.isSignon() && (!system.isTeacher() || (system.isTeacher() && student.length > 0))){
+					let json = {
+						cmd: mode,
+						position,
+						color,
+						width: canvas.width
+					}
+					send(json, 
+						function(){
+
+						}, 
+						function(){
+							
+						}
+					)
+				}
+			});
+			self.canvas.on('object:selected', function(){
+				drawingMode = false;         
+			});
+			self.canvas.on('selection:cleared', function(){  
+					drawingMode = true;      
 			});
 		}
 	}
 	WhiteBoard.prototype = {
 		execute: function(){
-
 		}
 	};
 
+	window.board = board;	
 })(window);
