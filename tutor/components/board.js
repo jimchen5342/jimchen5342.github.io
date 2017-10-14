@@ -101,8 +101,10 @@
 		//console.log(base64)
 		if(typeof row.cmd == "string"){
 			if(row.cmd == "close")
-			$('#winBoard').window('close');
-
+				$('#winBoard').window('close');
+			else {
+				whiteBoard.execute(row);
+			}
 		} else if(typeof row.data == "string"){
 			whiteBoard = new WhiteBoard(row.data);
 		}
@@ -223,7 +225,8 @@
 		}
 	}
 	WhiteBoard.prototype = {
-		execute: function(){
+		execute: function(json){
+			console.log(json)
 		}
 	};
 
