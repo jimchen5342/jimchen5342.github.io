@@ -117,6 +117,7 @@
 				self.rate = r1;
 			}
 			self.canvas = new fabric.Canvas('canvas', {selection: false});
+			//console.log(self.canvas.width)
 
 			let imgInstance = new fabric.Image(img, {
 				lockMovementX: true,
@@ -132,7 +133,7 @@
 
 		let line, rect, isDown, drawingMode = true, position = {}, mode = "line", color = "red";
 		function handle(){
-			//mode = "rect";
+			mode = "rect";
 			self.canvas.on('mouse:down', function(o){
 				isDown = true;
 				if(mode == "line"){
@@ -186,7 +187,7 @@
 						cmd: mode,
 						position,
 						color,
-						width: canvas.width
+						width: self.canvas.width
 					}
 					send(json, 
 						function(){
@@ -221,13 +222,12 @@
 				self.canvas.add(line);
 				self.canvas.renderAll();
 			} else if(json.cmd == "rect"){
-				/*
-				position = {x1: o.e.offsetX, y1: o.e.offsetY};
+
 				rect = new fabric.Rect({
-					left: position.x1, //o.e.clientX,
-					top: position.y1, //o.e.clientY,
-					width: 0,
-					height: 0,
+					left: points.x1,
+					top: points.y1,
+					width: Math.abs(points.x2 - points.x1),
+					height: Math.abs(points.y2 - points.y1),
 					stroke: color,
 					strokeWidth: 2,
 					originX: "left",
@@ -236,7 +236,6 @@
 				});
 				rect.set('selectable', false);
 				self.canvas.add(rect);
-				*/
 			}
 		}
 	};
