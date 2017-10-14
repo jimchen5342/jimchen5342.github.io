@@ -711,7 +711,10 @@ function adjustPanel(){
 						delete userData[lesson];
 						storage[subject] = JSON.stringify(userData);
 						if(system.isSignon()){
-							fireBase.setUserData(fireBase.uid + "/" + subject + "/" + lesson, null, function(){
+							fireBase.database().ref(fireBase.uid + "/" + subject + "/" + lesson).set(null)
+							.then(()=>{
+							}).catch(arg=>{
+								console.log(arg)
 							});						
 						}
 					}, 1000);				
