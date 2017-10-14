@@ -209,7 +209,7 @@
 			let self = this;
 			console.log(json)
 			if(json.cmd == "line"){
-				let rate = jsow.width / self.canvas.width;
+				let rate = json.width / self.canvas.width;
 				console.log("rate: " + rate)
 				let points = [json.position.x1 * rate, json.position.y1 * rate, 
 					json.position.x2 * rate, json.position.y2 * rate];
