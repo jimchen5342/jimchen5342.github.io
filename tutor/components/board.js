@@ -221,6 +221,7 @@
 					originY: 'center'
 				});
 				self.canvas.add(line);
+				self.canvas.renderAll();
 			} else if(json.cmd == "rect"){
 				/*
 				position = {x1: o.e.offsetX, y1: o.e.offsetY};
