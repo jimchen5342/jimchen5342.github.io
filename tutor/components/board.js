@@ -207,12 +207,10 @@
 	WhiteBoard.prototype = {
 		execute: function(json){
 			let self = this;
-			console.log(json)
+			let rate = self.canvas.width / json.width;
+			let points = [json.position.x1 * rate, json.position.y1 * rate, 
+				json.position.x2 * rate, json.position.y2 * rate];
 			if(json.cmd == "line"){
-				let rate = self.canvas.width / json.width;
-				console.log("rate: " + rate)
-				let points = [json.position.x1 * rate, json.position.y1 * rate, 
-					json.position.x2 * rate, json.position.y2 * rate];
 				line = new fabric.Line(points, {
 					strokeWidth: 2,
 					fill: json.color,
