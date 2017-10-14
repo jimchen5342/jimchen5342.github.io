@@ -206,6 +206,7 @@
 	}
 	WhiteBoard.prototype = {
 		execute: function(json){
+			let self = this;
 			console.log(json)
 			if(json.mode == "line"){
 				var pointer = self.canvas.getPointer(o.e);
