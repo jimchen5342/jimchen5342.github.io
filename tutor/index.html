@@ -191,6 +191,7 @@
 	<script src="./components/speech.js"></script>
 	<link rel="stylesheet" type="text/css" href="./components/board.css" />
 	<script src="./components/board.js"></script>
+	<script src="./components/aux.js"></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 </head>
@@ -199,7 +200,7 @@
 	<div data-options="region:'north'" style="height:50px"></div>
 	<div data-options="region:'south',split:true" style="height:50px;"></div>
 	-->
-	<div data-options="region:'west',split:true" title="課程" style="width:200px; overflow: hidden;">
+	<div data-options="region:'west',split:true" id='subject' title="課程" style="width:200px; overflow: hidden;">
 		<div class="flexV" style="padding: 0px; height: 100%; padding-top: 5px;">
 			<select id="menu" class="easyui-combobox" style="width: 90%; " 
 				data-options="valueField: 'id', textField: 'text'">
@@ -276,6 +277,7 @@
 						<li><i class="material-icons">share</i></li>
 						<li><i class="material-icons">undo</i></li>
 						<li><i class="material-icons">refresh</i></li>
+						<li><i class="material-icons">comment</i></li>
 					</ul> 
 					<ul id='sharp'>  
 						<li class='active'><i class="material-icons">edit</i></li>
@@ -298,8 +300,7 @@
 </body>
 <script type="text/javascript">
 let iframe = {}, result, panel = 0, userData = undefined, student = "";
-let subject = "", lesson = "";
-let readOnly = true;
+let subject = "", lesson = "", speechOpened = false, readOnly = true;
 let mode = [{
 		src: 'html', node: 'html'
 	},{
@@ -341,7 +342,6 @@ $(document).ready(function(){
 	$('#menu').combobox({
 		data: menu,
 		onChange: function(newValue, oldValue){
-			console.log(newValue)
 			changeMenu(newValue);
 		}
 	});
@@ -349,8 +349,17 @@ $(document).ready(function(){
 	adjustUser();
 	if(setting.current == 0){
 		changeMenu(0);
-	} else 
+	} else {
+		if(typeof setting.subject == "string"){ // 因為怕中間加了 subject, current 跑掉
+			for(let i = 0; i < menu.length; i++){
+				if(menu[i].text == setting.subject){
+					setting.current = i;
+					break;
+				}
+			}
+		}
 		$('#menu').combobox('setValue', setting.current);
+	}
 
 	$("#switch").bind("click", function(){ // 學生版, 修改否
 		readOnly = $("#switch").prop("checked");
@@ -380,9 +389,101 @@ $(document).ready(function(){
 	setTimeout(function(){
 		$("body").css("visibility", "visible");
 	}, 300);
+
+	$('#subject').panel({ // 課程
+		tools:[{
+			iconCls:'icon-add',
+			id: "add",
+			handler: addFile
+		}, {
+			iconCls:'icon-cancel',
+			id: "cancel",
+			handler: cancelFile
+		}]
+	});
 	if(system.isSignon())
 		speech.adjust();
 });
+function addFile(){
+	let div = $("<div id='winEdit' class='flexV' style='overflow: hidden; padding: 0px; box-sizing: border-box' />").appendTo("body");
+	$(div).window({
+		title: "新增",
+		width: 420,
+		height: 180,
+		minimizable: false,
+		maximizable: false,
+		collapsible: false,
+		draggable: true,
+		resizable: true,
+		inline: false,
+		modal: true,
+		shadow: false,
+		onOpen: function(){
+			let tbl = "<table id='tblEdit' style='width: 100%;  min-height: 25px; line-height: 25px; padding: 10px;' border=0>" +
+				"<tr><td><label>名稱：</label></td>" +
+				"  <td><input id='fileName' /></td></tr>" +
+				"</table>" +
+				"<div class='footer' style='flex: 1;'>" +
+				"  <button id='btnOk' class='btn'>確定</button>" +
+				"  <button id='btnCancel' class='btn'>取消</button>" +
+				"</div>";
+			$(tbl).appendTo("#winEdit");
+			$("#tblEdit tr > td").css({
+				"padding": "5px"
+			});
+		
+			$("#fileName").css({"width": "100%"});
+			$("#tblEdit tr > td:nth-child(1)").css({
+				"text-align": "right",
+				"padding-right": "0px",
+				//"color": "blue"
+			});
+			$(".btn").bind("click", click);
+			$("#fileName").focus();
+		},
+		onClose: function(){
+			$(".btn").unbind("click", click);
+			$("#winEdit").remove();
+		}
+	});
+
+	function click(){
+		if(this.id == "btnCancel"){
+			$("#winEdit").window("close");
+		} else {
+			let s = $("#fileName").val();
+			if(s.length > 0){
+				let id = "" + (new Date()).getTime();
+				userData[id] = {text: s};
+				storage[subject] = JSON.stringify(userData);
+				$("#winEdit").window("close");
+				$("#tree").tree('append', {
+					data: [{text: s, id:id}]
+				});
+				menu[setting.current].data.push({text: s, id:id});
+				clearEditor();
+				findTree(id);
+			}
+		}
+	}
+}
+function cancelFile(){
+	if(lesson == "") return;
+	let node = $('#tree').tree('find', lesson);
+	$('#tree').tree('remove', node.target);
+	delete userData[lesson];
+	storage[subject] = JSON.stringify(userData);
+	if(system.isSignon()){
+		fireBase.database().ref(fireBase.uid + "/" + subject + "/" + lesson).set(null)
+		.then(()=>{
+		}).catch(arg=>{
+			console.log(arg)
+		});						
+	}
+	lesson = "";
+	clearEditor(true)
+	setting[subject] = "";
+}
 
 function reload(){
 	for(let i = 0; i < menu[setting.current].data.length; i++){
@@ -391,86 +492,6 @@ function reload(){
 			loadPage(row);
 			break;
 		}
-	}
-}
-function information(){
-	if(system.isSignon() == true) return;
-	//setting.information = undefined; // for test ...................
-	setting.information = Object.assign({
-		version: 0,
-		signOn: 0,
-		switch: 0,
-	}, setting.information);
-
-	if(setting.information.version < 3){
-		setting.information.version++;
-		window.showToast({
-			msg: "切換下方的開關即可編輯及即時存檔", 
-			icon: "info",
-			allowToastClose: false
-		});
-	} else if(system.isSignon() == false && setting.information.signOn < 3) {
-		setting.information.signOn++;
-		window.showToast({
-			msg: "記得要註冊哦", 
-			icon: "info",
-			allowToastClose: false
-		});
-	}
-	storage.Setting(setting);
-}
-function tooltips(){
-	$('#speech').tooltip({
-			position: 'bottom',
-			content: '訊息',
-			//trackMouse:true,
-			deltaX: 0,
-			deltaY: 0,
-			showDelay:300,
-			hideDelay:500
-	});
-	//if(system.isSignon() == true) return;
-	$('#reload').tooltip({
-			position: 'bottom',
-			content: system.isTeacher() ? 'reload' : '清空',
-			//trackMouse:true,
-			deltaX: 0,
-			deltaY: 0,
-			showDelay:300,
-			hideDelay:500
-	});
-	$('#signon').tooltip({
-			position: 'bottom',
-			content: system.isSignon() ? '登出：<br />' + storage.System().user : '註冊',
-			//trackMouse:true,
-			deltaX: 0,
-			deltaY: 0,
-			showDelay:300,
-			hideDelay:500
-	});
-
-	$('#student').tooltip({
-			position: 'bottom',
-			content: '學生管理',
-			//trackMouse:true,
-			deltaX: 0,
-			deltaY: 0,
-			showDelay:300,
-			hideDelay:500
-	});
-
-	if(setting.information.switch < 3) {
-		$("#lblSwitch").tooltip({
-				position: 'top',
-				content: function(){
-					return '關閉狀態: 即可編輯及即時存檔<br />開啟狀態: 重新載入教師版, 系統會保留你的程式碼'
-				},
-				//trackMouse:true,
-				deltaX: 0,
-				deltaY: 0,
-				showDelay: 300,
-				hideDelay: 500
-		});
 	}
 }
 function studentAdd(){
@@ -561,41 +582,7 @@ function studentAdd(){
 		}
 	}
 }
-function adjustUser(){
-	if(system.isTeacher() == false){
-		$('#divUser').remove();
-	} else {
-		let user = [{id: 0, text: "教師版"}];
-		if(storage.System().students.length > 0)
-			user = user.concat(JSON.parse(storage.System().students));
-		$(".lblSwitch").remove();
-		$('#user').combobox({
-			data: user,
-			onSelect(value){
-				student = value.id == 0 ? "" : value.id;
-				readOnly = value.id == 0 ? true : false;
-				if(student.length > 0 && !system.isSignon()){
-					alert("尚未登入!!");
-					return;
-				}
-				if(student.length > 0){
-					fireBase.listen(student + "/" + subject + "/" + lesson);
-				} else {
-					fireBase.listenClear();
-				}
-				//console.log(student)
-				//if(userData == "undefined")
-				userData = {};
-				if(fireBase.loaded){
-					storage.Setting({student});
-					loadData(function(){
-						reload();
-					});					
-				}
-			}
-		});
-	}
-}
+
 function listener(ret){
 	if(student.length > 0 && ret.event == "change"){
 		//console.log("now: " + (new Date()));
@@ -615,209 +602,34 @@ function listener(ret){
 		});	
 	}
 }
-function adjustPanel(){
-	let collapsed = true;
-	let west = $('body').layout('panel','west').panel({
-		minWidth: 160,
-		onCollapse:function(){
-			storage.Setting({"west-collapse": "Y"});
-		},
-		onExpand:function(){
-			storage.Setting({"west-collapse": "N"});
-		},
-		onResize:function(w, h){
-		}
-	});
-
-	if(typeof setting["west-collapse"] == "string" && setting["west-collapse"] == "Y") {
-		$('body').layout('collapse', 'west');
-		setTimeout(function(){
-			$('body').layout('resize');
-		}, 600);		
-	}
-
-	let east = $('body').layout('panel','east').panel({
-		minWidth: 200,
-		onCollapse:function(){
-			//alert('collapse');
-		},
-		onExpand:function(){
-			//alert('expand');
-		},
-		onResize:function(w, h){
-			if(collapsed == false){
-				setting.east = w;
-				storage.Setting(setting);
-			}
-			eastResizeIcon(w);
-		}
-	});
-	$('#doc').tabs({ // east
-		onSelect:function(title, index){
-			storage.Setting({doc: index});
-		},
-		tools:[{
-        iconCls:'icon-left',
-        handler:function(){
-					collapsed = true;
-					eastResize(setting.east);
-					setTimeout(function(){
-						collapsed = false;
-					}, 500);
-        }
-    },{
-        iconCls:'icon-right',
-        handler:function(){
-					collapsed = true;
-					eastResize(160);
-					setTimeout(function(){
-						collapsed = false;
-					}, 500);
-        }
-    }]
-	});
-	$('#source').tabs({ // center, toolbar
-		onSelect:function(title, index){
-			panel = title;
-			for(let i = 0; i < mode.length; i++){
-				let key = mode[i].src;
-				if(key.toLowerCase() == panel.toLowerCase()){
-					let x = $("div[src='" + key + "'] iframe").get();
-					if(x.length == 1){
-						x[0].focus();
-						iframe[key].myfocus();
-					}
-					break;
-				}
-			}
-		},
-		tools:[{
-			iconCls: 'icon-reload',
-			id: 'reload',
-			handler:function(){
-				for(let key in iframe){
-					iframe[key].reset();
-				}
-				if(student.length > 0){
-					userData = {};
-					loadData(function(){
-						reload();
-					});
-				} else {
-					result.location.assign("./empty.html");
-					setTimeout(function(){
-						delete userData[lesson];
-						storage[subject] = JSON.stringify(userData);
-						if(system.isSignon()){
-							fireBase.database().ref(fireBase.uid + "/" + subject + "/" + lesson).set(null)
-							.then(()=>{
-							}).catch(arg=>{
-								console.log(arg)
-							});						
-						}
-					}, 1000);				
-				}
-			}
-		}, {
-			iconCls:'icon-speech',
-			id: "speech",
-			handler:function(){
-				if(!system.isTeacher() || student.length > 0){
-					$('#winSpeech').window('open');
-				} else {
-					alert("請先選取學生才可進行對話!!")
-				}
-			}		
-		}, {
-			iconCls:'icon-student',
-			id: "student",
-			handler:function(){
-				studentAdd();
-			}
-		}, {
-			iconCls:'icon-man',
-			id: "signon",
-			handler:function(){
-				if(system.isSignon()){
-					var r = confirm("是否確定登出!");
-					if (r == true) {
-						storage.clear();
-						location.reload();
-					} 
-				} else
-					fireBase.login();
-			}
-    }]
-	});
-
-	function eastResizeIcon(w){
-		if($("#doc .tabs-tool table td").size() == 0){
-			setTimeout(function(){
-				eastResizeIcon(w);
-			}, 500);
-		} else {
-			let max = w > 160 ? true : false;
-			$("#doc .tabs-tool table td:nth-child(1)").css("display", max == false ? "table-cell" : "none");
-			$("#doc .tabs-tool table td:nth-child(2)").css("display", max == true ? "table-cell" : "none");
-		}
-	}
-	function eastResize(w){
-		var p = $('body').layout('panel','east');  
-		p.panel('resize',{width: w});
-		$('body').layout('resize');
-		eastResizeIcon(w);
-	}
-
-	let w = typeof setting.east == "number" ? setting.east : 300;
-	eastResize(w);
-	setTimeout(function(){
-		collapsed = false;
-		if(setting.doc != 0)
-			$("#doc").tabs("select", setting.doc);
-	}, 500);
-	if(typeof setting.student == "string" && setting.student.length > 0){
-		setTimeout(function(){
-			if(fireBase.loaded)
-				$('#user').combobox('setValue', setting.student);
-		}, 3000);
-	}
-}
-let speechOpened = false;
-function centerIcon(){ // 
-	if($("#center .tabs-tool table td").size() == 0){
-		setTimeout(function(){
-		}, 500);
-	} else {
-		$("#center .tabs-tool table td:nth-child(1)").css("display", // reload
-			(system.isTeacher() && student.length == 0) || (!system.isTeacher() && readOnly) ? "none" : "table-cell");
-		$("#center .tabs-tool table td:nth-child(2)").css("display", // msg
-			! system.isSignon() ? "none" : "table-cell");
-			$("#center .tabs-tool table td:nth-child(3)").css("display", // student
-			system.isTeacher() && system.isSignon() ? "table-cell" : "none");
-		$('body').layout('resize');
-		// $("#center .tabs-tool table td:nth-child(2)").css("display", 
-		// 	system.isSignon() ? "none" : "table-cell");
-		//$("#center .tabs-tool").remove();		
-		if(system.isTeacher())
-			$(".icon-student").css("background", "url(icons/student.png) no-repeat center center");
-		if(system.isSignon())
-			$(".icon-man").css("background", "url(icons/user.png) no-repeat center center");
-	}
-}
 
 function changeMenu(index){
-	setting.current = index;
 	subject = menu[index].text;
+	setting.current = index;
+	storage.Setting({current: index, subject});
+	setTimeout(adjuctFile, 600);
 	$('#tree').tree({
 		data: menu[index].data
 	});
 	$("#divSubject").text(subject);
-	if((system.isSignon() == true || ! system.isTeacher()) || student.length > 0){ // 自 firebase 撈資料, 或 localstorage
+	if(subject != "作業" && menu[index].data.length == 0){
+		clearEditor(true);
+	} else if((system.isSignon() == true || ! system.isTeacher()) || student.length > 0){ // 自 firebase 撈資料, 或 localstorage
 		loadData(function(){
 			findTree(setting[subject]);
 		});
 	} else
 		findTree(setting[subject]);
+}
+function clearEditor(clear){
+	for(let key in iframe){
+		iframe[key].reset(clear);
+		if(clear == true)
+			iframe[key].readOnly(true);
+	}	
+	$("#context").removeAttr("src");
+	$("#result").removeAttr("src");
+	$("#result").removeAttr("srcdoc");
 }
 
 function loadData(callback){
@@ -827,6 +639,7 @@ function loadData(callback){
 		if(typeof x == "string" && x.length > 0)
 			userData = JSON.parse(x);
 	}
+	//console.log(userData);
 
 	if(system.isSignon() == true){ // 如有登錄, 再自 firebase 撈資料
 		system.loading.show("系統登入中......");
@@ -837,22 +650,49 @@ function loadData(callback){
 				fireBase.getUserData(user + "/" + subject, function(ret){
 					if(typeof ret == "object" && ret != null){
 						userData = Object.assign(userData, ret);
+						//console.log(userData);
+						if(subject == "作業")
+							loadHomeword(callback);
+						else 
+							callback();
+					} else {
+						if(subject == "作業")
+							loadHomeword(callback);
+						else 
+							callback();
 					}
-					callback();
 					system.loading.close();
 				});
 			} else 
 				system.loading.show("系統無法登入!!");
 		});
 	} else {
-		callback();
+		clearEditor(true);
+		if(subject == "作業")
+			loadHomeword(callback);
+		else
+			callback();
+	}
+
+	function loadHomeword(callback){
+		menu[setting.current].data = [];
+		for(let key in userData){
+			menu[setting.current].data.push({id: key, text: userData[key].text})
+		}
+		$('#tree').tree({
+			data: menu[setting.current].data
+		});
+		if(menu[setting.current].data == 0){
+			clearEditor(true);
+		}
+		setTimeout(callback, 600);
 	}
 }
 
 function findTree(node){
 	if(menu[setting.current].data.length > 0){
 		if(typeof node == "string") {
-			if(node.indexOf("-") == -1){
+			if(subject != "作業" && node.indexOf("-") == -1){
 				node = "00-basic";
 			}
 			node = $('#tree').tree('find', node);
@@ -972,15 +812,24 @@ function changeValue(e, changed){ // 來自 iframe 修改資料
 		if(typeof userData == "undefined")
 			userData = {};
 		if(typeof userData[lesson] == "undefined")
-				userData[lesson] = {};
-			userData[lesson][e.key] = e.data;
-			storage[subject] = JSON.stringify(userData);
-
-			if(system.isSignon() == true && ! system.isTeacher()){
-				fireBase.setUserData(fireBase.uid + "/" + subject + "/" + lesson + "/" + e.key, e.data, function(){
-
-				});
+			userData[lesson] = {};
+		userData[lesson][e.key] = e.data;
+		storage[subject] = JSON.stringify(userData);
+		//console.log(storage[subject])
+		if(system.isSignon() == true && ! system.isTeacher()){
+			let folder = "", data = {};
+			if(subject == "作業"){
+				data = {text: userData[lesson].text};
+				data[e.key] = e.data;
+			} else {
+				folder = e.key;
+				data = e.data;
 			}
+
+			fireBase.setUserData(fireBase.uid + "/" + subject + "/" + lesson + "/" +folder, data, function(){
+
+			});
+		}
 	}
 }
 

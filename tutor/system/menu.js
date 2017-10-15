@@ -55,16 +55,24 @@ let menu = [
 		data: [{
 			id: "00-basic",
 			text: "基本用法",
-			context: "",
+			context: "lesson00.t.html",
 			html: "lesson00.html",
-		}, {
+		}/*, {
 			id: "01-selector",
 			text: "選擇器",
 			context: "",
 			html: "lesson01.html",
-		}]
+		}*/]
 	}, {
 		text: "JavaScript",
+		data: [{
+			id: "00-basic",
+			text: "基本用法",
+			context: "lesson00.t.html",
+			html: "lesson00.html",
+		}]
+	}, {
+		text: "作業",
 		data: []
 	}
 ];

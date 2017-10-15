@@ -134,8 +134,10 @@
         }
     });
   }
-  function reset(){ // 重置
-    if(mode.indexOf("html") > -1){
+  function reset(clear){ // 重置
+    if(typeof clear == "boolean" && clear == true){
+      setValue();
+    } else if(mode.indexOf("html") > -1){
       $.ajax({
         type :"GET",
         url  : "./empty.html",
@@ -173,6 +175,9 @@
           enabled = true;
         }
       });
+    } else {
+      editor.setValue("");
+      enabled = true;
     }
   }
 

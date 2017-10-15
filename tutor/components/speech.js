@@ -10,6 +10,7 @@ if(typeof s == "string" && s.length > 0){
 }
 speech.adjust = function(){
 	$('#winSpeech').window({
+		zIndex: 100,
 		maximizable: false,
 		onOpen:function(){ 
 			speechOpened = true;

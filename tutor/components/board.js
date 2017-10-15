@@ -5,6 +5,7 @@
 		$('#winBoard').window({
 			border:'thin',
 			cls:'c10',
+			zIndex: 10,
 			maximizable: false,
 			collapsible: false,
 			draggable: false,
@@ -22,6 +23,8 @@
 		$("#cmd > li").bind("click", function(){
 			if($(this).text() == "close"){
 				$('#winBoard').window('close');
+			} else if($(this).text() == "comment"){
+					$('#winSpeech').window('open');
 			} else if(typeof whiteBoard == "object"){
 				if($(this).text() == "share")
 					whiteBoard.send();
@@ -82,8 +85,6 @@
 	setTimeout(function(){
 		adjust();
 		tools();
-		//$('#winBoard').window('open');
-		//$("#layoutTool").remove();
 	}, 600);
 
 	board.load = function(base64){ // 由 chrome extension 通知
@@ -105,6 +106,7 @@
 	}
 
 	let WhiteBoard = function(base64){
+		//$('#winSpeech').window('close');
 		$("#layoutBoard").html("");
 		$('#winBoard').window('open');
 		this.rate = 1, self = this;
@@ -280,6 +282,5 @@
 			}
 		}
 	};
-
 	window.board = board;	
 })(window);
