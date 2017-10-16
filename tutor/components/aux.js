@@ -206,7 +206,7 @@ function adjustPanel(){
 							let data = null;
 							if(subject == "作業")
 								data = {text: userData[lesson].text};
-							fireBase.database().ref(fireBase.uid + "/" + subject + "/" + lesson).set(data)
+							fireBase.database().ref("datas/" + fireBase.uid + "/" + subject + "/" + lesson).set(data)
 							.then(()=>{
 							}).catch(arg=>{
 								console.log(arg)

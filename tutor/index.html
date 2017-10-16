@@ -479,7 +479,7 @@ function cancelFile(){
 	delete userData[lesson];
 	storage[subject] = JSON.stringify(userData);
 	if(system.isSignon()){
-		fireBase.database().ref(fireBase.uid + "/" + subject + "/" + lesson).set(null)
+		fireBase.database().ref("datas/" + fireBase.uid + "/" + subject + "/" + lesson).set(null)
 		.then(()=>{
 		}).catch(arg=>{
 			console.log(arg)
@@ -664,7 +664,7 @@ function loadData(callback){
 			if(ret == "ok"){
 				let user = student.length > 0 ? student : fireBase.uid;
 				//console.log(user)
-				fireBase.getUserData(user + "/" + subject, function(ret){
+				fireBase.getUserData("datas/" + user + "/" + subject, function(ret){
 					if(typeof ret == "object" && ret != null){
 						userData = Object.assign(userData, ret);
 						//console.log(userData);
