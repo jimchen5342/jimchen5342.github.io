@@ -312,7 +312,7 @@ let mode = [{
 let setting = storage.Setting();
 //console.log(setting)
 $(document).ready(function(){
-	$("#ver").text("Jim Chen 2017/10/14");
+	$("#ver").text("Jim Chen 2017/10/16");
 	if(system.isTeacher() && typeof setting.student == "string" && setting.student.length > 0){
 		student = setting.student;
 	}
@@ -497,11 +497,9 @@ function reload(){
 		let row = menu[setting.current].data[i];
 		if(row.id == s){
 			loadPage(row);
-			if(subject == "作業"){
-				let node = $('#tree').tree('find', row.id);
-				if(node != null){
-					$('#tree').tree('select', node.target);
-				}
+			let node = $('#tree').tree('find', row.id);
+			if(node != null){
+				$('#tree').tree('select', node.target);
 			}
 			break;
 		}
