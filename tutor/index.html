@@ -313,6 +313,9 @@ let setting = storage.Setting();
 //console.log(setting)
 $(document).ready(function(){
 	$("#ver").text("Jim Chen 2017/10/14");
+	if(system.isTeacher() && typeof setting.student == "string" && setting.student.length > 0){
+		student = setting.student;
+	}
 	//console.log(setting)
 	result = $("#result").prop('contentWindow');
 	adjustPanel();
@@ -486,10 +489,20 @@ function cancelFile(){
 }
 
 function reload(){
+	let s = setting[subject];
+	if(student.length > 0 && typeof setting[student] == "object" && typeof setting[student][subject] == "string")
+		s = setting[student][subject];
+	//console.log(s + ": " + menu[setting.current].data.length)
 	for(let i = 0; i < menu[setting.current].data.length; i++){
 		let row = menu[setting.current].data[i];
-		if(row.id == setting[subject]){
+		if(row.id == s){
 			loadPage(row);
+			if(subject == "作業"){
+				let node = $('#tree').tree('find', row.id);
+				if(node != null){
+					$('#tree').tree('select', node.target);
+				}
+			}
 			break;
 		}
 	}
@@ -615,11 +628,16 @@ function changeMenu(index){
 	if(subject != "作業" && menu[index].data.length == 0){
 		clearEditor(true);
 	} else if((system.isSignon() == true || ! system.isTeacher()) || student.length > 0){ // 自 firebase 撈資料, 或 localstorage
-		loadData(function(){
-			findTree(setting[subject]);
-		});
+		loadData(finish);
 	} else
-		findTree(setting[subject]);
+		finish()
+
+	function finish(){
+		let s = setting[subject];
+		if(student.length > 0 && typeof setting[student] == "object" && typeof setting[student][subject] == "string")
+			s = setting[student][subject];
+		findTree(s);
+	}
 }
 function clearEditor(clear){
 	for(let key in iframe){
@@ -634,12 +652,11 @@ function clearEditor(clear){
 
 function loadData(callback){
 	userData = {};
-	if(!system.isTeacher()){ // 先自 localstorage
+	if((subject == "作業" && student== "") || (!system.isTeacher())){ // 先自 localstorage
 		let x = storage[subject];
 		if(typeof x == "string" && x.length > 0)
 			userData = JSON.parse(x);
 	}
-	//console.log(userData);
 
 	if(system.isSignon() == true){ // 如有登錄, 再自 firebase 撈資料
 		system.loading.show("系統登入中......");
@@ -652,12 +669,12 @@ function loadData(callback){
 						userData = Object.assign(userData, ret);
 						//console.log(userData);
 						if(subject == "作業")
-							loadHomeword(callback);
+							loadHomework(callback);
 						else 
 							callback();
 					} else {
 						if(subject == "作業")
-							loadHomeword(callback);
+							loadHomework(callback);
 						else 
 							callback();
 					}
@@ -669,12 +686,12 @@ function loadData(callback){
 	} else {
 		clearEditor(true);
 		if(subject == "作業")
-			loadHomeword(callback);
+			loadHomework(callback);
 		else
 			callback();
 	}
 
-	function loadHomeword(callback){
+	function loadHomework(callback){
 		menu[setting.current].data = [];
 		for(let key in userData){
 			menu[setting.current].data.push({id: key, text: userData[key].text})
@@ -684,7 +701,10 @@ function loadData(callback){
 		});
 		if(menu[setting.current].data == 0){
 			clearEditor(true);
+		} else {
 		}
+
+		$("#doc").tabs("select", 1);
 		setTimeout(callback, 600);
 	}
 }
@@ -700,13 +720,22 @@ function findTree(node){
 		if(node != null){
 			$('#tree').tree('select', node.target);
 			treeClick(node);
-		}
-	}
+		} else 
+			clearEditor(true);
+	} else
+		clearEditor(true);
 }
 
 function treeClick(node){
-	setting[subject] = node.id;
+	if(student == "")
+		setting[subject] = node.id;
+	else {
+		if(typeof setting[student] == "undefined")
+			setting[student] = {};
+		setting[student][subject] = node.id;
+	}
 	storage.Setting(setting);
+	//console.log(setting)
 	if(typeof node.context == "string" && node.context.length > 0){
 		$("#context").attr("src", "./handout/" + subject + "/" + node["context"]);
 	} else 
@@ -729,7 +758,12 @@ function loadPage(node, changed){
 		$("#switch").prop("checked", readOnly);
 	}
 	$("#divSubject").text(subject+ ": " + node.text);
-
+	if(subject == "作業"){
+		if(system.isTeacher() && student.length > 0)
+			readOnly = true;
+		else
+			readOnly = false;
+	}
 	if(readOnly == true && typeof node.html == "string" && node.html.length > 0){
 		//$("#result").attr("src", "./handout/" + subject + "/" + node["html"]);
 		result.location.assign("./handout/" + subject + "/" + node["html"]);
@@ -808,29 +842,32 @@ function changeValue(e, changed){ // 來自 iframe 修改資料
 
 		}
 	}
-	if(!system.isTeacher() && (typeof changed == "undefined" || changed == true)){
-		if(typeof userData == "undefined")
-			userData = {};
-		if(typeof userData[lesson] == "undefined")
-			userData[lesson] = {};
-		userData[lesson][e.key] = e.data;
-		storage[subject] = JSON.stringify(userData);
-		//console.log(storage[subject])
-		if(system.isSignon() == true && ! system.isTeacher()){
-			let folder = "", data = {};
-			if(subject == "作業"){
-				data = {text: userData[lesson].text};
-				data[e.key] = e.data;
-			} else {
-				folder = e.key;
-				data = e.data;
+	if(typeof changed == "undefined" || changed == true){
+		if((subject == "作業" && system.isTeacher() && student == "") || !system.isTeacher()){
+			if(typeof userData == "undefined")
+				userData = {};
+			if(typeof userData[lesson] == "undefined")
+				userData[lesson] = {};
+			userData[lesson][e.key] = e.data;
+			storage[subject] = JSON.stringify(userData);
+			console.log(storage[subject])
+			if(system.isSignon() == true && ! system.isTeacher()){
+				let folder = "", data = {};
+				if(subject == "作業"){
+					data = {text: userData[lesson].text};
+					data[e.key] = e.data;
+				} else {
+					folder = e.key;
+					data = e.data;
+				}
+
+				fireBase.setUserData(fireBase.uid + "/" + subject + "/" + lesson + "/" +folder, data, function(){
+
+				});
 			}
-
-			fireBase.setUserData(fireBase.uid + "/" + subject + "/" + lesson + "/" +folder, data, function(){
-
-			});
 		}
 	}
+	
 }
 
 function changeJS(js) {
