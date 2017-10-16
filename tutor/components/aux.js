@@ -296,7 +296,7 @@ function adjustUser(){
 					return;
 				}
 				if(student.length > 0){
-					fireBase.listen(student + "/" + subject + "/" + lesson);
+					fireBase.listen("datas/" + student + "/" + subject + "/" + lesson);
 				} else {
 					fireBase.listenClear();
 				}

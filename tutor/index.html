@@ -743,7 +743,7 @@ function treeClick(node){
 	$("#source").tabs("select",0);
 	//$("#doc").tabs("select",0);
 	if(student.length > 0){
-		fireBase.listen(student + "/" + subject + "/" + node.id);
+		fireBase.listen("datas/" + student + "/" + subject + "/" + node.id);
 	}
 	loadPage(node, true);
 }
@@ -853,7 +853,7 @@ function changeValue(e, changed){ // 來自 iframe 修改資料
 			userData[lesson][e.key] = e.data;
 			storage[subject] = JSON.stringify(userData);
 			console.log(storage[subject])
-			if(system.isSignon() == true && ! system.isTeacher()){
+			if(system.isSignon() == true && (!system.isTeacher() || subject == "作業")){
 				let folder = "", data = {};
 				if(subject == "作業"){
 					data = {text: userData[lesson].text, date: userData[lesson].date};
@@ -862,8 +862,9 @@ function changeValue(e, changed){ // 來自 iframe 修改資料
 					folder = e.key;
 					data = e.data;
 				}
+				console.log(data)
 
-				fireBase.setUserData(fireBase.uid + "/" + subject + "/" + lesson + "/" +folder, data, function(){
+				fireBase.setUserData("datas/" + fireBase.uid + "/" + subject + "/" + lesson + "/" +folder, data, function(){
 
 				});
 			}
