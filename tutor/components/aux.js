@@ -82,7 +82,7 @@ function tooltips(){
 function adjuctFile(){
 	//, #divUser"
 	$(".lblSwitch").css({"visibility": subject == "作業" ? "hidden" : "visible"});
-	let display = (subject == "作業") ? "inline-block" : "none";
+	let display = (subject == "作業" && student == "") ? "inline-block" : "none";
 	$(".layout-panel-west .panel-tool a:nth-child(1)").css("display", display);
 	$(".layout-panel-west .panel-tool a:nth-child(2)").css("display", display);
 }
@@ -272,12 +272,7 @@ function adjustPanel(){
 		if(setting.doc != 0)
 			$("#doc").tabs("select", setting.doc);
 	}, 500);
-	if(typeof setting.student == "string" && setting.student.length > 0){
-		setTimeout(function(){
-			if(fireBase.loaded)
-				$('#user').combobox('setValue', setting.student);
-		}, 3000);
-	}
+	
 }
 
 function adjustUser(){
@@ -288,9 +283,12 @@ function adjustUser(){
 		if(storage.System().students.length > 0)
 			user = user.concat(JSON.parse(storage.System().students));
 		$(".lblSwitch").remove();
+		let loaded = false;
 		$('#user').combobox({
 			data: user,
 			onSelect(value){
+				if(loaded == false) return;
+				//console.log(value)
 				student = value.id == 0 ? "" : value.id;
 				readOnly = value.id == 0 ? true : false;
 				if(student.length > 0 && !system.isSignon()){
@@ -302,16 +300,26 @@ function adjustUser(){
 				} else {
 					fireBase.listenClear();
 				}
-				//console.log(student)
-				//if(userData == "undefined")
 				userData = {};
+				if(student.length > 0 && subject == "作業")
+					menu[setting.current].data = [];
+				adjuctFile();
 				if(fireBase.loaded){
-					storage.Setting({student});
+					setting.student = student;
+					storage.Setting(setting);
 					loadData(function(){
 						reload();
 					});					
 				}
 			}
 		});
+
+		if(typeof setting.student == "string" && setting.student.length > 0){
+			setTimeout(function(){
+				$('#user').combobox('setValue', setting.student);
+				loaded = true;
+			}, 1000);
+		} else
+			loaded = true;
 	}
 }
