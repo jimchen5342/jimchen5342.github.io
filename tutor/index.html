@@ -186,6 +186,7 @@
 	<script src="./system/AES.js"></script>
 	<script src="./system/crypt.js"></script>
 	<script src="./extend/String.js"></script>
+	<script src="./extend/Date.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="./components/speech.css" />
 	<script src="./components/speech.js"></script>
@@ -457,13 +458,14 @@ function addFile(){
 			let s = $("#fileName").val();
 			if(s.length > 0){
 				let id = "" + (new Date()).getTime();
-				userData[id] = {text: s};
+				let d = fireBase.serverTime();
+				userData[id] = {text: s, date: d};
 				storage[subject] = JSON.stringify(userData);
-				$("#winEdit").window("close");
 				$("#tree").tree('append', {
-					data: [{text: s, id:id}]
+					data: [{text: s, id:id, date: d}]
 				});
-				menu[setting.current].data.push({text: s, id:id});
+				menu[setting.current].data.push({text: s, id:id, date: d});
+				$("#winEdit").window("close");
 				clearEditor();
 				findTree(id);
 			}
@@ -692,7 +694,7 @@ function loadData(callback){
 	function loadHomework(callback){
 		menu[setting.current].data = [];
 		for(let key in userData){
-			menu[setting.current].data.push({id: key, text: userData[key].text})
+			menu[setting.current].data.push({id: key, text: userData[key].text, date: userData[key].date})
 		}
 		$('#tree').tree({
 			data: menu[setting.current].data
@@ -755,7 +757,9 @@ function loadPage(node, changed){
 			readOnly = true;
 		$("#switch").prop("checked", readOnly);
 	}
-	$("#divSubject").text(subject+ ": " + node.text);
+	$("#divSubject").text(subject+ ": " + node.text + 
+		(	typeof node.date != "undefined" ? " (" + (new Date(node.date)).toString("yyyy/mm/dd hh:MM") + ")" : "")
+	);
 	if(subject == "作業"){
 		if(system.isTeacher() && student.length > 0)
 			readOnly = true;
