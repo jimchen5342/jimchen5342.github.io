@@ -856,7 +856,7 @@ function changeValue(e, changed){ // 來自 iframe 修改資料
 			if(system.isSignon() == true && ! system.isTeacher()){
 				let folder = "", data = {};
 				if(subject == "作業"){
-					data = {text: userData[lesson].text};
+					data = {text: userData[lesson].text, date: userData[lesson].date};
 					data[e.key] = e.data;
 				} else {
 					folder = e.key;
@@ -869,7 +869,6 @@ function changeValue(e, changed){ // 來自 iframe 修改資料
 			}
 		}
 	}
-	
 }
 
 function changeJS(js) {
