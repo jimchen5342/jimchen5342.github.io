@@ -852,7 +852,7 @@ function changeValue(e, changed){ // 來自 iframe 修改資料
 				userData[lesson] = {};
 			userData[lesson][e.key] = e.data;
 			storage[subject] = JSON.stringify(userData);
-			console.log(storage[subject])
+			//console.log(storage[subject])
 			if(system.isSignon() == true && (!system.isTeacher() || subject == "作業")){
 				let folder = "", data = {};
 				if(subject == "作業"){
@@ -862,8 +862,6 @@ function changeValue(e, changed){ // 來自 iframe 修改資料
 					folder = e.key;
 					data = e.data;
 				}
-				console.log(data)
-
 				fireBase.setUserData("datas/" + fireBase.uid + "/" + subject + "/" + lesson + "/" +folder, data, function(){
 
 				});
