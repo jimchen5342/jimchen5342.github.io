@@ -299,15 +299,41 @@
 		});
 	}
 
-	let syncTimes = undefined;
+	let syncID = undefined, syncTime = null;
 	fireBase.setUserData = function(folder, data, callback){
-		if(fireBase.datas[folder] == data) return;
-		fireBase.datas[folder] = data;
-		if(typeof syncTimes != "undefined"){
-			clearTimeout(syncTimes);
+		if(folder.indexOf("undefined") > -1) return;
+		let max = 3;
+		if(typeof data == "object" && typeof fireBase.datas[folder] == "object"){
+			if(JSON.stringify(fireBase.datas[folder]) == JSON.stringify(data))
+				return;
+		} else if(fireBase.datas[folder] == data) 
+			return;
+
+		fireBase.datas[folder] = typeof data == "object" ? Object.assign({}, data) : data;
+		
+		if(typeof syncID != "undefined"){
+			clearTimeout(syncID);
 		}
-		syncTimes = setTimeout(function(){
-			console.log("now: " + (new Date()));
+		$("#sync").addClass("syncing");
+		$("#sync").removeClass("finished");
+		syncTime = (new Date()).getTime() / 1000;
+		count();
+
+		function count(){
+			let t1 = (new Date()).getTime() / 1000;
+			let t2 = Math.ceil(max - (t1 - syncTime));
+			$("#sync").text(t2 > 0 ? t2 : 0);
+			if(t2 <= 0){
+				$("#sync").removeClass("syncing");
+				$("#sync").addClass("finished");
+				exec();
+			} else {
+				syncID = setTimeout( count, 1 * 1000);
+			}
+		}
+
+		function exec(){
+			clearTimeout(syncID);
 			fireBase.database().ref().update(fireBase.datas)
 			.then((snap)=>{
 				if(callback) callback();
@@ -315,7 +341,7 @@
 			}).catch(err=>{
 				console.log(err);
 			});
-		}, 3 * 1000);
+		}
 	}
 	let newItems = false, changeValue = "";
 	fireBase.listenClear = function(success){

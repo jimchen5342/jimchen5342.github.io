@@ -61,6 +61,9 @@
 			background:url('./icons/speech.png') no-repeat center center;
 			background-size: 16px 16px;
 		}
+		.icon-student {
+			background: url(./icons/student.png) no-repeat center center;
+		}
 		#ver {
 			border-top-width: 1px;
 			padding: 7px 0;
@@ -178,6 +181,35 @@
 			margin-left: 5px;
 			padding: 5px 5px;
 		}
+		#center .tabs-tool table td {
+			display: none;
+		}
+		.lblSwitch {
+			display: none;
+		}
+		#sync {
+			width: 20px; 
+			height: 20px; 
+			border-radius: 10px;
+			margin-left: 5px;
+			background-color: red;
+			text-align: center;
+			color: white;
+			font-size: 10px !important;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+			display: none;
+		}
+		#sync.syncing {
+			background-color: #D50000;
+			display: block !important;
+		}
+		#sync.finished {
+			background-color: #3F51B5;
+			display: block !important;
+		}
+
 	</style>
 	<script src="./system/storage.js"></script>
 	<script src="./system/menu.js"></script>
@@ -244,6 +276,7 @@
 					<input type="checkbox" id="switch" checked>
 					<span class="slider round"></span>
 				</label>
+				<div id='sync' style="">1</div>
 			</div>
 		</div>
 	</div>
@@ -457,17 +490,19 @@ function addFile(){
 		} else {
 			let s = $("#fileName").val();
 			if(s.length > 0){
-				let id = "" + (new Date()).getTime();
-				let d = fireBase.serverTime();
-				userData[id] = {text: s, date: d};
+				let id = fireBase.serverTime() + "";
+				lesson = id;
+				userData[lesson] = {text: s, date: lesson};
 				storage[subject] = JSON.stringify(userData);
+				console.log(lesson)
+				console.log(userData)
 				$("#tree").tree('append', {
-					data: [{text: s, id:id, date: d}]
+					data: [{text: s, id:lesson, date: lesson}]
 				});
-				menu[setting.current].data.push({text: s, id:id, date: d});
+				menu[setting.current].data.push({text: s, id:lesson, date: lesson});
 				$("#winEdit").window("close");
 				clearEditor();
-				findTree(id);
+				findTree(lesson);
 			}
 		}
 	}
@@ -694,7 +729,7 @@ function loadData(callback){
 	function loadHomework(callback){
 		menu[setting.current].data = [];
 		for(let key in userData){
-			menu[setting.current].data.push({id: key, text: userData[key].text, date: userData[key].date})
+			menu[setting.current].data.push({id: key, text: userData[key].text, date: key})
 		}
 		$('#tree').tree({
 			data: menu[setting.current].data
@@ -749,7 +784,8 @@ function treeClick(node){
 }
 
 function loadPage(node, changed){
-	lesson = node.id;
+	$("#sync").css("display", "none");
+	lesson = node.id; //readOnly = true;
 	if(typeof changed == "boolean" && changed == true && !system.isTeacher()){
 		if(typeof userData == "object" && typeof userData[lesson] == "object"){
 			readOnly = false;
@@ -758,14 +794,15 @@ function loadPage(node, changed){
 		$("#switch").prop("checked", readOnly);
 	}
 	$("#divSubject").text(subject+ ": " + node.text + 
-		(	typeof node.date != "undefined" ? " (" + (new Date(node.date)).toString("yyyy/mm/dd hh:MM") + ")" : "")
+		(	typeof node.date != "undefined" ? " (" + (new Date(parseInt(node.date, 10))).toString("yyyy/mm/dd hh:MM") + ")" : "")
 	);
 	if(subject == "作業"){
 		if(system.isTeacher() && student.length > 0)
 			readOnly = true;
 		else
 			readOnly = false;
-	}
+	} else if(system.isTeacher())
+		readOnly = true;
 	if(readOnly == true && typeof node.html == "string" && node.html.length > 0){
 		//$("#result").attr("src", "./handout/" + subject + "/" + node["html"]);
 		result.location.assign("./handout/" + subject + "/" + node["html"]);
@@ -844,6 +881,7 @@ function changeValue(e, changed){ // 來自 iframe 修改資料
 
 		}
 	}
+	
 	if(typeof changed == "undefined" || changed == true){
 		if((subject == "作業" && system.isTeacher() && student == "") || !system.isTeacher()){
 			if(typeof userData == "undefined")
@@ -852,18 +890,15 @@ function changeValue(e, changed){ // 來自 iframe 修改資料
 				userData[lesson] = {};
 			userData[lesson][e.key] = e.data;
 			storage[subject] = JSON.stringify(userData);
+			
 			//console.log(storage[subject])
 			if(system.isSignon() == true && (!system.isTeacher() || subject == "作業")){
-				let folder = "", data = {};
+				let fold = e.key, data = e.data;
 				if(subject == "作業"){
-					data = {text: userData[lesson].text, date: userData[lesson].date};
-					data[e.key] = e.data;
-				} else {
-					folder = e.key;
-					data = e.data;
+					fold = ""; data = userData[lesson];
 				}
-				fireBase.setUserData("datas/" + fireBase.uid + "/" + subject + "/" + lesson + "/" +folder, data, function(){
-
+				fireBase.setUserData("datas/" + fireBase.uid + "/" + subject + "/" + lesson + "/" +
+					fold, data, function(){
 				});
 			}
 		}
@@ -885,7 +920,11 @@ function changeJS(js) {
 	newJS.id = "newJS"
 	if(result.document.getElementsByTagName("head").length > 0){
 		result.document.getElementsByTagName("head")[0].appendChild(newJS);
-		newJS.innerHTML = js;		
+		try{
+			newJS.innerHTML = js;
+		} catch (e){
+
+		}
 	}
 }
 

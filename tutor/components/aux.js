@@ -92,17 +92,20 @@ function centerIcon(){ //
 		}, 500);
 	} else {
 		$("#center .tabs-tool table td:nth-child(1)").css("display", // reload
-			(system.isTeacher() && student.length == 0) || (!system.isTeacher() && readOnly) ? "none" : "table-cell");
+			(((system.isTeacher() && student.length == 0) || 
+				(!system.isTeacher() && readOnly)) && subject != "作業")
+				? "none" : "table-cell");
 		$("#center .tabs-tool table td:nth-child(2)").css("display", // msg
 			! system.isSignon() ? "none" : "table-cell");
 			$("#center .tabs-tool table td:nth-child(3)").css("display", // student
 			system.isTeacher() && system.isSignon() ? "table-cell" : "none");
+		$("#center .tabs-tool table td:nth-child(4)").css("display", "table-cell"); // man
 		$('body').layout('resize');
 		// $("#center .tabs-tool table td:nth-child(2)").css("display", 
 		// 	system.isSignon() ? "none" : "table-cell");
 		//$("#center .tabs-tool").remove();		
-		if(system.isTeacher())
-			$(".icon-student").css("background", "url(icons/student.png) no-repeat center center");
+		// if(system.isTeacher())
+		// 	$(".icon-student").css("background", "url(icons/student.png) no-repeat center center");
 		if(system.isSignon())
 			$(".icon-man").css("background", "url(icons/user.png) no-repeat center center");
 	}

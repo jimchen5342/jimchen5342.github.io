@@ -54,20 +54,34 @@ let menu = [
 		text: "CSS",
 		data: [{
 			id: "00-basic",
-			text: "基本用法",
+			text: "基本架構",
 			context: "lesson00.t.html",
 			html: "lesson00.html",
-		}/*, {
+		}, {
 			id: "01-selector",
 			text: "選擇器",
-			context: "",
-			html: "lesson01.html",
-		}*/]
+			children: [{
+				id: "011-selector",
+				text: "選擇器-1",
+				context: "",
+				html: "lesson011.html",
+			}, {
+				id: "012-selector",
+				text: "選擇器-2",
+				context: "",
+				html: "lesson012.html",
+			}, {
+				id: "013-selector",
+				text: "選擇器-3",
+				context: "",
+				html: "lesson012.html",
+			}]
+		}]
 	}, {
 		text: "JavaScript",
 		data: [{
 			id: "00-basic",
-			text: "基本用法",
+			text: "基本架構",
 			context: "lesson00.t.html",
 			html: "lesson00.html",
 		}]
