@@ -48,6 +48,11 @@ let menu = [
 				text: "事件",
 				context: "lesson08.t.html",
 				html: "lesson08.html",	
+			}, {
+				id: "09-color",
+				text: "顏色",
+				context: "lesson09.t.html",
+				html: "lesson09.html"
 			}
 		] //
 	}, {
