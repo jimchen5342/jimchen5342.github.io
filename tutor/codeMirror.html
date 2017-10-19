@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="codeMirror/addon/hint/show-hint.css" />
     <script src="codeMirror/addon/hint/show-hint.js"></script>
     <script src="codeMirror/addon/hint/anyword-hint.js"></script>
+    
     <script src="system/system.js"></script>
     <style type="text/css">
       html, body{
@@ -46,7 +47,7 @@
   <script>
   let editor = null, mode = "", enabled = false;
   window.onload = function() {
-    mode = system.urlElement("mode", "javascript");
+    mode = system.urlElement("mode", "html");
     //if(mode != "javascript")
     //  mode = "text/x-mysql";
     let arr = [];
@@ -56,18 +57,39 @@
     } else if(mode == "javascript"){
       arr.push("codeMirror/mode/javascript/javascript.js");
       arr.push("codeMirror/addon/hint/javascript-hint.js");
+
+      // lint
+      arr.push("http://htmlhint.com/js/jshint.js");
+      arr.push("codeMirror/addon/lint/lint.css");
+      arr.push("codeMirror/addon/lint/lint.js");
+      arr.push("codeMirror/addon/lint/javascript-lint.js");
     } else if(mode == "html"){
       arr.push("codeMirror/addon/hint/html-hint.js");
       arr.push("codeMirror/addon/hint/css-hint.js");
       arr.push("codeMirror/addon/hint/javascript-hint.js");
       arr.push("codeMirror/addon/hint/xml-hint.js");
+
       arr.push("codeMirror/mode/xml/xml.js");
       arr.push("codeMirror/mode/javascript/javascript.js");
       arr.push("codeMirror/mode/css/css.js");
       arr.push("codeMirror/mode/htmlmixed/htmlmixed.js");
+
+      // lint
+      arr.push("http://htmlhint.com/js/htmlhint.js");
+      arr.push("http://csslint.net/js/csslint.js")
+      arr.push("codeMirror/addon/lint/lint.css");
+      arr.push("codeMirror/addon/lint/lint.js");
+      arr.push("codeMirror/addon/lint/html-lint.js");
+      arr.push("codeMirror/addon/lint/css-lint.js");
+      arr.push("codeMirror/addon/lint/javascript-lint.js");
     } else if(mode == "css"){
       arr.push("codeMirror/mode/css/css.js");
       arr.push("codeMirror/addon/hint/css-hint.js");
+
+      arr.push("http://csslint.net/js/csslint.js")
+      arr.push("codeMirror/addon/lint/lint.css");
+      arr.push("codeMirror/addon/lint/lint.js");
+      arr.push("codeMirror/addon/lint/css-lint.js");
     }
     system.loadScript(arr, create)
   };
@@ -100,18 +122,26 @@
       //fullScreen: true,
       keyMap: "sublime",
       foldGutter: true,
-      gutters: ["CodeMirror-linenumbers", "breakpoints", "CodeMirror-foldgutter"],
+      //lint: true,
+      gutters: ["CodeMirror-linenumbers", "breakpoints", "CodeMirror-foldgutter", "CodeMirror-lint-markers"],
+    });
+    editor.on("changes", function (Editor, changes) {
+      //console.log(changes)
     });
     editor.on("change", function (Editor, changes) {
+      let x = $(".CodeMirror-lint-marker-error, CodeMirror-lint-marker-warning").get();
+    
       if(typeof window.changeValue == "function" && enabled == true){
         if(mode.indexOf("html") > -1 && changes.text == "<") return;
-        window.changeValue({key: mode, data: editor.getValue()})
+        window.changeValue({key: mode, data: editor.getValue(), error: x.length});
       }
+      
     });
     editor.on("gutterClick", function(cm, n) {
       var info = cm.lineInfo(n);
       cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
     });
+
 
     function makeMarker() {
       var marker = document.createElement("div");
