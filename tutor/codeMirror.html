@@ -76,6 +76,7 @@
 
       // lint
       arr.push("http://htmlhint.com/js/htmlhint.js");
+      arr.push("http://htmlhint.com/js/jshint.js");
       arr.push("http://csslint.net/js/csslint.js")
       arr.push("codeMirror/addon/lint/lint.css");
       arr.push("codeMirror/addon/lint/lint.js");
@@ -122,24 +123,32 @@
       //fullScreen: true,
       keyMap: "sublime",
       foldGutter: true,
-      //lint: true,
+      lint: true,
       gutters: ["CodeMirror-linenumbers", "breakpoints", "CodeMirror-foldgutter", "CodeMirror-lint-markers"],
     });
     editor.on("changes", function (Editor, changes) {
       //console.log(changes)
     });
+    let idSend = null;
     editor.on("change", function (Editor, changes) {
-      let x = $(".CodeMirror-lint-marker-error, CodeMirror-lint-marker-warning").get();
-    
       if(typeof window.changeValue == "function" && enabled == true){
-        if(mode.indexOf("html") > -1 && changes.text == "<") return;
-        window.changeValue({key: mode, data: editor.getValue(), error: x.length});
+        if(changes.text == " " || changes.text == "\t" ) return;
+        //if(mode.indexOf("html") > -1 && changes.text == "<") return;
+        if(idSend != null){
+          clearTimeout(idSend);
+          idSend = null;
+        }
+        idSend = setTimeout(send, 600);
       }
-      
+      function send(){
+        let x = $(".CodeMirror-lint-marker-error, CodeMirror-lint-marker-warning").get();
+        window.changeValue({key: mode, data: editor.getValue(), error: x.length});
+        console.log(x.length)
+      }
     });
     editor.on("gutterClick", function(cm, n) {
       var info = cm.lineInfo(n);
-      cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
+      //cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
     });
 
 

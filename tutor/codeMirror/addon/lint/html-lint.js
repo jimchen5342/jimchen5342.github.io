@@ -18,13 +18,19 @@
   var defaultRules = {
     "tagname-lowercase": true,
     "attr-lowercase": true,
-    "attr-value-double-quotes": true,
+    "attr-value-double-quotes": false,
     "doctype-first": false,
     "tag-pair": true,
     "spec-char-escape": true,
     "id-unique": true,
     "src-not-empty": true,
-    "attr-no-duplication": true
+    "attr-no-duplication": true,
+    "csslint": {
+      "display-property-grouping": true,
+      "known-properties": true
+    },
+    "jshint": {},
+    "doctype-html5": true
   };
 
   CodeMirror.registerHelper("lint", "html", function(text, options) {

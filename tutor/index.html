@@ -858,11 +858,12 @@ function loadPage(node, changed){
 	loadEditor(0);
 }
 
-let idChange = null;
+//let idChange = null;
 function changeValue(e, changed){ // 來自 iframe 修改資料
-	if(idChange != null)
-		clearTimeout(idChange)
-	idChange = setTimeout(change, 600);
+	// if(idChange != null)
+	// 	clearTimeout(idChange)
+	if(typeof e.error == "undefined" || e.error == 0)
+		change();
 
 	function change(){
 		if(e.key == "css"){

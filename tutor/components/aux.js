@@ -80,9 +80,8 @@ function tooltips(){
 	}
 }
 function adjuctFile(){
-	console.log(subject)
-	console.log((subject == "作業" ? "hidden" : "visible"))
-	$(".lblSwitch").css({"visibility": (subject == "作業" ? "hidden" : "visible")});
+	//, #divUser"
+	$(".lblSwitch").css({"visibility": subject == "作業" ? "hidden" : "visible"});
 	let display = (subject == "作業" && student == "") ? "inline-block" : "none";
 	$(".layout-panel-west .panel-tool a:nth-child(1)").css("display", display);
 	$(".layout-panel-west .panel-tool a:nth-child(2)").css("display", display);
