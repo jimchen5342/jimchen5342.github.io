@@ -346,7 +346,7 @@ let setting = storage.Setting();
 //console.log(setting)
 $(document).ready(function(){
 	//
-	$("#ver").text("Jim Chen 2017/10/16");
+	$("#ver").text("Jim Chen 2017/10/20");
 	if(system.isTeacher() && typeof setting.student == "string" && setting.student.length > 0){
 		student = setting.student;
 	}
@@ -883,7 +883,6 @@ function changeValue(e, changed){ // 來自 iframe 修改資料
 		}
 	}
 
-	
 	if(typeof changed == "undefined" || changed == true){
 		if((subject == "作業" && system.isTeacher() && student == "") || !system.isTeacher()){
 			if(typeof userData == "undefined")
