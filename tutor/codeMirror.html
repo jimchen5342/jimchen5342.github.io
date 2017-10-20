@@ -129,6 +129,7 @@
     editor.on("changes", function (Editor, changes) {
       //console.log(changes)
     });
+    let idSend = null;
     editor.on("change", function (Editor, changes) {
       function checkError(){
         let lines = Editor.doc.size;
@@ -145,12 +146,21 @@
       }
       if(typeof window.changeValue == "function" && enabled == true){
         if(changes.text == " " || changes.text == "\t" ) return;
+        //if(mode.indexOf("html") > -1 && changes.text == "<") return;
+        if(idSend != null){
+          //clearTimeout(idSend);
+          //idSend = null;
+        }
+        idSend = setTimeout(send, 600);
+      }
+      function send(){
         window.changeValue({
           key: mode, 
           data: editor.getValue(),
           line: changes.from.line,
           error: checkError()}
         );
+        //console.log(x.length)
       }
     });
     editor.on("gutterClick", function(cm, n) {

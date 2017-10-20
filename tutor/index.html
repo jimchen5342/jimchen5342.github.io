@@ -859,6 +859,7 @@ function loadPage(node, changed){
 
 //let idChange = null;
 function changeValue(e, changed){ // 來自 iframe 修改資料
+	//console.log(e)
 	if(typeof e.error == "undefined" || e.error == 0){
 		if(e.key == "css"){
 			changeCSS(e.data);
