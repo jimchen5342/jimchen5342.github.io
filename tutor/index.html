@@ -195,19 +195,18 @@
 			background-color: red;
 			text-align: center;
 			color: white;
-			font-size: 10px !important;
-      display: flex;
+			font-size: 6px !important;
       justify-content: center;
       align-items: center;
 			display: none;
 		}
 		#sync.syncing {
 			background-color: #D50000;
-			display: block !important;
+			display: flex !important;
 		}
 		#sync.finished {
 			background-color: #3F51B5;
-			display: block !important;
+			display: flex !important;
 		}
 
 	</style>
@@ -860,12 +859,7 @@ function loadPage(node, changed){
 
 //let idChange = null;
 function changeValue(e, changed){ // 來自 iframe 修改資料
-	// if(idChange != null)
-	// 	clearTimeout(idChange)
-	if(typeof e.error == "undefined" || e.error == 0)
-		change();
-
-	function change(){
+	if(typeof e.error == "undefined" || e.error == 0){
 		if(e.key == "css"){
 			changeCSS(e.data);
 		} else if(e.key == "javascript"){
@@ -885,7 +879,6 @@ function changeValue(e, changed){ // 來自 iframe 修改資料
 				}
 				$("#result").prop("srcdoc", html);
 			} catch (e) {
-
 			}
 		}
 	}

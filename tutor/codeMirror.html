@@ -129,21 +129,28 @@
     editor.on("changes", function (Editor, changes) {
       //console.log(changes)
     });
-    let idSend = null;
     editor.on("change", function (Editor, changes) {
+      function checkError(){
+        let lines = Editor.doc.size;
+        for(let i = 0; i < lines; i++){
+          let markers = Editor.lineInfo(i).gutterMarkers;
+          for(let key in markers){
+            let name = markers[key].className;
+            if(name.indexOf("-lint-") > -1){
+              return 1;
+            }
+          }
+        }
+        return 0;
+      }
       if(typeof window.changeValue == "function" && enabled == true){
         if(changes.text == " " || changes.text == "\t" ) return;
-        //if(mode.indexOf("html") > -1 && changes.text == "<") return;
-        if(idSend != null){
-          clearTimeout(idSend);
-          idSend = null;
-        }
-        idSend = setTimeout(send, 600);
-      }
-      function send(){
-        let x = $(".CodeMirror-lint-marker-error, CodeMirror-lint-marker-warning").get();
-        window.changeValue({key: mode, data: editor.getValue(), error: x.length});
-        console.log(x.length)
+        window.changeValue({
+          key: mode, 
+          data: editor.getValue(),
+          line: changes.from.line,
+          error: checkError()}
+        );
       }
     });
     editor.on("gutterClick", function(cm, n) {
