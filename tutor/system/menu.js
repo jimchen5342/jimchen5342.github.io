@@ -68,18 +68,18 @@ let menu = [
 			children: [{
 				id: "011-selector",
 				text: "選擇器-1",
-				context: "",
+				context: "lesson011.t.html",
 				html: "lesson011.html",
 			}, {
 				id: "012-selector",
 				text: "選擇器-2",
-				context: "",
+				context: "lesson012.t.html",
 				html: "lesson012.html",
 			}, {
 				id: "013-selector",
 				text: "選擇器-3",
-				context: "",
-				html: "lesson012.html",
+				context: "lesson013.t.html",
+				html: "lesson013.html",
 			}]
 		}]
 	}, {

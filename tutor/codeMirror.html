@@ -168,7 +168,6 @@
       //cm.setGutterMarker(n, "breakpoints", info.gutterMarkers ? null : makeMarker());
     });
 
-
     function makeMarker() {
       var marker = document.createElement("div");
       marker.style.color = "#822";
@@ -223,11 +222,16 @@
         type :"GET",
         url  : "./handout/" + path + "/" + file,
         dataType: "text",
-        success : function(result) {
+        success: function(result) {
           //var info = editor.lineInfo(0);
           //console.log(info);
           //console.log(editor)
           editor.setValue(result);
+          enabled = true;
+        },
+        error: function(){
+          readOnly(true);
+          editor.setValue("");
           enabled = true;
         }
       });
