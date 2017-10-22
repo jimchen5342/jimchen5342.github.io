@@ -247,12 +247,12 @@
 	<div data-options="region:'east',split:true" id="east" style="width:400px; overflow: hidden;">
 			<div class="easyui-tabs" id="doc" style="width: 100%; height: 100%">
 				<div title="講義" class='myPanel'>
-						<iframe id='context' scrolling='yes' frameborder='0' seamless='seamless'
+						<iframe id='context' class='iframe' scrolling='yes' frameborder='0' seamless='seamless'
 						sandbox='allow-scripts allow-top-navigation allow-same-origin allow-modals' />
 					<!--</iframe>-->
 				</div>
 				<div title="執行結果" class='myPanel'>
-					<iframe id='result' scrolling='yes' frameborder='0' seamless='seamless'
+					<iframe id='result' class='iframe' scrolling='yes' frameborder='0' seamless='seamless'
 						sandbox='allow-scripts allow-top-navigation allow-same-origin allow-modals'>
 					</iframe>
 				</div>
@@ -325,7 +325,7 @@
 						<li><i class="material-icons">stop</i></li>  
 					</ul>
 			</div>
-			<div id='layoutBoard' style="width: 100%; height: 100%; overflow: hidden; flex: 1;" class="flexV"> </div>
+			<div id='layoutBoard' style="width: 100%; height: 100%; overflow: hidden; flex: 1;" class="flexV"></div>
 		</div>
 		
 	</div>
@@ -353,7 +353,7 @@ $(document).ready(function(){
 	//console.log(setting)
 	result = $("#result").prop('contentWindow');
 	adjustPanel();
-	let s = "<iframe scrolling='yes' frameborder='0' seamless='seamless' " +
+	let s = "<iframe scrolling='yes' class='iframe' frameborder='0' seamless='seamless' " +
 			"sandbox='allow-scripts allow-top-navigation allow-same-origin allow-modals'></iframe>";
 	let arr = $("div[src]").get();
 	//console.log(arr)
@@ -416,13 +416,10 @@ $(document).ready(function(){
 			userData = {};
 		reload();
 	});
-	//console.log("teacher: " + system.isTeacher())
 	if(system.isTeacher() == false){
 		information();
 	}
 	tooltips();
-	//MaskUtil.mask("test"); // ok
-	//window.showToast({msg: "hi", icon: "info"}) // ok
 	setTimeout(function(){
 		$("body").css("visibility", "visible");
 	}, 300);
@@ -438,7 +435,7 @@ $(document).ready(function(){
 			handler: cancelFile
 		}]
 	});
-	keyHandle();
+	keyHandle(0);
 	if(system.isSignon())
 		speech.adjust();
 });
@@ -811,6 +808,7 @@ function loadPage(node, changed){
 	centerIcon();
 	function loadEditor(index){
 		if(index >= mode.length){
+			keyHandle(1);
 			//setTimeout(function(){
 			//}, 600)
 		} else if (typeof iframe[mode[index].src] == "object") {
