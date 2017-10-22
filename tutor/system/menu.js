@@ -67,19 +67,34 @@ let menu = [
 			text: "選擇器",
 			children: [{
 				id: "011-selector",
-				text: "選擇器-1",
+				text: "簡單選擇器",
 				context: "lesson011.t.html",
 				html: "lesson011.html",
 			}, {
 				id: "012-selector",
-				text: "選擇器-2",
+				text: "複合選擇器",
 				context: "lesson012.t.html",
 				html: "lesson012.html",
 			}, {
 				id: "013-selector",
-				text: "選擇器-3",
+				text: "屬性選擇器",
 				context: "lesson013.t.html",
 				html: "lesson013.html",
+			}, {
+				id: "014-selector",
+				text: "選擇器",
+				context: "lesson014.t.html",
+				html: "lesson014.html",
+			}, {
+				id: "015-selector",
+				text: "偽類別選擇器",
+				context: "lesson015.t.html",
+				html: "lesson015.html",
+			}, {
+				id: "016-selector",
+				text: "偽元素選擇器",
+				context: "lesson016.t.html",
+				html: "lesson016.html",
 			}]
 		}]
 	}, {

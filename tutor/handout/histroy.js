@@ -17,5 +17,6 @@ $(document).ready(function(){
 		}
   });
   if(typeof setting[tag] == "number" && setting[tag] != 0)
-			$('body').tabs("select", setting[tag]);		
+      $('body').tabs("select", setting[tag]);
+  $("body").tabs("resize")		
 });

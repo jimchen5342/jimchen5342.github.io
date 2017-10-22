@@ -25,19 +25,21 @@
 </head>	
 <body class="easyui-tabs" style="width: 100%; height: 100%;" onresize="$('body').tabs('resize')">
   <div title="基本架構">
-      CSS 用於控制網頁的樣式和布局
+    <h3>CSS 用於控制網頁的樣式和布局</h3>
     <h4>用法</h4>
     <ol>
+      <li>屬性名稱<span style="color: red;">: </span>屬性值<span style="color: red;">;</span></li>
       <li>內聯：寫在元素的 style 屬性
           <pre><code>
-            &lt;input type="button" style="color: red;" /&gt;
+            &lt;input type="button" style="color: red; font-size: 16px;" /&gt;
           </code></pre>		
       </li>
       <li>
-        外部/內部：
+        外部/內部：利用 Selector(選擇器)指定元素套用條件，並用 { } 含括屬性
         <pre><code>
-            body {
+            input {
               color: red;
+              font-size: 16px;
             }
           </code></pre>	
       </li>
@@ -47,13 +49,23 @@
     <ol>
       <li>inherit</li>
       <li>!important</li>
-      <li>CSS 屬性前綴（Vendor Prefixes）</li>
+      <li>none</li>
+      <li>CSS 屬性前綴（Vendor Prefixes）
+        <pre><code>
+          .box {
+            -moz-border-radius: 10px;
+            -ms-border-radius: 10px;
+            -o-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+          }
+        </code></pre>
+      </li>
       <li></li>
     </ol>
   </div>
 
   <div title="好站連結">
-   
     <a href="http://www.w3school.com.cn/css3/index.asp" target='_parent'>CSS 教程(W3 school)</a>
     <br />
     <a href='http://www.w3school.com.cn/cssref/index.asp' target='_parent'>CSS 參考手冊(W3 school)</a>
@@ -61,9 +73,12 @@
     <a href='http://css.doyoe.com/' target='_parent'>CSS 參考手冊</a>
     <br />
     <a href='https://liveweave.com/cssgen/index.html' target='_parent'>CSS (Liveweave)</a>
+    <br />
+    <a href='http://www.smalljacky.com/web-design/css/css-selectors/' target='_parent'>MIS腳印-選擇器</a>
     <!--<br />
     <a href='' target='_parent'></a>
     <br />
+    
 
 
     https://liveweave.com/designer/index.html
