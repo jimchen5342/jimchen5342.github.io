@@ -1,7 +1,51 @@
 (function(window, undefined) {
 	let board = {}, whiteBoard;
-
+/*
+more_vert
+save
+delete
+phonelink_erase
+*/
+	function dropImage(){
+		let $drop = $("#layoutBoard");
+		//抑制瀏覽器原有的拖拉操作效果
+		function stopEvent(evt) {
+			evt.stopPropagation();
+			evt.preventDefault();
+		}
+		$drop.bind("dragover", function (e) {
+			//滑鼠經過上方時加入特效
+			stopEvent(e);
+			$(e.target).addClass("hover");
+		}).bind("dragleave", function (e) {
+			//滑鼠移開時移除特效
+			stopEvent(e);
+			$(e.target).removeClass("hover");
+		}).bind("drop", function (e) {
+			//拖放操作完成事件
+			stopEvent(e);
+			$(e.target).removeClass("hover");
+			//由dataTransfer.files取得檔案資訊
+			var files = e.originalEvent.dataTransfer.files;
+			var imageFiles = $.map(files, function (f, i) {
+				//只留下type為image/*者，例如: image/gif, image/jpeg, image/png...
+				return f.type.indexOf("image") == 0 ? f : null;
+			});
+			
+			//逐一讀入各圖檔，取得DataURI，顯示在網頁上
+			$.each(imageFiles, function (i, file) {
+				//使用File API讀取圖檔內容轉為DataUri
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					console.log(e.target.result)
+					whiteBoard = new WhiteBoard(e.target.result);
+				}
+				reader.readAsDataURL(file);
+			});
+		});		
+	}
 	function adjust(){
+		dropImage();
 		$('#winBoard').window({
 			border:'thin',
 			cls:'c10',

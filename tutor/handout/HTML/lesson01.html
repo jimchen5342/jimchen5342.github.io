@@ -4,33 +4,57 @@
   <title>第一課：區塊/標題</title>
   <meta charset="utf-8">
 	<style type="text/css">
+		body {
+			margin: 0px;
+			padding: 0px;
+		}
+		* {
+			box-sizing: border-box;
+		}
+		span {
+			border: 1px solid red;
+		}
 	  #mySpan {
 			color: blue;
 			cursor: pointer;
-			border: 1px solid red;
 			padding: 15px;
 			margin: 0px;
-  	}
+		}
+		.border {
+			border: 1px solid red;
+		}
 	</style>
 </head>	
 <body>
   <h2 style="color: blue">第一課：區塊/標題</h2>
-	<h1 style="color: red; border: 1px solid black;">我是 h1</h1>
+	<div class='border'>
+		<h1 style="color: red; border: 1px solid black;">我是 h1</h1>
+	</div>
 	<h2>我是 h2</h2>
 	<h3>我是 h3</h3>
 	<h4>我是 h4</h4>
 	<h5>我是 h5</h5>
 	<h6>我是 h6</h6>
-	<p>我是 p</p>
-	<div>我是 div</div>
+	<div  class='border'>
+		<p>我是第一個 p</p>
+		<p>我是第二個 p</p>
+	</div>
+
 	<br />
+	
+	<div class='border'>
+		<div>我是第一個 div</div>
+		<div>我是第二個 div</div>
+	</div>
+
+	<br />
+
 	<span>我是 span</span>
-	<br /><br />
 	<span id='mySpan'>我是 mySpan, 請按我</span>
 </body>
 <script>
 	document.getElementById("mySpan").onclick = function(){
-    alert("你按了 mySpan")
-  }
+    alert("你按了 mySpan");
+  };
 </script>
 </html>

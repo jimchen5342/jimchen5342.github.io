@@ -327,15 +327,27 @@ function adjustUser(){
 	}
 }
 
-function keyHandle(){
+function keyHandle(kind){
 	//console.log(window.frames);
-	$("body").bind("keyup keypress keydown", function(event){
-		console.log(event.type + ": " + event.ctrlKey + "/" + event.key)
-		//if(e.keyCode == 27){ // esc
-		if(event.ctrlKey && event.key == "p"){
-
-		} else if(event.ctrlKey && event.shiftKey){
-			
+	if(kind == 0)
+		$("body").bind("keyup keypress keydown", keyEvent);
+	else {
+		let arr = $(".iframe").get();
+		for(let i = 0; i < arr.length; i++){
+			let content = $(arr[i]).prop('contentWindow');
+			$(content.document.body).bind("keydown", keyEvent); // keyup keypress 
 		}
-	});
+	}
+
+	function keyEvent(event){
+		//console.log(event.type + ": " + event.ctrlKey + "/" + event.key)
+		//if(e.keyCode == 27){ // esc
+		if(event.type == "keydown" && event.ctrlKey && event.key == "p"){
+			window.postMessage({cmd: "snapshot"}, "*");
+		} else if(event.type == "keydown" && event.ctrlKey && event.key == "b"){
+			$("#layoutBoard").html("");
+			$('#winBoard').window('open');
+		} else if(event.ctrlKey && event.shiftKey){
+		}
+	}
 }
