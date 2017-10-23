@@ -4,10 +4,31 @@
   <title>基本架構</title>
   <meta charset="utf-8">
   <style type="text/css">
+    body {
+      color: red;
+    }
+    
+    #div2 {
+      background-image: -webkit-linear-gradient(top,  #0000ff, white) !important;
+    }
+    div {
+      background-image: -webkit-linear-gradient(top,  #E6E6E6, blue);
+      height: 40px;
+      border: 1px solid #eee;
+    }
+		.div {
+      background-image: -webkit-gradient(linear, right top, left bottom, color-stop(0, #FFFFFF), color-stop(100, #3366FF));
+;
+    }
   </style>
   <script>
   </script>
 </head>	
 <body>
+  <label>帳號：</label>
+  <input style='color: blue;' value='jimchen'><br />
+  <div id='div1'>我是 div1</div>
+  <div id='div2'>我是 div2</div>
+	<div class='div'>我是 div3</div>
 </body>
 </html>

@@ -34,3 +34,20 @@ ol, ul {
 	margin-top: 2px;
 	padding-left: 20px;
 }
+
+/*td.hljs-ln-numbers {*/
+table.hljs-ln tr > td:nth-child(1){
+	padding-right: 5px !important;
+	border-right: 1px solid #8E24AA;
+	min-width: 20px;
+	text-align: right;
+}
+table.hljs-ln tr > td:nth-child(2){
+	padding-left: 15px !important;
+}
+/*
+div.hljs-ln-n {
+	padding-right: 5px;
+	border-right: 1px solid #eee;
+}
+*/
