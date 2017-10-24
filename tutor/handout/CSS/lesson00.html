@@ -7,18 +7,17 @@
     body {
       color: red;
     }
-    
-    #div2 {
-      background-image: -webkit-linear-gradient(top,  #0000ff, white) !important;
-    }
     div {
-      background-image: -webkit-linear-gradient(top,  #E6E6E6, blue);
+      background-image: -webkit-linear-gradient(top,  #f2f5f6, #c8d7dc);
       height: 40px;
       border: 1px solid #eee;
     }
+    #div2 {
+      background-image: -webkit-linear-gradient(top,  #b6e026, #abdc28) !important;
+    }
 		.div {
-      background-image: -webkit-gradient(linear, right top, left bottom, color-stop(0, #FFFFFF), color-stop(100, #3366FF));
-;
+      background-image: -webkit-gradient(linear, right top, left bottom, 
+        color-stop(0, #FFFFFF), color-stop(100, #3366FF));
     }
   </style>
   <script>
@@ -26,9 +25,9 @@
 </head>	
 <body>
   <label>帳號：</label>
-  <input style='color: blue;' value='jimchen'><br />
+  <input style='color: blue;' value='jimchen'><br /><br />
   <div id='div1'>我是 div1</div>
   <div id='div2'>我是 div2</div>
-	<div class='div'>我是 div3</div>
+	<div id='div3' class='div'>我是 div3</div>
 </body>
 </html>

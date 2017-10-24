@@ -43,7 +43,56 @@
           </code></pre>	
       </li>
     </ol>
-
+    <h4>選擇器的套用優先順序</h4>
+    <ol>
+      <li>標有 !important</li>
+      <li>內聯(element style) > 內部 > 外部</li>
+      <li>element style > #id > .className > tagName.className, tagName <br/>
+        <table class='tutor' style="border-collapse: collapse; border: 1px solid #aaa; max-width: 350px; margin: 10px 0;">
+          <tr>
+            <th>選擇器</th>
+            <th>優先順序</th>
+          </tr>
+          <tr>
+            <td>style=""</td>
+            <td>1,0,0,0</td>
+          </tr>
+          <tr>
+            <td>#wrapper #content {}</td>
+            <td>0,2,0,0</td>
+          </tr>
+          <tr>
+            <td>#content .datePosted {}</td>
+            <td>0,1,1,0</td>
+          </tr>
+          <tr>
+            <td>div#content {}</td>
+            <td>0,1,0,1</td>
+          </tr>
+          <tr>
+            <td>#content {}</td>
+            <td>0,1,0,0,</td>
+          </tr>
+          <tr>
+            <td>p.comment .dateposted {}</td>
+            <td>0,0,2,1</td>
+          </tr>
+          <tr>
+            <td>p.comment {}</td>
+            <td>0,0,1,1</td>
+          </tr>
+          <tr>
+            <td>div p {}</td>
+            <td>0,0,0,2</td>
+          </tr>
+          <tr>
+            <td>p {}</td>
+            <td>0,0,0,1</td>
+          </tr>
+        </table>
+        註：如相同權重則以後出現者為準
+      </li>
+    </ol>
     <h4>注意事項</h4>
     <ol>
       <li>inherit</li>
@@ -52,11 +101,11 @@
       <li>CSS 屬性前綴（Vendor Prefixes）
         <pre><code>
           .box {
-            -moz-border-radius: 10px;
-            -ms-border-radius: 10px;
-            -o-border-radius: 10px;
-            -webkit-border-radius: 10px;
-            border-radius: 10px;
+            -moz-border-radius: 10px; /* Firfox(mozilla) */
+            -ms-border-radius: 10px;  /* IE(microsoft)*/
+            -o-border-radius: 10px; /* Opera */
+            -webkit-border-radius: 10px; /* Chrome(google), Safari(apple) */
+            border-radius: 10px; /* 通用 */
           }
         </code></pre>
       </li>
@@ -75,13 +124,10 @@
     <a href='http://www.smalljacky.com/web-design/css/css-selectors/' target='_parent'>MIS腳印-選擇器</a>
     <br />
     <a href='http://w3design.pixnet.net/blog/post/15210795-13%E5%80%8B%E8%AE%93css%E9%AB%98%E6%95%88%E6%95%B4%E6%BD%94%E7%9A%84%E6%96%B9%E6%B3%95' target='_parent'>13個讓css高效整潔的方法</a>
+    <br />
+    <a href='https://github.com/YIXUNFE/blog/issues/9' target='_parent'>套用優先順序</a>
     <!--<br />
     <a href='' target='_parent'></a>
-    <br />
-    
-
-
-    https://liveweave.com/designer/index.html
     -->
   </div>
 </body>

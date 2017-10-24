@@ -41,9 +41,21 @@ table.hljs-ln tr > td:nth-child(1){
 	border-right: 1px solid #8E24AA;
 	min-width: 20px;
 	text-align: right;
+	vertical-align: top;
+	height: 20px;
 }
 table.hljs-ln tr > td:nth-child(2){
 	padding-left: 15px !important;
+	vertical-align: top;
+}
+
+.tutor th, .tutor.html01 td:nth-child(1) {
+	text-align: center;
+}
+
+.tutor td, th {
+	padding: 6px 15px 6px 6px;
+	border: 1px solid #aaa;
 }
 /*
 div.hljs-ln-n {
