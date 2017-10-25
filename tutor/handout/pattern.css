@@ -57,6 +57,11 @@ table.hljs-ln tr > td:nth-child(2){
 	padding: 6px 15px 6px 6px;
 	border: 1px solid #aaa;
 }
+
+.outline {
+	color: red;
+	font-weight: 900;
+}
 /*
 div.hljs-ln-n {
 	padding-right: 5px;

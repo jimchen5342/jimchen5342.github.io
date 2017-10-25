@@ -62,6 +62,7 @@ let menu = [
 			text: "基本架構",
 			context: "lesson00.t.html",
 			html: "lesson00.html",
+			css: "style.css",
 		}, {
 			id: "01-selector",
 			text: "選擇器",
@@ -82,19 +83,19 @@ let menu = [
 				html: "lesson013.html",
 			}, {
 				id: "014-selector",
-				text: "選擇器",
+				text: "偽類別選擇器一",
 				context: "lesson014.t.html",
 				html: "lesson014.html",
 			}, {
 				id: "015-selector",
-				text: "偽類別選擇器",
+				text: "偽類別選擇器二",
 				context: "lesson015.t.html",
 				html: "lesson015.html",
 			}, {
 				id: "016-selector",
 				text: "偽元素選擇器",
 				context: "lesson016.t.html",
-				html: "lesson016.html",
+				html: "lesson016.html",				
 			}]
 		}]
 	}, {

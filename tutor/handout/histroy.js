@@ -8,9 +8,11 @@ $(document).ready(function(){
   if(typeof s == "string" && s.length > 0)
     setting = JSON.parse(s);
 
+  //console.log(tag)
+  let w = (tag == "CSS-lesson00.t") ? 80 : 70;
   $('body').tabs({
 		tabPosition: "right",
-    headerWidth: 70,
+    headerWidth: w,
     onSelect:function(title, index){
       setting[tag] = index;
       localStorage.setItem(label, JSON.stringify(setting));

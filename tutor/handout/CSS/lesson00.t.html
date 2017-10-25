@@ -3,8 +3,6 @@
 <head>
   <title>基本架構</title>
   <meta charset="utf-8">
-  <meta http-equiv="cache-control" content="no-cache">
-  <meta http-equiv="expires" content="0">
   <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
   <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
   <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/color.css">
@@ -27,20 +25,32 @@
     <h3>說明：CSS 用於控制網頁的樣式和布局</h3>
     <h4>用法：</h4>
     <ol>
-      <li>屬性名稱<span style="color: red;">: </span>屬性值<span style="color: red;">;</span></li>
-      <li>內聯：寫在元素的 style 屬性
+      <li>屬性名稱<span class='outline'>: </span>
+        屬性值<span class='outline'>;</span></li>
+      <li>內聯定義：寫在元素的 style 屬性
           <pre><code class="html">
             &lt;input style="color: red; font-size: 16px;" type="text" /&gt;
           </code></pre>		
       </li>
       <li>
-        外部/內部：利用 Selector(選擇器)指定元素套用條件，並用 { } 含括屬性
+        外部定義：
         <pre><code>
-            input {
-              color: red;
-              font-size: 16px;
-            }
-          </code></pre>	
+            &lt;link rel="stylesheet" href="./style.css"&gt; &lt;/link&gt;
+            &lt;link rel="stylesheet" href="https://www.jeasyui.com/easyui/themes/icon.css"&gt; &lt;/link&gt;
+        </code></pre>
+        內部定義：
+        <pre><code>
+            &lt;style type="text/css""&gt;
+              ......
+            &lt;/style&gt;
+        </code></pre>
+        外部/內部的 CSS 內容利用 <span style='text-decoration: underline;'>Selector</span>(選擇器)指定元素套用條件，並用 <span class='outline'>{ }</span> 含括屬性
+        <pre><code>
+          input {
+            color: red;
+            font-size: 16px;
+          }
+        </code></pre>	
       </li>
     </ol>
     <h4>選擇器的套用優先順序</h4>
@@ -109,6 +119,105 @@
           }
         </code></pre>
       </li>
+    </ol>
+  </div>
+  <div title="繼承屬性" style="padding: 15px;">
+    <ol>
+      <li>border-collapse</li>
+      <li>border-spacing</li>
+      <li>color</li>
+      <li>cursor</li>
+      <li>font, 其中包括
+        <ol style="list-style-type:lower-alpha;">
+          <li>font-family</li>
+          <li>font-size</li>
+          <li>font-weight</li>
+          <li>font-style</li>
+        </ol>
+      </li>
+      <li>letter-spacing</li>
+      <li>line-height</li>
+      <li>list-style, 其中包括
+          <ol style="list-style-type:lower-alpha;">
+            <li>list-style-image</li>
+            <li><list-style-position/li>
+            <li>list-style-type</li>
+          </ol>
+      <li>text-align</li>
+      <li>text-indent</li>
+      <li>text-transform</li>
+      <li>visibility</li>
+      <li>white-space</li>
+      <li>word-spacing</li>
+    </ol>
+  </div>
+  <div title="非繼承屬性" style="padding: 15px;">
+    <ol>
+      <li>z-index</li>
+      <li>width, 其中包括
+        <ol style="list-style-type:lower-alpha;">
+          <li>min-width</li>
+          <li>max-width</li>
+        </ol>
+      </li>
+      <li>height, 其中包括
+          <ol style="list-style-type:lower-alpha;">
+            <li>min-height</li>
+            <li>max-height</li>
+          </ol>
+        </li>
+      <li>dispaly</li>
+      <li>vertical-align</li>
+      <li>position</li>
+      <li>top</li>
+      <li>bottom</li>
+      <li>left</li>
+      <li>right</li>
+      <li>background, 其中包括
+        <ol style="list-style-type:lower-alpha;">
+          <li>background-color</li>
+          <li>background-image</li>
+          <li>background-position</li>
+          <li>background-attachment</li>
+          <li>background-repeat</li>
+        </ol>
+      </li>
+      <li>border, 其中包括
+        <ol style="list-style-type:lower-alpha;">
+          <li>border-color</li>
+          <li>border-style</li>
+          <li>border-width</li>
+          <li>......</li>
+        </ol>
+      </li>
+      <li>padding, 其中包括
+        <ol style="list-style-type:lower-alpha;">
+          <li>padding-left</li>
+          <li>padding-right</li>
+          <li>padding-top</li>
+          <li>padding-bottom</li>
+        </ol>
+      </li>
+      <li>margin, 其中包括
+        <ol style="list-style-type:lower-alpha;">
+          <li>margin-left</li>
+          <li>margin-right</li>
+          <li>margin-top</li>
+          <li>margin-bottom</li>
+        </ol>
+      </li>
+      <li>outline, 其中包括
+        <ol style="list-style-type:lower-alpha;">
+          <li>outline-color</li>
+          <li>outline-style</li>
+          <li>outline-width</li>
+        </ol>
+      </li>
+      <li>text-decoration</li>
+      <li>float</li>
+      <li>clear</li>
+      <li>clip</li>
+      <li>content</li>
     </ol>
   </div>
 
