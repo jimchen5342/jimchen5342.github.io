@@ -24,13 +24,14 @@
   <div title="基本架構">
     <h3>說明：CSS 用於控制網頁的樣式和布局</h3>
     <h4>用法：</h4>
+    <img width='250px' src='http://girldevelopit.github.io/gdi-featured-html-css-intro/img/cssrule.png' />
     <ol>
-      <li>屬性名稱<span class='outline'>: </span>
-        屬性值<span class='outline'>;</span></li>
       <li>內聯定義：寫在元素的 style 屬性
-          <pre><code class="html">
-            &lt;input style="color: red; font-size: 16px;" type="text" /&gt;
-          </code></pre>		
+          <pre>
+            <code class="html">
+              &lt;input style="color: red; font-size: 16px;" type="text" /&gt;
+            </code>
+          </pre>		
       </li>
       <li>
         外部定義：
@@ -40,19 +41,14 @@
         </code></pre>
         內部定義：
         <pre><code>
-            &lt;style type="text/css""&gt;
+            &lt;style type="text/css"&gt;
               ......
             &lt;/style&gt;
         </code></pre>
-        外部/內部的 CSS 內容利用 <span style='text-decoration: underline;'>Selector</span>(選擇器)指定元素套用條件，並用 <span class='outline'>{ }</span> 含括屬性
-        <pre><code>
-          input {
-            color: red;
-            font-size: 16px;
-          }
-        </code></pre>	
       </li>
     </ol>
+  </div>
+  <div title="優先順序">
     <h4>選擇器的套用優先順序</h4>
     <ol>
       <li>標有 !important</li>
@@ -103,25 +99,10 @@
         註：如相同權重則以後出現者為準
       </li>
     </ol>
-    <h4>注意事項</h4>
-    <ol>
-      <li>inherit</li>
-      <li>!important</li>
-      <li>none</li>
-      <li>CSS 屬性前綴（Vendor Prefixes）
-        <pre><code>
-          .box {
-            -moz-border-radius: 10px; /* Firfox(mozilla) */
-            -ms-border-radius: 10px;  /* IE(microsoft)*/
-            -o-border-radius: 10px; /* Opera */
-            -webkit-border-radius: 10px; /* Chrome(google), Safari(apple) */
-            border-radius: 10px; /* 通用 */
-          }
-        </code></pre>
-      </li>
-    </ol>
   </div>
+  
   <div title="繼承屬性" style="padding: 15px;">
+    <h4>繼承屬性：</h4>
     <ol>
       <li>border-collapse</li>
       <li>border-spacing</li>
@@ -138,11 +119,11 @@
       <li>letter-spacing</li>
       <li>line-height</li>
       <li>list-style, 其中包括
-          <ol style="list-style-type:lower-alpha;">
-            <li>list-style-image</li>
-            <li><list-style-position/li>
-            <li>list-style-type</li>
-          </ol>
+        <ol style="list-style-type:lower-alpha;">
+          <li>list-style-image</li>
+          <li>list-style-position</li>
+          <li>list-style-type</li>
+        </ol>
       <li>text-align</li>
       <li>text-indent</li>
       <li>text-transform</li>
@@ -152,6 +133,7 @@
     </ol>
   </div>
   <div title="非繼承屬性" style="padding: 15px;">
+      <h4>非繼承屬性：</h4>
     <ol>
       <li>z-index</li>
       <li>width, 其中包括
@@ -220,8 +202,28 @@
       <li>content</li>
     </ol>
   </div>
-
+  <div title="注意事項">
+    <h4>注意事項</h4>
+    <ol>
+      <li>inherit</li>
+      <li>!important</li>
+      <li>none</li>
+      <li>CSS 屬性前綴（Vendor Prefixes）
+        <pre><code>
+          .box {
+            -moz-border-radius: 10px; /* Firfox(mozilla) */
+            -ms-border-radius: 10px;  /* IE(microsoft)*/
+            -o-border-radius: 10px; /* Opera */
+            -webkit-border-radius: 10px; /* Chrome(google), Safari(apple) */
+            border-radius: 10px; /* 通用 */
+          }
+        </code></pre>
+      </li>
+    </ol>
+  </div>
   <div title="好站連結">
+    <a href="https://developer.mozilla.org/zh-CN/docs/Learn/CSS/Introduction_to_CSS/How_CSS_works">MDN</a>
+    <br />
     <a href="http://www.w3school.com.cn/css3/index.asp" target='_parent'>CSS 教程(W3 school)</a>
     <br />
     <a href='http://www.w3school.com.cn/cssref/index.asp' target='_parent'>CSS 參考手冊(W3 school)</a>
