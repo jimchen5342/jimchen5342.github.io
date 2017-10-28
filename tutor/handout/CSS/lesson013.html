@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>屬性選擇器</title>
-  <meta charset="utf-8">
-  <style type="text/css">
-    
-  </style>
-  <script>
-  </script>
-</head>	
-<body>
-  
-</body>
+  <head>
+    <title>屬性選擇器</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+      [data] { /* 例題一 */
+        color: red;
+        margin-bottom: 2px;
+      }
+      [data='sample1'] { /* 例題二 */
+        font-weight: 900;
+        font-size: 1.2em;
+      }
+      [data~='sample2'] { /* 例題三 */
+        font-style: italic;
+      }
+    </style>
+    <script>
+    </script>
+  </head>	
+  <body>
+    <div data>例題一</div>
+    <span data='sample1'>例題二</span>
+    <div data='sample1 sample2'>例題三</div>
+  </body>
 </html>

@@ -14,12 +14,18 @@
     h4 {
       display: inline-block;
     }
+    pre > code:nth-child(2){
+      margin-top: 5px; 
+    }
+    h3 {
+      margin-top: 0px;
+    }
   </style>
 </head>	
 <body>
   <h3 >簡單選擇器</h3>
   <ol>
-    <li><h4></h4>*</h4>：萬用字元
+    <li><h4>*</h4>：任何元素(萬用字元)
       <pre>
         <code>
           * {
@@ -27,9 +33,9 @@
         </code>
       </pre>
     </li>
-    <li><h4>tagName：</h4> 
+    <li><h4>tagName</h4>：標籤
       <pre>
-        <code>
+        <code class='html'>
           &lt;div&gt; &lt;/div&gt;
         </code>
         <code>
@@ -37,9 +43,9 @@
           }
         </code>
       </pre>
-    <li><h4>#id：</h4>
+    <li><h4>#id</h4>： 元素的 id 屬性值
       <pre>
-        <code>
+        <code class='html'>
           &lt;div id="container"&gt; &lt;/div&gt;
         </code>
         <code>
@@ -48,9 +54,9 @@
         </code>
       </pre>
     </li>
-    <li><h4>.className：</h4>
+    <li><h4>.className</h4>：元素的 class 屬性值
       <pre>
-        <code>
+        <code class='html'>
           &lt;div class="container"&gt; &lt;/div&gt;
         </code>
         <code>
@@ -59,7 +65,7 @@
         </code>
       </pre>
     </li>
-    <li><h4>tagName.className</h4>
+    <li><h4>tagName.className</h4>：指定標籤的 class 屬性值
       <pre>
         <code>
           &lt;div class="container"&gt; &lt;/div&gt;
@@ -70,6 +76,18 @@
         </code>
       </pre>
     </li>
+    <li><h4>.className.className</h4>：元素的 class 屬性, 同時指定多個屬性值
+        <pre class='html'>
+          <code>
+            &lt;div class="container wrapper"&gt; &lt;/div&gt;
+          </code>
+          <code class='css'>
+            .container.wrapper {
+            }
+          </code>
+        </pre>
+        註：注意 property 要空白間隔，但 selector 不能空白
+      </li>
   </ol>
   <hr />
   <a href='http://www.w3school.com.cn/cssref/css_selectors.asp' target='_parent'>CSS 參考手冊(W3 school)</a>

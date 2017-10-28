@@ -5,9 +5,63 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="../pattern.css">
   <style type="text/css">
+      li {
+      margin-bottom: 10px;
+    }
+    h4 {
+      display: inline-block;
+    }
+    pre > code:nth-child(2){
+      margin-top: 5px; 
+    }
+    h3 {
+      margin-top: 0px;
+    }
   </style>
+  <link rel="stylesheet" href="../pattern.css">
+  <script src="../../system/system.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="../highlight.js"></script>
 </head>	
 <body>
-  
+  <h3>屬性選擇器</h3>
+  <ol>
+    <li>[property]：選擇帶有 property 的所有元素
+      <pre>
+        <code class='html'>
+          &lt;a target='_blank'&gt;&lt;/div&gt;
+        </code>
+        <code class='css'>
+          [target]{
+          }
+
+          a[target]{
+          }
+        </code>
+      </pre>
+    </li>
+    <li>[property='value']：選擇 property 帶有 value 的所有元素
+      <pre>
+        <code class='html'>
+          &lt;a target='_blank'&gt;&lt;/div&gt;
+        </code>
+        <code class='css'>
+          [target='_blank']{
+          }
+        </code>
+      </pre>
+    </li>
+    <li>[property~='value']：選擇 property 包含 value(單字) 的所有元素
+      <pre>
+        <code class='html'>
+          &lt;a target='_parent _blank'&gt;&lt;/div&gt;
+        </code>
+        <code class='css'>
+          [target~='blank']{
+          }
+        </code>
+      </pre>
+    </li>
+  註：HTML5 允許元素可以自訂 property
 </body>
 </html>
