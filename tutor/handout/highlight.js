@@ -43,13 +43,11 @@ function loaded(){
 			if(s.length > 0)
 				break;
 		}
-		console.log("s: " + s.length)
 		for(let i = 0; i < arr.length; i++){
 			if(arr[i].indexOf("\t") > -1)
 				arr[i] = arr[i].replaceAll("\t", "  ");
 			arr[i] = arr[i].replace(s, "");
 			arr[i].trim();
-			console.log(arr[i])
 		}
 		if(arr.length > 0 && arr[0] == "") 
 			arr.splice(0, 1);
