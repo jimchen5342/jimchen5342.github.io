@@ -97,6 +97,67 @@ let menu = [
 				context: "lesson016.t.html",
 				html: "lesson016.html",				
 			}]
+		}, {
+			id: "02-font",
+			text: "字體",
+			context: "lesson02.t.html",
+			html: "lesson02.html",
+		}, {
+			id: "03-text",
+			text: "文本",
+			context: "lesson03.t.html",
+			html: "lesson03.html",
+		}, {
+			id: "04-dimension",
+			text: "尺寸",
+			context: "lesson04.t.html",
+			html: "lesson04.html",
+		}, {
+			id: "05-layout",
+			text: "布局",
+			context: "lesson05.t.html",
+			html: "lesson05.html",
+		}, {
+			id: "06-position",
+			text: "定位",
+			context: "lesson06.t.html",
+			html: "lesson06.html",
+		}, {
+			id: "07-background",
+			text: "背景",
+			context: "lesson07.t.html",
+			html: "lesson07.html",	
+		}, {
+			id: "21-box",
+			text: "Box Model",
+			context: "lesson21.t.html",
+			html: "lesson21.html",
+			children: [{
+				id: "211-margin",
+				text: "margin",
+				context: "lesson211.t.html",
+				html: "lesson211.html",
+			}, {
+				id: "212-border",
+				text: "border",
+				context: "lesson212.t.html",
+				html: "lesson212.html",
+			}, {
+				id: "213-padding",
+				text: "padding",
+				context: "lesson213.t.html",
+				html: "lesson213.html",
+			}]
+		}, {
+			id: "22-flexbox",
+			text: "Flex Box",
+			context: "lesson22.t.html",
+			html: "lesson22.html",
+		}, {
+			id: "90-RWD",
+			text: "RWD",
+			context: "lesson90.t.html",
+			html: "lesson90.html",			
 		}]
 	}, {
 		text: "JavaScript",
