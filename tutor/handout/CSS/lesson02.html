@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>偽元素選擇器</title>
+  <meta charset="utf-8">
+  <style type="text/css">
+    #sample1:first-line {
+        color: red;
+    }
+    #sample2:first-letter {
+      font-weight: 900;
+      color: red;
+    }
+    p:before {
+      content: "開頭： ";
+    }
+    p:after {
+      content: "。";
+      color: blue;
+      font-size: 1.2em
+    }
+    
+    .arrow_box {
+      margin: 1rem;
+      position: relative;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .arrow_box:after, .arrow_box:before {
+      bottom: 100%;
+      left: 90%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+    .arrow_box:after {
+      border-bottom-color: #fff;
+      border-width: 9px;
+      margin-left: -9px;
+    }
+    .arrow_box:before {
+      border-bottom-color: #ccc;
+      border-width: 11px;
+      margin-left: -11px;
+    }
+    .container{
+      position: relative;
+      padding: 1rem;
+    }
+  </style>
+  <script>
+  </script>
+</head>	
+<body>
+  <h3 style="color: blue;">偽元素選擇器</h3>
+  <p id='sample1'>One year after giant pandas graduated from endangered to “vulnerable,” a welcome designation after 28 years, Chinese scientists have sobering news: The animal’s natural habitat in China is in serious danger.</p>
+  
+  <p id='sample2'>In a study published in Nature Ecology & Evolution on Monday, researchers report that suitable panda habitats have significantly and steadily declined since 1990, the year the International Union for the Conservation of Nature first classified the animals as endangered. That could make any gain in China’s wild panda population a short-lived conservation victory.</p>
+  <br/>
+  <div class="arrow_box">
+    <div class="container">
+      English
+    </div>
+  </div>
+</body>
+</html>

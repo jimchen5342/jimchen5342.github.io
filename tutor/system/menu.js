@@ -69,33 +69,33 @@ let menu = [
 			children: [{
 				id: "011-selector",
 				text: "簡單選擇器",
-				context: "lesson011.t.html",
-				html: "lesson011.html",
+				context: "lesson01.1.t.html",
+				html: "lesson01.1.html",
 			}, {
 				id: "012-selector",
 				text: "複合選擇器",
-				context: "lesson012.t.html",
-				html: "lesson012.html",
+				context: "lesson01.2.t.html",
+				html: "lesson01.2.html",
 			}, {
 				id: "013-selector",
 				text: "屬性選擇器",
-				context: "lesson013.t.html",
-				html: "lesson013.html",
+				context: "lesson01.3.t.html",
+				html: "lesson01.3.html",
 			}, {
 				id: "014-selector",
 				text: "偽類別選擇器一",
-				context: "lesson014.t.html",
-				html: "lesson014.html",
+				context: "lesson01.4.t.html",
+				html: "lesson01.4.html",
 			}, {
 				id: "015-selector",
 				text: "偽類別選擇器二",
-				context: "lesson015.t.html",
-				html: "lesson015.html",
+				context: "lesson01.5.t.html",
+				html: "lesson01.5.html",
 			}, {
 				id: "016-selector",
 				text: "偽元素選擇器",
-				context: "lesson016.t.html",
-				html: "lesson016.html",				
+				context: "lesson01.6.t.html",
+				html: "lesson01.6.html",				
 			}]
 		}, {
 			id: "02-font",
