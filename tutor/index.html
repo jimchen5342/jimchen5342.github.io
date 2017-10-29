@@ -523,16 +523,29 @@ function reload(){
 	let s = setting[subject];
 	if(student.length > 0 && typeof setting[student] == "object" && typeof setting[student][subject] == "string")
 		s = setting[student][subject];
-	//console.log(s + ": " + menu[setting.current].data.length)
+	console.log(s + ": " + menu[setting.current].data.length)
 	for(let i = 0; i < menu[setting.current].data.length; i++){
 		let row = menu[setting.current].data[i];
-		if(row.id == s){
+		if(typeof row.children == "object"){
+			let children = row.children;
+			for(let k = 0; k < children.length; k++){
+				let row2 = children[k];
+				if(row2.id == s){
+					loadPage(row2);
+					let node = $('#tree').tree('find', row2.id);
+					if(node != null){
+						$('#tree').tree('select', node.target);
+					}
+					return;
+				}
+			}
+		} else if(row.id == s){
 			loadPage(row);
 			let node = $('#tree').tree('find', row.id);
 			if(node != null){
 				$('#tree').tree('select', node.target);
 			}
-			break;
+			return;
 		}
 	}
 }
