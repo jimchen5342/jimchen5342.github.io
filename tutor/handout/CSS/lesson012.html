@@ -1,63 +1,64 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>複合選擇器</title>
-    <meta charset="utf-8">
-    <style type="text/css">
-      ol > li {
-        margin-bottom: 5px;
-      }
-      h1, h2 {
-        font-size: 1em;
-        margin: 0px
-      }
-      div, p, span { /* 例題一 */
-        color: red;
-        margin: 0;
-      }
-      div.sample2 span { /* 例題二 */
-        color: blue;
-      }
-      div.sample3 > span { /* 例題三 */
-        color: blue;
-      }
-      h1 + h1 {/* 例題四 */
-        color: blue;
-      }
-      h1 + h1 + h1 {
-        color: green;
-      }
-    </style>
-  </head>	
-  <body>
-    <ol>
-      <li>例題一：selector1, selector2......<br/>
-          <div>div</div>
-          <p>p</p>
-          <span>span</span>
-      </li>
-      <li>例題二：selector1 selector2<br/>
-        <div class='sample2'>
-          <span>我是 span</span>
-          <p>我是 p, 
-            <span>我也是 blue</span>
-          </p>
-        </div>
+<head>
+  <title>複合選擇器</title>
+  <meta charset="utf-8">
+  <style type="text/css">
+    ol > li {
+      margin-bottom: 5px;
+    }
+    h1, h2 {
+      font-size: 1em;
+      margin: 0px
+    }
+    div, p, span { /* 例題一 */
+      color: red;
+      margin: 0;
+    }
+    div.sample2 span { /* 例題二 */
+      color: blue;
+    }
+    div.sample3 > span { /* 例題三 */
+      color: blue;
+    }
+    h1 + h1 {/* 例題四 */
+      color: blue;
+    }
+    h1 + h1 + h1 {
+      color: green;
+    }
+  </style>
+</head>	
+<body>
+  <h3 style="color: blue;">複合選擇器</h3>
+  <ol>
+    <li>例題一：selector1, selector2......<br/>
+        <div>div</div>
+        <p>p</p>
+        <span>span</span>
+    </li>
+    <li>例題二：selector1 selector2<br/>
+      <div class='sample2'>
+        <span>我是 span</span>
+        <p>我是 p, 
+          <span>我也是 blue</span>
+        </p>
+      </div>
 
-      </li>
-      <li>例題三：selector1 &gt; selector2<br/>
-        <div class='sample3'>
-          <span>我是 span</span>
-          <p>我是 p, 
-            <span style='text-decoration:underline'>我也是 span, 但不是 blue</span>
-          </p>
-        </div>
-      </li>
-      <li>例題四：selector1 + selector2<br/>
-        <h1>段落一，我是黑色(預設顏色)</h1>
-        <h1>段落二，我是藍色(h1 + h1)</h1>
-        <h1>段落三，我是綠色(h1 + h1 + h1)</h1>
-      </li>
-    </ol>
-  </body>
+    </li>
+    <li>例題三：selector1 &gt; selector2<br/>
+      <div class='sample3'>
+        <span>我是 span</span>
+        <p>我是 p, 
+          <span style='text-decoration:underline'>我也是 span, 但不是 blue</span>
+        </p>
+      </div>
+    </li>
+    <li>例題四：selector1 + selector2<br/>
+      <h1>段落一，我是黑色(預設顏色)</h1>
+      <h1>段落二，我是藍色(h1 + h1)</h1>
+      <h1>段落三，我是綠色(h1 + h1 + h1)</h1>
+    </li>
+  </ol>
+</body>
 </html>

@@ -4,11 +4,49 @@
   <title>偽類別選擇器一</title>
   <meta charset="utf-8">
   <style type="text/css">
-    
+    a:link {
+      color: red;
+    }
+    a:visited {
+      border: 1px solid blue;
+      color: purple;
+    }
+    div {
+      padding: 20px;
+      border: 1px solid blue;
+    }
+    div:hover {
+      font-size: 2em;
+    }
+    input[type=text] {
+      font-size: 1em;
+      padding: 5px;
+    }
+    input:focus {
+      color: blue;
+    }
+    input:enabled {
+      font-style: italic;
+    }
+    input:disabled {
+      color: red;
+      background-color: #eee;
+    }
+    input:checked {
+      margin-left: 20px;
+    }
   </style>
   <script>
   </script>
 </head>	
 <body>
+  <h3 style="color: blue;">偽類別選擇器一</h3>
+  <a href='https://tw.dictionary.yahoo.com' target='_parent'>yahoo</a><br/><br/>
+  <div>移動滑鼠</div><br/>
+  <input type='text' value='focus enabled' /><br/>
+  <input type='text' value='disabled' disabled /><br/><br/>
+  <input type='checkbox' id='book'><label for='book'>book</label>
+  <input type='checkbox' id='music'><label for='music'>music</label>
+  <input type='checkbox' id='sport' checked><label for='sport'>sport</label>
 </body>
 </html>

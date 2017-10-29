@@ -4,11 +4,43 @@
   <title>偽類別選擇器二</title>
   <meta charset="utf-8">
   <style type="text/css">
-    
+    li:first-child {
+      color: red;
+    }
+    li:last-child {
+      color: blue;
+    }
+    li:nth-child(odd) {
+      font-weight: 900;
+      font-size: 1.2em;
+    }
+    li:nth-child(even) {
+      font-weight: 300;
+    }
+    li:nth-child(1) {
+      font-style: italic;
+    }
+    p > span:nth-last-child(2){
+      color: red;
+    }
   </style>
   <script>
   </script>
 </head>	
 <body>
+  <h3 style="color: blue;">偽類別選擇器二</h3>
+  <ol>
+    <li>iOS</li>
+    <li>Android</li>
+    <li>Windows</li>
+    <li>Linux</li>
+  </ol>
+
+  <p>
+    <span>1</span>
+    <span>2</span>
+    <span>3</span>
+    <span>4</span>
+    </p>
 </body>
 </html>

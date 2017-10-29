@@ -5,16 +5,76 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="../pattern.css">
   <style type="text/css">
+    li {
+      margin-bottom: 10px;
+    }
+    h4 {
+      display: inline-block;
+    }
+    pre > code:nth-child(2){
+      margin-top: 5px; 
+    }
+    h3 {
+      margin-top: 0px;
+    }
   </style>
+  <link rel="stylesheet" href="../pattern.css">
+  <script src="../../system/system.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="../highlight.js"></script>
 </head>	
 <body>
-<!--  pseudo element
-  
-  ::first-line：選取第一行
-  ::first-letter：選取第一個字
-  ::before：從選取元素的前面插入東西
-  ::after：從選取元素的後面插入東西（這兩句怎麼好像有點怪怪 der）
-  ::selection：選取文字反白後  
--->
+    <h3 >偽元素選擇器(pseudo element)</h3>
+    <ol>
+      <li><h4>:first-line</h4>：選取第一行
+        <pre>
+          <code class='css'>
+            div:first-line{
+              color: red;
+            }
+          </code>
+        </pre>
+      </li>
+      <li><h4>:first-letter</h4>：選取第一個字
+        <pre>
+          <code class='css'>
+              div:first-letter{
+                color: red;
+              }
+          </code>
+        </pre>
+      </li>
+      <li><h4>:before</h4>：從選取元素的前面插入東西
+        <pre>
+          <code class='css'>
+            div:before {
+              content: "";
+              color: red;
+            }
+          </code>
+        </pre>
+      </li>
+      <li><h4>:after</h4>：從選取元素的後面插入東西
+        <pre>
+          <code class='css'>
+              div:after {
+                content: "";
+                color: red;
+              }
+          </code>
+        </pre>
+      </li>
+      <li><h4>:selection</h4>：選取文字反白後 
+        <pre>
+          <code class='css'>
+              div:selection {
+                color: red;
+              }
+          </code>
+        </pre>
+      </li>
+    </ol>
+    <hr/>
+    <a target='_parent' href='https://leaverou.github.io/bubbly/'>speech bubble</a>
 </body>
 </html>
