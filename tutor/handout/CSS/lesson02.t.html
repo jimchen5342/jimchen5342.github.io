@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>字體</title>
   <meta charset="utf-8">
   <link rel="stylesheet" href="../pattern.css">
   <style type="text/css">
@@ -15,7 +15,7 @@
       margin-top: 5px; 
     }
     h3 {
-      margin-top: 0px;
+      margin: 0px;
     }
   </style>
   <link rel="stylesheet" href="../pattern.css">
@@ -24,14 +24,74 @@
   <script src="../highlight.js"></script>
 </head>	
 <body>
-    <h3 ></h3>
-    <ol>
-      <li><h4></h4>：
-        <pre>
-          <code class='css'>
-          </code>
-        </pre>
-      </li>
-    </ol>
+  <h3>字體</h3>
+  <ol>
+    <li><h4>font</h4>：font-style | font-weight | font-size/line-height | font-family
+      <pre>
+        <code class='css'>
+          div {
+            font: italic border 1em/20px Arial;
+          }
+        </code>
+      </pre>
+    </li>
+    <li><h4>font-style</h4>：normal(default) | italic(斜體字) | oblique(文字傾斜)
+      <pre>
+        <code class='css'>
+          div {
+            font-style: italic;
+          }
+        </code>
+      </pre>
+    </li>
+    <li><h4>font-weight</h4>：粗體字
+      <ul>
+        <li>100 ~ 900</li>
+        <li>lighter = 100</li>
+        <li>normal = 400</li>
+        <li>bold = 700</li>
+        <li>bolder = 900</li>
+      </ul>
+      <pre>
+        <code class='css'>
+          div {
+            font-weight: bold;
+          }
+        </code>
+      </pre>
+    </li>
+    <li><h4>font-size</h4>：尺寸(px | em | rem)
+      <pre>
+        <code class='css'>
+          div {
+            font-size: 16px;
+          }
+        </code>
+      </pre>
+    </li>
+    <li><h4>line-height</h4>：字體的行高(px | em | rem)
+      <pre>
+        <code class='css'>
+          div {
+            line-height: 24px;
+          }
+        </code>
+      </pre>
+    </li>
+    <li><h4>font-family</h4>：字體名稱
+      <pre>
+        <code class='css'>
+          div {
+            font-family: 'Arial Black', 微軟正黑體, Helvetica, Arial;
+          }
+        </code>
+      </pre>
+    </li>
+  </ol>
+
+  <hr /> 
+  <a href="http://www.w3school.com.cn/cssref/index.asp#font" target="_parent">字體說明 CSS</a>
+  <br/>
+  <a href="http://pxtoem.com/" target="_parent">字體尺寸換算</a>
 </body>
 </html>

@@ -11,33 +11,57 @@
 	<link rel="stylesheet" href="./handout/pattern.css">
 </head>	
 <body>
-	<pre>
-		<code>
-			function click(data) {
-				let x = 0; 
-				let y = 0;
-				x = (x == y) ? -1 : 10;
-				alert(data)
-			}
-		</code>
-		<code>
-			body {
-				color: red;
-			}
-		</code>
-	</pre>	
+
 </body>
 <script>
-/*
-body {
-				color: red;
-				
-			}
-			&lt;input type="button" onclick="alert('jim')" /&gt;
-			<br/><br/>
-			&lt;input type="button" onclick="click('jim')" /&gt;
-
+var arr = [];
+for(var i = 0; i < 10; i++){
+	let s1 = i.toString();
+	for(var j = 0; j < 100; j++){
+		let s2 = j.toString();
+		if(s2.indexOf(s1) > -1) //  || s2.indexOf("0") > -1
+			continue;
+		var s3 = (i * j).toString(), b = true;
+		if(s2.substr(0, 1) == s2.substr(1, 1) || s3.substr(0, 1) == s3.substr(1, 1) ) // || s3.indexOf("0") > -1
+			continue;
+		if(s3.length != 2 || s3.indexOf(s1) > -1 || s3.indexOf(s2.substr(0, 1)) > -1 || s3.indexOf(s2.substr(1, 1)) > -1)
+			continue;
+		
+		//console.log(s1 + "*" + s2 + "=" + s3)
+		arr.push({q1: s2, q2: s1, ans: s3, eq: i * j})
+	}
+}
+for(var i = 0; i < arr.length; i++){
+	console.log(arr[i].q1 + "*" + arr[i].q2 + "=" + arr[i].ans);
+	var s = arr[i].q1 + arr[i].q2 + arr[i].ans;
+	for(var j = 1; j < 100; j++){
+		var s1 = j.toString();
+		if(s.indexOf(s1.substr(0, 1)) > -1 || s.indexOf(s1.substr(1, 1)) > -1) //  || s1.indexOf("0") > -1
+			continue;
+		else if(s1.substr(0, 1) == s1.substr(1, 1))
+			continue;
+		for(var k = 1; k < 100; k++){
+			if(j + k != arr[i].eq) continue;
+			var s2 = k.toString();
+			if(s.indexOf(s2.substr(0, 1)) > -1 || s.indexOf(s2.substr(1, 1)) > -1) //|| s2.indexOf("0") > -1
+				continue;
+			else if(s1.indexOf(s2.substr(0, 1)) > -1 || s1.indexOf(s2.substr(1, 1)) > -1)
+				continue;
+			else if(s2.substr(0, 1) == s2.substr(1, 1))
+				continue;
+			var s3 = (j + k).toString();
 			
-*/
+			if(s3.length != 2 || s3.indexOf(s1) > -1 || s3.indexOf(s2.substr(0, 1)) > -1 || s3.indexOf(s2.substr(1, 1)) > -1)
+				continue;
+			else if(s2.substr(0, 1) == s2.substr(1, 1) || s3.substr(0, 1) == s3.substr(1, 1)) //  || s3.indexOf("0") > -1
+				continue;
+			/*	*/
+
+			console.log("  " + s1 + " + " + s2 + " = " + s3)
+
+		}
+	}
+}
+//console.log(arr)
 </script>
 </html>

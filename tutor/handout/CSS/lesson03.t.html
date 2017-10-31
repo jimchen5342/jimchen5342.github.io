@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>文本</title>
   <meta charset="utf-8">
   <link rel="stylesheet" href="../pattern.css">
   <style type="text/css">
-    li {
+    ol > li {
       margin-bottom: 10px;
     }
     h4 {
@@ -15,7 +15,7 @@
       margin-top: 5px; 
     }
     h3 {
-      margin-top: 0px;
+      margin: 0px;
     }
   </style>
   <link rel="stylesheet" href="../pattern.css">
@@ -24,14 +24,114 @@
   <script src="../highlight.js"></script>
 </head>	
 <body>
-    <h3 ></h3>
-    <ol>
-      <li><h4></h4>：
-        <pre>
-          <code class='css'>
-          </code>
-        </pre>
-      </li>
-    </ol>
+  <h3 >文本</h3>
+  <ol>
+    <li><h4>color</h4>：
+      <ul>
+        <li>顏色名稱：red, green, blue</li>
+        <li>十六進位：#ff0000, #00ff00, #0000ff</li>
+        <li>十進位函式：rgb(255, 0, 0), rgb(0, 255, 0), rgb(0, 0, 255)</li>
+        <li>十進位函式：rgba(255, 0, 0, 0.5), rgba(0, 255, 0, 0.5), rgba(0, 0, 255, 0.5)<br/>
+          opacity：0~1
+        </li>
+        <li>hsla</li>
+      </ul>
+      <pre>
+        <code class='css'>
+          div {
+            color: rgb(0, 255, 0);
+          }
+        </code>
+      </pre>
+    </li>
+    <li><h4>text-aling</h4>：left(default) | right | center
+      <pre>
+        <code class='css'>
+          div {
+            text-aling: right;
+          }
+        </code>
+      </pre>
+    </li>
+    <li><h4>vertical-align</h4>：top | text-top | middle(default) | bottom | text-bottom<br/>
+      用於表格
+      <pre>
+        <code class='css'>
+            td {
+              vertical-aling: top;
+            }
+        </code>
+      </pre>
+    </li>
+    <li><h4>text-overflow</h4>：ellipsis ｜clip<br/>
+      <pre>
+        <code class='css'>
+          div {
+            text-overflow: ellipsis;
+            white-space : nowrap;
+          }
+        </code>
+      </pre>
+    </li>
+    <li><h4>white-space</h4>：normal | nowrap
+      <pre>
+        <code class='css'>
+            div {
+              white-space : nowrap;
+            }
+        </code>
+      </pre>
+    </li>
+    <li><h4>word-spacing</h4>：normal(單字間距 25px) | px | em
+      <pre>
+        <code class='css'>
+            div {
+              word-space : 40px;
+            }
+        </code>
+      </pre>
+    </li>
+    <li><h4>letter-spacing</h4>：normal(字元間距 0px) | px | em
+      <pre>
+        <code class='css'>
+            div {
+              word-space : 5px;
+            }
+        </code>
+      </pre>
+    </li>
+    <li><h4>text-transform</h4>：none | capitalize | uppercase | lowercase
+      <pre>
+        <code class='css'>
+          div {
+            text-transform: capitalize;
+          }
+        </code>
+      </pre>
+    </li>
+    <li><h4>text-decoration</h4>：none | underline | overline | line-through
+      <pre>
+        <code class='css'>
+          div {
+            text-decoration: underline;
+          }
+        </code>
+      </pre>
+    </li>
+    <li><h4>text-shadow</h4>：水平距離 垂直距離 模糊距離 陰影顏色
+      <pre>
+        <code class='css'>
+          div {
+            text-shadow: 5px 5px 5px #FF0000;
+          }
+        </code>
+      </pre>
+    </li>
+  </ol>
+  <hr />
+  <a href="http://www.w3school.com.cn/cssref/index.asp#text" target="_parent">CSS 文本属性</a>
+  <br/>
+  <a href="http://www.w3school.com.cn/cssref/css_colors.asp" target="_parent">顏色說明 CSS</a>
+  <br/>
 </body>
 </html>

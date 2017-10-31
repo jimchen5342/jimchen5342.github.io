@@ -18,7 +18,7 @@
       margin-top: 5px; 
     }
     h3 {
-      margin-top: 0px;
+      margin: 0px;
     }
   </style>
 </head>	
@@ -28,62 +28,56 @@
     <li><h4>*</h4>：任何元素(萬用字元)
       <pre>
         <code>
-          * {
-          }
+          * { }
         </code>
       </pre>
     </li>
     <li><h4>tagName</h4>：標籤
       <pre>
         <code class='html'>
-          &lt;div&gt; &lt;/div&gt;
+          &lt;div&gt;&lt;/div&gt;
         </code>
         <code>
-          div {
-          }
+          div { }
         </code>
       </pre>
     <li><h4>#id</h4>： 元素的 id 屬性值
       <pre>
         <code class='html'>
-          &lt;div id="container"&gt; &lt;/div&gt;
+          &lt;div id="container"&gt;&lt;/div&gt;
         </code>
         <code>
-          #container {
-          }
+          #container { }
         </code>
       </pre>
     </li>
     <li><h4>.className</h4>：元素的 class 屬性值
       <pre>
         <code class='html'>
-          &lt;div class="container"&gt; &lt;/div&gt;
+          &lt;div class="container"&gt;&lt;/div&gt;
         </code>
         <code>
-          .container {
-          }
+          .container { }
         </code>
       </pre>
     </li>
     <li><h4>tagName.className</h4>：指定標籤的 class 屬性值
       <pre>
         <code>
-          &lt;div class="container"&gt; &lt;/div&gt;
+          &lt;div class="container"&gt;&lt;/div&gt;
         </code>
         <code>
-          div.container {
-          }
+          div.container { }
         </code>
       </pre>
     </li>
     <li><h4>.className.className</h4>：元素的 class 屬性, 同時指定多個屬性值
         <pre class='html'>
           <code>
-            &lt;div class="container wrapper"&gt; &lt;/div&gt;
+            &lt;div class="container wrapper"&gt;&lt;/div&gt;
           </code>
           <code class='css'>
-            .container.wrapper {
-            }
+            .container.wrapper { }
           </code>
         </pre>
         註：注意 property 要空白間隔，但 selector 不能空白
