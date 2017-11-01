@@ -24,75 +24,75 @@
   <script src="../highlight.js"></script>
 </head>	
 <body>
-    <h3>布局</h3>
-    <ol>
-      <li><h4>display</h4>：
-        <ul>
-          <li><h4>none</h4>：隱藏元素，不保留其實際空間</li>
-          <li><h4>inline</h4>：內聯元素，無法設定 width 和 height<br />
-            span, a 即預設為該屬性
-          </li>
-          <li><h4>block</h4>：區塊元素，預設換行<br />
-            h1~h6, p, div 即預設為該屬性</li>
-          <li><h4>inline-block</h4>：內聯區塊元素，不換行，可設定 width 和 height</li>
-          <li><h4>table | table-cell | table-row</h4>：表格元素
-          </li>
-        </ul>
-        
-        <pre>
-          <code class='css'>
-            div {
-              display: none;
-            }
-          </code>
-        </pre>
-        註：在 Flex box 說明下列屬性： 
-        box | inline-box | flexbox | inline-flexbox | flex | inline-flex
-      </li>
-      <li><h4>visibility</h4>：
-        <ul>
-          <li><h4>visible</h4>：顯示元素</li>
-          <li><h4>hidden</h4>：隱藏元素，保留其實際空間</li>
-        </ul>
-        <pre>
-          <code class='css'>
-            div {
-              visibility: hidden;
-            }
-          </code>
-        </pre>
-      </li>
-      <li><h4>overflow</h4>：元素內容超出；visible | hidden | scroll | auto
-        <ul>
-          <li><h4>overflow-x</h4>：元素內容超出寬度；visible | hidden | scroll | auto</li>
-          <li><h4>overflow-y</h4>：元素內容超出高度；visible | hidden | scroll | auto</li>
-        </ul>
-        <pre>
-          <code class='css'>
-            div {
-              height: 100px;
-              overflow: hidden;
-            }
-          </code>
-        </pre>
-      </li><li><h4>float</h4>：left | right
-        <pre>
-          <code class='css'>
-            div {
-              float: left;
-            }
-          </code>
-        </pre>
-      </li>
-    </li><li><h4>clear</h4>：none | both | left | right
+  <h3>布局</h3>
+  <ol>
+    <li><h4>display</h4>：
+      <ul>
+        <li><h4>none</h4>：隱藏元素，不保留其實際空間</li>
+        <li><h4>inline</h4>：內聯元素，無法設定 width 和 height<br />
+          span, a 即預設為該屬性
+        </li>
+        <li><h4>block</h4>：區塊元素，預設換行<br />
+          h1~h6, p, div 即預設為該屬性</li>
+        <li><h4>inline-block</h4>：內聯區塊元素，不換行，可設定 width 和 height</li>
+        <li><h4>table | table-cell | table-row</h4>：表格元素
+        </li>
+      </ul>
+      
       <pre>
         <code class='css'>
           div {
-            clear: none;
+            display: none;
+          }
+        </code>
+      </pre>
+      註：在 Flex box 說明下列屬性： 
+      box | inline-box | flexbox | inline-flexbox | flex | inline-flex
+    </li>
+    <li><h4>visibility</h4>：
+      <ul>
+        <li><h4>visible</h4>：顯示元素</li>
+        <li><h4>hidden</h4>：隱藏元素，保留其實際空間</li>
+      </ul>
+      <pre>
+        <code class='css'>
+          div {
+            visibility: hidden;
           }
         </code>
       </pre>
     </li>
-    </ol>
+    <li><h4>overflow</h4>：元素內容超出；visible | hidden | scroll | auto
+      <ul>
+        <li><h4>overflow-x</h4>：元素內容超出寬度；visible | hidden | scroll | auto</li>
+        <li><h4>overflow-y</h4>：元素內容超出高度；visible | hidden | scroll | auto</li>
+      </ul>
+      <pre>
+        <code class='css'>
+          div {
+            height: 100px;
+            overflow: hidden;
+          }
+        </code>
+      </pre>
+    </li><li><h4>float</h4>：left | right
+      <pre>
+        <code class='css'>
+          div {
+            float: left;
+          }
+        </code>
+      </pre>
+    </li>
+  </li><li><h4>clear</h4>：none | both | left | right
+    <pre>
+      <code class='css'>
+        div {
+          clear: none;
+        }
+      </code>
+    </pre>
+  </li>
+  </ol>
 </body>
 </html>
