@@ -4,6 +4,9 @@
   <title>定位</title>
   <meta charset="utf-8">
   <style type="text/css">
+    * {
+      box-sizing: border-box;
+    }
     div {
       height: 80px;
       border: 1px solid red;
@@ -11,6 +14,7 @@
     }
     span {
       border: 1px solid blue;
+      display: inline-block;
       padding: 5px;
     }
   </style>
@@ -19,8 +23,8 @@
   <br /><br />
   <div style="display: block; height: auto;">
     <span>static</span>
-    <span style="position: relative; top: 5px; left: 0px;">relative 1</span>
-    <span style="position: relative; bottom: 5px; left: 0px;">relative 2</span>
+    <span style="position: relative; top: 5px;">relative 1</span>
+    <span style="position: relative; bottom: 5px;">relative 2</span>
   </div>
   <div>
     <span style="position: absolute; top: 10px; right: 10px;">absolute 1</span>
