@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="../pattern.css">
   <style type="text/css">
-    li {
+    ol > li {
       margin-bottom: 10px;
     }
     h4 {
@@ -26,9 +26,36 @@
 <body>
     <h3>定位</h3>
     <ol>
-      <li><h4></h4>：
+      <li><h4>position</h4>：
+        <ul>
+          <li><h4>static</h4>：依瀏覽器預設的配置排版，座標屬性不會作用；預設值</li>
+          <li><h4>relative</h4>：依瀏覽器預設的配置排版，如有設定座標屬性，將會依其設定作偏移</li>
+          <li><h4>absolute</h4>：依父元素(要設 relative)或 body 為參考點；並設定座標屬性，作偏移</li>
+          <li><h4>fixed</h4>：依 window 為參考點；並設定座標屬性，作偏移</li>
+        </ul>
         <pre>
           <code class='css'>
+            div {
+              position: absolute;
+              left: 50%;
+            }
+          </code>
+        </pre>
+      </li>
+      <li><h4>座標屬性</h4>：
+        <ul>
+          <li><h4>top</h4>：% | px</li>
+          <li><h4>bottom</h4>：% | px</li>
+          <li><h4>left</h4>：% | px</li>
+          <li><h4>right</h4>：% | px</li>
+        </ul>
+      </li>
+      <li><h4>z-index</h4>：重疊順序，預設為 0
+        <pre>
+          <code class='css'>
+            div {
+              z-index: 10;
+            }
           </code>
         </pre>
       </li>
