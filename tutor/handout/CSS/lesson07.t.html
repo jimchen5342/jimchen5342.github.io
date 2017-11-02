@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="../pattern.css">
   <style type="text/css">
-    li {
+    ol > li {
       margin-bottom: 10px;
     }
     h4 {
@@ -15,7 +15,7 @@
       margin-top: 5px; 
     }
     h3 {
-      margin-top: 0px;
+      margin: 0px;
     }
   </style>
   <link rel="stylesheet" href="../pattern.css">
@@ -24,11 +24,75 @@
   <script src="../highlight.js"></script>
 </head>	
 <body>
-    <h3 >背景</h3>
+    <h3>背景</h3>
     <ol>
-      <li><h4></h4>：
+      <li><h4>background</h4>：
         <pre>
           <code class='css'>
+              div {
+                background: red;
+              }
+              div {
+                background: #00FF00 url(bgimage.gif) no-repeat top;
+              }
+              div {
+                background: -webkit-linear-gradient(top,  #f2f5f6, #c8d7dc);
+              }
+          </code>
+        </pre>
+      </li>
+      <li><h4>background-color</h4>：
+        <pre>
+          <code class='css'>
+            div {
+              background-color: red;
+            }
+          </code>
+        </pre>
+      </li>
+      <li><h4>background-image</h4>：背景圖片
+        <ul>
+            <li><h4>background-image</h4>：url("./images/bg.jpg")</li>
+          <li><h4>background-position</h4>：
+            <pre>
+                <code class='css'>
+                  div {
+                    background-position: center;
+                  }
+                  div {
+                    background-position: left top;
+                  }
+                  div {
+                    background-position: 50%;
+                  }
+                  div {
+                    background-position: 20% 50%;
+                  }
+                </code>
+              </pre>
+          </li>
+          <li><h4>background-repeat</h4>：repeat(default) | repeat-x | reapeat-y | no-repeat </li>
+          <li><h4>background-size</h4>：
+            <ul>
+              <li><h4>auto</h4>：default</li>
+              <li><h4>%</h4>：百分比</li>
+              <li><h4>length</h4>：px</li>
+              <li><h4>cover</h4>：</li>
+              <li><h4>contain</h4>：</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><h4>background-image</h4>：漸層
+        <pre>
+          <code class='css'>
+            div {
+              background-image: -webkit-linear-gradient(top,  #f2f5f6, #c8d7dc);
+            }
+            div {
+              background-image: -webkit-gradient(linear, right top, left bottom, 
+                color-stop(0, #FFFFFF), color-stop(100, #3366FF));
+            }
           </code>
         </pre>
       </li>
