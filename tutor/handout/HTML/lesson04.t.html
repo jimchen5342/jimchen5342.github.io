@@ -4,6 +4,11 @@
     <title>第四課：字體</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="../pattern.css">
+    <style type="text/css">
+      h4 {
+        display: inline-block;
+      }
+    </style>
   </head>	
 <body>
   <h4>下列 tag 已不建議使用</h4>
@@ -17,8 +22,12 @@
 
   <h4>改用下列 CSS</h4>
   <ol>
-    <li>字體名稱：font-family: 'Arial Black', 微軟正黑體, Helvetica, Arial;</li>
-    <li>字體顏色：color: blue;
+    <li>字體名稱：<h4>font-family</h4>: 'Arial Black', 微軟正黑體, Helvetica, Arial;<br />
+      註一：字體會因作業系統而有差異<br />
+      註二：可一次填寫多個字體，瀏覽器會依序找尋可用的字體<br /> 
+      註三：字體名稱中如有空白，請用引號標註
+    </li>
+    <li>字體顏色：<h4>color:</h4> blue;
       <ul>
         <li>顏色名稱：black, white, red, blue</li>
         <li>16進制：#000000, #ffffff, #ff0000, #0000ff</li>
@@ -26,14 +35,14 @@
         <li>rgba：rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.25), rgba(255, 0, 0, 0.5), rgba(0, 0, 255, 1)</li>
       </ul>
     </li>
-    <li>字體尺寸：font-size: 16px;
+    <li>字體尺寸：<h4>font-size:</h4> 16px;
       <ul>
         <li>px</li>
         <li>em; 1em = 16px</li>
         <li>pt 已不建議使用</li>
       </ul>
     </li>
-    <li>粗體字：font-weight: bolder; 
+    <li>粗體字：<h4>font-weight:</h4> bolder; 
       <ul>
         <li>100 ~ 900</li>
         <li>lighter = 100</li>
@@ -42,9 +51,9 @@
         <li>bolder = 900</li>
       </ul>
     </li>
-    <li>斜體字：font-style: italic;</li>
-    <li>下標線：text-decoration: underline;</li>
-    <li>刪除線：text-decoration: line-through;</li>
+    <li>斜體字：<h4>font-style</h4>: italic;</li>
+    <li>下標線：<h4>text-decoration</h4>: underline;</li>
+    <li>刪除線：<h4>text-decoration</h4>: line-through;</li>
   </ol>
   
   <hr /> 
