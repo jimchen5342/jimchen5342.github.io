@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>border</title>
+  <meta charset="utf-8">
+  <style type="text/css">
+    * {
+      box-sizing: border-box;
+    }
+    div {
+      display: inline-block;
+      margin-bottom: 5px;
+      border: 1px solid red;
+      padding: 5px;
+    }
+    span {
+      display: inline-block;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <span>no border</span>
+  </div>
+  <div>
+    <span style='border: 1px blue solid;'>border: 1px blue solid;</span>
+  </div>
+  <div>
+    <span style='border-left: 1px blue solid;'>left: 1px blue solid;</span>
+  </div>
+  <div>
+    <span style='border-right: 2px rgb(255,0,0) dotted;'>right: 2px rgb(255,0,0) dotted;</span>
+  </div>
+  <div>
+    <span style='border-style: inset; border-width: 5px;'>style: inset;</span>
+  </div>
+  <div>
+    <span style='border-left-style: double; border-width: 5px;'>style: double;</span>
+  </div>
+  <div>
+    <span style='border-right-style: double; border-width: 5px;'>style: double;</span>
+  </div>
+</body>
+</html>

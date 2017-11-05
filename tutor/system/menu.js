@@ -135,18 +135,18 @@ let menu = [
 			children: [{
 				id: "211-margin",
 				text: "margin",
-				context: "lesson211.t.html",
-				html: "lesson211.html",
+				context: "lesson21.1.t.html",
+				html: "lesson21.1.html",
 			}, {
 				id: "212-border",
 				text: "border",
-				context: "lesson212.t.html",
-				html: "lesson212.html",
+				context: "lesson21.2.t.html",
+				html: "lesson21.2.html",
 			}, {
 				id: "213-padding",
 				text: "padding",
-				context: "lesson213.t.html",
-				html: "lesson213.html",
+				context: "lesson21.3.t.html",
+				html: "lesson21.3.html",
 			}]
 		}, {
 			id: "22-flexbox",

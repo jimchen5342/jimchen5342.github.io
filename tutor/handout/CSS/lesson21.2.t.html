@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>border</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../pattern.css">
+  <script src="../../system/system.js"></script>
+  <script type="text/javascript" src="../../jQuery/jquery.min.js"></script>
+  <script src="../highlight.js"></script>
+  <style type="text/css">
+    ol > li {
+      margin-bottom: 10px;
+    }
+    h4 {
+      display: inline-block;
+    }
+    pre > code:nth-child(2){
+      margin-top: 5px; 
+    }
+    h3 {
+      margin: 0px;
+    }
+  </style>
+</head>	
+<body>
+  <h3>border(邊框)</h3>
+  <ol>
+    <li><h4>border</h4>：width color style
+      <pre>
+        <code class='css'>
+          border: 1px red solid;
+        </code>
+      </pre>
+    </li>
+    <li>四個邊分別寫
+      <ul>
+        <li><h4>border-top</h4>：width color style</li>
+        <li><h4>border-left</h4>：width color style</li>
+        <li><h4>border-bottom</h4>：width color style</li>
+        <li><h4>border-right</h4>：width color style</li>
+      </ul>
+      <pre>
+        <code class='css'>
+          border-top: 1px red solid;
+          border-left: 1px red dotted;
+        </code>
+      </pre>
+    </li>
+    <li>
+      <h4>border-width</h4>：
+      <pre>
+        <code class='css'>
+            border-width: 1px;
+            border-style: 1px 1px;
+            border-style: 1px 1px 1px 1px;
+        </code>
+      </pre>
+    </li>
+    <li>
+      <h4>border-color</h4>：
+      <pre>
+        <code class='css'>
+            border-color: red;
+            border-color: red blue;
+            border-color: red blue red blue;
+        </code>
+      </pre>
+    </li>
+    <li>
+      <h4>border-style</h4>：
+      <ul>
+        <li><h4>solid</h4>：實框</li>
+        <li><h4>double</h4>：雙實框</li>
+        <li><h4>dotted</h4>：點</li>
+        <li><h4>inset</h4>：嵌入線</li>
+        <li><h4>outset</h4>：浮出線</li>
+        <li><h4>groove</h4>：凹線</li>
+        <li><h4>ridge</h4>：凸線</li>
+      </ul>
+      <pre>
+        <code class='css'>
+           border-style: solid;
+           border-style: solid dotted;
+           border-style: solid dotted double inset;
+        </code>
+      </pre>
+    </li>
+    <li>四個邊分別寫
+      <ul>
+        <li><h4>border-top-width</h4>：</li>
+        <li><h4>border-left-width</h4>：</li>
+        <li><h4>border-bottom-width</h4>：</li>
+        <li><h4>border-right-width</h4>：</li>
+        <li><h4>border-top-color</h4>：</li>
+        <li><h4>border-left-color</h4>：</li>
+        <li><h4>border-bottom-color</h4>：</li>
+        <li><h4>border-right-color</h4>：</li>
+        <li><h4>border-top-style</h4>：</li>
+        <li><h4>border-left-style</h4>：</li>
+        <li><h4>border-bottom-style</h4>：</li>
+        <li><h4>border-right-style</h4>：</li>
+      </ul>
+    </li>
+  </ol>
+ </body>
+</html>
