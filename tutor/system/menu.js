@@ -153,11 +153,11 @@ let menu = [
 			text: "Flex Box",
 			context: "lesson22.t.html",
 			html: "lesson22.html",
-		}, {
-			id: "90-RWD",
-			text: "RWD",
-			context: "lesson90.t.html",
-			html: "lesson90.html",			
+		// }, {
+		// 	id: "90-RWD",
+		// 	text: "RWD",
+		// 	context: "lesson90.t.html",
+		// 	html: "lesson90.html",			
 		}]
 	}, {
 		text: "JavaScript",
