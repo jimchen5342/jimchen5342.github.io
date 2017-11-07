@@ -30,10 +30,12 @@
 	
 	omniChannel.topUp = function(success, error){ // 儲值碼
 		signon(function(result){
+			//console.log(result)
 			omniChannel.ajax("retailAPPs_VIP/store/genBarCode/" + $("#SITE").val(), {
 				ID_NO: result.ID_NO, //'0937170831',
 			}, 
 			function(result){
+				//console.log(result)
 				if(success)
 					success(result.data)
 			},
@@ -55,12 +57,13 @@
 				omniChannel.ID_NO = result.data.ID_NO;
 				omniChannel.token = result.data.token;
 				success({token: omniChannel.token, ID_NO: omniChannel.ID_NO});
-				console.log(omniChannel.token)			
+				//console.log(omniChannel.token)			
 			} else if(error) {
 				error("登入失敗");
 			}
 		},
-		function(){
+		function(err){
+			console.log(err)
 			if(error) error("登入失敗");
 		});
 	}
