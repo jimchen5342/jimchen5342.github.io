@@ -3,7 +3,22 @@
 <head>
   <title>未命名</title>
   <meta charset="utf-8">
-  <style type="text/css">
+	<style type="text/css">
+		html,
+		body {
+			height: 100%;
+		}
+	
+		* {
+			box-sizing: border-box;
+		}
+	
+		#code3 {
+			position: absolute;
+			left: 200px;
+			top: 0px;
+			height: 100%;
+		}
 	</style>
 	<script type="text/javascript" src="../../jQuery/jquery.min.js"></script>
 	<script src="./system/system.js"></script>
@@ -11,58 +26,32 @@
 	<link rel="stylesheet" href="./handout/pattern.css">
 </head>	
 <body>
-
+	<input onkeydown='keydown(event)' onkeypress='keypress(event)' placeholder="請輸入文字" />
+	<div id='code' style='height: 25px; margin: 5px 0;'></div>
+	<div id='code2' style='height: 25px; margin: 5px 0;'></div>
+	<div id='code3' style='margin: 5px 0;'></div>
 </body>
 <script>
-let s = "-1"
+	function keydown(e) {
+		document.getElementById("code").innerHTML = e.keyCode + ": " + e.key + " : " + e.which;
+		detail(e)
+	}
+	function keypress(e) {
+		document.getElementById("code2").innerHTML = e.keyCode + ": " + e.key + " : " + e.which;
+	}
 
-/*
-var arr = [];
-for(var i = 0; i < 10; i++){
-	let s1 = i.toString();
-	for(var j = 0; j < 100; j++){
-		let s2 = j.toString();
-		if(s2.indexOf(s1) > -1) //  || s2.indexOf("0") > -1
-			continue;
-		var s3 = (i * j).toString(), b = true;
-		if(s2.substr(0, 1) == s2.substr(1, 1) || s3.substr(0, 1) == s3.substr(1, 1) ) // || s3.indexOf("0") > -1
-			continue;
-		if(s3.length != 2 || s3.indexOf(s1) > -1 || s3.indexOf(s2.substr(0, 1)) > -1 || s3.indexOf(s2.substr(1, 1)) > -1)
-			continue;
-		
-		//console.log(s1 + "*" + s2 + "=" + s3)
-		arr.push({q1: s2, q2: s1, ans: s3, eq: i * j})
-	}
-}
-for(var i = 0; i < arr.length; i++){
-	console.log(arr[i].q1 + "*" + arr[i].q2 + "=" + arr[i].ans);
-	var s = arr[i].q1 + arr[i].q2 + arr[i].ans;
-	for(var j = 1; j < 100; j++){
-		var s1 = j.toString();
-		if(s.indexOf(s1.substr(0, 1)) > -1 || s.indexOf(s1.substr(1, 1)) > -1) //  || s1.indexOf("0") > -1
-			continue;
-		else if(s1.substr(0, 1) == s1.substr(1, 1))
-			continue;
-		for(var k = 1; k < 100; k++){
-			if(j + k != arr[i].eq) continue;
-			var s2 = k.toString();
-			if(s.indexOf(s2.substr(0, 1)) > -1 || s.indexOf(s2.substr(1, 1)) > -1) //|| s2.indexOf("0") > -1
-				continue;
-			else if(s1.indexOf(s2.substr(0, 1)) > -1 || s1.indexOf(s2.substr(1, 1)) > -1)
-				continue;
-			else if(s2.substr(0, 1) == s2.substr(1, 1))
-				continue;
-			var s3 = (j + k).toString();
+	function detail(e) {
+		console.log(e)
+		let s = ""
+		for (key in e) {
 			
-			if(s3.length != 2 || s3.indexOf(s1) > -1 || s3.indexOf(s2.substr(0, 1)) > -1 || s3.indexOf(s2.substr(1, 1)) > -1)
-				continue;
-			else if(s2.substr(0, 1) == s2.substr(1, 1) || s3.substr(0, 1) == s3.substr(1, 1)) //  || s3.indexOf("0") > -1
-				continue;
-			console.log("  " + s1 + " + " + s2 + " = " + s3)
+			let value = e[key];
+			if (typeof e[key] == "object" || typeof e[key] == "function") {
+				value = typeof e[key];
+			}
+			s += (s.length > 0 ? "<br/>" : "") + key + ": " + value
 		}
+		document.getElementById("code3").innerHTML = s;
 	}
-}
-*/
-//console.log(arr)
 </script>
 </html>
