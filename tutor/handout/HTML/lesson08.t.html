@@ -14,7 +14,15 @@
 	<h4>事件屬性：</h4>
 	<ol>
 		<li>load, unload, error, click, dblclick, change, focus, blur, abort, sumbit, select</li>
-		<li>keydown, keypress, keyup</li>
+		<li>keydown, keypress, keyup<br/>
+			<h4 style='display: inline-block'>keyPress 和 keyDown、keyUp 之間的差別</h4>：
+			<ul>
+				<li>keyPress 首要用來捕獲可列印的字元。<br/>比如數字（重視：包含 Shift + 數字的符號）、字母（重視：包含大小寫）、小鍵盤等除了 F1-F12、SHIFT、Alt、Ctrl、Insert、Home、PgUp、Delete、End、PgDn、ScrollLock、Pause、NumLock...</li>
+				<li>keyPress 只能捕獲單個字元。<br/>keyDown 和 keyUp 可以捕獲組合鍵</li>
+				<li>keyPress 可以捕獲單個字元的大小寫。<br/>keyDown 和 keyUp 不區分字元的大小寫</li>
+				<li>keyPress 不區分小鍵盤和主鍵盤的數字字元。<br/>keyDown 和 keyUp 區分小鍵盤和主鍵盤的數字字元</li>
+			</ul>
+		</li>
 		<li>mousein, mouseout, mousemove, mouseover, mousedown, mouseup, mousewheel</li>
 		<li>touchstart, touchmove, touchend</li>
 		<li>drag, dragstart, dragend, dragenter, dragleave, dragover, drop</li>
@@ -58,9 +66,8 @@
 
 	<h4>DOM Event Object - 方法</h4>
 	<ol>
-		<li>preventDefault()</li>
-		<li>stopImmediatePropagation()</li>
-		<li>stopPropagation()</li>
+		<li>preventDefault()：不執行預設功能</li>
+		<li>stopPropagation()：停止事件向上傳送</li>
 	</ol>
 	
 	<h4>DOM Event Object - 屬性</h4>
@@ -84,8 +91,8 @@
 		<li><h4>鍵盤</h4>
 			<ul>
 				<li>key：輸入字元</li>
-				<li>keyCode：輸入字元的 ASCII碼(keydpress 只會大寫的)</li>
-				<li>which：輸入字元的 ASCII 碼(keydpress 只會大寫的)，不含控制字元</li>
+				<li>keyCode：輸入字元的 ASCII 碼</li>
+				<li>which：輸入字元的 ASCII 碼，不含控制字元</li>
 				<li>altKey：alt 鍵是否按下</li>
 				<li>ctrlKey：ctrl 鍵是否按下</li>
 				<li>shiftKey：shift 鍵是否按下</li>
@@ -111,7 +118,7 @@
 		<li>e.returnValue = false</li>
 	</ul>
 	<hr />
-	 
+	<a hre='https://medium.com/@yitailin/%E6%AF%94%E8%BC%83-keydown-keypress-keyup-%E7%9A%84%E5%B7%AE%E7%95%B0-4e873ba17e81' target='_parent'>比較 keydown, keypress, keyup 的差異</a>
 	<a href='https://kknews.cc/zh-tw/news/r3pzzr.html' target="_parent">JS一秒區分clientX,offsetX,screenX,pageX之間關係</a>
 	<br />
 	<a href='http://www.w3school.com.cn/tags/html_ref_eventattributes.asp' target="_parent">事件屬性(W3 School)</a>
