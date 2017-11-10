@@ -12,9 +12,26 @@
       margin-bottom: 10px;
       background-image: url("../chrome.png");
     }
+    div.opacity {
+      position: relative;
+      border: 1px solid red;
+      height: 100px;
+      width: 100px;
+      margin-bottom: 5px;
+      text-align: center;
+      background: #eee;
+    }
+    div.opacity > span {
+      background-image: none;
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      text-align: right;
+    }
   </style>
 </head>	
 <body>
+  <span style='background: red url("../chrome.png") no-repeat center;'></span>
   <span style='background: red;'></span>
   <div>
     <span style='background-size: cover;'></span>
@@ -28,5 +45,13 @@
   <span style='background: -webkit-linear-gradient(left bottom,  #f2f5f6, #3366FF);'></span>
   <span style='background: -webkit-gradient(linear, right top, left bottom, 
                 color-stop(0, #FFFFFF), color-stop(100, #3366FF))'></span>
+  <div class='opacity'>
+    1
+    <span style='background: rgb(0, 0, 255); opacity: 0.5;'>opacity</span>
+  </div>
+  <div class='opacity'>
+    3
+    <span style='background: rgba(0, 0, 255, 0.5)'>rgba</span>
+  </div>
 </body>
 </html>
