@@ -147,6 +147,16 @@ let menu = [
 				text: "padding",
 				context: "lesson21.3.t.html",
 				html: "lesson21.3.html",
+			}, {
+				id: "214-box-sizing",
+				text: "box-sizing",
+				context: "lesson21.4.t.html",
+				html: "lesson21.4.html",
+			}, {
+					id: "215-box-shadow",
+					text: "box-shadow",
+				context: "lesson21.5.t.html",
+				html: "lesson21.5.html",
 			}]
 		}, {
 			id: "22-flexbox",

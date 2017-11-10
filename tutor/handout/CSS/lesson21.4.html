@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>box-sizing</title>
+  <meta charset="utf-8">
+  <style type="text/css">
+    div {
+      display: inline-block;
+      margin-bottom: 5px;
+      border: 2px solid red;
+      width: 120px;
+      height: 120px;
+    }
+    span {
+      display: inline-block;
+      border: 5px solid blue;
+      width: 120px;
+      height: 120px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <span style='box-sizing: content-box;'>content-box</span>
+  </div>
+  <br /><br />
+  <div>
+    <span style='box-sizing: border-box;'>border-box</span>
+  </div>
+</body>
+</html>
