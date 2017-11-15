@@ -131,7 +131,7 @@ let menu = [
 			id: "21-box",
 			text: "Box Model",
 			context: "lesson21.t.html",
-			html: "lesson21.html",
+			//html: "lesson21.html",
 			children: [{
 				id: "211-margin",
 				text: "margin",
