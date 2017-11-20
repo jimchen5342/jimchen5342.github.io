@@ -38,37 +38,37 @@
           <ul>
             <li><h4>column</h4>：從上到下(default)</li>
             <li><h4>row</h4>：從左到右</li>
-            註: row-reverse, column-reverse
+            註：row-reverse, column-reverse
           </ul>
         </li>
-        <li><h4>flex-wrap</h4>：nowrap(default) | wrap</li>
+        <li><h4>flex-wrap</h4>：nowrap(default) | wrap | wrap-reverse</li>
         <li><h4>flex-flow</h4>：flex-direction flex-wrap</li>
         <li>
           <h4>justify-content</h4>：決定 flex 項目與 main axis 的對齊設定
           <ul>
             <li><h4>flex-start</h4>：項目往 main axis 的 main start 對齊(default)</li>
             <li><h4>flex-end</h4>：項目 main axis 的 main end 對齊</li>
-            <li><h4>center</h4>：水平置中</li>
-            <li><h4>space-between</h4>：平均分配內容元素，左右元素將會與 main axis 的 main start 和 main end 貼齊</li>
+            <li><h4>center</h4>：置中</li>
+            <li><h4>space-between</h4>：平均分配內容元素，左右元素將會分別與 main axis 的 main start 和 main end 貼齊</li>
             <li><h4>space-around</h4>：平均分配內容元素，間距也是平均分配</li>
           </ul>
         </li>
         <li>
-          <h4>align-items</h4>：決定 flex 項目與 main axis 的垂直對齊設定
+          <h4>align-items</h4>：決定 flex 項目與 cross axis 的對齊設定
           <ul>
-            <li><h4>flex-start</h4>：項目往 across axis 的 across start 對齊(default)</li>
-            <li><h4>flex-end</h4>：項目往 across axis 的 across end 對齊</li>
-            <li><h4>center</h4>：垂直置中</li>
+            <li><h4>flex-start</h4>：項目往 cross axis 的 cross start 對齊(default)</li>
+            <li><h4>flex-end</h4>：項目往 cross axis 的 cross end 對齊</li>
+            <li><h4>center</h4>：置中</li>
             <li><h4>stretch</h4>：將內容元素全部撐開填滿</li>
             <li><h4>baseline</h4>：以所有內容元素的基線作為對齊標準</li>
           </ul>
         </li>
         <li>
-          <h4>align-content</h4>：功能同 aling-items，但是是針對多列元素
+          <h4>align-content</h4>：功能同 align-items，但是是針對多列元素
           <ul>
-            <li><h4>flex-start</h4>：項目往 across axis 的 across start 對齊(default)</li>
-            <li><h4>flex-end</h4>：項目往 across axis 的 across end 對齊</li>
-            <li><h4>center</h4>：垂直置中</li>
+            <li><h4>flex-start</h4>：項目往 cross axis 的 cross start 對齊(default)</li>
+            <li><h4>flex-end</h4>：項目往 cross axis 的 cross end 對齊</li>
+            <li><h4>center</h4>：置中</li>
             <li><h4>stretch</h4>：自動將多餘的空間補滿(default)</li>
             <li><h4>space-between</h4>：將空白平均分配到每行內容之間，第一行靠在 cross-start，最後一行靠在 cross-end</li>
             <li><h4>space-around</h4>：平均分配空白到每行內容之間</li>
@@ -78,7 +78,7 @@
     </li>
     <li>子元素(item)<br/>
       <ul>
-        <li><h4>align-self</h4>：屬性同 aling-item；但是，針對子元素覆寫父元素的 align-item</li>
+        <li><h4>align-self</h4>：屬性同 align-item；但是，針對子元素覆寫父元素的 align-item</li>
         <li><h4>flex-grow</h4>：number(預設 0)，按照比例來填滿剩餘的空間</li>
         <li><h4>flex-shrink</h4>：number(預設 1)，縮小成設定的比例</li>
         <li><h4>flex-basis</h4>：px | % | auto(default)，定義的最小寬度或高度</li>
