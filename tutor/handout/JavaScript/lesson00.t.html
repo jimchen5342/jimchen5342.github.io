@@ -15,17 +15,78 @@
     html, body{
       margin: 0;
       padding: 0;
-      overflow-y: auto; 
+      overflow-y: auto;
+      font-size: 16px;
     }
   </style>
 </head>	
 <body class="easyui-tabs" style="width: 100%; height: 100%;" onresize="$('body').tabs('resize')">
-  <div title="基本架構">
+  <div title="歷史">
+    <ol>
+      <li>1995年，由當時的 Netscape(網景)公司的 Brendan Eich(布蘭登·艾克)，
+        在網景領航員(Navigator)瀏覽器上首次設計實作而成(據說完成第一個版本，他只花了10天...)</li>
+      <li>Microsoft(微軟)公司在 1996年發佈了類似的網頁的直譯式 Script(腳本)語言 VBScript 與 JScript，
+        其中 JScript 即是模仿 JavaScript 程式語言的產品，
+        在 Internet Explorer 3開始提供這兩個語言的支援</li>      
+      <li>為了統一 JavaScript 的標準，以及對抗 Microsoft(微軟)公司的競爭，
+        Netscape(網景)公司於 1996年向 ECMA International 歐洲國際標準組織，
+        提交了 JavaScript，希望它能成為業界的標準，
+        在 1997年的時候產生了初版的 ECMAScript 草案，
+        自此 ECMAScript 成為 JavaScript 程式語言的標準規範</li>
+      <li>2008年 Google 進軍瀏覽器市場，發佈 Chrome瀏覽器，為這場大戰投下了震撼彈。
+        Chrome採用了 WebKit 渲染引擎與自行研發的更快速 V8 JavaScript 引擎，
+        接著發佈了 Mac、Windows 與 Linux上 的多版本瀏覽器</li>
+      <li>ECMAScript 6(ES6) 發行於2015年中，為目前最新的官方版本</li>
+    </ol>
+    <span>參考</span><br/>
+    <a href='https://eyesofkids.gitbooks.io/javascript-start-from-es6/content/part1/history.html' target='_parent'>
+    從ES6開始的JavaScript學習生活</a>
+    <br/>
+    <a href='https://zh.wikipedia.org/zh-tw/JavaScript'>維基百科</a>
+  </div>
+  <div title="特性">
+    <ol>
+      <li>腳本語言(scripting language)</li>
+      <li>輕量級、動態、直譯語言</li>
+      <li>跨平台</li>
+      <li>原型導向、物件導向程式語言(object-oriented programming language)</li>
+      <li>動態與弱型別等特性</li>
+    </ol>
+  </div>
+  <div title="發展">
+    <ol>
+      <li>瀏覽器：JQuery，Ext.js，React.js，Vue.js，Angular.js</li>
+      <li>行動裝置：jQuery Mobile，Sencha Touch，Cordova(PhoneGap)，React Native</li>
+      <li>桌面應用程式：Electron</li>
+      <li>伺服器端：node.js / npm</li>
+      <li>TypeScript，CoffeeScript</li>
+    </ol>
+    <span>參考</span>
+    <a href='https://eyesofkids.gitbooks.io/javascript-start-from-es6/content/part1/history.html' target='_parent'>
+      從ES6開始的JavaScript學習生活</a>
+  </div>
+  <div title="工具">
+    <ol>
+      <li>webpack</li>
+      <li>babel</li>
+    </ol>
+  </div>
+  <div title='編輯器'>
+    <ol>
+      <li>Sublime Text</li>
+      <li>Visual Studio Code</li>
+      <li>Atom</li>
+      <li>Webstorm</li>
+      <li><a href='https://thimble.mozilla.org/zh-TW/' target="_parent">Mozilla Thimble</a></li>
+      <li><a href='https://jsfiddle.net/' target="_parent">JSFiddle</a></li>
+      <li><a href='https://jsbin.com/?html,output' target="_parent">JS Bin</a></li>
+      <li><a href='https://codepen.io/' target="_parent">CodePen</a></li>
+    </ol>
   </div>
   <div title="好站連結">
     <a href="http://javascript.ruanyifeng.com/" target='_parent'>JavaScript 标准参考教程</a>
     <br />
-     <a href='https://developer.mozilla.org/zh-TW/docs/Web/JavaScript' target='_parent'>MDN JavaScript</a>
+     <a href='https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide' target='_parent'>MDN JavaScript</a>
     <br />
     <a href='http://www.w3school.com.cn/js/index.asp' target='_parent'>W3school JavaScript 教程</a>
     <br />
@@ -34,6 +95,8 @@
     <a href='http://pclevin.blogspot.tw/p/javascript.html' target='_parent'>教學甘仔店</a>
     <br />
     <a href='https://www.fooish.com/javascript/' target='_parent'>JavaScript 語言</a>
+    <br />
+    <a href='http://ccckmit.wikidot.com/js:main' target='_parent'>陳鍾誠的網站</a>
     <br />
     <!--
     <a href='' target='_parent'></a>

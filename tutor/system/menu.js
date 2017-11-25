@@ -173,9 +173,42 @@ let menu = [
 		text: "JavaScript",
 		data: [{
 			id: "00-basic",
-			text: "基本架構",
+			text: "概述",
 			context: "lesson00.t.html",
-			html: "lesson00.html",
+			//html: "lesson00.html",
+		//}, {
+			// id: "01",
+			// text: "",
+			// context: ".t.html",
+			// html: ".html",
+			// children: [{
+			// 	id: "01",
+			// 	text: "a",
+			// 	context: ".t.html",
+			// 	html: ".html",
+			// }]
+		//}, {
+			// id: "01",
+			// text: "",
+			// context: ".t.html",
+			// html: ".html",
+			// children: [{
+			// 	id: "01",
+			// 	text: "a",
+			// 	context: ".t.html",
+			// 	html: ".html",
+			// }]
+		//}, {
+			// id: "01",
+			// text: "",
+			// context: ".t.html",
+			// html: ".html",
+			// children: [{
+			// 	id: "01",
+			// 	text: "a",
+			// 	context: ".t.html",
+			// 	html: ".html",
+			// }]
 		}]
 	}, {
 		text: "作業",
