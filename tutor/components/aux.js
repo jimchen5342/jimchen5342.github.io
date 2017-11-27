@@ -1,4 +1,3 @@
-
 function information(){
 	if(system.isSignon() == true) return;
 	//setting.information = undefined; // for test ...................
