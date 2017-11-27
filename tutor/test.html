@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>未命名</title>
+  <meta charset="utf-8">
+	<style type="text/css">
+		html,
+		body {
+			height: 100%;
+		}
+		* {
+			box-sizing: border-box;
+		}
+		#code3 {
+			position: absolute;
+			left: 200px;
+			top: 0px;
+			height: 100%;
+		}
+	</style>
+	<script type="text/javascript" src="../../jQuery/jquery.min.js"></script>
+	<script src="./system/system.js"></script>
+	<script src="./handout/highlight.js"></script>
+	<link rel="stylesheet" href="./handout/pattern.css">
+</head>	
+<body>
+
+	<input onkeydown='keydown(event)' onkeypress='keypress(event)' placeholder="請輸入文字" />
+	<div id='code' style='height: 25px; margin: 5px 0;'></div>
+	<div id='code2' style='height: 25px; margin: 5px 0;'></div>
+	<div id='code3' style='margin: 5px 0;'></div>
+</body>
+<script>
+	function keydown(e) {
+		document.getElementById("code").innerHTML = e.keyCode + ": " + e.key + " : " + e.which;
+		detail(e)
+	}
+	function keypress(e) {
+		document.getElementById("code2").innerHTML = e.keyCode + ": " + e.key + " : " + e.which;
+	}
+
+	function detail(e) {
+		console.log(e)
+		let s = ""
+		for (key in e) {
+			
+			let value = e[key];
+			if (typeof e[key] == "object" || typeof e[key] == "function") {
+				value = typeof e[key];
+			}
+			s += (s.length > 0 ? "<br/>" : "") + key + ": " + value
+		}
+		document.getElementById("code3").innerHTML = s;
+	}
+</script>
+</html>
