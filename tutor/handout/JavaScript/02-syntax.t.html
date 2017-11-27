@@ -22,14 +22,17 @@
 		<li>每行指令被稱為 Statements，並用分號（;）分隔
 			<pre>
 				<code class='javascript'>
-					var a;
-					var b = 2;
-					var c = 2 + 5;
+					var a; 
+					var b = 2; 
+					b++; // 一元運算子
+					var c = 2 + 5; // 二元運算子
 
 					var i = 2, j = 3; var k = i * j;
 
 					var x = (a + i ) * k,
 						y = (x > 0 ? 1 : 10) * 5;
+					
+					var z = x > y ? x : y; // 三元運算子
 				</code>
 			</pre>
 		</li>
