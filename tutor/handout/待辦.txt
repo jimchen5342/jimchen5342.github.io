@@ -1,0 +1,18 @@
+
+cd /Users/jimc/nodeJS/ && node index
+-------------------------------
+outline
+resize
+cursor
+-----------------
+statement, express, assign,declare
+
+參數(parameters)，引數(arguments)
+
+condition
+block {}
+array []
+
+
+Immediately Invoked Functions Expressions (IIFEs)
+------------------------
