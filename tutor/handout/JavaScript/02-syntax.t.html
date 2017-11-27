@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>語法</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	  h4 {
+      display: inline-block;
+    }
+	</style>
+	<link rel="stylesheet" href="../pattern.css">
+	<script src="../../system/system.js"></script>
+	<script type="text/javascript" src="../../jQuery/jquery.min.js"></script>
+	<script src="../highlight.js"></script>
+</head>
+<body>
+	<h4>語法(syntax)</h4>
+	<ol>
+		<li>JavaScript 許多基本語法借鑒自 Java</li>
+		<li>Case-sensitive（區分大小寫）並使用 Unicode 編碼</li>
+		<li>空格、Tab 與換行符號皆被視為空白</li>
+		<li>每行指令被稱為 Statements，並用分號（;）分隔
+			<pre>
+				<code class='javascript'>
+					var a;
+					var b = 2;
+					var c = 2 + 5;
+
+					var i = 2, j = 3; var k = i * j;
+
+					var x = (a + i ) * k,
+						y = (x > 0 ? 1 : 10) * 5;
+				</code>
+			</pre>
+		</li>
+		<li>宣告(declare)
+			<!--
+			<ul>
+				<li>var</li>
+				<li>let</li>
+				<li>const</li>
+			</ul>
+			-->
+		</li>
+		<li>變數(variable)
+			<!--
+			<ul>
+				<li>字串(string)</li>
+				<li>數值(number)</li>
+				<li>布林(boolean)</li>
+				<li>null</li>
+				<li>undefined</li>
+			</ul>
+			-->
+		</li>
+		<li>指派/賦值(assign)</li>
+		<li>運算式(express)：任何一段可以取得一個值的程式碼</li>
+		<li>運算元(operand)</li>
+		<li>運算子(operator)
+			<!--
+			<ul>
+				<li>指派運算子</li>
+				<li>字串運算子</li>
+				<li>算術運算子</li>
+				<li>比較運算子</li>
+				<li>邏輯運算子</li>
+				<li>三元運算子</li>
+				<li>累積運算子</li>
+				<li>逗號運算子</li>
+				<li>delete</li>
+				<li>typeof</li>
+			</ul>
+			-->
+		</li>
+		<li><h4>( )</h4>：運算式，函式<br/>
+			<h4>{ }</h4>：區塊，JSON，物件<br/>
+			<h4>[ ]</h4>：陣列，物件屬性
+			<pre>
+				<code class='javascript'>
+					var a = (2 + 3) * 2, b = 0;
+
+					if(b == 2) console.log(b);
+
+					while(b < 2){
+						 console.log(b);
+						 b++;
+					}
+
+					for(let i = 0; i < 10; i++){ 
+					}
+					 
+					functional add(x, y){
+					}
+
+					add(2, 3);
+
+					{ } 
+					
+					let json = {"name": "jim", "sex": "male"}; 
+					json["age"] = 25;
+
+					let week = ['Sunday', 'Monday', 'Tuesday'];
+					week[3] = 'Wednesday';
+
+					let json = {"name": "jim", "sex": "male"};
+					json["age"] = 25;
+				</code>
+			</pre>
+		</li>
+		<li>輸出：
+			<pre>
+				<code class='javascript'>
+					var x = 2 + 3;
+
+					alert('a is: ' + x);
+
+					console.log('a is: ' + x);
+
+					document.write('a is: ' + x);
+				</code>
+			</pre>
+		</li>
+		<li>註解：
+			<pre>
+				<code class='javascript'>
+					// 單行註解
+
+					/* 區塊註解 */
+				</code>
+			</pre>
+		</li>
+	</ol>
+
+	<hr>
+	<a href='https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Grammar_and_types#Basics' target='_parent'>MDN</a>
+	<br />
+	<a href='http://javascript.ruanyifeng.com/grammar/basic.html' target='_parent'>JavaScript 标准参考教程（alpha）</a>
+	<br />
+	<!--
+
+	<a href='' target='_parent'></a>
+	<br />
+	<br />
+	-->
+
+	 
+</body>
+
+</html>

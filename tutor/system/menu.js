@@ -174,8 +174,62 @@ let menu = [
 		data: [{
 			id: "00-basic",
 			text: "概述",
-			context: "lesson00.t.html",
-			//html: "lesson00.html",
+			context: "00-basic.t.html",
+		}, {
+			id: "01-include",
+			text: "如何使用",
+			context: "01-include.t.html",
+		}, {
+			id: "02-syntax",
+			text: "語法",
+			context: "02-syntax.t.html",
+			html: "02-syntax.html",
+		}, {
+			id: "03-declare",
+			text: "宣告",
+			context: "03-declare.t.html",
+			html: "03-declare.html",
+		}, {
+			id: "04-variable",
+			text: "變數",
+			context: "04-variable.t.html",
+			html: "04-variable.html",
+		}, {
+			id: "05-operator",
+			text: "運算子",
+			// context: ".t.html",
+			// html: ".html",
+			children: [{
+				id: "051-assign",
+				text: "指派運算子",
+				context: "051-assign.t.html",
+				html: "051-assign.html",
+			}, {
+					id: "052-assign",
+					text: "字串運算子",
+					context: "052-string.t.html",
+					html: "052-string.html",				
+			}, {
+				id: "053-math",
+				text: "算術運算子",
+				context: "053-math.t.html",
+				html: "053-math.html",
+			}, {
+				id: "054-compare",
+				text: "比較運算子",
+				context: "054-comparecompare.t.html",
+			html: "054-compare.html",
+			}, {
+				id: "055-logic",
+				text: "邏輯運算子",
+				context: "055-logic.t.html",
+				html: "055-logic.html",
+			// }, {
+			// 	id: "05-",
+			// 	text: "運算子",
+			// 	context: "05-.t.html",
+			// 	html: "05-.html",
+			}]
 		//}, {
 			// id: "01",
 			// text: "",
