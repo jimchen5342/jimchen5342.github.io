@@ -1,4 +1,3 @@
-
 cd /Users/jimc/nodeJS/ && node index
 -------------------------------
 outline
