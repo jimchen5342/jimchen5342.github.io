@@ -19,7 +19,7 @@
 		<li>JavaScript 許多基本語法借鑒自 Java</li>
 		<li>Case-sensitive（區分大小寫）並使用 Unicode 編碼</li>
 		<li>空格、Tab 與換行符號皆被視為空白</li>
-		<li>每行指令被稱為 Statements，並用分號（;）分隔
+		<li>每行指令(instruction)被稱為述句(statement)，並用分號（;）分隔
 			<pre>
 				<code class='javascript'>
 					var a; 
@@ -92,21 +92,20 @@
 					for(let i = 0; i < 10; i++){ 
 					}
 					 
-					functional add(x, y){
+					function add(x, y){
 					}
 
 					add(2, 3);
 
-					{ } 
+					{ 
+						let a = 1;
+					} 
 					
-					let json = {"name": "jim", "sex": "male"}; 
+					let json = {"name": "jim", "sex": "male"}; // JSON
 					json["age"] = 25;
 
-					let week = ['Sunday', 'Monday', 'Tuesday'];
+					let week = ['Sunday', 'Monday', 'Tuesday']; // 陣列
 					week[3] = 'Wednesday';
-
-					let json = {"name": "jim", "sex": "male"};
-					json["age"] = 25;
 				</code>
 			</pre>
 		</li>
