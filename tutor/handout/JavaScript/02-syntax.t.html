@@ -33,49 +33,59 @@
 						y = (x > 0 ? 1 : 10) * 5;
 					
 					var z = x > y ? x : y; // 三元運算子
+
+					if(x > y)
+						z = x;
+					else
+						z = y;
 				</code>
 			</pre>
-		</li>
-		<li>宣告(declare)
-			<!--
 			<ul>
-				<li>var</li>
-				<li>let</li>
-				<li>const</li>
+				<li>宣告(declare)
+					<!--
+					<ul>
+						<li>var</li>
+						<li>let</li>
+						<li>const</li>
+					</ul>
+					-->
+				</li>
+				<li>變數(variable)
+					<!--
+					<ul>
+						<li>字串(string)</li>
+						<li>數值(number)</li>
+						<li>布林(boolean)</li>
+						<li>null</li>
+						<li>undefined</li>
+					</ul>
+					-->
+				</li>
+				<li>指派/賦值(assign)</li>
+				<li>運算式(express)：任何一段可以取得一個值的程式碼</li>
+				<ul>
+					<li>運算元(operand)</li>
+					<li>運算子(operator)
+						<!--
+						<ul>
+							<li>指派運算子</li>
+							<li>字串運算子</li>
+							<li>算術運算子</li>
+							<li>比較運算子</li>
+							<li>邏輯運算子</li>
+							<li>三元運算子</li>
+							<li>累積運算子</li>
+							<li>逗號運算子</li>
+							<li>delete</li>
+							<li>typeof</li>
+						</ul>
+						-->
+					</li>
+				</ul>
 			</ul>
-			-->
 		</li>
-		<li>變數(variable)
-			<!--
-			<ul>
-				<li>字串(string)</li>
-				<li>數值(number)</li>
-				<li>布林(boolean)</li>
-				<li>null</li>
-				<li>undefined</li>
-			</ul>
-			-->
-		</li>
-		<li>指派/賦值(assign)</li>
-		<li>運算式(express)：任何一段可以取得一個值的程式碼</li>
-		<li>運算元(operand)</li>
-		<li>運算子(operator)
-			<!--
-			<ul>
-				<li>指派運算子</li>
-				<li>字串運算子</li>
-				<li>算術運算子</li>
-				<li>比較運算子</li>
-				<li>邏輯運算子</li>
-				<li>三元運算子</li>
-				<li>累積運算子</li>
-				<li>逗號運算子</li>
-				<li>delete</li>
-				<li>typeof</li>
-			</ul>
-			-->
-		</li>
-		<li><h4>( )</h4>：運算式，函式<br/>
+		<li>
+			<h4>( )</h4>：運算式，函式<br/>
 			<h4>{ }</h4>：區塊，JSON，物件<br/>
 			<h4>[ ]</h4>：陣列，物件屬性
 			<pre>
@@ -93,8 +103,8 @@
 					}
 					 
 					function add(x, y){
+						return x * y;
 					}
-
 					add(2, 3);
 
 					{ 

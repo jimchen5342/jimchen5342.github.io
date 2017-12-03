@@ -174,36 +174,40 @@ let menu = [
 		data: [{
 			id: "00-basic",
 			text: "概述",
-			context: "00-basic.t.html",
+			//context: "00-basic.t.html",
 		}, {
-			id: "01-include",
-			text: "如何使用",
-			context: "01-include.t.html",
+				text: "入門",
+				children: [{
+					id: "01-include",
+					text: "如何使用",
+					//context: "01-include.t.html",
+				}, {
+					id: "02-syntax",
+					text: "語法",
+					// context: "02-syntax.t.html",
+					// html: "02-syntax.html",
+					files: "html"
+				}, {
+					id: "03-declare",
+					text: "宣告",
+					// context: "03-declare.t.html",
+					// html: "03-declare.html",
+					files: "html"
+				}, {
+					id: "04-variable",
+					text: "變數",
+					// context: "04-variable.t.html",
+					// html: "04-variable.html",
+					files: "html"
+				}]
 		}, {
-			id: "02-syntax",
-			text: "語法",
-			context: "02-syntax.t.html",
-			html: "02-syntax.html",
-		}, {
-			id: "03-declare",
-			text: "宣告",
-			context: "03-declare.t.html",
-			html: "03-declare.html",
-		}, {
-			id: "04-variable",
-			text: "變數",
-			context: "04-variable.t.html",
-			html: "04-variable.html",
-		}, {
-			id: "05-operator",
+			//id: "05-operator",
 			text: "運算子",
-			// context: ".t.html",
-			// html: ".html",
 			children: [{
 				id: "051-assign",
 				text: "指派運算子",
-				context: "051-assign.t.html",
-				html: "051-assign.html",
+				// context: "051-assign.t.html",
+				// html: "051-assign.html",
 			}, {
 					id: "052-assign",
 					text: "字串運算子",
@@ -212,23 +216,37 @@ let menu = [
 			}, {
 				id: "053-math",
 				text: "算術運算子",
-				context: "053-math.t.html",
-				html: "053-math.html",
+				// context: "053-math.t.html",
+				// html: "053-math.html",
 			}, {
 				id: "054-compare",
 				text: "比較運算子",
-				context: "054-comparecompare.t.html",
-			html: "054-compare.html",
+				// context: "054-comparecompare.t.html",
+				// html: "054-compare.html",
 			}, {
 				id: "055-logic",
 				text: "邏輯運算子",
-				context: "055-logic.t.html",
-				html: "055-logic.html",
-			// }, {
-			// 	id: "05-",
-			// 	text: "運算子",
-			// 	context: "05-.t.html",
+				// context: "055-logic.t.html",
+				// html: "055-logic.html",
 			// 	html: "05-.html",
+			}]
+		}, {
+			text: "條件運算式",
+			children: [{
+				id: "061-if",
+				text: "if",
+			}, {
+					id: "062-case-when",
+					text: "case-when",
+			}]
+		}, {
+			text: "迴圈運算式",
+			children: [{
+				id: "071-for",
+				text: "for",
+			}, {
+				id: "072-while",
+				text: "while",
 			}]
 		//}, {
 			// id: "01",

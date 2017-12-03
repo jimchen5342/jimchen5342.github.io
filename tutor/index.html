@@ -525,6 +525,7 @@ function reload(){
 	if(student.length > 0 && typeof setting[student] == "object" && typeof setting[student][subject] == "string")
 		s = setting[student][subject];
 	//console.log(s + ": " + menu[setting.current].data.length)
+
 	for(let i = 0; i < menu[setting.current].data.length; i++){
 		let row = menu[setting.current].data[i];
 		if(typeof row.children == "object"){
@@ -664,6 +665,49 @@ function changeMenu(index){
 	setting.current = index;
 	storage.Setting({current: index, subject});
 	setTimeout(adjuctFile, 600);
+
+	console.log(setting[subject])
+	if(typeof setting[subject] == "string"){
+		retrieve();
+	}
+
+	function retrieve() {
+		let data1 = menu[index].data;
+		for(let i = 0; i < data1.length; i++){
+			getFile(data1[i]);
+			if(typeof data1[i].children == "object"){
+				data1[i].state = "closed";
+				let data2 = data1[i].children;
+				for(let j = 0; j < data2.length; j++){
+					getFile(data2[j]);
+					if(setting[subject] == data2[j].id){
+						data1[i].state = "open";
+					}
+				}
+			}
+		}
+		console.log(data1)
+		
+		function getFile(node) {
+			let files = typeof node.files == "string" ? node.files.split(",") : [];
+			if(typeof node.children == "undefined" && typeof node.context == "undefined"){
+					files.push("ctx");
+			}
+			for(let i = 0; i < files.length; i++){
+				if(files[i] == "ctx" && typeof node.context == "string")
+					continue;
+				else if(typeof node[files[i]] == "string")
+					continue;
+	
+				let file = node.id + "." + (files[i] == "ctx" ? "t.html" : files[i]);
+				if (files[i] == "ctx")
+					node.context = file;
+				else
+					node[files[i]] = file;
+			}
+		}
+	}
+
 	$('#tree').tree({
 		data: menu[index].data
 	});
@@ -817,9 +861,9 @@ function loadPage(node, changed){
 	} else {
 		result.location.assign("./empty.html");
 		$("#doc").tabs("select", 0);
-		setTimeout(function() {
-			$("#doc").tabs("resize");
-		}, 600);
+		// setTimeout(function() {
+		// 	$("#doc").tabs("resize");
+		// }, 600);
 	}
 	centerIcon();
 	function loadEditor(index){
@@ -830,12 +874,12 @@ function loadPage(node, changed){
 			if((readOnly == false || student.length > 0) && typeof userData == "object"){
 				let s = typeof userData[lesson] == "object" && typeof userData[lesson][key] == "string"
 					? userData[lesson][key] : "";
-				console.log(s)
+				//console.log(s)
 				if(s.length == 0 && key2 == "html"){
 					if(student.length > 0){
 						iframe[key].setValue(subject, node[key2]);
 						readOnly = true;
-						if(index == 0){
+						if(index == 0 && typeof node["html"] == "string"){
 							result.location.assign("./handout/" + subject + "/" + node["html"]);
 						}
 					} else {
