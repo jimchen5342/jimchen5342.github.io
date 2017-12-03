@@ -2,14 +2,15 @@
 <html>
 <head>
 	<title>語法</title>
-	<meta charset="utf-8">
-	<style type="text/css">
-	</style>
 </head>
 <body>
 </body>
 <script>
-	document.write("a<br/>");
-	document.write("b");
+	document.write("Today: " + (new Date()) + "<br/><br/>");
+
+	function add(x, y){ // 函數
+		return x * y;
+	}
+	document.write("add: " + add(10, 6));
 </script>
 </html>
