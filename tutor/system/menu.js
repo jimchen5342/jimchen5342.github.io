@@ -236,8 +236,8 @@ let menu = [
 				id: "061-if",
 				text: "if",
 			}, {
-					id: "062-case-when",
-					text: "case-when",
+					id: "062-switch",
+					text: "switch",
 			}]
 		}, {
 			text: "迴圈運算式",
