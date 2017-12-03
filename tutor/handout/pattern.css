@@ -1,3 +1,6 @@
+* {
+	box-sizing: border-box;
+}
 html, body{
 	font-family: 'Helvetica Neue', 微軟正黑體, 'Microsoft Jhenghei', Helvetica, Arial, sans-serif;
 	font-size:16px;

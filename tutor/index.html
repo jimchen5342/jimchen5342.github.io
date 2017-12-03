@@ -25,6 +25,7 @@
 			overflow: hidden;
 			height: -webkit-calc(100% - (0px)); 
 			width: 100%;
+			box-sizing: border-box;
 		}
 		.myPanel {
 			padding: 0px; 
@@ -305,7 +306,7 @@
 			<div id='layoutTool' style="width: 50px; height: 100%; overflow: hidden; padding: 0px 2px;box-sizing: border-box;">
 					<ul id='cmd'> 
 						<li><i class="material-icons">close</i></li>
-						<li><i class="material-icons">share</i></li>
+						<li id='share'><i class="material-icons">share</i></li>
 						<li><i class="material-icons">undo</i></li>
 						<li><i class="material-icons">refresh</i></li>
 						<li><i class="material-icons">comment</i></li>
@@ -523,7 +524,7 @@ function reload(){
 	let s = setting[subject];
 	if(student.length > 0 && typeof setting[student] == "object" && typeof setting[student][subject] == "string")
 		s = setting[student][subject];
-	console.log(s + ": " + menu[setting.current].data.length)
+	//console.log(s + ": " + menu[setting.current].data.length)
 	for(let i = 0; i < menu[setting.current].data.length; i++){
 		let row = menu[setting.current].data[i];
 		if(typeof row.children == "object"){
@@ -793,6 +794,7 @@ function treeClick(node){
 function loadPage(node, changed){
 	$("#sync").css("display", "none");
 	lesson = node.id; //readOnly = true;
+	//console.log(node)
 	if(typeof changed == "boolean" && changed == true && !system.isTeacher()){
 		if(typeof userData == "object" && typeof userData[lesson] == "object"){
 			readOnly = false;
@@ -811,22 +813,24 @@ function loadPage(node, changed){
 	} else if(system.isTeacher())
 		readOnly = true;
 	if(readOnly == true && typeof node.html == "string" && node.html.length > 0){
-		//$("#result").attr("src", "./handout/" + subject + "/" + node["html"]);
 		result.location.assign("./handout/" + subject + "/" + node["html"]);
 	} else {
 		result.location.assign("./empty.html");
+		$("#doc").tabs("select", 0);
+		setTimeout(function() {
+			$("#doc").tabs("resize");
+		}, 600);
 	}
 	centerIcon();
 	function loadEditor(index){
 		if(index >= mode.length){
 			keyHandle(1);
-			//setTimeout(function(){
-			//}, 600)
 		} else if (typeof iframe[mode[index].src] == "object") {
 			let key = mode[index].src, key2 = mode[index].node;
 			if((readOnly == false || student.length > 0) && typeof userData == "object"){
 				let s = typeof userData[lesson] == "object" && typeof userData[lesson][key] == "string"
 					? userData[lesson][key] : "";
+				console.log(s)
 				if(s.length == 0 && key2 == "html"){
 					if(student.length > 0){
 						iframe[key].setValue(subject, node[key2]);
@@ -846,8 +850,7 @@ function loadPage(node, changed){
 				iframe[key].readOnly(readOnly);
 				setTimeout(function(){
 					loadEditor(index + 1);
-				}, 600)
-				
+				}, 600);
 			} else {
 				if(typeof node[key2] == "undefined")
 					iframe[key].setValue("");
