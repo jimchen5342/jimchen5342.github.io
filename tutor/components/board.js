@@ -70,9 +70,9 @@ phonelink_erase
 			} else if($(this).text() == "comment"){
 					$('#winSpeech').window('open');
 			} else if(typeof whiteBoard == "object"){
-				if($(this).text() == "share")
+				if($(this).text() == "share"){ // 分享....
 					whiteBoard.send();
-				else if($(this).text() == "undo")
+				} else if($(this).text() == "undo")
 					whiteBoard.set("undo");
 				else
 					whiteBoard.set("clearAll");
@@ -90,7 +90,7 @@ phonelink_erase
 			$("#palette > li").removeClass("active");
 			$(this).addClass("active");
 			let color = $("#palette > li.active > i").css("color");
-			console.log(color)
+			//console.log(color)
 			if(typeof whiteBoard == "object"){
 				whiteBoard.set("color", color);
 			}
@@ -185,6 +185,7 @@ phonelink_erase
 			});
 			self.canvas.add(imgInstance);
 			imgInstance.set('selectable', false);
+			$("#share").addClass("active");
 			handle();
 		};
 		img.src = base64;
@@ -301,6 +302,7 @@ phonelink_erase
 			let data = this.canvas.toDataURL();
 			send({data}, 
 				function(){
+					$("#share").removeClass("active");
 					system.loading.close();
 					window.showToast({
 						msg: "圖檔已送出", 

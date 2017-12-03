@@ -49,3 +49,17 @@ a.c10:hover{
 #layoutTool ul:nth-child(1), #layoutTool ul > li:nth-child(1) {
 	margin-top: 0px !important;
 }
+
+#share.active {
+	/*background-color: #B71C1C !important;*/
+	background-image: none !important;
+	color: white;
+	animation: colorchange .6s infinite;
+}
+
+@-webkit-keyframes colorchange 
+{
+	0%   {background: red;}
+	50% {background: #D50000}
+	100%   {background: red;}
+}
