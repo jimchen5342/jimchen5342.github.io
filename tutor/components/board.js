@@ -81,7 +81,7 @@ phonelink_erase
 		$("#sharp > li").bind("click", function(){
 			$("#sharp > li").removeClass("active");
 			$(this).addClass("active");
-			console.log($(this).text())
+			//console.log($(this).text())
 			if(typeof whiteBoard == "object"){
 				whiteBoard.set("mode", ($(this).text() == "edit") ? "line" : "rect");
 			}
@@ -185,7 +185,8 @@ phonelink_erase
 			});
 			self.canvas.add(imgInstance);
 			imgInstance.set('selectable', false);
-			$("#share").addClass("active");
+			if (system.isTeacher() )
+				$("#share").addClass("active");
 			handle();
 		};
 		img.src = base64;
