@@ -22,43 +22,93 @@
   </style>
 </head>	
 <body class="easyui-tabs" style="width: 100%; height: 100%;" onresize="$('body').tabs('resize')">
-  <div title="變數型態">
+  <div title="資料型態">
     <ol>
 			<li>string：字串</li>
 			<li>number：數值(含小數點)</li>
 			<li>boolean：布林值(true/false)</li>
 			<li>array：陣列</li>
 			<li>object：物件</li>
+			<li>function：函式</li>
 			<li>null：</li>
 			<li>undefined：</li>
 			<pre>
 				<code class='javascript'>
-					var name = "jim";
-					const PI = 3.1416;
-					var isStart = false;
+					var name = "jim", sex = 'male'; // 字串
+					const PI = 3.1416; // 數值
+					var isStart = false; // 布林值
 
-					var student = [], week = ['Sunday', 'Monday', 'Tuesday'];
-					console.log(week[0]);
+					var students = [], cars = ['Audi', 'BMW', 'Benz']; // 陣列
+					students.push("jim");
+					students.push("mary");
+					console.log(students[0]);
+					console.log(cars[0]);
 
-					var obj = new Object();
+					var obj = new Object(); // 物件
 					obj.name = "jim";
 					obj["age"] = 25;
-					obj.success = function(){
+					obj.success = function(){ // 函式
 						// statement
 					}
 
-					var json = {"name": "jim", age: 25, address: "高雄" };
+					var json = {"name": "jim", age: 25, address: "高雄"}; // 物件
 					delete json.name;
 					console.log(json["name"]);
 		
-					var today = new Date();
+					var today = new Date(); // 日期
 					today = null;
 
 					var a, b = 0;
 					b = undefined;
 				</code>
 			</pre>
-    </ol>
+		</ol>
+		
+		<ol>
+			<li>var x = new Object()</li>
+			<li>var x = new String()</li>
+			<li>var x = new Nubmer()</li>
+			<li>var x = new Boolean()</li>
+			<li>var x = new Array()</li>
+			<li>var x = new Date()</li>
+		</ol>
+
+		<ol>
+			<li>typeof：檢查資料型態
+				<pre>
+					<code class='javascript'>
+						console.log(typeof "1");            // string
+						console.log(typeof 0);              // number
+						console.log(typeof true);           // boolean
+						console.log(typeof {});             // object
+						console.log(typeof (new Object())); // object
+						console.log(typeof (new Date()));   // object
+						console.log(typeof []);             // object
+						console.log(typeof null);           // object
+						console.log(typeof undefined);      // undefined
+					</code>
+				</pre>
+			</li>
+			<li>instanceof
+				<pre>
+					<code class='javascript'>
+					</code>
+				</pre>
+			</li>
+		</ol>
+
+	</div>
+	<div title="型態轉換">
+		JavaScript 是一個動態型別的語言，這意味著你不需要在宣告變數時定義它的資料型別，程式執行時會自動轉換
+		<pre>
+			<code class='javascript'>
+				var a = "The answer is: ", b = 25;
+				var c = a + b;
+
+				var x = "37" - 7; // 30
+				var y = "37" + 7; // 377
+			</code>
+		</pre>
 	</div>
 	<div title="命名規則">
 		<ol>
