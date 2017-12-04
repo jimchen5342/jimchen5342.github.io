@@ -207,24 +207,19 @@ let menu = [
 				id: "051-assign",
 				text: "指派運算子",
 				// context: "051-assign.t.html",
-				// html: "051-assign.html",
+				// html: "051-assign.html",			
 			}, {
-					id: "052-assign",
-					text: "字串運算子",
-					context: "052-string.t.html",
-					html: "052-string.html",				
-			}, {
-				id: "053-math",
+				id: "052-math",
 				text: "算術運算子",
 				// context: "053-math.t.html",
 				// html: "053-math.html",
 			}, {
-				id: "054-compare",
+				id: "053-compare",
 				text: "比較運算子",
 				// context: "054-comparecompare.t.html",
 				// html: "054-compare.html",
 			}, {
-				id: "055-logic",
+				id: "054-logic",
 				text: "邏輯運算子",
 				// context: "055-logic.t.html",
 				// html: "055-logic.html",

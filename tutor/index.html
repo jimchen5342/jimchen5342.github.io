@@ -666,7 +666,6 @@ function changeMenu(index){
 	storage.Setting({current: index, subject});
 	setTimeout(adjuctFile, 600);
 
-	console.log(setting[subject])
 	if(typeof setting[subject] == "string"){
 		retrieve();
 	}
@@ -686,7 +685,6 @@ function changeMenu(index){
 				}
 			}
 		}
-		console.log(data1)
 		
 		function getFile(node) {
 			let files = typeof node.files == "string" ? node.files.split(",") : [];
@@ -814,9 +812,8 @@ function findTree(node){
 }
 
 function treeClick(node){
-	if(student == "")
-		setting[subject] = node.id;
-	else {
+	setting[subject] = node.id;
+	if(student != "") {
 		if(typeof setting[student] == "undefined")
 			setting[student] = {};
 		setting[student][subject] = node.id;
