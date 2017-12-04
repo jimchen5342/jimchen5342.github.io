@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>宣告</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	  h4 {
+      display: inline-block;
+    }
+	</style>
+	<link rel="stylesheet" href="../pattern.css">
+	<script src="../../system/system.js"></script>
+	<script type="text/javascript" src="../../jQuery/jquery.min.js"></script>
+	<script src="../highlight.js"></script>
+</head>
+<body>
+	<h4>變數範圍(scope)</h4>
+	<ol>
+		<li>全域(global)</li>
+		<li>區域(local)</li>
+	</ol>
+
+	<h4>變數宣告(declare)</h4>
+	<ol>
+		<li>var：宣告一個可隨意更改其內容的變數
+			<pre>
+				<code class='javascript'>
+					var a = 0;
+				</code>
+			</pre>
+		</li>
+		<li>let：宣告一個可隨意更改其內容的區塊區域變數
+			<pre>
+				<code class='javascript'>
+					{
+						let a = 0;
+					}
+				</code>
+			</pre>
+		</li>
+		<li>const：宣告一個只可讀取的不可變常數
+			<pre>
+				<code class='javascript'>
+					const PI = 3.1416;
+				</code>
+			</pre>
+		</li>
+		<li>未宣告
+			<pre>
+				<code class='javascript'>
+					a = 0;
+				</code>
+			</pre>
+			註：定義全域變數，在嚴格模式裡會產生警告，該定義方式應該盡可能避免
+		</li>
+	</ol>
+
+	<h4></h4>
+	<ol>
+		<li>一行陳述式(statement)，多個變數宣告
+			<pre>
+				<code class='javascript'>
+					var a = 0, b = 0, c;
+				</code>
+			</pre>
+		</li>
+		<li>跨行，多個變數宣告
+			<pre>
+				<code class='javascript'>
+					var a = 0, 
+						b = 0, 
+						c = 0;
+				</code>
+			</pre>
+		</li>
+		<li>'use strict';</li>
+	</ol>
+	<br />
+</body>
+</html>

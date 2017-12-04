@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>變數</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../../jQuery/easyui/themes/default/easyui.css">
+  <link rel="stylesheet" type="text/css" href="../../jQuery/easyui/themes/icon.css">
+  <link rel="stylesheet" type="text/css" href="../../jQuery/easyui/themes/color.css">
+  <script type="text/javascript" src="../../jQuery/jquery.min.js"></script>
+  <script type="text/javascript" src="../../jQuery/easyui/jquery.easyui.min.js"></script>
+  <link rel="stylesheet" href="../pattern.css">
+  <script src="../../system/system.js"></script>
+	<script src="../histroy.js"></script>
+	<script src="../highlight.js"></script>
+  <style type="text/css">
+    html, body{
+      margin: 0;
+      padding: 0;
+      overflow-y: auto;
+      font-size: 16px;
+    }
+  </style>
+</head>	
+<body class="easyui-tabs" style="width: 100%; height: 100%;" onresize="$('body').tabs('resize')">
+  <div title="變數型態">
+    <ol>
+			<li>string：字串</li>
+			<li>number：數值(含小數點)</li>
+			<li>boolean：布林值(true/false)</li>
+			<li>array：陣列</li>
+			<li>object：物件</li>
+			<li>null：</li>
+			<li>undefined：</li>
+			<pre>
+				<code class='javascript'>
+					var name = "jim";
+					const PI = 3.1416;
+					var isStart = false;
+
+					var student = [], week = ['Sunday', 'Monday', 'Tuesday'];
+					console.log(week[0]);
+
+					var obj = new Object();
+					obj.name = "jim";
+					obj["age"] = 25;
+					obj.success = function(){
+						// statement
+					}
+
+					var json = {"name": "jim", age: 25, address: "高雄" };
+					delete json.name;
+					console.log(json["name"]);
+		
+					var today = new Date();
+					today = null;
+
+					var a, b = 0;
+					b = undefined;
+				</code>
+			</pre>
+    </ol>
+	</div>
+	<div title="命名規則">
+		<ol>
+			<li></li>
+		</ol>
+	</div>
+	<div title="保留字">
+		<ol>
+			<li></li>
+		</ol>
+	</div>
+</body>
+</html>
