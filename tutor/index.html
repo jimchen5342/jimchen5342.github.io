@@ -672,6 +672,10 @@ function changeMenu(index){
 
 	function retrieve() {
 		let data1 = menu[index].data;
+		let id = setting[subject];
+		if (student == "" && typeof setting[student] != "undefined" && typeof setting[student][subject] == "string") {
+			id = setting[student][subject];
+		}
 		for(let i = 0; i < data1.length; i++){
 			getFile(data1[i]);
 			if(typeof data1[i].children == "object"){
@@ -812,8 +816,9 @@ function findTree(node){
 }
 
 function treeClick(node){
-	setting[subject] = node.id;
-	if(student != "") {
+	if(student == ""){
+		setting[subject] = node.id;
+	} else {
 		if(typeof setting[student] == "undefined")
 			setting[student] = {};
 		setting[student][subject] = node.id;
