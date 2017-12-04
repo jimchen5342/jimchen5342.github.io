@@ -231,7 +231,7 @@ let menu = [
 			// 	html: "05-.html",
 			}]
 		}, {
-			text: "條件運算式",
+			text: "條件陳述句",
 			children: [{
 				id: "061-if",
 				text: "if",
@@ -240,7 +240,7 @@ let menu = [
 					text: "switch",
 			}]
 		}, {
-			text: "迴圈運算式",
+			text: "迴圈陳述句",
 			children: [{
 				id: "071-for",
 				text: "for",

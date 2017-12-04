@@ -19,6 +19,31 @@
       overflow-y: auto;
       font-size: 16px;
     }
+		.w3-table,.w3-table-all{
+			border-collapse:collapse;
+			border-spacing:0;
+			width:100%;
+			display:table;
+		}
+		.w3-table-all{
+			border:1px solid #ccc;
+		}
+		.w3-bordered tr,.w3-table-all tr{
+			border-bottom:1px solid #ddd;
+		}
+		.w3-striped tbody tr:nth-child(even){
+			background-color:#f1f1f1;
+		}
+		.w3-table-all tr:nth-child(odd){
+			background-color:#fff;
+		}
+		.w3-table-all tr:nth-child(even){
+			background-color:#f1f1f1;
+		}
+		.w3-table-all tr td{
+			padding: 5px;
+		}
+
   </style>
 </head>	
 <body class="easyui-tabs" style="width: 100%; height: 100%;" onresize="$('body').tabs('resize')">
@@ -30,8 +55,8 @@
 			<li>array：陣列</li>
 			<li>object：物件</li>
 			<li>function：函式</li>
-			<li>null：</li>
-			<li>undefined：</li>
+			<li>null：無值</li>
+			<li>undefined：未定義或不存在</li>
 			<pre>
 				<code class='javascript'>
 					var name = "jim", sex = 'male'; // 字串
@@ -65,60 +90,161 @@
 		</ol>
 		
 		<ol>
-			<li>var x = new Object()</li>
-			<li>var x = new String()</li>
-			<li>var x = new Nubmer()</li>
-			<li>var x = new Boolean()</li>
-			<li>var x = new Array()</li>
-			<li>var x = new Date()</li>
+			<li>var x = new Object();</li>
+			<li>var x = new String();</li>
+			<li>var x = new Nubmer();</li>
+			<li>var x = new Boolean();</li>
+			<li>var x = new Array();</li>
+			<li>var x = new Date();</li>
 		</ol>
 
-		<ol>
-			<li>typeof：檢查資料型態
-				<pre>
-					<code class='javascript'>
-						console.log(typeof "1");            // string
-						console.log(typeof 0);              // number
-						console.log(typeof true);           // boolean
-						console.log(typeof {});             // object
-						console.log(typeof (new Object())); // object
-						console.log(typeof (new Date()));   // object
-						console.log(typeof []);             // object
-						console.log(typeof null);           // object
-						console.log(typeof undefined);      // undefined
-					</code>
-				</pre>
-			</li>
-			<li>instanceof
-				<pre>
-					<code class='javascript'>
-					</code>
-				</pre>
-			</li>
-		</ol>
-
+		typeof：檢查資料型態
+		<pre>
+			<code class='javascript'>
+				console.log(typeof "1");            // string
+				console.log(typeof 0);              // number
+				console.log(typeof true);           // boolean
+				console.log(typeof {});             // object
+				console.log(typeof (new Object())); // object
+				console.log(typeof (new Date()));   // object
+				console.log(typeof []);             // object
+				console.log(typeof null);           // object
+				console.log(typeof undefined);      // undefined
+			</code>
+		</pre>
 	</div>
 	<div title="型態轉換">
 		JavaScript 是一個動態型別的語言，這意味著你不需要在宣告變數時定義它的資料型別，程式執行時會自動轉換
 		<pre>
 			<code class='javascript'>
 				var a = "The answer is: ", b = 25;
-				var c = a + b;
+				var c = a + b; // The answer is: 25
+				c = 5; // number
 
 				var x = "37" - 7; // 30
 				var y = "37" + 7; // 377
+				var z = parseInt("100", 10);
 			</code>
 		</pre>
 	</div>
 	<div title="命名規則">
 		<ol>
-			<li></li>
+			<li>開頭字元需要是 ASCII 字元(英文大小寫字元)，或是下底線(_)、錢號($)。注意，數字不可用於開頭字元。</li>
+			<li>接下來的字元可以使用英文字元、數字或下底線(_)。</li>
+			<li>大小寫是有差異的。</li>
+			<li>名稱不可使用 JavaScript 語言保留字詞。</li>
+			<li>名稱被稱為 identifier (識別符，簡稱ID)，它在程式碼上下文中具有唯一性</li>
+			<li>駝峰式</li>		
 		</ol>
+		<pre>
+			<code class="javascript">
+				var userName = "jim";
+				var _age = 25;
+				var user_id = "jim";
+			</code>
+		</pre>
 	</div>
 	<div title="保留字">
-		<ol>
-			<li></li>
-		</ol>
+		<table class="w3-table-all">
+			<tbody>
+				<tr>
+					<td>abstract</td>
+					<td>arguments</td>
+					<td>await</td>
+					<td>boolean</td>
+				</tr>
+				<tr>
+					<td>break</td>
+					<td>byte</td>
+					<td>case</td>
+					<td>catch</td>
+				</tr>
+				<tr>
+					<td>char</td>
+					<td>class</td>
+					<td>const</td>
+					<td>continue</td>
+				</tr>
+				<tr>
+					<td>debugger</td>
+					<td>default</td>
+					<td>delete</td>
+					<td>do</td>
+				</tr>
+				<tr>
+					<td>double</td>
+					<td>else</td>
+					<td>enum</td>
+					<td>eval</td>
+				</tr>
+				<tr>
+					<td>export</td>
+					<td>extends</td>
+					<td>false</td>
+					<td>final</td>
+				</tr>
+				<tr>
+					<td>finally</td>
+					<td>float</td>
+					<td>for</td>
+					<td>function</td>
+				</tr>
+				<tr>
+					<td>goto</td>
+					<td>if</td>
+					<td>implements</td>
+					<td>import</td>
+				</tr>
+				<tr>
+					<td>in</td>
+					<td>instanceof</td>
+					<td>int</td>
+					<td>interface</td>
+				</tr>
+				<tr>
+					<td>let</td>
+					<td>long</td>
+					<td>native</td>
+					<td>new</td>
+				</tr>
+				<tr>
+					<td>null</td>
+					<td>package</td>
+					<td>private</td>
+					<td>protected</td>
+				</tr>
+				<tr>
+					<td>public</td>
+					<td>return</td>
+					<td>short</td>
+					<td>static</td>
+				</tr>
+				<tr>
+					<td>super</td>
+					<td>switch</td>
+					<td>synchronized</td>
+					<td>this</td>
+				</tr>
+				<tr>
+					<td>throw</td>
+					<td>throws</td>
+					<td>transient</td>
+					<td>true</td>
+				</tr>
+				<tr>
+					<td>try</td>
+					<td>typeof</td>
+					<td>var</td>
+					<td>void</td>
+				</tr>
+				<tr>
+					<td>volatile</td>
+					<td>while</td>
+					<td>with</td>
+					<td>yield</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </body>
 </html>
