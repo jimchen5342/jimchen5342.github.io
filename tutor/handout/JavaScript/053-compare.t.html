@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>比較運算子</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	</style>
+	<link rel="stylesheet" href="../pattern.css">
+	<script src="../../system/system.js"></script>
+	<script type="text/javascript" src="../../jQuery/jquery.min.js"></script>
+	<script src="../highlight.js"></script>
+</head>
+<body>
+	<table class="w3-table-all">
+		<caption>比較運算子</caption>
+		<tr>
+			<td class='title'>運算子</td>
+			<td class='title'>描述</td>
+			<td class='title'>會回傳 true 的例子</td>
+		</tr>
+		
+		<tr>
+			<td>等於 ( <code>==</code>)</td>
+			<td>假如運算元等價就回傳 true。</td>
+			<td>
+				<code>3 == var1<br/>"3" == var1<br/>3 == '3'</code>
+			</td>
+		</tr>
+		<tr>
+			<td>不等於<code>!=</code>)</td>
+			<td>假如運算元等價就回傳 true。</td>
+			<td>
+				<code>var1 != 4<br>var2 != "3"</code>
+			</td>
+		</tr>
+		<tr>
+			<td>嚴格等於 (<code>===</code>)</td>
+			<td>假如運算元具有相同型態且等價則回傳 true
+			<td><code>3 === var1</code></td>
+		</tr>
+		<tr>
+			<td>嚴格不等於 (<code>!==</code>)</td>
+			<td>假如運算元具有相同型態但不等價，或是具有不同型態，回傳 true。</td>
+			<td><code>var1 !== "3"<br>3 !== '3'</code></td>
+		</tr>
+		<tr>
+			<td>大於 (<code>&gt;</code>)</td>
+			<td>假如左方運算元大於右方運算元，回傳 true。</td>
+			<td><code>var2 &gt; var1<br>"12" &gt; 2</code></td>
+		</tr>
+		<tr>
+			<td>
+				<a href="/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators#Greater_than_or_equal_operator">大於或等於</a> (
+				<code>&gt;=</code>)</td>
+			<td>假如左方運算元大於或等於右方運算元，回傳 true。</td>
+			<td>
+				<code>var2 &gt;= var1<br>
+		var1 &gt;= 3</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<a href="/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators#Less_than_operator">小於</a> (
+				<code>&lt;</code>)</td>
+			<td>假如左方運算元小於右方運算元，回傳 true。</td>
+			<td>
+				<code>var1 &lt; var2<br>
+		"2" &lt; 12</code>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<a href="/en-US/docs/Web/JavaScript/Reference/Operators/Comparison_Operators#Less_than_or_equal_operator">小於或等於</a> (
+				<code>&lt;=</code>)</td>
+			<td>假如左方運算元小於或等於右方運算元，回傳 true。</td>
+			<td>
+				<code>var1 &lt;= var2<br>
+		var2 &lt;= 5</code>
+			</td>
+		</tr>
+	</table>
+</body>
+
+</html>
