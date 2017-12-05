@@ -98,3 +98,10 @@ table.hljs-ln tr > td:nth-child(2){
 	text-align: center;
 	color: blue;
 }
+
+.w3-table-all caption {
+	font-weight: bolder;
+	color: blue;
+	font-size: 18px;
+	margin-bottom: 10px; 
+}
