@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>邏輯運算子</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	</style>
+	<link rel="stylesheet" href="../pattern.css">
+	<script src="../../system/system.js"></script>
+	<script type="text/javascript" src="../../jQuery/jquery.min.js"></script>
+	<script src="../highlight.js"></script>
+</head>
+<body>
+	<table class="w3-table-all">
+		<caption>邏輯運算子</caption>
+		<tr>
+			<td class='title'>名稱</td>
+			<td class='title'>運算式</td>
+			<td class='title'>描述</td>
+		</tr>
+		
+		<tr>
+			<td>AND(<code>&amp;&amp;</code>)</td>
+			<td><code>運算式1 &amp;&amp; 運算式2</code>
+			</td>
+			<td>假如
+				<code> 運算式1</code> 可以被轉換成 false的話，回傳
+				<code>運算式1</code>; 否則，回傳
+				<code>運算式2</code>。 因此，
+				<code>&amp;&amp;</code>只有在 兩個運算元都是True 時才會回傳 True，否則回傳
+				<code> false</code>。</td>
+		</tr>
+		<tr>
+			<td>OR(<code>||</code>)</td>
+			<td><code>運算式1 || 運算式2</code>
+			</td>
+			<td>假如
+				<code> 運算式1</code> 可以被轉換成 true的話，回傳
+				<code>運算式1</code>; 否則，回傳
+				<code>運算式2</code>。 因此，
+				<code>||</code>在 兩個運算元有任一個是True 時就會回傳 True，否則回傳
+				<code> false</code>。</td>
+		</tr>
+		<tr>
+			<td>NOT(<code>!</code>)</td>
+			<td><code>!運算式</code>
+			</td>
+			<td>假如單一個運算元能被轉換成True時，回傳
+				<code>false</code> ， 不然回傳
+				<code>true</code>。</td>
+		</tr>
+		</table>
+</body>
+
+</html>
