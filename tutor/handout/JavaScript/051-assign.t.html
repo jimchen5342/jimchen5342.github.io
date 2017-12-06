@@ -50,7 +50,27 @@
 		</tr>
 	</table>
 	<br />
-	解構：為了進行更複雜的賦值，解構賦值是 JavaScript 用來從陣列或物件中提取資料的語法。
+	解構賦值：為了進行更複雜的賦值，解構賦值是 JavaScript 
+	<pre>
+		<code class='javascript'>
+			//陣列解構
+			var x = [1, 2, 3, 4, 5]; 
+			var [y, z] = x; 
+			console.log(y); // 1 
+			console.log(z); // 2
+			// 將剩餘部分解構到一個變數
+			var [a, ...b] = [1, 2, 3]; 
+			console.log(a); // 1 
+			console.log(b); // [2, 3]
+
+			// 物件解構
+			var o = {p: 42, q: true}; 
+			var {p, q} = o; 
+			console.log(p); // 42 
+			console.log(q); // true
+		</code>
+	</pre>
+
 </body>
 
 </html>
