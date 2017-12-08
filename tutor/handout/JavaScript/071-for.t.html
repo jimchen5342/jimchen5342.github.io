@@ -4,6 +4,9 @@
 	<title>迴圈陳述句 - for</title>
 	<meta charset="utf-8">
 	<style type="text/css">
+		h4 {
+			display: inline-block;
+		}
 	</style>
 	<link rel="stylesheet" href="../pattern.css">
 	<script src="../../system/system.js"></script>
@@ -11,5 +14,42 @@
 	<script src="../highlight.js"></script>
 </head>
 <body>
+	<pre>
+		<code class='javascript'>
+			for(let i = 0; i < 10; i++){
+				console.log(i);
+			}
+
+			for(let i = 10; i > 0; i--){
+				console.log(i); 
+			}
+
+			for(let i = 0; i < 10; i += 2){ 
+				console.log(i); 
+			}
+		</code>
+	</pre><br/>
+
+	<h4>break</h4> 陳述式是用來終止迴圈
+	<pre>
+		<code class='javascript'>
+			for(let i = 0; i < 10; i++){
+				console.log(i);
+				if(x > 5)
+					break;
+			}
+		</code>
+	</pre><br/>
+
+	<h4>continue</h4> 陳述式用於重新開始迴圈
+	<pre>
+		<code class='javascript'>
+			for(let i = 0; i < 10; i++){
+				if(x % 2 == 1) 
+					continue;
+				console.log(i);
+			}
+		</code>
+	</pre>
 </body>
 </html>
