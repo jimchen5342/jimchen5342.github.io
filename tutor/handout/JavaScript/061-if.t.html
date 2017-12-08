@@ -11,5 +11,34 @@
 	<script src="../highlight.js"></script>
 </head>
 <body>
+	<pre>
+		<code class='javascript'>
+			let x = 1, y = 2;
+	
+			if(x > 0) console.log("x: " + x);
+
+			if(x > 0)
+				console.log("x: " + x);
+
+			if(x > 0 || y > 0){
+				y = ++;
+				console.log("y: " + y);
+			}
+
+			if(x > y) 
+				console.log("x: " + x);
+			else
+				console.log("y: " + y);
+			
+			if(x > y && y > 0) 
+				console.log("x: " + x); 
+			else if(x == y)
+				console.log("x: " + x + ", y: " + y);
+			else 
+				console.log("y: " + y);
+			
+			let z = (x > y) ? x : y; // 三元運算子
+		</code>
+	</pre>
 </body>
 </html>
