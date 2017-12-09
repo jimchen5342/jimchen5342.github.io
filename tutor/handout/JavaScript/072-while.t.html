@@ -18,14 +18,14 @@
 		<code class='javascript'>
 			let x = 0;
 			do {
-				console.log("x: " + x);
+				document.write("x: " + x + "&lt;br /&gt;");
 				x++;
 			} while( x < 10 );
 
-			let x = 0;
-			while( x < 10){
-				 console.log("x: " + x); 
-				 x++;
+			let y = 0;
+			while( y < 10){
+				 document.write("y: " + y + "&lt;br /&gt;"); 
+				 y++;
 			}
 		</code>
 	</pre><br/>
@@ -36,7 +36,7 @@
 			let x = 0; 
 			while(x < 10){
 				if(x > 5) break;
-				console.log( "x: " + x); 
+				document.write( "x: " + x + "&lt;br /&gt;"); 
 				x++; 
 			}
 		</code>
@@ -51,7 +51,7 @@
 						 x++;
 						 continue;
 					}
-					console.log( "x: " + x); 
+					document.write( "x: " + x + "&lt;br /&gt;"); 
 					x++;
 				}
 			</code>

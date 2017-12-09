@@ -41,8 +41,8 @@
 					var students = [], cars = ['Audi', 'BMW', 'Benz']; // 陣列
 					students.push("jim");
 					students.push("mary");
-					console.log(students[0]);
-					console.log(cars[0]);
+					document.write(students[0]);
+					document.write(cars[0]);
 
 					var obj = new Object(); // 物件
 					obj.name = "jim";
@@ -53,7 +53,7 @@
 
 					var json = {"name": "jim", age: 25, address: "高雄"}; // 物件
 					delete json.name;
-					console.log(json["name"]);
+					document.write(json["name"]);
 		
 					var today = new Date(); // 日期
 					today = null;
@@ -76,15 +76,15 @@
 		typeof：檢查資料型態
 		<pre>
 			<code class='javascript'>
-				console.log(typeof "1");            // string
-				console.log(typeof 0);              // number
-				console.log(typeof true);           // boolean
-				console.log(typeof {});             // object
-				console.log(typeof (new Object())); // object
-				console.log(typeof (new Date()));   // object
-				console.log(typeof []);             // object
-				console.log(typeof null);           // object
-				console.log(typeof undefined);      // undefined
+				document.write(typeof "1");            // string
+				document.write(typeof 0);              // number
+				document.write(typeof true);           // boolean
+				document.write(typeof {});             // object
+				document.write(typeof (new Object())); // object
+				document.write(typeof (new Date()));   // object
+				document.write(typeof []);             // object
+				document.write(typeof null);           // object
+				document.write(typeof undefined);      // undefined
 			</code>
 		</pre>
 	</div>

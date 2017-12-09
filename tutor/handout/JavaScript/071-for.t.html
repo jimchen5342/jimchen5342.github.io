@@ -16,16 +16,26 @@
 <body>
 	<pre>
 		<code class='javascript'>
-			for(let i = 0; i < 10; i++){
-				console.log(i);
+			for(let i = 0; i < 10; i++){ // 迴圈，由 0 到 9
+				document.write("i: " + i + "&lt;br /&gt;");
 			}
 
-			for(let i = 10; i > 0; i--){
-				console.log(i); 
+			for(let i = 10; i > 0; i--){ // 迴圈，由 10 到 1
+				document.write("i: " + i + "&lt;br /&gt;"); 
 			}
 
-			for(let i = 0; i < 10; i += 2){ 
-				console.log(i); 
+			for(let i = 0; i < 10; i += 2){ // 迴圈，依序為 0, 2, 4, 8
+				document.write("i: " + i + "&lt;br /&gt;"); 
+			}
+
+			let fruites = ["apple", "orange", "banana"];
+			for(let i = 0; i < 10; i +=2 ){ // 迴圈
+				document.write(i + ": " + fruites[i] + "&lt;br /&gt;");
+			}
+
+			let json = {"name": "jim", age: 25};
+			for(let key in json){
+				document.write(key + ": " + json[key] + "&lt;br /&gt;");
 			}
 		</code>
 	</pre><br/>
@@ -34,7 +44,7 @@
 	<pre>
 		<code class='javascript'>
 			for(let i = 0; i < 10; i++){
-				console.log(i);
+				document.write("i: " + i + "&lt;br /&gt;");
 				if(x > 5)
 					break;
 			}
@@ -47,7 +57,7 @@
 			for(let i = 0; i < 10; i++){
 				if(x % 2 == 1) 
 					continue;
-				console.log(i);
+				document.write("i: " + i + "&lt;br /&gt;");
 			}
 		</code>
 	</pre>

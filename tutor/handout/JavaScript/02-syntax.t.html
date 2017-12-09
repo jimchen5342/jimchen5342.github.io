@@ -23,17 +23,17 @@
 			陳述式會結合運算式，結合的方式可讓它們執行一個完整的工作
 			<pre>
 				<code class='javascript'>
-					var a; 
-					var b = 2; 
+					let a; 
+					let b = 2; 
 					b++; // 一元運算子
-					var c = 2 + 5; // 二元運算子
+					let c = 2 + 5; // 二元運算子
 
-					var i = 2, j = 3; var k = i * j;
+					let i = 2, j = 3; let k = i * j;
 
-					var x = (a + i ) * k,
+					let x = (a + i ) * k,
 						y = (x > 0 ? 1 : 10) * 5;
 					
-					var z = x > y ? x : y; // 三元運算子
+					let z = x > y ? x : y; // 三元運算子
 
 					if(x > y)
 						z = x;
@@ -59,16 +59,17 @@
 			<h4>[ ]</h4>：陣列，物件屬性
 			<pre>
 				<code class='javascript'>
-					var a = (2 + 3) * 2, b = 0;
+					let a = (2 + 3) * 2, b = 0;
 
-					if(b == 2) console.log(b);
+					if(b == 2) document.write(b);
 
 					while(b < 2){
-						 console.log(b);
-						 b++;
+						document.write(b);
+						b++;
 					}
 
-					for(let i = 0; i < 10; i++){ 
+					for(let i = 0; i < 10; i++){
+						document.write(i);
 					}
 					 
 					function add(x, y){
@@ -91,7 +92,7 @@
 		<li>輸出：
 			<pre>
 				<code class='javascript'>
-					var x = 2 + 3;
+					let x = 2 + 3;
 
 					alert('a is: ' + x);
 
