@@ -34,43 +34,43 @@
 			<li>undefined：未定義或不存在</li>
 			<pre>
 				<code class='javascript'>
-					var name = "jim", sex = 'male'; // 字串
+					let name = "jim", sex = 'male'; // 字串
 					const PI = 3.1416; // 數值
-					var isStart = false; // 布林值
+					let isStart = false; // 布林值
 
-					var students = [], cars = ['Audi', 'BMW', 'Benz']; // 陣列
+					let students = [], cars = ['Audi', 'BMW', 'Benz']; // 陣列
 					students.push("jim");
 					students.push("mary");
 					document.write(students[0]);
 					document.write(cars[0]);
 
-					var obj = new Object(); // 物件
+					let obj = new Object(); // 物件
 					obj.name = "jim";
 					obj["age"] = 25;
 					obj.success = function(){ // 函式
 						// statement
 					}
 
-					var json = {"name": "jim", age: 25, address: "高雄"}; // 物件
+					let json = {"name": "jim", age: 25, address: "高雄"}; // 物件
 					delete json.name;
 					document.write(json["name"]);
 		
-					var today = new Date(); // 日期
+					let today = new Date(); // 日期
 					today = null;
 
-					var a, b = 0;
+					let a, b = 0;
 					b = undefined;
 				</code>
 			</pre>
 		</ol>
 		
 		<ol>
-			<li>var x = new Object();</li>
-			<li>var x = new String();</li>
-			<li>var x = new Nubmer();</li>
-			<li>var x = new Boolean();</li>
-			<li>var x = new Array();</li>
-			<li>var x = new Date();</li>
+			<li>let x = new Object();</li>
+			<li>let x = new String();</li>
+			<li>let x = new Nubmer();</li>
+			<li>let x = new Boolean();</li>
+			<li>let x = new Array();</li>
+			<li>let x = new Date();</li>
 		</ol>
 
 		typeof：檢查資料型態
@@ -92,13 +92,13 @@
 		JavaScript 是一個動態型別的語言，這意味著你不需要在宣告變數時定義它的資料型別，程式執行時會自動轉換
 		<pre>
 			<code class='javascript'>
-				var a = "The answer is: ", b = 25;
-				var c = a + b; // The answer is: 25
+				let a = "The answer is: ", b = 25;
+				let c = a + b; // The answer is: 25
 				c = 5; // number
 
-				var x = "37" - 7; // 30
-				var y = "37" + 7; // 377
-				var z = parseInt("100", 10);
+				let x = "37" - 7; // 30
+				let y = "37" + 7; // 377
+				let z = parseInt("100", 10);
 			</code>
 		</pre>
 	</div>
@@ -113,112 +113,110 @@
 		</ol>
 		<pre>
 			<code class="javascript">
-				var userName = "jim";
-				var _age = 25;
-				var user_id = "jim";
+				let userName = "jim";
+				let _age = 25;
+				let user_id = "jim";
 			</code>
 		</pre>
 	</div>
 	<div title="保留字">
 		<table class="w3-table-all">
-			<tbody>
-				<tr>
-					<td>abstract</td>
-					<td>arguments</td>
-					<td>await</td>
-					<td>boolean</td>
-				</tr>
-				<tr>
-					<td>break</td>
-					<td>byte</td>
-					<td>case</td>
-					<td>catch</td>
-				</tr>
-				<tr>
-					<td>char</td>
-					<td>class</td>
-					<td>const</td>
-					<td>continue</td>
-				</tr>
-				<tr>
-					<td>debugger</td>
-					<td>default</td>
-					<td>delete</td>
-					<td>do</td>
-				</tr>
-				<tr>
-					<td>double</td>
-					<td>else</td>
-					<td>enum</td>
-					<td>eval</td>
-				</tr>
-				<tr>
-					<td>export</td>
-					<td>extends</td>
-					<td>false</td>
-					<td>final</td>
-				</tr>
-				<tr>
-					<td>finally</td>
-					<td>float</td>
-					<td>for</td>
-					<td>function</td>
-				</tr>
-				<tr>
-					<td>goto</td>
-					<td>if</td>
-					<td>implements</td>
-					<td>import</td>
-				</tr>
-				<tr>
-					<td>in</td>
-					<td>instanceof</td>
-					<td>int</td>
-					<td>interface</td>
-				</tr>
-				<tr>
-					<td>let</td>
-					<td>long</td>
-					<td>native</td>
-					<td>new</td>
-				</tr>
-				<tr>
-					<td>null</td>
-					<td>package</td>
-					<td>private</td>
-					<td>protected</td>
-				</tr>
-				<tr>
-					<td>public</td>
-					<td>return</td>
-					<td>short</td>
-					<td>static</td>
-				</tr>
-				<tr>
-					<td>super</td>
-					<td>switch</td>
-					<td>synchronized</td>
-					<td>this</td>
-				</tr>
-				<tr>
-					<td>throw</td>
-					<td>throws</td>
-					<td>transient</td>
-					<td>true</td>
-				</tr>
-				<tr>
-					<td>try</td>
-					<td>typeof</td>
-					<td>var</td>
-					<td>void</td>
-				</tr>
-				<tr>
-					<td>volatile</td>
-					<td>while</td>
-					<td>with</td>
-					<td>yield</td>
-				</tr>
-			</tbody>
+			<tr>
+				<td>abstract</td>
+				<td>arguments</td>
+				<td>await</td>
+				<td>boolean</td>
+			</tr>
+			<tr>
+				<td>break</td>
+				<td>byte</td>
+				<td>case</td>
+				<td>catch</td>
+			</tr>
+			<tr>
+				<td>char</td>
+				<td>class</td>
+				<td>const</td>
+				<td>continue</td>
+			</tr>
+			<tr>
+				<td>debugger</td>
+				<td>default</td>
+				<td>delete</td>
+				<td>do</td>
+			</tr>
+			<tr>
+				<td>double</td>
+				<td>else</td>
+				<td>enum</td>
+				<td>eval</td>
+			</tr>
+			<tr>
+				<td>export</td>
+				<td>extends</td>
+				<td>false</td>
+				<td>final</td>
+			</tr>
+			<tr>
+				<td>finally</td>
+				<td>float</td>
+				<td>for</td>
+				<td>function</td>
+			</tr>
+			<tr>
+				<td>goto</td>
+				<td>if</td>
+				<td>implements</td>
+				<td>import</td>
+			</tr>
+			<tr>
+				<td>in</td>
+				<td>instanceof</td>
+				<td>int</td>
+				<td>interface</td>
+			</tr>
+			<tr>
+				<td>let</td>
+				<td>long</td>
+				<td>native</td>
+				<td>new</td>
+			</tr>
+			<tr>
+				<td>null</td>
+				<td>package</td>
+				<td>private</td>
+				<td>protected</td>
+			</tr>
+			<tr>
+				<td>public</td>
+				<td>return</td>
+				<td>short</td>
+				<td>static</td>
+			</tr>
+			<tr>
+				<td>super</td>
+				<td>switch</td>
+				<td>synchronized</td>
+				<td>this</td>
+			</tr>
+			<tr>
+				<td>throw</td>
+				<td>throws</td>
+				<td>transient</td>
+				<td>true</td>
+			</tr>
+			<tr>
+				<td>try</td>
+				<td>typeof</td>
+				<td>var</td>
+				<td>void</td>
+			</tr>
+			<tr>
+				<td>volatile</td>
+				<td>while</td>
+				<td>with</td>
+				<td>yield</td>
+			</tr>
 		</table>
 	</div>
 </body>
