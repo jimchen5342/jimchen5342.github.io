@@ -20,14 +20,54 @@
 			overflow-y: auto;
 			font-size: 16px;
 		}
+		h4 {
+			display: inline-block;
+		}
 	</style>
 </head>
 <body class="easyui-tabs" style="width: 100%; height: 100%;" onresize="$('body').tabs('resize')">
-	<div title="">
+	<div title="函式">
+		<h4>宣告</h4>
+		<ol>
+			<li><h4>function</h4>：宣告</li>
+			<li>function name：宣告 / 呼叫</li>
+			<li><h4>()</h4>：引數(argument, 宣告) / 參數(parameter, 呼叫)；<br/>
+				<h4>,</h4>：分隔引數/參數
+			</li>
+			<li><h4>{}</h4>：程式區塊</li>
+			<li><h4>return</h4>：傳回值</li>
+		</ol>
+		<pre>
+			<code class='javascript'>
+				function add(a, b) { //函數宣告式
+					return a + b;
+				}
 
+				let substract = function (a, b) { //匿名函式
+					return a - b;
+				}
+
+				function calculate(callback) { // 回調函式(callback)
+					return callback(100, 50);
+				}
+
+				let x = add(5, 20); // 呼叫函式
+				let y = calculate(add); // callback
+				let z = calculate(substract); // callback
+				document.write("x: " + x + ", y: " + y + ", z: " + z);
+			</code>
+		</pre>
 	</div>
-	<div title="">
-	
+	<div title="立即函式">
+		主要在於產生一個私有的 scope，使在其內宣告的變數不會與外界混淆
+		<pre>
+			<code class='javascript'>
+				(function () { 
+					//函式內容 
+				})();
+			</code>
+		</pre>
+		註：立即函式在 js 檔，所有的函式內容都要在區塊內部
 	</div>
 	<div title="巢狀函式">
 		<h4>巢狀函式(nest function)</h4>
@@ -61,6 +101,27 @@
 			</code>
 		</pre>
 	</div>
+
+	<div title="閉包函式">
+		<h4>閉包函式(closure)</h4>
+		<pre>
+			<code class='javascript'>
+				function f1(x){ 
+					return function(){ 
+						return x + 10; 
+					}; 
+				} 
+				document.write(f1(1)());
+			</code>
+		</pre>
+		 
+	</div>
+	<div title="箭頭函式">
+		<h4>箭頭函式(arrow function)</h4>
+	</div>
+	<div title="Promise">
+		<h4>Promise</h4>
+	</div>
 	<div title="引數傳遞">
 		<ol>
 			<li>call by value(傳值)：
@@ -74,9 +135,25 @@
 				a = 10;
 				document.write("b: " + b);
 
-				let f1 = ["apple", "orange"], f2 = f1;
-				f1[0] = "fish";
-				document.write("f2[0]: " + f2[0]);
+				let x = ["apple", "orange"], y = x;
+				x[0] = "fish";
+				document.write("y[0]: " + y[0]);
+			</code>
+		</pre>
+	</div>
+	<div title="引數存取">
+		javascript 在呼叫每個函數時，都會將引數放到一個稱為 arguments 的變數裏，arguments 是一個類似陣列形態，我們可以透過 arguments 來存取每一個參數
+		<pre>
+			<code class='javascript'>
+				function add(){
+					let x = 0;
+					for(let i = 0; i < arguments.length; i++){
+						x += arguments[i];
+					}
+					return x;
+				}
+				let a = add(1, 2, 3, 4, 5);
+				document.write(a);
 			</code>
 		</pre>
 	</div>
@@ -86,6 +163,7 @@
 		parameter
 		
 		arguments 不是 Array 實例，它只是具有數字作為特性，特性參考至傳入的引數，並具有 length 特性代表傳入引數的個數。
+  javascript 在呼叫每個函數時，都會將參數放到一個稱為 arguments 的變數裏，arguments 是一個類似陣列形態，我們可以透過 arguments 來存取每一個參數
 
 		this: 它代表函数运行时，自动生成的一个内部对象，只能在函数内部使用。比如：
 	 -->

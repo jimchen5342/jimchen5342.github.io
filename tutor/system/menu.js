@@ -239,11 +239,7 @@ let menu = [
 		}, {
 			id: "09-error",
 			text: "錯誤處理",
-			files: "html"
-		}, {
-			id: "10-promise",
-			text: "Promise",
-			files: "html"			
+			files: "html"		
 		}, {
 			text: "内建物件",
 			children: [{
