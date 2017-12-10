@@ -226,42 +226,49 @@ let menu = [
 				text: "while",
 			}]
 		}, {
-			id: "07-function",
+			id: "08-function",
 			text: "函式",
-			files: "html"
+			files: "ctx",
+			children: [{
+				id: "081-function",
+				text: "內建函式",
+			}, {
+				id: "082-function",
+				text: "自訂函式",
+			}]
 		}, {
-			id: "08-error",
+			id: "09-error",
 			text: "錯誤處理",
 			files: "html"
 		}, {
-			id: "09-promise",
+			id: "10-promise",
 			text: "Promise",
 			files: "html"			
 		}, {
 			text: "内建物件",
 			children: [{
-				id: "101-string",
+				id: "111-string",
 				text: "String",
 			}, {
-				id: "102-number",
+				id: "112-number",
 				text: "Number",
 			}, {
-				id: "103-math",
+				id: "113-math",
 				text: "Math",	
 			}, {
-				id: "104-date",
+				id: "114-date",
 				text: "Date",			
 			}, {
-				id: "105-array",
+				id: "115-array",
 				text: "Array",
 			}, {
-				id: "105-date",
+				id: "115-date",
 				text: "Date",
 			}, {
-				id: "106-json",
+				id: "116-json",
 				text: "JSON",
 			}, {
-				id: "107-object",
+				id: "117-object",
 				text: "Object",								
 			}]	
 			//}, {

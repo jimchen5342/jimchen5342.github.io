@@ -53,6 +53,11 @@ table.hljs-ln tr > td:nth-child(2){
 	vertical-align: top;
 }
 
+table.tutor{
+	border-collapse: collapse; 
+	border: 1px solid #aaa; 
+	margin: 10px 0;
+}
 .tutor th, .tutor.html01 td:nth-child(1) {
 	text-align: center;
 }
