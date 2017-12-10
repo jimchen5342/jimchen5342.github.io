@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="../pattern.css">
 	<script src="../../system/system.js"></script>
 	<script src="../histroy.js"></script>
+	<script src="../highlight.js"></script>
 	<style type="text/css">
 		html,
 		body {
@@ -32,7 +33,14 @@
 		<h4>巢狀函式(nest function)</h4>
 		<pre>
 			<code class='javascript'>
-				
+				function query(arg){
+					 function response(){
+						return "hi, ";
+					}
+					return response() + arg;
+				}
+				let x = query("jim");
+				document.write(x);
 			</code>
 		</pre>
 	</div>
@@ -40,35 +48,44 @@
 		<h4>遞迴函式(recursion function)</h4>
 		<pre>
 			<code class='javascript'>
-
+				var x = 0; 
+				function recursion(i){ 
+					x += i; 
+					document.write(x + "&lt;br /&gt;");
+					if(i < 10)
+						recursion(i + 1); 
+				} 
+				recursion(1);
 			</code>
 		</pre>
-
 	</div>
 	<div title="引數傳遞">
 		<ol>
-			<li>call by value：
+			<li>call by value(傳值)：
 				 Boolean, String, Number, null, undefined
 			</li>
-			<li>call by reference：</li>
+			<li>call by reference(傳參考)：</li>
 		</ol>
 		<pre>
 			<code class='javascript'>
+				let a = 2, b = a;
+				a = 10;
+				document.write("b: " + b);
 
+				let f1 = ["apple", "orange"], f2 = f1;
+				f1[0] = "fish";
+				document.write("f2[0]: " + f2[0]);
 			</code>
 		</pre>
 	</div>
 	<!--
-
-		nest function
+		return
 		argument
 		parameter
 		
 		arguments 不是 Array 實例，它只是具有數字作為特性，特性參考至傳入的引數，並具有 length 特性代表傳入引數的個數。
-		call by value
-		call by reference
-return
-this: 它代表函数运行时，自动生成的一个内部对象，只能在函数内部使用。比如：
+
+		this: 它代表函数运行时，自动生成的一个内部对象，只能在函数内部使用。比如：
 	 -->
 </body>
 </html>
