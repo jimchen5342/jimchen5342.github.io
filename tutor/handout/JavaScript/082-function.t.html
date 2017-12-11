@@ -30,7 +30,13 @@
 		<h4>宣告</h4>
 		<ol>
 			<li><h4>function</h4>：宣告</li>
-			<li>function name：宣告 / 呼叫</li>
+			<li>function_name：<br/>
+				<ul>
+					<li>宣告</li>
+					<li>呼叫</li>
+					<li>物件變數</li>
+				</ul>
+			</li>
 			<li><h4>()</h4>：引數(argument, 宣告) / 參數(parameter, 呼叫)；<br/>
 				<h4>,</h4>：分隔引數/參數
 			</li>
@@ -39,22 +45,25 @@
 		</ol>
 		<pre>
 			<code class='javascript'>
-				function add(a, b) { //函數宣告式
-					return a + b;
+				function add(x, y) { // 函數宣告式
+					return x + y;
 				}
 
-				let substract = function (a, b) { //匿名函式
-					return a - b;
+				let substract = function (x, y) { // 匿名函式
+					return x - y;
 				}
 
 				function calculate(callback) { // 回調函式(callback)
 					return callback(100, 50);
 				}
 
-				let x = add(5, 20); // 呼叫函式
-				let y = calculate(add); // callback
-				let z = calculate(substract); // callback
-				document.write("x: " + x + ", y: " + y + ", z: " + z);
+				let a = add(5, 20);                 // 呼叫函式
+				let b = calculate(add);             // callback-物件變數
+				let c = calculate(substract);       // callback-物件變數
+				let d = calculate(function(a, b){   // callback-匿名函式
+					return a / b;
+				});
+				document.write("a: " + a + ", b: " + b + ", c: " + c + ", d: " + d);
 			</code>
 		</pre>
 	</div>
@@ -101,7 +110,6 @@
 			</code>
 		</pre>
 	</div>
-
 	<div title="閉包函式">
 		<h4>閉包函式(closure)</h4>
 		<pre>
@@ -114,13 +122,56 @@
 				document.write(f1(1)());
 			</code>
 		</pre>
-		 
 	</div>
 	<div title="箭頭函式">
 		<h4>箭頭函式(arrow function)</h4>
+		<pre>
+			<code class='javascript'>
+				let f1 = () => {
+					document.write(10 * 20);
+				}
+
+				let f2 = a => {
+					 document.write(a + 5);
+				}
+
+				let f3 = (a, b) => {
+					document.write(a + 5);
+				}
+			</code>
+		</pre>
 	</div>
 	<div title="Promise">
 		<h4>Promise</h4>
+		<pre>
+			<code class='javascript'>
+				function f1(a, b){
+					return new Promise((success, error) => {
+						if(a > b)
+							success();
+						else
+							error();
+					})
+				}
+
+				function f2(a, b){ 
+					return new Promise((success, error) => { 
+						if(a > b) 
+							success(); 
+						else 
+							error(); 
+					}) 
+				}
+
+				f1(10, 2) 
+				.then(()=>{ 
+					return f2(5, 2); 
+				})
+				.catch(err=>{
+					document.write(err); 
+				});
+			</code>
+		</pre>
 	</div>
 	<div title="引數傳遞">
 		<ol>
@@ -158,14 +209,7 @@
 		</pre>
 	</div>
 	<!--
-		return
-		argument
-		parameter
-		
-		arguments 不是 Array 實例，它只是具有數字作為特性，特性參考至傳入的引數，並具有 length 特性代表傳入引數的個數。
-  javascript 在呼叫每個函數時，都會將參數放到一個稱為 arguments 的變數裏，arguments 是一個類似陣列形態，我們可以透過 arguments 來存取每一個參數
-
-		this: 它代表函数运行时，自动生成的一个内部对象，只能在函数内部使用。比如：
+		this: 它代表函数运行时，自动生成的一个内部对象，只能在函数内部使用
 	 -->
 </body>
 </html>
