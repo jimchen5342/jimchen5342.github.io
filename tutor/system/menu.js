@@ -243,28 +243,28 @@ let menu = [
 		}, {
 			text: "内建物件",
 			children: [{
-				id: "111-string",
+				id: "10-string",
 				text: "String",
 			}, {
-				id: "112-number",
+				id: "10-number",
 				text: "Number",
 			}, {
-				id: "113-math",
+				id: "10-math",
 				text: "Math",	
 			}, {
-				id: "114-date",
+				id: "10-date",
 				text: "Date",			
 			}, {
-				id: "115-array",
+				id: "10-array",
 				text: "Array",
 			}, {
-				id: "115-date",
+				id: "10-date",
 				text: "Date",
 			}, {
-				id: "116-json",
+				id: "10-json",
 				text: "JSON",
 			}, {
-				id: "117-object",
+				id: "10-object",
 				text: "Object",								
 			}]	
 			//}, {
