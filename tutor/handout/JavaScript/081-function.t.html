@@ -16,16 +16,38 @@
 <body>
 	<table class='tutor'>
 		<tr>
-			<th>內建函數</th>
+			<th>內建函式</th>
 			<th>說明</th>
 		</tr>
 		<tr>
 			<td>escape(string)</td>
-			<td>傳回 string 的 16 進制編碼字串</td>
+			<td>傳回 string 的 16 進制編碼字串(不建議使用)<br/>
+				 不對這些字元作編碼：<h4>ASCII碼 數字 * @ - _ + . /</h4>
+			</td>
 		</tr>
 		<tr>
 			<td>unescape(string)</td>
-			<td>傳回解碼 16 進制字串， 功能與 escape() 剛好相反</td>
+			<td>傳回解碼 16 進制字串， 功能與 escape() 剛好相反(不建議使用)</td>
+		</tr>
+		<tr>
+			<td>encodeURI(string)</td>
+			<td>將(包含非法字元) URI 字串編碼成符合 URI 格式的新字串<br/>
+				不對這些字元作編碼：<h4>ASCII碼 數字 , - _ . ! ~ * ' ( ) ; / ? : @ & = + $ #</h4>
+			</td>
+		</tr>
+		<tr>
+			<td>decodeURI()</td>
+			<td>傳回解碼字串</td>
+		</tr>
+		<tr>
+			<td>encodeURIComponent()</td>
+			<td>與 encodeURI() 相似<br/> 
+				不對這些字元作編碼：<h4>ASCII碼 數字 , / ? : @ & = + $ #</h4>
+			</td>
+		</tr>
+		<tr>
+			<td>decodeURIComponent()</td>
+			<td>傳回解碼字串</td>
 		</tr>
 		<tr>
 			<td>eval(string)</td>

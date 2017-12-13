@@ -37,7 +37,7 @@
 					<li>物件變數</li>
 				</ul>
 			</li>
-			<li><h4>()</h4>：引數(argument, 宣告) / 參數(parameter, 呼叫)；<br/>
+			<li><h4>()</h4>：參數(parameter, 宣告) / 引數(argument, 呼叫)<br/>
 				<h4>,</h4>：分隔引數/參數
 			</li>
 			<li><h4>{}</h4>：程式區塊</li>
@@ -80,7 +80,6 @@
 				})(window);
 			</code>
 		</pre>
-		註：立即函式在 js 檔，所有的函式內容都要在區塊內部
 	</div>
 	<div title="巢狀函式">
 		<h4>巢狀函式(nest function)</h4>
@@ -121,9 +120,22 @@
 				function f1(x){ 
 					return function(){ 
 						return x + 10; 
-					}; 
-				} 
-				document.write(f1(1)());
+					}; // 注意要有分號
+				}
+				let f2 = f1(1);
+				document.write("f1: " + f2() + "&lt;br /&gt;");
+
+				function f3(x){
+					return {
+						name: "f3",
+						add: function(y){
+							return x + y;
+						}
+					}; // 注意要有分號
+				}
+				let f4 = f3(10); 
+				document.write("function name: " + f4.name + "&lt;br /&gt;");
+				document.write("add: " + f4.add(50) + "&lt;br /&gt;");
 			</code>
 		</pre>
 	</div>
@@ -142,6 +154,11 @@
 				let f3 = (a, b) => {
 					document.write(a + 5);
 				}
+
+				let x = 0;
+				setInterval(()=>{
+					 document.write("x: " + x++ + "&lt;br /&gt;");
+				}, 1000);
 			</code>
 		</pre>
 	</div>
