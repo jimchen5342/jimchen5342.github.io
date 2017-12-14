@@ -3,14 +3,14 @@
 <head>
 	<title>宣告</title>
 </head>
-<body id='body'></body>
+<body></body>
 <script>
 	const PI = 3.1416; // 全域常數
 	try {
-		bodyWrite("全域常數 PI: " + PI);
+		write("全域常數 PI: " + PI);
 		PI++;
 	} catch (e){
-		bodyWrite(e + "<br/>");	
+		write(e + "<br/>");	
 	}
 
 	var x = 100; // 全域變數
@@ -18,17 +18,17 @@
 		let x = 0; // 區域變數
 		let z = 1; // 區域變數
 		y = 50;    // 全域變數
-		bodyWrite("區域 x: " + x );
+		write("區域 x: " + x );
 	}
-	bodyWrite("全域 x: " + x);
-	bodyWrite("全域 y: " + y);	
+	write("全域 x: " + x);
+	write("全域 y: " + y);	
 	try {
-		bodyWrite("區域 z: " + z);	
+		write("區域 z: " + z);	
 	} catch (e){
-		bodyWrite(e);	
+		write(e);	
 	}
 
-	function bodyWrite(s){
+	function write(s){
 		let body = document.getElementsByTagName('body')[0];
 		body.innerHTML += s + "<br/>";
 	}

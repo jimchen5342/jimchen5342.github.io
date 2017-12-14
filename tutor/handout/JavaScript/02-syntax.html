@@ -3,17 +3,17 @@
 <head>
 	<title>語法</title>
 </head>
-<body id='body'>
+<body>
 </body>
 <script>
-	bodyWrite("today: " + (new Date()));
+	write("today: " + (new Date()));
 
 	function add(x, y){ // 函數
 		return x + y;
 	}
-	bodyWrite("add: " + add(10, 6));
+	write("add: " + add(10, 6));
 
-	function bodyWrite(s) {
+	function write(s) {
 		let body = document.getElementsByTagName('body')[0];
 		body.innerHTML += s + "<br/>";
 	}
