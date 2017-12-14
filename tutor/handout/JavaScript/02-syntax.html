@@ -3,14 +3,19 @@
 <head>
 	<title>語法</title>
 </head>
-<body>
+<body id='body'>
 </body>
 <script>
-	document.write("today: " + (new Date()) + "<br/><br/>");
+	bodyWrite("today: " + (new Date()));
 
 	function add(x, y){ // 函數
-		return x * y;
+		return x + y;
 	}
-	document.write("add: " + add(10, 6));
+	bodyWrite("add: " + add(10, 6));
+
+	function bodyWrite(s) {
+		let body = document.getElementById('body');
+		body.innerHTML += s + "<br/>";
+	}
 </script>
 </html>

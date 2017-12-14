@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>宣告</title>
+</head>
+<body id='body'></body>
+<script>
+	const PI = 3.1416; // 全域常數
+	try {
+		bodyWrite("全域常數 PI: " + PI);
+		PI++;
+	} catch (e){
+		bodyWrite(e + "<br/>");	
+	}
+
+	var x = 100; // 全域變數
+	{
+		let x = 0; // 區域變數
+		let z = 1; // 區域變數
+		y = 50;    // 全域變數
+		bodyWrite("區域 x: " + x );
+	}
+	bodyWrite("全域 x: " + x);
+	bodyWrite("全域 y: " + y);	
+	try {
+		bodyWrite("區域 z: " + z);	
+	} catch (e){
+		bodyWrite(e);	
+	}
+
+	function bodyWrite(s){
+		let body = document.getElementById('body');
+		body.innerHTML += s + "<br/>";
+	}
+</script>
+</html>
