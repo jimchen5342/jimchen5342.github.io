@@ -239,32 +239,38 @@ let menu = [
 		}, {
 			id: "09-error",
 			text: "錯誤處理",
-			files: "html"		
+			files: "html"
+		}, {
+			text: "自訂物件",
+			children: [{
+				id: "10-object1",
+				text: "實字符號模式",
+			}]
 		}, {
 			text: "内建物件",
 			children: [{
-				id: "10-string",
+				id: "11-string",
 				text: "String",
 			}, {
-				id: "10-number",
+				id: "11-number",
 				text: "Number",
 			}, {
-				id: "10-math",
+				id: "11-math",
 				text: "Math",	
 			}, {
-				id: "10-date",
+				id: "11-date",
 				text: "Date",			
 			}, {
-				id: "10-array",
+				id: "11-array",
 				text: "Array",
 			}, {
-				id: "10-date",
+				id: "11-date",
 				text: "Date",
 			}, {
-				id: "10-json",
+				id: "11-json",
 				text: "JSON",
 			}, {
-				id: "10-object",
+				id: "11-object",
 				text: "Object",								
 			}]	
 			//}, {
