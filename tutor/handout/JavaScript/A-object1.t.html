@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>實字符號模式</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		h4 {
+			display: inline-block;
+		}
+	</style>
+	<link rel="stylesheet" href="../pattern.css">
+	<script src="../../system/system.js"></script>
+	<script type="text/javascript" src="../../jQuery/jquery.min.js"></script>
+	<script src="../highlight.js"></script>
+	<script src="system.js"></script>
+</head>
+<body>
+	<h4>實字模式(literal notation patterns)</h4>：當只想為物件建立一個執行個體時，會使用此方式；
+	此方式不適合於需建立多個相同物件模組的運用。
+	<pre>
+		<code class='javascript'>
+			let person = {
+				name: "John",
+				age: 25,
+				toString: function(){
+					return this.name + " is " + this.age;
+				}
+			}
+
+			write(person.toString());
+		</code>
+	</pre>
+	<br/>
+</body>
+
+</html>

@@ -242,35 +242,54 @@ let menu = [
 			files: "html"
 		}, {
 			text: "自訂物件",
+			id: "A-object",
+			files: "ctx",
 			children: [{
-				id: "10-object1",
-				text: "實字符號模式",
+				id: "A-object1",
+				text: "實字模式",
+				files: "ctx,html"
+			}, {
+				id: "A-object2",
+				text: "物件實字",
+				files: "ctx,html"
+			}, {
+				id: "A-object3",
+				text: "函式建構式",
+				files: "ctx,html"
+				}, {
+					id: "A-inherit",
+					text: "繼承",
+					files: "ctx,html"
+			}, {
+				id: "A-class",
+				text: "ES6 Class",
+				files: "ctx,html"
 			}]
 		}, {
 			text: "内建物件",
 			children: [{
-				id: "11-string",
+				id: "B-string",
 				text: "String",
 			}, {
-				id: "11-number",
+				id: "B-number",
 				text: "Number",
 			}, {
-				id: "11-math",
+				id: "B-math",
 				text: "Math",	
 			}, {
-				id: "11-date",
+				id: "B-date",
 				text: "Date",			
 			}, {
-				id: "11-array",
+				id: "B-array",
 				text: "Array",
 			}, {
-				id: "11-date",
+				id: "B-date",
 				text: "Date",
 			}, {
-				id: "11-json",
+				id: "B-json",
 				text: "JSON",
 			}, {
-				id: "11-object",
+				id: "B-object",
 				text: "Object",								
 			}]	
 			//}, {

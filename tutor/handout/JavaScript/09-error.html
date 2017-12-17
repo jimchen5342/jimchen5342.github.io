@@ -4,6 +4,7 @@
 <head>
 	<title>try catch</title>
 	<meta charset="utf-8">
+	<script type="text/javascript" src="system.js"></script>
 	<style type="text/css">
 	</style>
 </head>
@@ -15,15 +16,15 @@
 		let x;
 		x.val = 1;
 	} catch (e){
-		document.write(e + "<br/>");
+		write("1. " + e);
 	}
 
 	try {
-		throw "自定錯誤";
+		throw "2. 自定錯誤";
 	} catch (e) {
-		document.write(e + "<br/>");
+		write(e);
 	} finally {
-		document.write("finally." + "<br/>");
+		write("3. finally.");
 	}
 
 </script>

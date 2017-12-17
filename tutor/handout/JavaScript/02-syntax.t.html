@@ -57,9 +57,9 @@
 			<h4>( )</h4>：運算式，函式<br/>
 			<h4>{ }</h4>：區塊，JSON，物件<br/>
 			<h4>[ ]</h4>：陣列，物件<br/>
-			<h4>.</h4>(小數點)：物件<br/>
-			<h4>,</h4>(逗點)：宣告<br/>
-			<h4>:</h4>(冒號)：物件，switch<br/>
+			<h4>.</h4>(小數點)：存取物件屬性或函式<br/>
+			<h4>,</h4>(逗點)：連續宣告<br/>
+			<h4>:</h4>(冒號)：物件(key/value)，switch<br/>
 			<h4>;</h4>(分號)：指令結束，for
 			<pre>
 				<code class='javascript'>
@@ -85,8 +85,9 @@
 						let a = 1;
 					} 
 					
-					let json = {"name": "jim", "sex": "male"}; // JSON
+					let json = {"name": "John", "sex": "male"}; // JSON
 					json["age"] = 25;
+					document.write(json.age);
 
 					let week = ['Sunday', 'Monday', 'Tuesday']; // 陣列
 					week[3] = 'Wednesday';

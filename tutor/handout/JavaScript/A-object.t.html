@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>自訂物件</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="../../jQuery/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../../jQuery/easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../../jQuery/easyui/themes/color.css">
+	<script type="text/javascript" src="../../jQuery/jquery.min.js"></script>
+	<script type="text/javascript" src="../../jQuery/easyui/jquery.easyui.min.js"></script>
+	<link rel="stylesheet" href="../pattern.css">
+	<script src="../../system/system.js"></script>
+	<script src="../histroy.js"></script>
+	<script src="../highlight.js"></script>
+	<style type="text/css">
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			overflow-y: auto;
+			font-size: 16px;
+		}
+	
+		h4 {
+			display: inline-block;
+		}
+	</style>
+</head>
+<body class="easyui-tabs" style="width: 100%; height: 100%;" onresize="$('body').tabs('resize')">
+		<div title="OOP">
+		<h4>OOP</h4>
+		<ol>
+			<li>繼承(Inheritance)：prototype，call，apply</li>
+			<li>多形(Polymorphism)：prototype</li>
+			<li>封裝(Encapsulation)</li>
+			<li>Name Space</li>
+			<li>Class</li>
+			<li>Object</li>
+			<li>Property</li>
+			<li>Method</li>
+			<li>Constructor</li>
+			<li>Abstraction</li>
+		</ol>
+	</div>
+	<div title='應用'>
+		<ol>
+			<li>宣告：
+				<ul>
+					<li>實字模式</li>
+					<li>物件實字</li>
+					<li>函式建構式</li>
+					<li>ES6 Class</li>
+				</ul>
+			</li>
+			<li>實例化(new)：它會建立新的空白物件。 然後，會執行緊接在後面的函數呼叫，
+				並將新的空物件設定為該函數內的 "this" 值。<br/>
+				每次 new 一個物件的時候，物件裡所有的屬性都會被 new 一份出來， 
+				但 prototype(原型)就不會，因為是「繼承」的概念，所以就是大家共用一份。</li>
+			<li>存取：在JavaScript 中，物件只是名稱/值配對的集合(屬性及方法) -- 
+				可以把 JavaScript 物件想像成含有字串索引鍵的字典。
+				<br/> 我們可以使用熟悉的 "."(點) 運算子或 "[]" 運算子來取得及設定物件的屬性及方法。
+			</li>
+			<li>回收
+				<ul>
+					<li>物件回收：null</li>
+					<li>屬性或方法：delete</li>
+				</ul>
+			</li>
+		</ol>
+		<pre>
+				<code class='javascript'>
+					let person = { // 宣告
+						name: "john", 
+						age: 25, 
+						toString: function(){ 
+							return this.name + " is " + this.age; 
+						}
+					}
+					let p = new Object(person); // 實例化
+					console.log(p.toString());
+				</code>
+			</pre>
+		<br/>
+	</div>
+	<div title='線上參考'>
+		<a href='http://inspiregate.com/programming/javascript/291-javascript-based-object-oriented-programming-explained.html'>Javascript 物件導向式程式設計基礎講解</a>
+		<br/>
+		<a href='https://developer.mozilla.org/zh-TW/docs/Learn/JavaScript/Objects'>MDN</a>
+		<a href='http://thomas0728.pixnet.net/blog/post/34006812-javascript-%E5%BB%BA%E7%AB%8B%E7%89%A9%E4%BB%B6%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E6%B3%95%E8%88%87%E5%84%AA%E7%BC%BA%E9%BB%9E%E5%88%86%E6%9E%90'>建立物件的幾種方法與優缺點分析</a>
+
+	</div>
+
+
+	<!--
+
+constructor
+hasOwnProperty
+isPrototypeOf 
+propertyIsEnumerable 
+toLocaleString 
+toString 
+valueOf 
+get 
+set
+
+
+<ul>
+	<li>prototype</li>
+	<li>call：它會以第一個引數的方法來呼叫該函數。也就是說，我們以第一個引數傳入呼叫的任何物件，將成為函數呼叫的 "this" 值。這將是呼叫基底類別建構函式的技巧</li>
+	<li>apply</li>
+</ul>
+	constructor, instanceof
+	prototype
+	this: 它代表函数运行时，自动生成的一个内部对象，只能在函数内部使用
+	call： Function 都會有個 call()方法，第一個參數為物件
+	, apply
+
+	Object.create(o);
+	<h4></h4>
+	<pre>
+		<code class='javascript'>
+		</code>
+	</pre>
+
+	 函式實字建立了函式實例，並指定給 toString 特性，不過每次呼叫建構式時，都會建立一次函式實例。
+	 
+	 使用 new 關鍵字時，JavaScript 會先建立一個空物件，
+	 接著設定物件的原型為函式的 prototype 特性所參考的物件，
+	 然後呼叫建構式並將所建立的空物件設為 this。 
+	 JavaScript 在尋找特性名稱時，會先在實例上找尋有無特性，
+	 以上例而言，p1
+	上會有 name 與 age 特性，所以可以直接取得對應的值。如果物件上沒有該特性，會到物件的原型上去尋找，以上例而言，p1 上沒有 toString 特性，所以會到 p1 的原型上尋找，而 p1 的原型物件此時也就是 Person.prototype
+	參考的物件，這個物件上有 toString 特性，所以可以 找到 toString 所參考的函式並執行。
+-->
+</body>
+</html>
