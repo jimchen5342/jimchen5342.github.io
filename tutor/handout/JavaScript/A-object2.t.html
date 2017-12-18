@@ -18,24 +18,27 @@
 	<h4>物件實字(object literal)</h4>：當只想為物件建立一個執行個體時，會使用此方式； 此方式不適合於需建立多個相同物件模組的運用。
 	<pre>
 		<code class='javascript'>
-			let person = new Object();
+			let person = new Object(); // 方式一
 			person.name = "John";
 			person.age = 25; 
-			person.toString = function(){ 
+			person.show = function(){ 
 				return this.name + " is " + this.age; 
 			} 
-			write(person.toString());
+			write(person.show());
 
-			let person = { 
-				name: "John", 
+			let student = { 
+				name: "Mary", 
 				age: 25, 
-				toString: 
-				function(){ 
+				show: function(){ 
 					return this.name + " is " + this.age; 
 				} 
 			}
-			let student = new Object(person);
-			let student = Object.create(person);
+
+			let student1 = new Object(student);    // 方式二
+			write(student1.show());
+
+			let student2 = Object.create(student); // 方式三
+			write(student2.show());
 		</code>
 	</pre>
 	<br/>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<title>Class</title>
 	<meta charset="utf-8">
@@ -15,34 +14,15 @@
 	<script src="../highlight.js"></script>
 	<script src="system.js"></script>
 </head>
-
 <body>
 	<h4>Class</h4>
-	<pre>
-		<code class='javascript'>
-			'use strict'; 
-			class Polygon { 
-				constructor(height, width) { 
-					this.height = height; this.width = width; 
-				}
-			} 
-			
-			class Square extends Polygon { 
-				constructor(sideLength) { 
-					super(sideLength, sideLength); 
-					console.log(sideLength) 
-				} 
-				get area() { 
-					return this.height * this.width; 
-				} 
-				set sideLength(newLength) { 
-					this.height = newLength; 
-					this.width = newLength; 
-				}
-			} 
-			var square = new Square(2);
-		</code>
-	</pre> 
+	<ol>
+		<li>class</li>
+		<li>constructor</li>
+		<li>extends</li>
+		<li>static</li>
+		<li>get</li>
+		<li>set</li>
+	</ol>
 </body>
-
 </html>

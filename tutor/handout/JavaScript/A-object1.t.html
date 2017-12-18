@@ -19,15 +19,22 @@
 	此方式不適合於需建立多個相同物件模組的運用。
 	<pre>
 		<code class='javascript'>
-			let person = {
-				name: "John",
-				age: 25,
-				toString: function(){
+			let person = {}; // 方式一
+			person.name = "John";
+			person.age = 25;
+			person.show = function(){
+				return this.name + " is " + this.age;
+			};
+			write(person.show());
+
+			let student = { // 方式二
+				name: "Mary",
+				age: 20,
+				show: function(){
 					return this.name + " is " + this.age;
 				}
-			}
-
-			write(person.toString());
+			}; 
+			write(student.show());
 		</code>
 	</pre>
 	<br/>

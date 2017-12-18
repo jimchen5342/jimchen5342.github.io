@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Class</title>
+	<meta charset="utf-8">
+	<script src="system.js"></script>
+</head>
+<body>
+</body>
+<script>
+'use strict'; 
+class Polygon { 
+  constructor(height, width) { 
+		this.height = height; 
+		this.width = width; 
+	}
+	
+} 
+ 
+class Square extends Polygon { 
+  constructor(dimension) { 
+    super(dimension, dimension);
+  }
+
+  get area() { 
+    return this.height * this.width; 
+  }
+ 
+  set dimension(newLength) { 
+    this.height = newLength; 
+    this.width = newLength; 
+  }
+} 
+let square = new Square(2);
+write("area: " + square.area);
+</script>
+</html>

@@ -10,26 +10,30 @@
 <body>
 </body>
 <script>
-	let student = {};
-	student.name = "John",
-	student.age = 25,
-	student.toString = function () {
+	let person = {}; // 方式一
+	person.name = "John",
+	person.age = 25,
+	person.show = function () {
 			return this.name + " is " + this.age;
-	};
-	write(student.name);
-	write(student["age"]);
-	write(student.toString() + "<br/>");
-
-	let person = {
-		name: "John",
-		age: 25,
-		toString: function(){
-			return this.name + " is " + this.age;
-		}
 	};
 	write(person.name);
 	write(person["age"]);
-	write(person.toString());
+	write(person.show() + "<br/>");
+
+	let student = { //方式二
+		name: "Mary",
+		age: 20,
+		show: function(){
+			return this.name + " is " + this.age;
+		}
+	};
+	write(student.name);
+	write(student["age"]);
+	write(student.show() + "<br/>");
+
+	for(let key in student){
+		write(key + ": " + typeof student[key]);
+	}
 
 </script>
 </html>

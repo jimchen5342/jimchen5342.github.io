@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>物件實字</title>
 	<meta charset="utf-8">
 	<style type="text/css">
 	</style>
@@ -13,13 +13,13 @@
 	let person = new Object();
 	person.name = "John";
 	person.age = 25;
-	person.toString = function () {
+	person.show = function () {
 		return this.name + " is " + this.age;
 	}
 
 	write(person.name);
 	write(person["age"]);
-	write(person.toString() + "<br/>");
+	write(person.show() + "<br/>");
 
 	for(let key in person){
 		write(key + ": " + typeof person[key]);
