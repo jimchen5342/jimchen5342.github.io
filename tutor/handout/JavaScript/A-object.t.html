@@ -52,13 +52,13 @@
 					<li>ES6 Class</li>
 				</ul>
 			</li>
-			<li>實例化(new)：它會建立新的空白物件。 然後，會執行緊接在後面的函數呼叫，
+			<li>實例化(new)：它會建立新的空白物件。 然後，會執行緊接在後面的函數呼叫(建構函式)，
 				並將新的空物件設定為該函數內的 "this" 值。<br/>
 				每次 new 一個物件的時候，物件裡所有的屬性都會被 new 一份出來， 
 				但 prototype(原型)就不會，因為是「繼承」的概念，所以就是大家共用一份。</li>
-			<li>存取：在JavaScript 中，物件只是名稱/值配對的集合(屬性及方法) -- 
+			<li>存取：在 JavaScript 中，物件只是名稱/值配對的集合(屬性及方法) -- 
 				可以把 JavaScript 物件想像成含有字串索引鍵的字典。
-				<br/> 我們可以使用熟悉的 "."(點) 運算子或 "[]" 運算子來取得及設定物件的屬性及方法。
+				<br/> 我們可以使用熟悉的 "<h4>.</h4>"(點) 運算子或 "<h4>[]</h4>" 運算子來取得及設定物件的屬性及方法。
 			</li>
 			<li>回收
 				<ul>
@@ -72,12 +72,21 @@
 					let person = { // 宣告
 						name: "john", 
 						age: 25, 
-						toString: function(){ 
+						show: function(){ 
 							return this.name + " is " + this.age; 
+						},
+						loop: function(){
+							let self = this; // 注意.....
+							setInterval(function(){
+								console.log(self.show());
+							}, 1000);
 						}
 					}
+
 					let p = new Object(person); // 實例化
-					console.log(p.toString());
+					console.log("name: " + p.name);
+					console.log(p.show());
+					p.loop();
 				</code>
 			</pre>
 		<br/>

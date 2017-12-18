@@ -29,9 +29,20 @@
 </head>
 
 <body class="easyui-tabs" style="width: 100%; height: 100%;" onresize="$('body').tabs('resize')">
-	<div title="">
-		<h4></h4>
+	<div title="prototype">
+		<h4>prototype</h4>
 		<ol>
+			<li>Javascript 沒有提供 class 實作(ES6 有提供這功能，但只是語法糖)</li>
+			<li>JavaScript 只具有一個建構物：物件。<br/>
+				每個物件中都會有一個 private 的屬性（指的是 prototype）
+				連結著另外一個稱為它的原型的物件（prototype）。而這個原型物件也具有它自己的原型，這個鍊一直持續下去，
+				直到有個物件的原型屬性為 null。再定義裡，null 沒有原型，並且為原型鍊（prototype chain）裡最後的一個連結</li>
+			<li>在 JavaScript 裡，幾乎所有的物件都是 Object 的實例，這個 Object 在 prototype 鏈結的的最頂端</li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
 		</ol>
 	</div>
 	<div title='例子'>
@@ -39,9 +50,9 @@
 	<div title='線上參考'>
 		<a href='http://guang.logdown.com/posts/261831-javascript-oop'>Javascript 物件導向</a>
 		<br/>
-		<a href='https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript'>MDN</a>
+		<a href='https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript'>MDN - JavaScript 物件導向介紹</a>
 		<br/>
-		<a href=''></a>
+		<a href='https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Inheritance_and_the_prototype_chain'>MDN - 繼承以及原型鏈</a>
 	</div>
 
 

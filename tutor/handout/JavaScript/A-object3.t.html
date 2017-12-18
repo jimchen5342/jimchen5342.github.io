@@ -19,7 +19,7 @@
 	會造成記憶體浪費。
 	<pre>
 		<code class='javascript'>
-			function Person(name, age) { 
+			function Person(name, age) {      // 宣告
 				this.name = name;  				      // 公開成員變數
 				let profile = this.name;        // 私有成員變數
 
@@ -30,7 +30,7 @@
 					return profile + " is " + getAge();
 				} 
 			}
-			let person = new Person("john", 25);
+			let person = new Person("john", 25); // 實例化
 			document.write(person.name);
 			document.write(person.getProfile());
 		</code>
