@@ -239,6 +239,11 @@
       editor.setValue("");
       enabled = true;
     }
+    if(window.location.href.indexOf("localhost") == -1){
+      setTimeout(function() {
+        $(".CodeMirror-lint-marker-warning").remove();
+      }, 600);      
+    }
   }
 
   function readOnly(b){

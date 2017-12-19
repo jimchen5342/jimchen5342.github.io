@@ -197,15 +197,19 @@ let menu = [
 			children: [{
 				id: "051-assign",
 				text: "賦值運算子",
+				files: "html"
 			}, {
 				id: "052-math",
 				text: "算術運算子",
+				files: "html"
 			}, {
 				id: "053-compare",
 				text: "比較運算子",
+				files: "html"
 			}, {
 				id: "054-logic",
 				text: "邏輯運算子",
+				files: "html"
 			}]
 		}, {
 			text: "條件陳述句",
