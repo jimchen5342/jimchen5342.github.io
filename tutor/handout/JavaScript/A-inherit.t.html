@@ -57,44 +57,6 @@
 			<li>call(obj, ...)</li>
 			<li>apply(obj, [...])</li>
 		</ol>
-		<!--
-			call 和 apply 都是为了改变某个函数运行时的 context 即上下文而存在的，换句话说，就是为了改变函数体内部 this 的指向。
-			因为 JavaScript 的函数存在「定义时上下文」和「运行时上下文」以及「上下文是可以改变的」这样的概念。
-			二者的作用完全一样，只是接受参数的方式不太一样。
-			
-			apply()與call()是 Function 型別的兩個 Method，
-			apply()的語法是funcName.apply(thisArg, argsArray)，第一個傳入的參數在就是函數中的this，而第二個參數則可傳一個參數陣列給該函數。
-			call()與apply()用途相同，唯一的差別在於，call()必須一一明列出參數，例如funcName.call(thisArg, arg1, arg2, ...)。
-
-			call()和apply()的作用十分相似，只是参数类型上的差别，以适应不同的使用场景。它们都是为了改变函数运行时的 context（上下文）而存在的，再说的直白一点，就是为了改变函数内部 this 的指向。		
-			这样就可以实现继承啦！Exciting！
-
-			bind(ES5) 是返回对应函数，便于稍后调用；apply 、call 则是立即调用 。
-			var bar=function(){   
-				console.log(this.x);   
-			}
-			var foo={ 
-					x:3
-			}   
-			var func=bar.bind(foo);   
-			func();
-
-
-			function add(j, k){
-					return j+k;
-			}
-			
-			function sub(j, k){
-					return j-k;
-			}
-
-			add.call(sub, 5, 3); //8
-			add.apply(sub, [5, 3]); //8
-			
-			sub(5, 3); //2
-			sub.call(add, 5, 3); //2
-			sub.apply(add, [5, 3]); //2
-		-->
 	</div>
 	<div title='線上參考'>
 		<a href='http://guang.logdown.com/posts/261831-javascript-oop'>Javascript 物件導向</a>

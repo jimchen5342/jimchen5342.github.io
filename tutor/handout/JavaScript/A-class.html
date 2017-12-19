@@ -13,12 +13,18 @@ class Polygon {
   constructor(height, width) { 
 		this.height = height; 
 		this.width = width; 
-	}
+  }
+  toString(){
+    return "Polygon";
+  }
 } 
  
 class Square extends Polygon { 
   constructor(dimension) { 
     super(dimension, dimension);
+  }
+  toString(){
+    return "Square from " + super.toString();
   }
 
   get area() { 
@@ -31,6 +37,7 @@ class Square extends Polygon {
   }
 } 
 let square = new Square(2);
+write("toString: " + square.toString());
 write("area: " + square.area);
 </script>
 </html>
