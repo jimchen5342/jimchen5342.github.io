@@ -243,7 +243,7 @@ let menu = [
 		}, {
 			text: "自訂物件",
 			id: "A-object",
-			files: "ctx",
+			files: "ctx,html",
 			children: [{
 				id: "A-object1",
 				text: "實字模式",

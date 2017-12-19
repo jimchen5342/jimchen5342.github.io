@@ -67,29 +67,6 @@
 				</ul>
 			</li>
 		</ol>
-		<pre>
-				<code class='javascript'>
-					let person = { // 宣告
-						name: "john", 
-						age: 25, 
-						show: function(){ 
-							return this.name + " is " + this.age; 
-						},
-						loop: function(){
-							let self = this; // 注意.....
-							setInterval(function(){
-								console.log(self.show());
-							}, 1000);
-						}
-					}
-
-					let p = new Object(person); // 實例化
-					console.log("name: " + p.name);
-					console.log(p.show());
-					p.loop();
-				</code>
-			</pre>
-		<br/>
 	</div>
 	<div title='線上參考'>
 		<a href='http://inspiregate.com/programming/javascript/291-javascript-based-object-oriented-programming-explained.html'>Javascript 物件導向式程式設計基礎講解</a>

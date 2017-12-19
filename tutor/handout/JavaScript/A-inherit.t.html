@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<title>繼承</title>
 	<meta charset="utf-8">
@@ -27,25 +26,75 @@
 		}
 	</style>
 </head>
-
 <body class="easyui-tabs" style="width: 100%; height: 100%;" onresize="$('body').tabs('resize')">
-	<div title="prototype">
-		<h4>prototype</h4>
+	<div title="原型繼承">
+		<h4>原型(prototype)</h4>
 		<ol>
-			<li>Javascript 沒有提供 class 實作(ES6 有提供這功能，但只是語法糖)</li>
-			<li>JavaScript 只具有一個建構物：物件。<br/>
-				每個物件中都會有一個 private 的屬性（指的是 prototype）
-				連結著另外一個稱為它的原型的物件（prototype）。而這個原型物件也具有它自己的原型，這個鍊一直持續下去，
-				直到有個物件的原型屬性為 null。再定義裡，null 沒有原型，並且為原型鍊（prototype chain）裡最後的一個連結</li>
+			<li>Javascript 是 prototype-base-oriented 的語言，而且Javascript 中的 class 並不存在
+				(ES6 有提供這功能，但只是語法糖)，
+				在它的世界裏只有 Object 和 Instance，當中的物體創建，複製或繼承通通是透過 Prototype 完成。</li>
+			<li>當提到繼承時，JavaScript 只具有一個建構物：物件。<br/>
+				每個物件中都會有一個 private 的屬性(prototype)連結著另外一個稱為它的原型的物件(prototype)。<br/>
+				而這個原型物件也具有它自己的原型，這個鍊一直持續下去，直到有個物件的原型屬性為 null。
+				在定義裡，null 沒有原型，並且為原型鍊（prototype chain）裡最後的一個連結</li>
 			<li>在 JavaScript 裡，幾乎所有的物件都是 Object 的實例，這個 Object 在 prototype 鏈結的的最頂端</li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
+			<li>透過修改(或者擴充)既有的 prototype 來達到類別的功能並可重複使用(等同在以類別為基礎的程式語言中的繼承)</li>
+			<li>物件都有 __proto__ 屬性来標識自己所繼承的原型，只有函式才有 prototype 属性。
+				當你創建函數時，JS 會為這個函數自動添加 prototype 屬性，值是空對象。
+				而一旦你把這個函數當作建構子(constructor)實例化(即通過new關鍵字調用)，
+				那麼JS就會幫你創建該建構子的實例，實例繼承建構子 prototype 的所有屬性和方法
+				(實例通過設置自己的 __proto__ 指向承建構子的 prototype 來實現這種繼承）
+			</li>
 		</ol>
 	</div>
-	<div title='例子'>
+	<div title='物件繼承'>
+		<h4>call(), apply()</h4>
+		<ol>
+			<li>call() 和 apply() 都是 Function 資料型別的靜態方法。</li>
+			<li>call() 和 apply() 都是為了改變某個函數運行時的 context 即上下文而存在的，
+				換句話說，就是為了改變函數體內部 this 的指向。</li>
+			<li>call() 與 apply() 用途相同，唯一的差別在於，call() 必須一一明列出參數，而 apply() 只要傳入陣列</li>
+			<li>call(obj, ...)</li>
+			<li>apply(obj, [...])</li>
+		</ol>
+		<!--
+			call 和 apply 都是为了改变某个函数运行时的 context 即上下文而存在的，换句话说，就是为了改变函数体内部 this 的指向。
+			因为 JavaScript 的函数存在「定义时上下文」和「运行时上下文」以及「上下文是可以改变的」这样的概念。
+			二者的作用完全一样，只是接受参数的方式不太一样。
+			
+			apply()與call()是 Function 型別的兩個 Method，
+			apply()的語法是funcName.apply(thisArg, argsArray)，第一個傳入的參數在就是函數中的this，而第二個參數則可傳一個參數陣列給該函數。
+			call()與apply()用途相同，唯一的差別在於，call()必須一一明列出參數，例如funcName.call(thisArg, arg1, arg2, ...)。
+
+			call()和apply()的作用十分相似，只是参数类型上的差别，以适应不同的使用场景。它们都是为了改变函数运行时的 context（上下文）而存在的，再说的直白一点，就是为了改变函数内部 this 的指向。		
+			这样就可以实现继承啦！Exciting！
+
+			bind(ES5) 是返回对应函数，便于稍后调用；apply 、call 则是立即调用 。
+			var bar=function(){   
+				console.log(this.x);   
+			}
+			var foo={ 
+					x:3
+			}   
+			var func=bar.bind(foo);   
+			func();
+
+
+			function add(j, k){
+					return j+k;
+			}
+			
+			function sub(j, k){
+					return j-k;
+			}
+
+			add.call(sub, 5, 3); //8
+			add.apply(sub, [5, 3]); //8
+			
+			sub(5, 3); //2
+			sub.call(add, 5, 3); //2
+			sub.apply(add, [5, 3]); //2
+		-->
 	</div>
 	<div title='線上參考'>
 		<a href='http://guang.logdown.com/posts/261831-javascript-oop'>Javascript 物件導向</a>
@@ -53,6 +102,8 @@
 		<a href='https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Introduction_to_Object-Oriented_JavaScript'>MDN - JavaScript 物件導向介紹</a>
 		<br/>
 		<a href='https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Inheritance_and_the_prototype_chain'>MDN - 繼承以及原型鏈</a>
+		<br/>
+		<a href='https://medium.com/@peterchang_82818/javascripter-%E5%BF%85%E9%A0%88%E7%9F%A5%E9%81%93%E7%9A%84%E7%B9%BC%E6%89%BF%E5%9B%A0%E5%AD%90-prototype-prototype-proto-object-class-inheritace-nodejs-%E7%89%A9%E4%BB%B6-%E7%B9%BC%E6%89%BF-54102240a8b4'>Javascripter 必須知道的繼承 prototype</a>
 	</div>
 
 

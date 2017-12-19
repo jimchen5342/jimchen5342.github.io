@@ -10,5 +10,36 @@
 <body>
 </body>
 <script>
+	function Person(name, age) {      // 宣告 Person
+		this.name = name;               // 公開成員變數
+		let profile = this.name;        // 私有成員變數
+	
+		function getAge() {             // 私有成員函數 
+			return age;
+		}
+		this.getProfile = function() {  // 公開成員函數 
+			return profile + " is " + getAge();
+		} 
+	}
+	let person = new Person("John", 25); // 實例化
+	write("name: " + person.name);
+	write(person.getProfile());
+
+	function Student(name, age) {      // 宣告 Student
+		let profile = this.name;         // 私有成員變數
+		function getAge() {              // 私有成員函數 
+			return age;
+		}
+		return {
+			name: name,                    // 公開成員變數
+			getProfile: function() {       // 公開成員函數 
+				return profile + " is " + getAge();
+			} 			
+		}
+
+	}
+	let student = new Student("Mary", 20); // 實例化
+	write("name: " + student.name);
+	write(student.getProfile());
 </script>
 </html>

@@ -16,11 +16,11 @@ function Person(firstName) {  // 定義 Person 建構子
  
 Person.prototype.walk = function(){ // 加入方法到 Person
   write("I am walking!");
-}
+};
  
 Person.prototype.sayHello = function(){ // 加入方法到 Person
   write("Hello, I'm " + this.firstName);
-}
+};
  
 function Student(firstName, subject) { // 定義 Student 建構子
   Person.call(this, firstName); // 繼承 Person
@@ -31,8 +31,8 @@ Student.prototype = Object.create(Person.prototype);
 Student.prototype.constructor = Student;
  
 Student.prototype.sayHello = function(){ // 替換 Person.sayHello
-	write("Hello, I'm " + this.firstName 
-		+ ". I'm studying " + this.subject + ".");
+	write("Hello, I'm " + this.firstName + 
+		". I'm studying " + this.subject + ".");
 };
  
 Student.prototype.sayGoodBye = function(){ // 加入方法到 Student

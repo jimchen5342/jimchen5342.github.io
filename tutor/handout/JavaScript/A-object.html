@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>自訂物件</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	</style>
+	<script src="system.js"></script>
+</head>
+<body>
+</body>
+<script>
+let person = { // 宣告
+  name: "john", 
+  age: 25, 
+  show: function(){ 
+    return this.name + " is " + this.age; 
+  },
+  loop: function(){
+		let self = this; // 注意.....
+    setTimeout(function(){
+      write("setTimeout: " + self.show());
+    }, 1000);
+  }
+}
+ 
+let p = new Object(person); // 實例化
+write("name: " + p.name);
+write(p.show());
+p.loop();
+</script>
+</html>
