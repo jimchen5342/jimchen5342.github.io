@@ -8,5 +8,25 @@
 <body>
 </body>
 <script>
+	function add(x, y) {                // 函數宣告式
+		return x + y;
+	}
+
+	let substract = function (x, y) {   // 匿名函式
+		return x - y;
+	}
+
+	function calculate(callback) {      // 回調函式(callback)
+		return callback(100, 50);
+	}
+
+	let a = add(5, 20);                 // 呼叫函式
+	let b = calculate(add);             // callback-物件變數
+	let c = calculate(substract);       // callback-物件變數
+	let d = calculate(function(a, b){   // callback-匿名函式
+		return a / b;
+	});
+	write("a: " + a + ", b: " + b + ", " +
+	  "c: " + c + ", d: " + d);
 </script>
 </html>
