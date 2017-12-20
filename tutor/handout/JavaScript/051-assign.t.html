@@ -43,32 +43,25 @@
 			<td><code>x /= y</code></td>
 			<td><code>x = x / y</code></td>
 		</tr>
-		<tr>
-			<td>餘數賦值</td>
-			<td><code>x&nbsp;%= y</code></td>
-			<td><code>x = x&nbsp;% y</code></td>
-		</tr>
 	</table>
 	<br />
-	解構賦值：用於快速提取(extract)陣列或物件中的資料
+	解構賦值(ES6)：用於快速提取(extract)陣列或物件中的資料
 	<pre>
 		<code class='javascript'>
-			// 陣列解構
-			var x = [1, 2, 3, 4, 5]; 
-			var [y, z] = x; 
-			document.write(y); // 1 
-			document.write(z); // 2
+				let arr = [1, 2, 3, 4, 5]; 
+				let [y, z] = arr;          // 陣列解構
+				document.write("陣列解構 x: " + y);  // 1 
+				document.write("陣列解構 y: " + z);  // 2
 
-			// 將剩餘部分解構到一個變數
-			var [a, ...b] = [1, 2, 3]; 
-			document.write(a); // 1 
-			document.write(b); // [2, 3]
-
-			// 物件解構
-			var o = {p: 42, q: true}; 
-			var {p, q} = o; 
-			document.write(p); // 42 
-			document.write(q); // true
+				// 將剩餘部分解構到一個變數
+				let [a, ...b] = [1, 2, 3]; 
+				document.write("陣列解構 a: " + a);  // 1 
+				document.write("陣列解構 b: " + b);  // [2, 3]
+			 
+				let o = {p: 42, q: true}; 
+				let {p, q} = o;            // 物件解構
+				document.write("物件解構 p: " + p);  // 42 
+				document.write("物件解構 q: " + q);  // true
 		</code>
 	</pre>
 </body>

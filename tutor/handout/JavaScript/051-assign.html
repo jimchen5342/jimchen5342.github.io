@@ -8,5 +8,35 @@
 <body>
 </body>
 <script>
+	let x = 10;                // 賦值
+	write("x = " + x);
+
+	x += 2;                    // 加法賦值
+	write("x += 2: " + x);
+
+	x -= 4;                    // 減法賦值
+	write("x -= 4: " + x);
+
+	x *= 5;                    // 乘法賦值
+	write("x *= 5: " + x); 
+
+	x /= 10;                   // 除法賦值
+	write("x /= 10: " + x);
+
+		
+	let arr = [1, 2, 3, 4, 5]; 
+	let [y, z] = arr;          // 陣列解構
+	write("陣列解構 x: " + y);  // 1 
+	write("陣列解構 y: " + z);  // 2
+ 
+	
+	let [a, ...b] = [1, 2, 3]; // 將剩餘部分解構到一個變數
+	write("陣列解構 a: " + a);  // 1 
+	write("陣列解構 b: " + b);  // [2, 3]
+ 
+	let o = {p: 42, q: true}; 
+	let {p, q} = o;            // 物件解構
+	write("物件解構 p: " + p);  // 42 
+	write("物件解構 q: " + q);  // true
 </script>
 </html>
