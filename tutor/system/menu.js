@@ -216,9 +216,11 @@ let menu = [
 			children: [{
 				id: "061-if",
 				text: "if",
+				files: "html"
 			}, {
 					id: "062-switch",
 					text: "switch",
+					files: "html"
 			}]
 		}, {
 			text: "迴圈陳述句",
