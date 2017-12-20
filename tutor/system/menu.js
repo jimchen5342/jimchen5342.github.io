@@ -227,9 +227,11 @@ let menu = [
 			children: [{
 				id: "071-for",
 				text: "for",
+				files: "html"
 			}, {
 				id: "072-while",
 				text: "while",
+				files: "html"
 			}]
 		}, {
 			id: "08-function",
@@ -238,9 +240,11 @@ let menu = [
 			children: [{
 				id: "081-function",
 				text: "內建函式",
+				files: "html"
 			}, {
 				id: "082-function",
 				text: "自訂函式",
+				files: "html"
 			}]
 		}, {
 			id: "09-error",
