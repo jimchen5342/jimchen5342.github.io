@@ -302,15 +302,32 @@ let menu = [
 				id: "B-object",
 				text: "Object",								
 			}]	
-			//}, {
-			// id: "01",
-			// text: "",
-			// files: "html",
-			// children: [{
-			// 	id: "",
-			// 	text: "",
-			// 	files: "html",
-			// }]
+			}, {
+				text: "BOM",
+				children: [{
+					text: "window",
+				}, {
+					text: "navigator"
+				}, {
+					text: "location"
+				}, {
+					text: "histroy"
+				}, {
+					text: "screen"									
+				}]
+			}, {
+				text: "DOM",
+				children: [{
+					text: "document"
+				}, {
+					text: "element"
+				}, {
+					text: "attribute"
+				}, {
+					text: "event"
+				}, {
+					text: "style"
+				}]
 		}]
 	}, {
 		text: "作業",
