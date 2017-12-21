@@ -24,8 +24,8 @@
 <body class="easyui-tabs" style="width: 100%; height: 100%;" onresize="$('body').tabs('resize')">
   <div title="資料型態">
     <ol>
-			<li>string：字串</li>
-			<li>number：數值(含小數點)</li>
+			<li>string：字串(單引號或雙引號)</li>
+			<li>number：數值(整數及浮點數)</li>
 			<li>boolean：布林值(true/false)</li>
 			<li>array：陣列</li>
 			<li>object：物件</li>
@@ -53,7 +53,7 @@
 				document.write(typeof {});             // object
 				document.write(typeof (new Object())); // object
 				document.write(typeof (new Date()));   // object
-				document.write(typeof []);             // object
+				document.write(typeof [1，2，3]);       // object
 				document.write(typeof null);           // object
 				document.write(typeof undefined);      // undefined
 			</code>

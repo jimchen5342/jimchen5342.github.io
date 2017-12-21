@@ -6,25 +6,28 @@
 </head>
 <body></body>
 <script>
-	let name = "John", sex = 'male'; // 字串變數
-	const PI = 3.1416;   // 數值常數
-	let start = false; // 布林值變數
+	let name = "John", sex = 'male';  // 字串變數
+	const PI = 3.1416;                // 數值常數
+	let start = false;                // 布林值變數
 	write("PI: " + PI);
 	write("start: " + start);
-	let students = [], cars = ['Audi', 'BMW', 'Benz']; // 陣列
+	let students = [], 
+	  cars = ['Audi', 'BMW', 'Benz']; // 陣列
 	students.push("John");
 	students.push("Mary");
 	write("student[0]: " + students[0]);
 	write("car[0]: " + cars[0]);
 
-	let obj = new Object(); // 物件
+	let obj = new Object();           // 物件
 	obj.name = "John";
 	obj["age"] = 25;
-	obj.success = function(){ // 函式
+	obj.success = function(){         // 函式
 		// statement
 	}
 
-	let json = {"name": "John", age: 25, address: "高雄"}; // 物件
+	let json = {"name": "John", 
+		age: 25, 
+		address: "高雄"}; // 物件
 	delete json.name;
 	try{
 		write('json["name"]: ' + json["name"]);
@@ -32,7 +35,7 @@
 		write(e);
 	}
 
-	let today = new Date(); // 日期
+	let today = new Date();           // 日期
 	write("today: " + today);
 
 	let a, b = 0;
