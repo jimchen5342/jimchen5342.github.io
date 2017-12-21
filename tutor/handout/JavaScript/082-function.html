@@ -21,10 +21,10 @@
 	}
 
 	let a = add(5, 20);                 // 呼叫函式
-	let b = calculate(add);             // callback-物件變數
-	let c = calculate(substract);       // callback-物件變數
-	let d = calculate(function(a, b){   // callback-匿名函式
-		return a / b;
+	let b = calculate(add);             // callback-變數
+	let c = calculate(substract);       // callback-變數
+	let d = calculate(function(x, y){   // callback-匿名函式
+		return x / y;
 	});
 	write("a: " + a + ", b: " + b + ", " +
 	  "c: " + c + ", d: " + d);

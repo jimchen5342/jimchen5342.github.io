@@ -10,39 +10,36 @@
 <body>
 </body>
 <script>
-function Person(firstName) {  // 定義 Person 建構子
+function Person(firstName) {                   // 定義 Person 建構子
   this.firstName = firstName;
 }
- 
-Person.prototype.walk = function(){ // 加入方法到 Person
+Person.prototype.walk = function(){            // 加入方法到 Person
   write("I am walking!");
 };
- 
-Person.prototype.sayHello = function(){ // 加入方法到 Person
+Person.prototype.sayHello = function(){        // 加入方法到 Person
   write("Hello, I'm " + this.firstName);
 };
  
-function Student(firstName, subject) { // 定義 Student 建構子
-  Person.call(this, firstName); // 繼承 Person
+function Student(firstName, subject) {         // 定義 Student 建構子
+  Person.call(this, firstName);                // 繼承 Person
   this.subject = subject;
 }
- 
 Student.prototype = Object.create(Person.prototype);
 Student.prototype.constructor = Student;
- 
-Student.prototype.sayHello = function(){ // 替換 Person.sayHello
+
+Student.prototype.sayHello = function(){       // 替換 Person.sayHello
 	write("Hello, I'm " + this.firstName + 
 		". I'm studying " + this.subject + ".");
 };
  
-Student.prototype.sayGoodBye = function(){ // 加入方法到 Student
+Student.prototype.sayGoodBye = function(){     // 加入方法到 Student
   write("Goodbye!");
 };
 
-let student1 = new Student("Janet", "Applied Physics");// 範例用法:
-student1.sayHello();   // "Hello, I'm Janet. I'm studying Applied Physics."
-student1.walk();       // "I am walking!"
-student1.sayGoodBye(); // "Goodbye!"
+let student1 = new Student("Janet", "Coding"); // 範例用法:
+student1.sayHello();
+student1.walk();
+student1.sayGoodBye();
  
 // 檢查 instanceof 可正常運作
 write(student1 instanceof Person);  // true 

@@ -20,13 +20,13 @@
 	<pre>
 		<code class='javascript'>
 			function Person(name, age) {      // 宣告
-				this.name = name;  				      // 公開成員變數
+				this.name = name;               // 公開成員變數
 				let profile = this.name;        // 私有成員變數
 
-				function getAge() {             //私有成員函數 
+				function getAge() {             // 私有成員函數 
 					return age;
 				}
-				this.getProfile = function() {  //公開成員函數 
+				this.getProfile = function() {  // 公開成員函數 
 					return profile + " is " + getAge();
 				} 
 			}

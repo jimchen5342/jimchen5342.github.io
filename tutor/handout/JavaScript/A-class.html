@@ -17,23 +17,21 @@ class Polygon {
   toString(){
     return "Polygon";
   }
+  get area() { 
+    return this.height * this.width; 
+  }
+  set dimension(newLength) { 
+    this.height = newLength; 
+    this.width = newLength; 
+  }
 } 
  
 class Square extends Polygon { 
   constructor(dimension) { 
-    super(dimension, dimension);
+    super(dimension, dimension); // override
   }
-  toString(){
+  toString(){                    // override
     return "Square from " + super.toString();
-  }
-
-  get area() { 
-    return this.height * this.width; 
-  }
- 
-  set dimension(newLength) { 
-    this.height = newLength; 
-    this.width = newLength; 
   }
 } 
 let square = new Square(2);

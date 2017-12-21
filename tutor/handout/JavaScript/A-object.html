@@ -10,23 +10,30 @@
 <body>
 </body>
 <script>
-let person = { // 宣告
-  name: "john", 
-  age: 25, 
-  show: function(){ 
-    return this.name + " is " + this.age; 
-  },
-  loop: function(){
-		let self = this; // 注意.....
-    setTimeout(function(){
-      write("setTimeout: " + self.show());
-    }, 1000);
+  let person = {               // 宣告
+    name: "john", 
+    age: 25, 
+    show: function(){ 
+      return this.name + " is " + this.age; 
+    },
+    loop: function(callback){
+      let self = this;         // 注意.....
+      setTimeout(function(){
+        write("setTimeout: " + self.show());
+        if(typeof callback == "function")
+          callback();
+      }, 1000);
+    }
   }
-}
- 
-let p = new Object(person); // 實例化
-write("name: " + p.name);
-write(p.show());
-p.loop();
+  
+  let p = new Object(person);  // 實例化
+  write("name: " + p.name);
+  write(p.show());
+  p.loop(function() {
+    delete p.name;             // 回收
+    write("name: " + p.name);
+    p = null;                  // 回收    
+    write("p: " + p);
+  });
 </script>
 </html>
