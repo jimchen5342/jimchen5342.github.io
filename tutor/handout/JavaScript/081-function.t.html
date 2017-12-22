@@ -32,7 +32,7 @@
 		<tr>
 			<td>encodeURI(string)</td>
 			<td>將(包含非法字元) URI 字串編碼成符合 URI 格式的新字串<br/>
-				不對這些字元作編碼：<h4>ASCII碼 數字 , - _ . ! ~ * ' ( ) ; / ? : @ & = + $ #</h4>
+				不對這些字元作編碼：<h4>ASCII碼 數字 ? & @ $ # . , :  ; + / = - _ ! ~ * ' ( )</h4>
 			</td>
 		</tr>
 		<tr>
@@ -42,7 +42,7 @@
 		<tr>
 			<td>encodeURIComponent()</td>
 			<td>與 encodeURI() 相似<br/> 
-				不對這些字元作編碼：<h4>ASCII碼 數字 , / ? : @ & = + $ #</h4>
+				不對這些字元作編碼：<h4>ASCII碼 數字 ? & @ $ # , : + / =</h4>
 			</td>
 		</tr>
 		<tr>
@@ -51,7 +51,9 @@
 		</tr>
 		<tr>
 			<td>eval(string)</td>
-			<td>把 string 當作 JavaScript 的敘述來執行</td>
+			<td>把 string 當作 JavaScript 的敘述來執行<br/>
+				<h4>eval() 是一個危險的函數</h4>
+			</td>
 		</tr>
 		<tr>
 			<td>isNaN(value)</td>
@@ -62,9 +64,9 @@
 			<td>傳回 string 轉成浮點小數後的數值</td>
 		</tr>
 		<tr>
-			<td>parseInt(string [, base])</td>
-			<td>傳回 string 轉成 10 進制後的整數； <br/>
-				base 是 string 的進位基數，它是選擇性的參數，有 2、 8、10、16、32，預設為 10。</td>
+			<td>parseInt(value [, base])</td>
+			<td>傳回 value 轉成 10 進制後的整數； <br/>
+				base 是 value 的進位基數，它是選擇性的參數，有 2、 8、10、16、32，預設為 10。</td>
 		</tr>
 	</table>	
 </body>

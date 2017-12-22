@@ -216,22 +216,22 @@ let menu = [
 			children: [{
 				id: "061-if",
 				text: "if",
-				files: "html"
+				//files: "html"
 			}, {
 					id: "062-switch",
 					text: "switch",
-					files: "html"
+					//files: "html"
 			}]
 		}, {
 			text: "迴圈陳述句",
 			children: [{
 				id: "071-for",
 				text: "for",
-				files: "html"
+				// files: "html"
 			}, {
 				id: "072-while",
 				text: "while",
-				files: "html"
+				// files: "html"
 			}]
 		}, {
 			id: "08-function",

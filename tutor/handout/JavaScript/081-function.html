@@ -8,5 +8,23 @@
 <body>
 </body>
 <script>
+	let uri = "&subject=程式設計";
+	write("encodeURI(uri): " + encodeURI(uri));
+	write("decodeURI(uri): " + decodeURI(uri) + "<br/>");
+
+	write("encodeURIComponent(uri): " + encodeURIComponent(uri));
+	write("decodeURIComponent(uri): " + decodeURIComponent(uri) + "<br/>");
+
+	write("eval('1 + 2'): " + eval('1 + 2') + "<br/>");
+
+	write("isNaN('12a'): " + isNaN('12a'));
+	write("isNaN('12'): " + isNaN('12') + "<br/>");
+
+	write("parseFloat('12.04'): " + parseFloat('12.04') + "<br/>");
+
+	write("parseInt('12.04'): " + parseInt('12.04'));
+	write("parseInt('12', 10): " + parseInt('12', 10));
+	write("parseInt('10', 8): " + parseInt('10', 8));
+	write("parseInt('10', 16): " + parseInt('10', 16));
 </script>
 </html>
