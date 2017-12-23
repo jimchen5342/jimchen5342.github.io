@@ -280,27 +280,31 @@ let menu = [
 			children: [{
 				id: "B-string",
 				text: "String",
+				files: "html"
 			}, {
 				id: "B-number",
 				text: "Number",
+				files: "html"
 			}, {
 				id: "B-math",
 				text: "Math",	
+				files: "html"
 			}, {
 				id: "B-date",
-				text: "Date",			
+				text: "Date",	
+				files: "html"		
 			}, {
 				id: "B-array",
 				text: "Array",
-			}, {
-				id: "B-date",
-				text: "Date",
+				files: "html"
 			}, {
 				id: "B-json",
 				text: "JSON",
+				files: "html"
 			}, {
 				id: "B-object",
-				text: "Object",								
+				text: "Object",
+				files: "html"				
 			}]	
 			}, {
 				text: "BOM",

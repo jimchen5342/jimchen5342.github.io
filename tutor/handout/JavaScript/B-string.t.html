@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		h4 {
+			display: inline-block;
+		}
+	</style>
+	<link rel="stylesheet" href="../pattern.css">
+	<script src="../../system/system.js"></script>
+	<script type="text/javascript" src="../../jQuery/jquery.min.js"></script>
+	<script src="../highlight.js"></script>
+	<script src="system.js"></script>
+</head>
+<body>
+	<table class='tutor' width="100%">
+		<tr><th style="width: 130px;">屬性</th><th>描述</th></tr>
+		<tr>
+			<td>constructor</td>
+			<td>對創建該物件的函數的引用</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_length_string.asp">length</a></td>
+			<td>字串的長度</td>
+		</tr>
+		<tr>
+			<td>prototype</td>
+			<td>允許您向物件添加屬性和方法</td>
+		</tr>
+	</table>
+
+	<table class='tutor' width="100%">
+		<tr><th style="width: 130px;">方法</th><th>描述</th></tr>		
+		<tr>
+			<td><a href="/jsref/jsref_charAt.asp">charAt()</a></td>
+			<td>返回在指定位置的字元。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_charCodeAt.asp">charCodeAt()</a></td>
+			<td>返回在指定的位置的字元的 Unicode 編碼。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_concat_string.asp">concat()</a></td>
+			<td>連接字元串。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_fromCharCode.asp">fromCharCode()</a></td>
+			<td>從字元編碼創建一個字元串。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_indexOf.asp">indexOf()</a></td>
+			<td>檢索字元串。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_lastIndexOf.asp">lastIndexOf()</a></td>
+			<td>從後向前搜索字元串。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_match.asp">match()</a></td>
+			<td>找到一個或多個正則表達式的匹配。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_replace.asp">replace()</a></td>
+			<td>替換與正則表達式匹配的子串。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_search.asp">search()</a></td>
+			<td>檢索與正則表達式相匹配的值。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_slice_string.asp">slice()</a></td>
+			<td>提取字元串的片斷，並在新的字元串中返回被提取的部分。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_split.asp">split()</a></td>
+			<td>把字元串分割為字元串數組。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_substr.asp">substr()</a></td>
+			<td>從起始索引號提取字元串中指定數目的字元。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_substring.asp">substring()</a></td>
+			<td>提取字元串中兩個指定的索引號之間的字元。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_toLowerCase.asp">toLowerCase()</a></td>
+			<td>把字元串轉換為小寫。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_toUpperCase.asp">toUpperCase()</a></td>
+			<td>把字元串轉換為大寫。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_toString_string.asp">toString()</a></td>
+			<td>返回字元串。</td>
+		</tr>
+	</table>
+
+	<a href='http://www.w3school.com.cn/jsref/jsref_obj_string.asp'>W3school</a>
+</body>
+<script>
+	$(document).ready(function(){
+		let arr = $("td > a").get();
+		
+		for(let item of arr){
+			$(item).attr("target", "_parent");
+			$(item).attr("href", "http://www.w3school.com.cn/" + $(item).attr("href") );
+		}
+		console.log(arr)
+	});
+</script>
+</html>
