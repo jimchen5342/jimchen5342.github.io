@@ -15,5 +15,50 @@
 	<script src="system.js"></script>
 </head>
 <body>
+	<table class='tutor' width="100%">
+		<tr><th style="width:25%">靜態屬性</th><th>描述</th></tr>
+		<tr>
+			<td><a href="/jsref/jsref_max_value.asp">MAX_VALUE</a></td>
+			<td>可表示的最大的數。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_min_value.asp">MIN_VALUE</a></td>
+			<td>可表示的最小的數。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_nan_number.asp">NaN</a></td>
+			<td>非數字值。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_negative_infinity.asp">NEGATIVE_INFINITY</a></td>
+			<td>負無窮大，溢出時返回該值。</td>
+			</tr>
+		<tr>
+			<td><a href="/jsref/jsref_positive_infinity.asp">POSITIVE_INFINITY</a></td>
+			<td>正無窮大，溢出時返回該值。</td>
+		</tr>
+	</table>
+
+	<table class='tutor' width="100%">
+		<tr><th style="width:25%">方法</th><th>描述</th></tr>
+		<tr>
+			<td><a href="/jsref/jsref_tostring_number.asp">toString()</a></td>
+			<td>把數字轉換為字串，使用指定的基數。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_tofixed.asp">toFixed()</a></td>
+			<td>把數字轉換為字串，結果的小數點後有指定位數的數字。</td>
+		</tr>
+	</table>
+	<a href='http://www.w3school.com.cn/jsref/jsref_obj_number.asp' target="_parent">W3school</a>
 </body>
+<script>
+	$(document).ready(function(){
+		let arr = $("td > a").get();
+		for(let item of arr){
+			$(item).attr("target", "_parent");
+			$(item).attr("href", "http://www.w3school.com.cn/" + $(item).attr("href") );
+		}
+	});
+</script>
 </html>

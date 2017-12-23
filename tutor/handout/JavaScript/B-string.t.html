@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>string</title>
 	<meta charset="utf-8">
 	<style type="text/css">
 		h4 {
@@ -98,18 +98,15 @@
 			<td>返回字元串。</td>
 		</tr>
 	</table>
-
-	<a href='http://www.w3school.com.cn/jsref/jsref_obj_string.asp'>W3school</a>
+	<a href='http://www.w3school.com.cn/jsref/jsref_obj_string.asp' target="_parent">W3school</a>
 </body>
 <script>
 	$(document).ready(function(){
 		let arr = $("td > a").get();
-		
 		for(let item of arr){
 			$(item).attr("target", "_parent");
 			$(item).attr("href", "http://www.w3school.com.cn/" + $(item).attr("href") );
 		}
-		console.log(arr)
 	});
 </script>
 </html>

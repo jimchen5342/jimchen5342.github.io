@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>array</title>
 	<meta charset="utf-8">
 	<style type="text/css">
 		h4 {
@@ -15,5 +15,107 @@
 	<script src="system.js"></script>
 </head>
 <body>
+
+	<table class='tutor' width="100%">
+		<tr><th style="width: 130px;">屬性</th><th>描述</th></tr>
+		<tr>
+			<td><a href="/jsref/jsref_length_string.asp">length</a></td>
+			<td>陣列的長度</td>
+		</tr>
+	</table>
+	<table class='tutor' width="100%">
+		<tr><th style="width: 130px;">方法</th><th>描述</th></tr>
+		<tr>
+			<td><a href="/jsref/jsref_concat_array.asp">concat()</a></td>
+			<td>連接兩個或更多的陣列，並返回結果。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_join.asp">join()</a></td>
+			<td>把陣列的所有元素放入一個字串。元素通過指定的分隔符進行分隔。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_pop.asp">pop()</a></td>
+			<td>刪除並返回陣列的最後一個元素</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_push.asp">push()</a></td>
+			<td>向陣列的末尾添加一個或更多元素，並返回新的長度。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_reverse.asp">reverse()</a></td>
+			<td>顛倒陣列中元素的順序。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_shift.asp">shift()</a></td>
+			<td>刪除並返回陣列的第一個元素</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_slice_array.asp">slice()</a></td>
+			<td>從某個已有的陣列返回選定的元素</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_sort.asp">sort()</a></td>
+			<td>對陣列的元素進行排序</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_splice.asp">splice()</a></td>
+			<td>刪除元素，並向陣列添加新元素。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_toString_array.asp">toString()</a></td>
+			<td>把陣列轉換為字串，並返回結果。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_unshift.asp">unshift()</a></td>
+			<td>向陣列的開頭添加一個或更多元素，並返回新的長度。</td>
+		</tr>
+
+		<tr>
+			<td>filter()</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>find()</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>forEach</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>map()</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>every()</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>some()</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>reduce()</td>
+			<td></td>
+		</tr>
+	</table>
+	<table class='tutor' width="100%">
+		<tr><th style="width: 130px;">靜態方法</th><th>描述</th></tr>
+		<tr>
+			<td>isArray(obj)</td>
+			<td>回傳物件是否為陣列</td>
+		</tr>
+	</table>	
+	<a href='http://www.w3school.com.cn/jsref/jsref_obj_array.asp' target="_parent">W3school</a><br/>
+	<a href='https://wcc723.github.io/javascript/2017/06/29/es6-native-array/'>JavaScript 陣列處理方法 </a>
 </body>
+<script>
+	$(document).ready(function(){
+		let arr = $("td > a").get();
+		for(let item of arr){
+			$(item).attr("target", "_parent");
+			$(item).attr("href", "http://www.w3school.com.cn/" + $(item).attr("href") );
+		}
+	});
+</script>
 </html>

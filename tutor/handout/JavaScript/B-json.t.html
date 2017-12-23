@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>JSON</title>
 	<meta charset="utf-8">
 	<style type="text/css">
 		h4 {
@@ -15,5 +15,26 @@
 	<script src="system.js"></script>
 </head>
 <body>
+	JavaScript Object Notation
+	<table class='tutor' width="100%">
+			<tr><th style="width: 130px;">方法</th><th>描述</th></tr>
+			<tr>
+				<td>stringify()</td>
+				<td>傳回將物件序列化成 JSON 字串</td>
+			</tr>
+			<tr>
+				<td>parse()</td>
+				<td>傳回將 JSON 字串解析成 JavaScript 物件</td>
+			</tr>
+	</table>
 </body>
+<script>
+	$(document).ready(function(){
+		let arr = $("td > a").get();
+		for(let item of arr){
+			$(item).attr("target", "_parent");
+			$(item).attr("href", "http://www.w3school.com.cn/" + $(item).attr("href") );
+		}
+	});
+</script>
 </html>

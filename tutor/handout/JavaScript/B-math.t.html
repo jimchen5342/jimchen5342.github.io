@@ -15,5 +15,95 @@
 	<script src="system.js"></script>
 </head>
 <body>
+	<table class='tutor' width="100%">
+		<tr><th style="width:25%">方法</th><th>描述</th></tr>
+		<tr>
+			<td><a href="/jsref/jsref_abs.asp">abs(x)</a></td>
+			<td>返回數的絕對值。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_ceil.asp">ceil(x)</a></td>
+			<td>返回大於這個數的最小整數。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_floor.asp">floor(x)</a></td>
+			<td>返回小於這個數的最大整數。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_round.asp">round(x)</a></td>
+			<td>把數四捨五入為最接近的整數。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_max.asp">max(x,y)</a></td>
+			<td>返回 x 和 y 中的最高值。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_min.asp">min(x,y)</a></td>
+			<td>返回 x 和 y 中的最低值。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_random.asp">random()</a></td>
+			<td>返回 0 ~ 1 之間的隨機數。</td>
+		</tr>
+
+		<tr>
+			<td><a href="/jsref/jsref_sin.asp">sin(x)</a></td>
+			<td>返回數的正弦。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_cos.asp">cos(x)</a></td>
+			<td>返回數的餘弦。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_tan.asp">tan(x)</a></td>
+			<td>返回角的正切。</td>
+		</tr>
+		
+		<tr>
+			<td><a href="/jsref/jsref_asin.asp">asin(x)</a></td>
+			<td>返回數的反正弦值。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_acos.asp">acos(x)</a></td>
+			<td>返回數的反餘弦值。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_atan.asp">atan(x)</a></td>
+			<td>以介於 -PI/2 與 PI/2 弧度之間的數值來返回 x 的反正切值。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_atan2.asp">atan2(y,x)</a></td>
+			<td>返回從 x 軸到點 (x,y) 的角度（介於 -PI/2 與 PI/2 弧度之間）。</td>
+		</tr>
+	
+		<tr>
+			<td><a href="/jsref/jsref_exp.asp">exp(x)</a></td>
+			<td>返回 e 的指數。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_log.asp">log(x)</a></td>
+			<td>返回數的自然對數（底為e）。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_pow.asp">pow(x,y)</a></td>
+			<td>返回 x 的 y 次冪。</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_sqrt.asp">sqrt(x)</a></td>
+			<td>返回數的平方根。</td>
+		</tr>
+	</table>
+	<a href='http://www.w3school.com.cn/jsref/jsref_obj_math.asp' target="_parent">W3school</a><br/>
+	<a href="http://www.eion.com.tw/Blogger/?Pid=1173" target="_parent">JavaScript 四捨五入、無條件捨去、無條件進位
+		</a>
 </body>
+<script>
+	$(document).ready(function(){
+		let arr = $("td > a").get();
+		for(let item of arr){
+			$(item).attr("target", "_parent");
+			$(item).attr("href", "http://www.w3school.com.cn/" + $(item).attr("href") );
+		}
+	});
+</script>
 </html>
