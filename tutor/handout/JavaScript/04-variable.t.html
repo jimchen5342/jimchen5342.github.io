@@ -18,7 +18,10 @@
       padding: 0;
       overflow-y: auto;
       font-size: 16px;
-    }
+		}
+		#escape tr td:nth-child(odd){
+			text-align: center;
+		}
   </style>
 </head>	
 <body class="easyui-tabs" style="width: 100%; height: 100%;" onresize="$('body').tabs('resize')">
@@ -37,11 +40,12 @@
 		<table class='tutor' width='100%'>
 			<tr><th>資料型態</th><th>物件宣告</th><th>實字宣告</th></tr>
 			<tr><td>物件</td><td>x = new Object()</td><td>x = {}</td></tr>
-			<tr><td>字串</td><td>x = new String()</td><td>x = ""</td></tr>
+			<tr><td>字串</td><td>x = new String()</td><td>x = "", y = ''</td></tr>
 			<tr><td>數值</td><td>x = new Number()</td><td>x = 1</td></tr>
 			<tr><td>布林值</td><td>x = new Boolean()</td><td>x = true</td></tr>
 			<tr><td>陣列</td><td>x = new Array()</td><td>x = []</td></tr>
 			<tr><td>日期</td><td>x = new Date()</td><td></td></tr>
+			<tr><td>函式</td><td>不建議用</td><td>function funName(){}</td></tr>
 		</table>
 
 		typeof：檢查資料型態
@@ -58,11 +62,16 @@
 				document.write(typeof [1，2，3]);         // object
 				document.write(typeof null);             // object
 				document.write(typeof undefined);        // undefined
+
+				function add(x, y){
+					return x + y;
+				}
+				document.write(typeof add);              // function
 			</code>
 		</pre>
 	</div>
 	<div title="型態轉換">
-		JavaScript 是一個動態型別的語言，這意味著你不需要在宣告變數時定義它的資料型別，程式執行時會自動轉換
+		JavaScript 是一個動態型別的語言，這意味著你不需要在宣告變數時定義它的資料型別，程式執行時會自動轉換<br/>
 		<pre>
 			<code class='javascript'>
 				let a = "The answer is: ", b = 25;
@@ -74,6 +83,7 @@
 				let z = parseInt("100", 10) + 7; // 110
 			</code>
 		</pre>
+		<a href='http://javascript.ruanyifeng.com/grammar/conversion.html' target='_parent'>数据类型转换</a>
 	</div>
 	<div title="命名規則">
 		<ol>
@@ -190,6 +200,19 @@
 				<td>with</td>
 				<td>yield</td>
 			</tr>
+		</table>
+	</div>
+	<div title="特殊字元">
+		<table class='tutor' id='escape'>
+			<tr><th style='width: 100px;'>字元</th><th style='width: 250px;'>意義</th></tr>
+			<tr><td>\b</td><td>後退一格 (Backspace)</td></tr>
+			<tr><td>\f</td><td>換頁 (Form feed)</td></tr>
+			<tr><td>\n</td><td>換行 (New line)</td></tr>
+			<tr><td>\r</td><td>返回 (Carriage return)</td></tr>
+			<tr><td>\t</td><td>定位 (Tab)</td></tr>
+			<tr><td>\'</td><td>單引號</td></tr>
+			<tr><td>\"</td><td>雙引號</td></tr>
+			<tr><td>\\</td><td>反斜線 (Backslash)</td></tr>
 		</table>
 	</div>
 </body>
