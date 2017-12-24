@@ -10,6 +10,16 @@
 <body>
 </body>
 <script>
+	let json = {name: "john", age: 25,
+		address: ["高雄","台北"]
+	};
+	write("stringify: " + JSON.stringify(json));
+
+	let s =  '{"name":"john","age":25,"address":["高雄","台北"]}';
+	let o = JSON.parse(s);
+	for(let key in o){
+		write(key + ": " + o[key]);
+	}
 
 </script>
 </html>

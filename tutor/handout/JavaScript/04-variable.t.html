@@ -34,28 +34,30 @@
 			<li>undefined：未定義或不存在</li>
 		</ol>
 		
-		<ol>
-			<li>let x = new Object();</li>
-			<li>let x = new String();</li>
-			<li>let x = new Nubmer();</li>
-			<li>let x = new Boolean();</li>
-			<li>let x = new Array();</li>
-			<li>let x = new Date();</li>
-		</ol>
+		<table class='tutor' width='100%'>
+			<tr><th>資料型態</th><th>物件宣告</th><th>實字宣告</th></tr>
+			<tr><td>物件</td><td>x = new Object()</td><td>x = {}</td></tr>
+			<tr><td>字串</td><td>x = new String()</td><td>x = ""</td></tr>
+			<tr><td>數值</td><td>x = new Number()</td><td>x = 1</td></tr>
+			<tr><td>布林值</td><td>x = new Boolean()</td><td>x = true</td></tr>
+			<tr><td>陣列</td><td>x = new Array()</td><td>x = []</td></tr>
+			<tr><td>日期</td><td>x = new Date()</td><td></td></tr>
+		</table>
 
 		typeof：檢查資料型態
 		<pre>
 			<code class='javascript'>
-				document.write(typeof "1");            // string
-				document.write(typeof '1');            // string
-				document.write(typeof 0);              // number
-				document.write(typeof true);           // boolean
-				document.write(typeof {});             // object
-				document.write(typeof (new Object())); // object
-				document.write(typeof (new Date()));   // object
-				document.write(typeof [1，2，3]);       // object
-				document.write(typeof null);           // object
-				document.write(typeof undefined);      // undefined
+				document.write(typeof "1");              // string
+				document.write(typeof '1');              // string
+				document.write(typeof 0);                // number
+				document.write(typeof true);             // boolean
+				document.write(typeof {});               // object
+				document.write(typeof (new Object()));   // object
+				document.write(typeof (new Date()));     // object
+				document.write(typeof (new String(""))); // object
+				document.write(typeof [1，2，3]);         // object
+				document.write(typeof null);             // object
+				document.write(typeof undefined);        // undefined
 			</code>
 		</pre>
 	</div>

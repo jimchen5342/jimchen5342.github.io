@@ -8,10 +8,10 @@
 <script>
 	const PI = 3.1416;         // 全域常數
 	try {
-		write("全域常數 PI: " + PI);
+		write("全域常數 PI", PI);
 		PI++;
 	} catch (e){
-		write(e + "<br/>");	
+		write("錯誤訊息", e + "<br/>");	
 	}
 
 	var x = 100;               // 全域變數
@@ -19,14 +19,14 @@
 		let x = 0;               // 區域變數
 		let z = 1;               // 區域變數
 		y = 50;                  // 全域變數
-		write("區域 x: " + x );
+		write("區域 x", x );
 	}
-	write("全域 x: " + x);
-	write("全域 y: " + y);	
+	write("全域 x", x);
+	write("全域 y", y);	
 	try {
-		write("區域 z: " + z);	
+		write("區域 z", z);	
 	} catch (e){
-		write(e);	
+		write("錯誤訊息", e);	
 	}
 </script>
 </html>

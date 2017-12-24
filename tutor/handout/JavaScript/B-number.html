@@ -10,6 +10,20 @@
 <body>
 </body>
 <script>
+	write("MAX_VALUE", Number.MAX_VALUE);
+	write("MIN_VALUE", Number.MIN_VALUE);
 
+	let n = Number.MAX_VALUE * 2;
+	write("POSITIVE_INFINITY", n == Number.POSITIVE_INFINITY);
+	n = Number.MAX_VALUE * -2;
+	write("NEGATIVE_INFINITY", n == Number.NEGATIVE_INFINITY);
+
+	write("toString", (10).toString());
+	write("toString", typeof (10 + ""));
+	write("toString 2", (10).toString(2));
+	write("toString 8", (10).toString(8));
+	write("toString 16", (10).toString(16));
+
+	write("toFixed", (10.456).toFixed(2));
 </script>
 </html>
