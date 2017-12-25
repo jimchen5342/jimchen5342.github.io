@@ -306,7 +306,7 @@ let menu = [
 				text: "Object",
 				files: "html"				
 			}]	
-			}, {
+			/*}, {
 				text: "BOM",
 				children: [{
 					text: "window",
@@ -331,7 +331,7 @@ let menu = [
 					text: "event"
 				}, {
 					text: "style"
-				}]
+				}]*/
 		}]
 	}, {
 		text: "作業",
