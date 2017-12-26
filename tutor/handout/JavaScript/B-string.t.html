@@ -53,35 +53,35 @@
 			<td>連接字元串。</td>
 		</tr>
 		<tr>
-			<td><a href="/jsref/jsref_indexOf.asp">indexOf(s [, index])</a></td>
-			<td>返回搜索字元串位置，返回 -1 表示找不到，case sensitive。</td>
+			<td><a href="/jsref/jsref_indexOf.asp">indexOf(s [, from])</a></td>
+			<td>返回搜索字串位置，返回 -1 表示找不到，case sensitive。</td>
 		</tr>
 		<tr>
-			<td><a href="/jsref/jsref_lastIndexOf.asp">lastIndexOf(s [, index])</a></td>
-			<td>從後向前搜索字元串，返回 -1 表示找不到，case sensitive。</td>
+			<td><a href="/jsref/jsref_lastIndexOf.asp">lastIndexOf(s [, from])</a></td>
+			<td>反向搜索字串，返回 -1 表示找不到，case sensitive。</td>
 		</tr>
 		<tr>
-			<td><a href="/jsref/jsref_match.asp">match(RegExp)</a></td>
-			<td>找到一個或多個正則表達式的匹配，找不到則返回 null。</td>
+			<td><a href="/jsref/jsref_match.asp">match(regExp)</a></td>
+			<td>返回與正則表達式的匹配的結果，找的到則回傳陣列，反之為 null。</td>
 		</tr>
 		<tr>
-			<td><a href="/jsref/jsref_replace.asp">replace()</a></td>
-			<td>替換與正則表達式匹配的子串。</td>
+			<td><a href="/jsref/jsref_replace.asp">replace(regExp, s)</a></td>
+			<td>替換與正則表達式匹配的字串。</td>
 		</tr>
 		<tr>
-			<td><a href="/jsref/jsref_search.asp">search()</a></td>
-			<td>檢索與正則表達式相匹配的值。</td>
+			<td><a href="/jsref/jsref_search.asp">search(regExp)</a></td>
+			<td>返回與正則表達式相匹配的值位置，返回 -1 表示找不到。</td>
 		</tr>
 		<tr>
-			<td><a href="/jsref/jsref_slice_string.asp">slice()</a></td>
-			<td>提取字元串的片斷，並在新的字元串中返回被提取的部分。</td>
+			<td><a href="/jsref/jsref_slice_string.asp">slice(start, to)</a></td>
+			<td>返回擷取字串的片斷</td>
 		</tr>
 		<tr>
 			<td><a href="/jsref/jsref_split.asp">split()</a></td>
 			<td>把字元串分割為字元串數組。</td>
 		</tr>
 		<tr>
-			<td><a href="/jsref/jsref_substr.asp">substr()</a></td>
+			<td><a href="/jsref/jsref_substr.asp">substr(start, len)</a></td>
 			<td>從起始索引號提取字元串中指定數目的字元。</td>
 		</tr>
 		<tr>
@@ -99,6 +99,10 @@
 		<tr>
 			<td><a href="/jsref/jsref_toString_string.asp">toString()</a></td>
 			<td>返回字元串。</td>
+		</tr>
+		<tr>
+			<td>repeat(times)</td>
+			<td></td>
 		</tr>
 		<tr>
 			<td>startsWith()</td>
