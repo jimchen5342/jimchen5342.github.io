@@ -26,8 +26,13 @@
 	write("substring", "Orange".substring(2));        // ange
 	write("toLowerCase", "Orange".toLowerCase());     // orange
 	write("toUpperCase", "Orange".toUpperCase());     // ORANGE
-
-//  write("", );
-//  write("", );
+	write("repeat", "a".repeat(5));                   // aaaaa
+	write("startsWith", "Orange".startsWith("O"));    // true
+	write("endsWith", "Orange".endsWith("e"));        // true
+	write("padStart", "123".padStart(6, "0"));        // 000123
+	write("padEnd", "123".padEnd(6, "0"));            // 123000
+	write("trim", "\t\n Orange\t\n ".trim().length);       // 6
+	write("trimLeft", "\t\n Orange".trimLeft().length);    // 6
+	write("trimRight", "Orange\t\n ".trimRight().length);  // 6
 </script>
 </html>

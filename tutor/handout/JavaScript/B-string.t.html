@@ -54,11 +54,11 @@
 		</tr>
 		<tr>
 			<td><a href="/jsref/jsref_indexOf.asp">indexOf(s [, from])</a></td>
-			<td>返回搜索字串位置，返回 -1 表示找不到，case sensitive。</td>
+			<td>返回搜索字串位置(預設為 0 開始)，返回 -1 表示找不到，case sensitive。</td>
 		</tr>
 		<tr>
 			<td><a href="/jsref/jsref_lastIndexOf.asp">lastIndexOf(s [, from])</a></td>
-			<td>反向搜索字串，返回 -1 表示找不到，case sensitive。</td>
+			<td>反向搜索字串位置(預設為 0 開始，但為反向)，返回 -1 表示找不到，case sensitive。</td>
 		</tr>
 		<tr>
 			<td><a href="/jsref/jsref_match.asp">match(regExp)</a></td>
@@ -98,35 +98,35 @@
 		</tr>
 		<tr>
 			<td>repeat(times)</td>
-			<td>返回原始字串重複指定的次數</td>
+			<td>返回字串重複指定的次數</td>
 		</tr>
 		<tr>
-			<td>startsWith(str[, position])</td>
-			<td>返回字串的開頭是否為指定的字串</td>
+			<td>startsWith(str[, from])</td>
+			<td>返回字串的開頭(預設為 0 開始)是否為指定的字串</td>
 		</tr>
 		<tr>
-			<td>endsWith(str[, position])</td>
-			<td>返回字串的結尾是否為指定的字串</td>
+			<td>endsWith(str[, from])</td>
+			<td>返回字串的結尾(預設為 0 開始，但為反向)是否為指定的字串</td>
 		</tr>
 		<tr>
-			<td>padStart()</td>
-			<td></td>
+			<td>padStart(len, str)</td>
+			<td>返回新字串，以指定填充的字串重複，插入到新字串的起頭(左側)，直到新字串到達指定長度</td>
 		</tr>
 		<tr>
-			<td>padEnd()</td>
-			<td></td>
+			<td>padEnd(len, str)</td>
+			<td>返回新字串，以指定填充的字串重複，插入到新字串的結尾(右側)，直到新字串到達指定長度</td>
 		</tr>		
 		<tr>
 			<td>trim()</td>
-			<td></td>
+			<td>返回清除空白、定位及換行字元後的新字串</td>
 		</tr>			
 		<tr>
 			<td>trimLeft()</td>
-			<td></td>
+			<td>返回清除左側空白、定位及換行字元後的新字串</td>
 		</tr>	
 		<tr>
 			<td>trimRight()</td>
-			<td></td>
+			<td>返回清除右側空白、定位及換行字元後的新字串</td>
 		</tr>	
 	</table>
 	<a href='http://www.w3school.com.cn/jsref/jsref_obj_string.asp' target="_parent">W3school</a>
