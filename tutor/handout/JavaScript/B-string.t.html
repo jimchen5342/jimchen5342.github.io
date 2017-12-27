@@ -33,8 +33,8 @@
 	<table class='tutor' width="100%">
 		<tr><th style="width: 200px;">靜態方法</th><th>描述</th></tr>		
 		<tr>
-			<td><a href="/jsref/jsref_fromCharCode.asp">fromCharCode(n [, n...])</a></td>
-			<td>依 Unicode 編碼傳回字串</td>
+			<td><a href="/jsref/jsref_fromCharCode.asp">fromCharCode(n [, n2...])</a></td>
+			<td>依 Unicode 編碼返回字串</td>
 		</tr>
 	</table>
 
@@ -50,7 +50,7 @@
 		</tr>
 		<tr>
 			<td><a href="/jsref/jsref_concat_string.asp">concat(s)</a></td>
-			<td>連接字元串。</td>
+			<td>連接字串。</td>
 		</tr>
 		<tr>
 			<td><a href="/jsref/jsref_indexOf.asp">indexOf(s [, from])</a></td>
@@ -62,55 +62,51 @@
 		</tr>
 		<tr>
 			<td><a href="/jsref/jsref_match.asp">match(regExp)</a></td>
-			<td>返回與正則表達式的匹配的結果，找的到則回傳陣列，反之為 null。</td>
+			<td>返回與正則表達式的匹配的結果，找的到則返回陣列，反之為 null。</td>
 		</tr>
 		<tr>
 			<td><a href="/jsref/jsref_replace.asp">replace(regExp, s)</a></td>
-			<td>替換與正則表達式匹配的字串。</td>
+			<td>替換與正則表達式匹配的字串，只替換一次。</td>
 		</tr>
 		<tr>
 			<td><a href="/jsref/jsref_search.asp">search(regExp)</a></td>
 			<td>返回與正則表達式相匹配的值位置，返回 -1 表示找不到。</td>
 		</tr>
 		<tr>
-			<td><a href="/jsref/jsref_slice_string.asp">slice(start, to)</a></td>
-			<td>返回擷取字串的片斷</td>
+			<td><a href="/jsref/jsref_slice_string.asp">slice(start[, end])</a></td>
+			<td>返回依開始位置位到結束位置(未輸入則視為全部)擷取字串的片斷</td>
 		</tr>
 		<tr>
-			<td><a href="/jsref/jsref_split.asp">split()</a></td>
-			<td>把字元串分割為字元串數組。</td>
+			<td><a href="/jsref/jsref_split.asp">split([str])</a></td>
+			<td>返回字串依指定字串(預設為逗點)分割為字串陣列。</td>
 		</tr>
 		<tr>
-			<td><a href="/jsref/jsref_substr.asp">substr(start, len)</a></td>
-			<td>從起始索引號提取字元串中指定數目的字元。</td>
+			<td><a href="/jsref/jsref_substr.asp">substr(start[, len])</a></td>
+			<td>返回依開始位置位到指定長度(未輸入則視為全部)擷取字串的片斷。ECMAscript 沒有對該方法進行標準化</td>
 		</tr>
 		<tr>
-			<td><a href="/jsref/jsref_substring.asp">substring()</a></td>
-			<td>提取字元串中兩個指定的索引號之間的字元。</td>
+			<td><a href="/jsref/jsref_substring.asp">substring(start[, end])</a></td>
+			<td>返回依開始位置位到結束位置(未輸入則視為全部)擷取字串的片斷。支援向前擷取子字串</td>
 		</tr>
 		<tr>
 			<td><a href="/jsref/jsref_toLowerCase.asp">toLowerCase()</a></td>
-			<td>把字元串轉換為小寫。</td>
+			<td>把字串全部轉換為小寫。</td>
 		</tr>
 		<tr>
 			<td><a href="/jsref/jsref_toUpperCase.asp">toUpperCase()</a></td>
-			<td>把字元串轉換為大寫。</td>
-		</tr>
-		<tr>
-			<td><a href="/jsref/jsref_toString_string.asp">toString()</a></td>
-			<td>返回字元串。</td>
+			<td>把字串全部轉換為大寫。</td>
 		</tr>
 		<tr>
 			<td>repeat(times)</td>
-			<td></td>
+			<td>返回原始字串重複指定的次數</td>
 		</tr>
 		<tr>
-			<td>startsWith()</td>
-			<td></td>
+			<td>startsWith(str[, position])</td>
+			<td>返回字串的開頭是否為指定的字串</td>
 		</tr>
 		<tr>
-			<td>endsWith()</td>
-			<td></td>
+			<td>endsWith(str[, position])</td>
+			<td>返回字串的結尾是否為指定的字串</td>
 		</tr>
 		<tr>
 			<td>padStart()</td>

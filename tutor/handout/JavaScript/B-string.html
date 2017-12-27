@@ -18,8 +18,15 @@
 	write("lastIndexOf", "assign".lastIndexOf("s"));  // 2
 	write("match", "Orange".match("ang"));            // ang
 	write("match", "1 plus 2 equal 3".match(/\d+/g)); // 1,2,3
-	write("replace", "orange".replace("o", "O"));     // Orange
-	write("search", "orange".search("ang"));          // 2
+	write("replace", "Orange".replace("O", "o"));     // orange
+	write("search", "Orange".search("ang"));          // 2
+	write("slice", "Orange".slice(2));                // ange
+	write("split", "a\nb\nc".split("\n"));            // a,b
+	write("substr", "Orange".substr(2, 3));           // ang
+	write("substring", "Orange".substring(2));        // ange
+	write("toLowerCase", "Orange".toLowerCase());     // orange
+	write("toUpperCase", "Orange".toUpperCase());     // ORANGE
+
 //  write("", );
 //  write("", );
 </script>
