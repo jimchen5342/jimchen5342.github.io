@@ -11,15 +11,28 @@
 </body>
 <script>
 	let cars = ["bike"];
-	write("length", cars.length);
+	write("length", cars.length);                  // 1
 	cars = cars.concat(['taxi']);
-	write("concat", cars);
-	write("join", cars.join("/"));
-	write("pop", cars.pop());
-	write("push", cars.push("bus"));
-	write("reverse", cars.reverse());
-	write("shift", cars.shift());
+	write("concat", cars);                         // bike,taxi
+	write("toString", cars.toString());            // bike,taxi
+	write("join", cars.join(";"));                 // bike;taxi
+	write("pop", cars.pop());                      // taxi
+	write("push", cars.push("bus"));               // 2
+	write("shift", cars.shift());                  // bike
+	write("unshift", cars.unshift("BMW"));         // 2
+	write("splice", cars.splice(0, 1, 'BENZ'));    // BMW
+	cars = cars.concat(['Giant', 'Meriod']);
+	write("slice", cars.slice(2, 4));              // Giant,Meriod
+	write("sort", cars.sort((a, b) => {            // BENZ,Giant,Meriod,bus
+		if(a > b)
+			return 1;
+		else if(a < b)
+			return -1;
+		else
+			return 0;
+	}));
+	write("reverse", cars.reverse());              // bus,Meriod,Giant,BENZ
 
-
+	write("isArray", Array.isArray(cars));        // true
 </script>
 </html>

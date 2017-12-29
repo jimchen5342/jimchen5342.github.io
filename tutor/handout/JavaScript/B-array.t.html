@@ -24,15 +24,20 @@
 		</tr>
 	</table>
 	<table class='tutor' width="100%">
-		<tr><th style="width: 180px;">方法</th><th>描述</th></tr>
+		<tr><th>方法</th><th>描述</th></tr>
 		<tr>
 			<td><a href="/jsref/jsref_concat_array.asp">concat(arr [, arr...])</a></td>
 			<td>連接兩個或更多的陣列，並返回新陣列。</td>
 		</tr>
 		<tr>
+			<td><a href="/jsref/jsref_toString_array.asp">toString()</a></td>
+			<td>把陣列轉換為字串，並返回字串。</td>
+		</tr>	
+		<tr>
 			<td><a href="/jsref/jsref_join.asp">join([str])</a></td>
 			<td>把陣列的所有元素依指定的分隔符號(預設為逗點)進行分隔，放入一個字串並返回字串。</td>
 		</tr>
+
 		<tr>
 			<td><a href="/jsref/jsref_pop.asp">pop()</a></td>
 			<td>移除陣列的最後一個元素並回傳</td>
@@ -41,34 +46,34 @@
 			<td><a href="/jsref/jsref_push.asp">push(elem [, elem...])</a></td>
 			<td>向陣列的末尾添加一個或更多元素，並返回新的長度。</td>
 		</tr>
+
+		<tr>
+			<td><a href="/jsref/jsref_shift.asp">shift()</a></td>
+			<td>移除陣列的第一個元素並回傳該元素</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_unshift.asp">unshift(elem [, elem...])</a></td>
+			<td>向陣列的開頭添加一個或更多元素，並返回新的長度。</td>
+		</tr>	
+		<tr>
+			<td><a href="/jsref/jsref_splice.asp">splice(start, len [, elem...])</a></td>
+			<td>從 start 位置開始移除指定的元素個數，並依需要在這些位置插入新元素。刪除的元素會當做新的 Array 物件傳回。</td>
+		</tr>		
+		<tr>
+			<td><a href="/jsref/jsref_slice_array.asp">slice(start [, end])</a></td>
+			<td>返回參數 start 到參數 end(不包括该元素，如沒有則視為到最後一個) 位置元素的新陣列</td>
+		</tr>
+		<tr>
+			<td><a href="/jsref/jsref_sort.asp">sort([function])</a></td>
+			<td>對陣列的元素進行排序，如果有提供 function，會依據 function 的傳回值進行排列。</td>
+		</tr>
 		<tr>
 			<td><a href="/jsref/jsref_reverse.asp">reverse()</a></td>
 			<td>顛倒陣列中元素的順序。</td>
-		</tr>
-		<tr>
-			<td><a href="/jsref/jsref_shift.asp">shift()</a></td>
-			<td>移除陣列的第一個元素並回傳</td>
-		</tr>
-		<tr>
-			<td><a href="/jsref/jsref_slice_array.asp">slice()</a></td>
-			<td>從某個已有的陣列返回選定的元素</td>
-		</tr>
-		<tr>
-			<td><a href="/jsref/jsref_sort.asp">sort()</a></td>
-			<td>對陣列的元素進行排序</td>
-		</tr>
-		<tr>
-			<td><a href="/jsref/jsref_splice.asp">splice()</a></td>
-			<td>刪除元素，並向陣列添加新元素。</td>
-		</tr>
-		<tr>
-			<td><a href="/jsref/jsref_toString_array.asp">toString()</a></td>
-			<td>把陣列轉換為字串，並返回結果。</td>
-		</tr>
-		<tr>
-			<td><a href="/jsref/jsref_unshift.asp">unshift()</a></td>
-			<td>向陣列的開頭添加一個或更多元素，並返回新的長度。</td>
-		</tr>
+		</tr>		
+
+
+
 
 		<tr>
 			<td>filter()</td>
