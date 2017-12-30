@@ -53,6 +53,9 @@
 	write("some", cars.some(item =>{               // true
 		return item.length > 3;
 	}));
-	write("isArray", Array.isArray(cars));        // true
+	write("reduce", cars.reduce((total, item) =>{  // true
+		return total += item;
+	}));
+	write("isArray", Array.isArray(cars));        // busMeriodGiantBENZ
 </script>
 </html>

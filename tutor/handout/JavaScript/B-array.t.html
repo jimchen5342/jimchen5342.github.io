@@ -77,7 +77,7 @@
 		</tr>
 		<tr>
 			<td>indexOf(value)</td>
-			<td>返回陣列中的元素是否有和參數 value 相同的元素的位置。否則回傳 -1</td>
+			<td>返回陣列中的元素是否有和參數 value 相同的元素(資料形態也要相同)的位置。否則回傳 -1</td>
 		</tr>		
 		<tr>
 			<td>fill(value)</td>
@@ -93,7 +93,7 @@
 		</tr>
 		<tr>
 			<td>find(callback)</td>
-			<td>提供測試函數，返回一個在陣列中的值。否則回傳 undefined。</td>
+			<td>返回一個在陣列中的經回呼函數測試成立的元素值，。否則回傳 undefined。</td>
 		</tr>
 		<tr>
 			<td>map(callback)</td>
@@ -108,11 +108,9 @@
 			<td>返回經傳入的回呼函示測試所有在陣列中的元素是否有任一元素符合條件</td>
 		</tr>
 		<tr>
-			<td>reduce()</td>
-			<td></td>
+			<td>reduce(callback)</td>
+			<td>返回經傳入的回呼函示累加的值</td>
 		</tr>
-
-		
 	</table>
 	<table class='tutor' width="100%">
 		<tr><th style="width: 130px;">靜態方法</th><th>描述</th></tr>
