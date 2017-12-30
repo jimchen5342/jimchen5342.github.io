@@ -32,7 +32,27 @@
 			return 0;
 	}));
 	write("reverse", cars.reverse());              // bus,Meriod,Giant,BENZ
-
+	write("includes", cars.includes("Giant"));     // true
+	write("indexOf", cars.indexOf("Giant"));       // 1
+	write("fill", [1, 2, 3].fill(0));              // 0,0,0
+	cars.forEach((item, index) =>{
+		write("forEach", index + " => " + item); 
+	});
+	write("filter", cars.filter(item =>{           // Meriod,Giant,BENZ
+		return item.length > 3;
+	}));
+	write("find", cars.find(item =>{               // Meriod
+		return item.length > 3;
+	}));
+	write("map", cars.map(item =>{                 // BUS,MERIOD,GIANT,BENZ
+		return item.toUpperCase();
+	}));
+	write("every", cars.every(item =>{             // false
+		return item.length > 3;
+	}));
+	write("some", cars.some(item =>{               // true
+		return item.length > 3;
+	}));
 	write("isArray", Array.isArray(cars));        // true
 </script>
 </html>

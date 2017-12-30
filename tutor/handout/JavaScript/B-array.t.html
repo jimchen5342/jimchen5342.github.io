@@ -65,44 +65,54 @@
 		</tr>
 		<tr>
 			<td><a href="/jsref/jsref_sort.asp">sort([function])</a></td>
-			<td>對陣列的元素進行排序，如果有提供 function，會依據 function 的傳回值進行排列。</td>
+			<td>對陣列的元素進行排序，如果有提供 function，會依據 function 的傳回值進行排列，否則會轉成字串後排序。</td>
 		</tr>
 		<tr>
 			<td><a href="/jsref/jsref_reverse.asp">reverse()</a></td>
-			<td>顛倒陣列中元素的順序。</td>
+			<td>對陣列的元素進行反排序。</td>
+		</tr>
+		<tr>
+			<td>includes(value)</td>
+			<td>返回陣列是否包含參數 value 的相同值</td>
+		</tr>
+		<tr>
+			<td>indexOf(value)</td>
+			<td>返回陣列中的元素是否有和參數 value 相同的元素的位置。否則回傳 -1</td>
 		</tr>		
-
-
-
-
 		<tr>
-			<td>filter()</td>
-			<td></td>
+			<td>fill(value)</td>
+			<td>陣列所有元素均填入參數 value 的相同值</td>
 		</tr>
 		<tr>
-			<td>find()</td>
-			<td></td>
+			<td>forEach(callback)</td>
+			<td>陣列內的每個元素，都執行指定的函式一次</td>
 		</tr>
 		<tr>
-			<td>forEach</td>
-			<td></td>
+			<td>filter(callback)</td>
+			<td>返回經指定之函式運算後，由原陣列中通過該函式檢驗之元素所構成的新陣列</td>
 		</tr>
 		<tr>
-			<td>map()</td>
-			<td></td>
+			<td>find(callback)</td>
+			<td>提供測試函數，返回一個在陣列中的值。否則回傳 undefined。</td>
 		</tr>
 		<tr>
-			<td>every()</td>
-			<td></td>
+			<td>map(callback)</td>
+			<td>返回其內容為原陣列的每一個元素經由回呼函式運算後傳的新陣列</td>
 		</tr>
 		<tr>
-			<td>some()</td>
-			<td></td>
+			<td>every(callback)</td>
+			<td>返回經傳入的回呼函示測試所有在陣列中的元素是否全部符合條件</td>
+		</tr>
+		<tr>
+			<td>some(callback)</td>
+			<td>返回經傳入的回呼函示測試所有在陣列中的元素是否有任一元素符合條件</td>
 		</tr>
 		<tr>
 			<td>reduce()</td>
 			<td></td>
 		</tr>
+
+		
 	</table>
 	<table class='tutor' width="100%">
 		<tr><th style="width: 130px;">靜態方法</th><th>描述</th></tr>
