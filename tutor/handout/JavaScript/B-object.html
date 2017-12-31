@@ -10,6 +10,45 @@
 <body>
 </body>
 <script>
+	let props = {name: "vehicle"};
+	let vehicle = Object.create(props);
+	list("create", vehicle);
+	let bus = Object.assign(props, {wheels: 4, name: 'bus'});
+	list("assign", bus);
 
+	Object.defineProperty(bus, "color", {
+		//value: "red", 
+		enumerable: true,
+		set: function (x) {
+        this._color = x;
+    },
+    get: function () {
+        return this.value;
+    }
+	});
+	list("defineProperty", bus);
+
+	Object.defineProperties(bus, {
+		"width": {
+			enumerable: true,
+			value: 150
+		},
+		"height": {
+			enumerable: true,
+			value: 200
+		}
+	});
+	list("defineProperties", bus);
+	write("keys", Object.keys(bus));
+	list("getOwnPropertyNames", Object.getOwnPropertyNames(bus));
+	list("getOwnPropertyDescriptor", Object.getOwnPropertyDescriptor(bus, "color"));
+	write("hasOwnProperty", bus.hasOwnProperty("color"));
+
+	function list(title, obj) {
+		write(title);
+		for(let key in obj){
+			write("&nbsp;&nbsp;" + key, obj[key]);
+		}
+	}
 </script>
 </html>
