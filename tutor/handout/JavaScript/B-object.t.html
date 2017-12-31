@@ -31,14 +31,23 @@
 		</tr>
 	</table>
 	<table class='tutor' width="100%">
+		<tr><th style="width:25%">方法</th><th>描述</th></tr>
+			<td>hasOwnProperty(key)</td>
+			<td>返回物件是否有參數 key 指定之名稱的屬性。</td>
+		</tr>
+	</table>
+	<table class='tutor' width="100%">
 		<tr><th style="width:25%">靜態方法</th><th>描述</th></tr>
 		<tr>
 			<td>create(props)</td>
-			<td>指定其原型物件與屬性，創建一個新物件</td>
+			<td>返回一個新物件，指定其原型物件與屬性</td>
 		</tr>
 		<tr>
 			<td>assign(target, source...)</td>
-			<td>回傳複製一個或多個物件自身所有可數的屬性個目標物件</td>
+			<td>返回一個新物件，其所複製一個或多個物件，所有可列舉的屬性。
+					如果在參數 target 裡的屬性名稱(key)和參數 source 的屬性名稱相同，將會被覆寫。<br/>
+					注意：target 同時也會改變
+			</td>
 		</tr>
 		<tr>
 			<td>defineProperty(obj, propName, descriptor)</td>
@@ -50,12 +59,9 @@
 					<li>configurable：可否變更屬性 (Property) 的屬性值 (Attribute)，及可否刪除屬性 (Property)，
 						如果為 false 則只能修改 enumerable，預設為 false</li>
 					<li>writable：可否修改屬性值，預設為 false</li>
-					<li>set：設定屬性值的函式。它的一個參數包含要指派的值</li>
+					<li>set：設定屬性值的函式。它的一個參數包含要指派的值，不可和 value 並傳</li>
 					<li>get：傳回屬性值的函式；如果未定義 get 存取子，而且嘗試存取屬性值，則會傳回 undefined 值</li>
 				</ol>
-				如果您加入資料屬性，而不使用 Object.defineProperty、Object.defineProperties 或 Object.create 函式，
-				則 writable、enumerable 和 configurable 屬性都會設定為 true。在加入屬性之後，
-				您就可以使用 Object.defineProperty 函式加以修改。
 			</td>
 		</tr>
 		<tr>
@@ -76,12 +82,6 @@
 			<td>getOwnPropertyDescriptor(obj, propName)</td>
 			<td>返回描述元物件</td>
 		</tr>	
-	</table>
-	<table class='tutor' width="100%">
-		<tr><th style="width:25%">方法</th><th>描述</th></tr>
-		<td>hasOwnProperty(key)</td>
-		<td>返回物件是否有參數 key 指定之名稱的屬性。</td>
-	</tr>
 	</table>
 	
 	<a href='https://docs.microsoft.com/zh-tw/scripting/javascript/reference/object-object-javascript'>Microsoft Object 物件</a><br/>

@@ -17,8 +17,9 @@
 	write("indexOf", "assign".indexOf("s"));          // 1
 	write("lastIndexOf", "assign".lastIndexOf("s"));  // 2
 	write("match", "Orange".match("ang"));            // ang
-	write("match", "1 plus 2 equal 3".match(/\d+/g)); // 1,2,3
+	write("match", "1+2=3".match(/\d+/g));            // 1,2,3
 	write("replace", "Orange".replace("O", "o"));     // orange
+	write("replace", "1+1=2".replace(/\d+/g, "a"));   // a+a=a
 	write("search", "Orange".search("ang"));          // 2
 	write("slice", "Orange".slice(2));                // ange
 	write("split", "a\nb\nc".split("\n"));            // a,b
