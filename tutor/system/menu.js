@@ -1,3 +1,4 @@
+// 2017/10/09 開始
 let menu = [
 	{
 		text: "HTML",
@@ -304,6 +305,10 @@ let menu = [
 			}, {
 				id: "B-object",
 				text: "Object",
+				files: "html"
+			}, {
+				id: "B-RegExp",
+				text: "RegExp",
 				files: "html"				
 			}]	
 			/*}, {
