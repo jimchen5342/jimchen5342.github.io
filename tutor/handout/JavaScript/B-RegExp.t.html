@@ -34,7 +34,7 @@
 </head>	
 <body class="easyui-tabs" style="width: 100%; height: 100%;" onresize="$('body').tabs('resize')">
   <div title="基本語法">
-    正規表達式(RegExp)是被用來匹配字串中字元組合的模式<br/>
+    正規表達式(RegExp)是被用來比對字串中字元組合的模式<br/>
     <pre>
       <code class='javascript'>
         let exp = /pattern/flag;
@@ -45,8 +45,8 @@
     <h4>RegExp</h4>
     <table class='tutor' width='100%'>
       <tr><th>方法</th><th>描述</th></tr>
-      <tr><td>exec(str)</td><td>返回參數 str 匹配的結果(陣列 / null)</td></tr>
-      <tr><td>test(str)</td><td>返回參數 str 匹配的結果(true / false)</td></tr>
+      <tr><td>exec(str)</td><td>返回參數 str 比對的結果(陣列 / null)</td></tr>
+      <tr><td>test(str)</td><td>返回參數 str 比對的結果(true / false)</td></tr>
     </table>
 
     <h4>String</h4>
@@ -61,73 +61,77 @@
     <a href='https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Regular_Expressions'>MDN</a>
     <br/>
     <a href='http://www.w3school.com.cn/jsref/jsref_obj_regexp.asp' target='_parent'>W3School</a>
+    <br/>
+    <a href='http://javascript.ruanyifeng.com/stdlib/regexp.html' target='_parent'>JavaScript 标准参考教程（alpha）目录</a>
   </div>
   <div title="字元類別">
     <ol>
-      <li><h4>.</h4>：匹配除了換行符號 \n \r 之外的單一字元
+      <li><h4>.</h4>：比對除了換行符號 \n \r 之外的單一字元
         <pre>
           <code class='javascript'>
             /a.c/.test("abc"); // true
           </code>
         </pre>
       </li>
-      <li><h4>[\s\S]</h4>：匹配任意一個字元，包含換行符號。
+      <li><h4>[\s\S]</h4>：比對任意一個字元，包含換行符號。
         <pre>
           <code class='javascript'>
             /a[\s\S]c/.test("abc"); // true
           </code>
         </pre>
       </li>
-      <li><h4>\w</h4>：匹配所有大小寫英文字、阿拉伯數字和底線 _；等於 [A-Za-z0-9_]
+      <li><h4>\w</h4>：比對所有大小寫英文字、阿拉伯數字和底線 _；等於 [A-Za-z0-9_]
         <pre>
           <code class='javascript'>
               /a\wc/.test('abc');  // true
           </code>
         </pre>
       </li>
-      <li><h4>\W</h4>：匹配 \w 以外的所有字；等於 [^A-Za-z0-9_]。
+      <li><h4>\W</h4>：比對 \w 以外的所有字；等於 [^A-Za-z0-9_]。
         <pre>
           <code class='javascript'>
               /a\Wc/.test('a#c');  // true
           </code>
         </pre>
       </li>
-      <li><h4>\d</h4>：匹配所有阿拉伯數字 0-9；等於 [0-9]。
+      <li><h4>\d</h4>：比對所有阿拉伯數字 0-9；等於 [0-9]。
         <pre>
           <code class='javascript'>
               /a\dc/.test('a5c');  // true
           </code>
         </pre>
       </li>
-      <li><h4>\D</h4>：匹配 \d 以外的所有字；等於 [^0-9]。
+      <li><h4>\D</h4>：比對 \d 以外的所有字；等於 [^0-9]。
         <pre>
           <code class='javascript'>
               /a\Dc/.test('abc');  // true
           </code>
         </pre>
       </li>
-      <li><h4>\s</h4>：匹配所有的空白字元 (whitespace)；空白 (space)、tab 和換行符號 \r \n。
+      <li><h4>\s</h4>：比對所有的空白字元 (whitespace)；空白 (space)、tab 和換行符號 \r \n；
+        等於 [\t\r\n\v\f]。
         <pre>
           <code class='javascript'>
               /a\sc/.test('a c');  // true
           </code>
         </pre>
       </li> 
-      <li><h4>\S</h4>：匹配 \s 以外的所有字。
+      <li><h4>\S</h4>：比對 \s 以外的所有字；
+        等於 [^\t\r\n\v\f]。
         <pre>
           <code class='javascript'>
               /a\Sc/.test('a5c');  // true
           </code>
         </pre>
       </li> 
-      <li><h4>[ ]</h4>：表示一個字元集合，整個中括號代表一個字元，裡面的內容就是這個字元的所有可能。
+      <li><h4>[ ]</h4>：表示一個字元集合，比對在字元集合裡面的任一字元。
         <pre>
           <code class='javascript'>
             /a[bc123]d/.test("a2d"); // true
           </code>
         </pre>
       </li> 
-      <li><h4>[^ ]</h4>：用來匹配不在字元集合裡面的字元
+      <li><h4>[^ ]</h4>：用來比對不在字元集合裡面的字元。
         <pre>
           <code class='javascript'>
               /^a[bc123]d/.test("a4d"); // true
@@ -141,7 +145,7 @@
           </code>
         </pre>
       </li>
-      <li><h4>[^ -]</h4>：用來匹配不在連續字元集合裡面的字元
+      <li><h4>[^ -]</h4>：用來比對不在連續字元集合裡面的字元
         <pre>
           <code class='javascript'>
               /a[^0-9]c/.test("abc"); // true
@@ -152,14 +156,14 @@
   </div>
   <div title="錨點符號">
     <ol>
-      <li><h4>^</h4>：用來表示只匹配以 ... 「開頭」的字串
+      <li><h4>^</h4>：用來表示只比對以 ... 「開頭」的字串
         <pre>
           <code class='javascript'>
             /^hello/.test('hello world');   // true
           </code>
         </pre>
       </li>
-      <li><h4>$</h4>：用來表示只匹配以 ... 「結尾」的字串。
+      <li><h4>$</h4>：用來表示只比對以 ... 「結尾」的字串。
         <pre>
           <code class='javascript'>
             /world$/.test('hello world');   // true
@@ -169,7 +173,7 @@
           </code>
         </pre>
       </li>
-      <li><h4>\b</h4>：匹配單字邊界 (word boundary)，
+      <li><h4>\b</h4>：比對單字邊界 (word boundary)，
           表示字元的「前面」或「後面」除了空白字元 (whitespace)、標點符號 (punctuation) 
           或是在字串開頭或結尾外不可再有其它字元。
         <pre>
@@ -178,7 +182,7 @@
           </code>
         </pre>
       </li>
-      <li><h4>\B</h4>：匹配非單字邊界 (word boundary)
+      <li><h4>\B</h4>：比對非單字邊界 (word boundary)
         <pre>
           <code class='javascript'>
             /llo\B/.test('hello world'); // false
@@ -190,21 +194,29 @@
   <div title="群組">
     在 pattern 中，用小括號 ( ) 圈住的部分表示一個子樣式 (subexpression)，也稱作是一個群組 (group)。
     <ol>
-      <li>小括號在 Regex 當中也有 group 的意思，用在把括號內的條件式當作是一個整體。
-        例如 (foo){2,} 表示匹配連續出現兩次以上的 foo 字串，
-        而不是像 foo{2,} 中的量詞 {2,} 只會作用在最後的 o 字元。
+      <li><h4>(pattern)</h4>：會得到匹配成功的字串，以及記憶樣本的字串
         <pre><code class='javascript'>
-            /fred+/.test('fredd')      // true
-            /(fred)+/.test('fredfred') // true
+          /fred+/.test('fredd')      // true
+          /(fred)+/.test('fredfred') // true
+
+          /x(y+)z/g.exec("xxxyyyyzze") // xyyyyz,yyyy
         </code></pre>
       </li>
-      <!--
-      <li>pattern 裡面的小括號可以用來擷取 (capture) 出子字串 (substring)，
-        你最後可以從匹配群組 (capturing group) 的結果中取得這些子字串。</li>
-      <li>pattern 裡面如果有小括號，那麼括號中匹配到的子字串是可以在 pattern 中再被取出來使用的，
-        這行為稱作回朔 (backreference)。
+      <li><h4>(?:pattern)</h4>：會得到匹配成功的字串，不會返回記憶樣本的字串
+        <pre><code class='javascript'>
+          /x(?:y+)z/g.exec("xxxyyyyzze") // xyyyyz
+        </code></pre>
       </li>
-      -->
+      <li><h4>x(?=y)</h4>：當 x 後面接著 y 時進行 x 的比對。但是 y 並不算在匹配成功的回傳字串內。
+        <pre><code class='javascript'>
+          /x(?=y)/g.exec("xxxyyyyzze") // x
+        </code></pre>
+      </li>
+      <li><h4>x(?!y)</h4>：當 x 後面不接著 y 時進行 x 的比對。
+          <pre><code class='javascript'>
+              /x(?!y|z)/.exec("xyz") // null
+          </code></pre>
+      </li>
     </ol>
   </div>
   <!--<div title="環顧">
@@ -233,10 +245,10 @@
           </code>
         </pre>
       </li>
-      <li><h4>+?</h4>：一旦條件滿足，就不再往下匹配。
+      <li><h4>+?</h4>：一旦條件滿足，就不再往下比對。
         <pre>
           <code class='javascript'>
-            var s = 'aaa';
+            let s = 'aaa';
             s.match(/a+/); // ["aaa"]
 
             s.match(/a+?/); // ["a"]
@@ -292,9 +304,9 @@
       </tr>
       <tr>
         <td>g</td>
-        <td>使用全局匹配模式。有時候你會希望重複匹配目標字串多次，使用 g flag 就可以保留 lastIndex 的狀態，
-          讓下一次再匹配時，可以從 lastIndex 的位置開始找起，你就可以遍歷整個文本中的所有可匹配字串。<br/>
-          如果沒有開啟 g flag，Regex 引擎只會返回「第一個」匹配到的字串結果</td>
+        <td>使用全局比對模式。有時候你會希望重複比對目標字串多次，使用 g flag 就可以保留 lastIndex 的狀態，
+          讓下一次再比對時，可以從 lastIndex 的位置開始找起，你就可以遍歷整個文本中的所有可比對字串。<br/>
+          如果沒有開啟 g flag，Regex 引擎只會返回「第一個」比對到的字串結果</td>
       </tr>
     </table>
   </div>
