@@ -309,7 +309,7 @@ let menu = [
 			}, {
 				id: "B-RegExp",
 				text: "RegExp",
-				files: "html"				
+				//files: "html"				
 			}]	
 			/*}, {
 				text: "BOM",
