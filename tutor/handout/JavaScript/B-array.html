@@ -11,8 +11,8 @@
 </body>
 <script>
 	let cars = ["bike"];
-	write("length", cars.length);                  // 1
 	write("isArray", Array.isArray(cars));     		 // true
+	write("length", cars.length);                  // 1
 
 	cars = cars.concat(['taxi']);
 	write("concat", cars);                         // bike,taxi
@@ -40,6 +40,10 @@
 	cars.forEach((item, index) =>{
 		write("forEach", index + " => " + item); 
 	});
+	for(let i = 0; i < cars.length; i++){
+		write("for", i + " => " + cars[i]);
+	}
+
 	write("filter", cars.filter(item =>{       // Meriod,Giant,BENZ
 		return item.length > 3;
 	}));
@@ -55,7 +59,7 @@
 	write("some", cars.some(item =>{           // true
 		return item.length > 3;
 	}));
-	write("reduce", cars.reduce((total, item) =>{ // true
+	write("reduce", [1,2,3,4,5].reduce((total, item) =>{ // 15
 		return total += item;
 	}));
 	
