@@ -14,11 +14,11 @@
 	write('/a/.test("xyz")', /a/.test("xyz")); // false
 
 	write('/x(?=y)/g.exec("xyz")', /x(?=y)/g.exec("xyz")); // x
-	write('/x(?=y)/g.exec("xz")', /x(?=y)/g.exec("xz")); // x
+	write('/x(?=y)/g.exec("xz")', /x(?=y)/g.exec("xz"));   // x
 
 	write('"1a2b3c".replace(/\d/g, "-")', 
-		"1a2b3c".replace(/\d/g, "-")); // -a-b-c
+		"1a2b3c".replace(/\d/g, "-"));         // -a-b-c
 	write('"1a2b3c".replace(/[a-z]/g, "-")', 
-		"1a2b3c".replace(/[a-z]/g, "-")); // 1-2-3-
+		"1a2b3c".replace(/[a-z]/g, "-"));      // 1-2-3-
 </script>
 </html>
