@@ -56,6 +56,7 @@
       <li>search(reg)</li>
     </ol>
     <span>參考</span><br/>
+    <a href='https://atedev.wordpress.com/2007/11/23/%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%A4%BA%E5%BC%8F-regular-expression/'>正規表示式 Regular Expression</a><br/>
     <a href='https://www.fooish.com/regex-regular-expression/' target='_parent'>Regex 教學</a>
     <br/>
     <a href='https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Guide/Regular_Expressions'>MDN</a>
@@ -66,6 +67,15 @@
   </div>
   <div title="字元類別">
     <ol>
+      <li>比對
+        <pre>
+          <code class='javascript'>
+            /a/.test("abc"); // true
+            /a/.test("xyz"); // false
+          </code>
+        </pre>
+      </li>
+
       <li><h4>.</h4>：比對除了換行符號 \n \r 之外的單一字元
         <pre>
           <code class='javascript'>
