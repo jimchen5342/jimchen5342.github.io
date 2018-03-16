@@ -13,20 +13,24 @@
 	let props = {name: "vehicle"};
 	let vehicle = Object.create(props);
 	list("create", vehicle);
+	write("hasOwnProperty", vehicle.hasOwnProperty("name")); // true
+
 	let bus = Object.assign(props, {wheels: 4, name: 'bus'});
-	list("assign", bus);
+	list("bus.assign", bus);
 
 	Object.defineProperty(bus, "color", {
-		//value: "red", 
+		//value: "red",
+		//writable: true, 
 		enumerable: true,
 		set: function (x) {
         this._color = x;
     },
     get: function () {
-        return this.value;
+        return typeof this.value == "undefined" ? "red" : this.value;
     }
 	});
-	list("defineProperty", bus);
+	//bus.color = "blue"
+	list("bus.defineProperty", bus);
 
 	Object.defineProperties(bus, {
 		"width": {
@@ -38,11 +42,11 @@
 			value: 200
 		}
 	});
-	list("defineProperties", bus);
-	write("keys", Object.keys(bus));
-	list("getOwnPropertyNames", Object.getOwnPropertyNames(bus));
-	list("getOwnPropertyDescriptor", Object.getOwnPropertyDescriptor(bus, "color"));
-	write("hasOwnProperty", bus.hasOwnProperty("color"));
+	list("bus.defineProperties", bus);
+	write("bus.keys", Object.keys(bus));
+	list("bus.getOwnPropertyNames", Object.getOwnPropertyNames(bus));
+	list("bus.getOwnPropertyDescriptor", Object.getOwnPropertyDescriptor(bus, "color"));
+	
 
 	function list(title, obj) {
 		write(title);

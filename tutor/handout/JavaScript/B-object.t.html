@@ -54,13 +54,21 @@
 			<td>將屬性加入至物件，或修改現有屬性 (Property) 的屬性值 (Attribute)。<br/>
 				<h4>descriptor</h4>
 				<ol>
-					<li>value：屬性預設值，預設為 undefined</li>
 					<li>enumerable：決定這個屬性能否被 for…in 查找遍歷到，預設為 false</li>
-					<li>configurable：可否變更屬性 (Property) 的屬性值 (Attribute)，及可否刪除屬性 (Property)，
-						如果為 false 則只能修改 enumerable，預設為 false</li>
-					<li>writable：可否修改屬性值，預設為 false</li>
-					<li>set：設定屬性值的函式。它的一個參數包含要指派的值，不可和 value 並傳</li>
-					<li>get：傳回屬性值的函式；如果未定義 get 存取子，而且嘗試存取屬性值，則會傳回 undefined 值</li>
+					<li><br/>
+						<ol type='a'>
+								<li>value：屬性預設值，預設為 undefined</li>
+							<li>configurable：可否變更屬性 (Property) 的屬性值 (Attribute)，及可否刪除屬性 (Property)，
+								如果為 false 則只能修改 enumerable，預設為 false</li>
+							<li>writable：可否修改屬性值，預設為 false</li>
+						</ol>
+					</li>
+					<li><br/>
+						<ol type='a'>
+							<li>set：設定屬性值的函式。它的一個參數包含要指派的值，不可和 value 並傳</li>
+							<li>get：傳回屬性值的函式；如果未定義 get 存取子，而且嘗試存取屬性值，則會傳回 undefined 值</li>
+						</ol>						
+					</li>
 				</ol>
 			</td>
 		</tr>
