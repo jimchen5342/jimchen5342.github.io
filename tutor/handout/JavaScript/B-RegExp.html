@@ -10,15 +10,18 @@
 <body>
 </body>
 <script>
-	write('/a/.test("abc")', /a/.test("abc")); // true
-	write('/a/.test("xyz")', /a/.test("xyz")); // false
+	let exp = new RegExp("a");
+	write('1-1. exp.test("abc")', exp.test("abc"));       // true
+	write('1-2. exp.test("xyz")', exp.test("xyz"));       // false
+	write('1-3. /a/.test("abc")', /a/.test("abc"));       // true
 
-	write('/x(?=y)/g.exec("xyz")', /x(?=y)/g.exec("xyz")); // x
-	write('/x(?=y)/g.exec("xz")', /x(?=y)/g.exec("xz"));   // x
+	exp = new RegExp("x(?=y)", 'g');
+	write('2-1. exp.exec("xyz")', exp.exec("xyz"));       // x
+	write('2-2. /x(?=y)/g.exec("xz")', exp.exec("xz"));   // null
 
-	write('"1a2b3c".replace(/\d/g, "-")', 
-		"1a2b3c".replace(/\d/g, "-"));         // -a-b-c
-	write('"1a2b3c".replace(/[a-z]/g, "-")', 
-		"1a2b3c".replace(/[a-z]/g, "-"));      // 1-2-3-
+	write('3-1. "1a2b3c".replace(/\d/g, "-")', 
+		"1a2b3c".replace(/\d/g, "-"));                      // -a-b-c
+	write('3-2. "1a2b3c".replace(/[a-z]/g, "-")', 
+		"1a2b3c".replace(/[a-z]/g, "-"));                   // 1-2-3-
 </script>
 </html>

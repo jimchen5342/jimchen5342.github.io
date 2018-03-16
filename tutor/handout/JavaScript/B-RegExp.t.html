@@ -34,21 +34,28 @@
 </head>	
 <body class="easyui-tabs" style="width: 100%; height: 100%;" onresize="$('body').tabs('resize')">
   <div title="基本語法">
-    正規表達式(RegExp)是被用來比對字串中字元組合的模式<br/>
+    <h4>RegExp</h4>
+    ：正規表達式(RegExp)是被用來比對字串中字元組合的模式<br/>
+    <table class='tutor' width='100%'>
+      <tr><th style="width: 100px;">屬性</th><th>描述</th></tr>
+      <tr><td>lastIndex</td><td>可讀可寫的整型屬性，用來指定下一次匹配的起始索引，
+        只有正則表達式使用了表示全局檢索的 "g" 標誌時，該屬性才會起作用。</td></tr>
+    </table>
+    <table class='tutor' width='100%'>
+      <tr><th style="width: 100px;">方法</th><th>描述</th></tr>
+      <tr><td>test(str)</td><td>返回參數 str 比對的結果(true / false)</td></tr>
+      <tr><td>exec(str)</td><td>返回參數 str 比對的結果(陣列 / null)
+
+      </td></tr>
+    </table>
+
+    
     <pre>
       <code class='javascript'>
         let exp = /pattern/flag;
         let exp = new RegExp(pattern, flag);
       </code>
     </pre>
-    
-    <h4>RegExp</h4>
-    <table class='tutor' width='100%'>
-      <tr><th>方法</th><th>描述</th></tr>
-      <tr><td>exec(str)</td><td>返回參數 str 比對的結果(陣列 / null)</td></tr>
-      <tr><td>test(str)</td><td>返回參數 str 比對的結果(true / false)</td></tr>
-    </table>
-
     <h4>String</h4>
     <ol>
       <li>replace(reg, str)</li>
@@ -83,6 +90,7 @@
           </code>
         </pre>
       </li>
+      <!--
       <li><h4>[\s\S]</h4>：比對任意一個字元，包含換行符號。
         <pre>
           <code class='javascript'>
@@ -90,6 +98,7 @@
           </code>
         </pre>
       </li>
+      -->
       <li><h4>\w</h4>：比對所有大小寫英文字、阿拉伯數字和底線 _；等於 [A-Za-z0-9_]
         <pre>
           <code class='javascript'>
@@ -166,7 +175,8 @@
   </div>
   <div title="錨點符號">
     <ol>
-      <li><h4>^</h4>：用來表示只比對以 ... 「開頭」的字串
+      <li><h4>^</h4>：用來表示只比對以 ...「開頭」的字串<br>
+        註：在字元集合[]的用法不同
         <pre>
           <code class='javascript'>
             /^hello/.test('hello world');   // true
@@ -178,8 +188,8 @@
           <code class='javascript'>
             /world$/.test('hello world');   // true
 
-            /^test$/.test('test'); // true
-            /^test$/.test('test test'); // false
+            /^test$/.test('test');          // true
+            /^test$/.test('test test');     // false
           </code>
         </pre>
       </li>
@@ -206,9 +216,7 @@
     <ol>
       <li><h4>(pattern)</h4>：會得到匹配成功的字串，以及記憶樣本的字串
         <pre><code class='javascript'>
-          /fred+/.test('fredd')      // true
-          /(fred)+/.test('fredfred') // true
-
+          /gr(a|e)y/.test("gray")      // true
           /x(y+)z/g.exec("xxxyyyyzze") // xyyyyz,yyyy
         </code></pre>
       </li>
