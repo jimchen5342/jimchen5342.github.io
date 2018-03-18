@@ -93,13 +93,35 @@
 	document.getElementById("pattern").oninput = inform;
 	document.getElementById("val").oninput = inform;
 	document.getElementById("rv").oninput = inform;
+	document.getElementById("sv").oninput = inform;
 	document.getElementById("test").onclick = inform;
 	document.getElementById("exec").onclick = inform;
 	document.getElementById("replace").onclick = inform;
 	document.getElementById("search").onclick = inform;
 	document.getElementById("g").onclick = inform;
 
-	function inform(){
+	function inform(e){
+		//console.log(e.target)
+		if(e.type == "click"){
+			if(e.target == document.getElementById("search")){
+				val.disabled = true;
+				val.value = "";
+				rv.value = "";
+			} else {
+				val.disabled = false;
+				sv.value = "";
+				rv.value = "";
+			}
+		} else if(e.target == rv){
+			val.disabled = false;
+			sv.value = "";
+			document.getElementById("replace").checked = true;
+		} else if(e.target == sv){
+			val.disabled = true;
+			val.value = "";
+			rv.value = "";
+			document.getElementById("search").checked = true; 
+		}
 		g = document.getElementById("g").checked;
 		answer.innerText = "";
 		if(pattern.value.length == 0){
