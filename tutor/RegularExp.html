@@ -53,6 +53,11 @@
 						<label for='replace'>replace()</label>
 						<input id='rv' type='text' />
 					</div>
+					<div>
+							<input type='radio' id='search' name='radio'/> 
+							<label for='search'>search()</label>
+							<input id='sv' type='text' />
+						</div>
 				</fieldset>
 			</td>
 		</tr>
@@ -75,7 +80,8 @@
 	let answer = document.getElementById("answer"),
 		pattern = document.getElementById("pattern"),
 		val = document.getElementById("val"),
-		rv = document.getElementById("rv");
+		rv = document.getElementById("rv"),
+		sv = document.getElementById("sv");
 	document.getElementById("reset").onclick = function() {
 		pattern.value = "";
 		val.value = "";
@@ -90,21 +96,24 @@
 	document.getElementById("test").onclick = inform;
 	document.getElementById("exec").onclick = inform;
 	document.getElementById("replace").onclick = inform;
+	document.getElementById("search").onclick = inform;
 	document.getElementById("g").onclick = inform;
 
 	function inform(){
 		g = document.getElementById("g").checked;
 		answer.innerText = "";
 		if(pattern.value.length == 0){
-		} else if(val.value.length == 0){
+		} else if(document.getElementById("search").checked == false && val.value.length == 0){
 		} else if(document.getElementById("test").checked)
 			test();
 		else if(document.getElementById("exec").checked)
 			exec();
-		else {
-			if(rv.value.length == 0){
-			} else
+		else if(document.getElementById("replace").checked){
+			if(rv.value.length > 0)
 				replace();
+		} else if(document.getElementById("search").checked){
+			if(sv.value.length > 0)
+				search();
 		}
 	}
 
@@ -135,9 +144,18 @@
 	function replace() {
 		let exp = initial();
 		if(typeof exp == "object"){
-			answer.innerHTML = "Exp Replace：'" + rv.value + "'" +  
+			answer.innerHTML = "Exp replace：'" + rv.value + "'" +  
 				".replace(/" + pattern.value + "/" + (g == true ? "g" : "") + ", '" + val.value + "');<br/>" + 
 				"Answer：" + rv.value.replace(exp, val.value);
+		}
+	}
+
+	function search() {
+		let exp = initial();
+		if(typeof exp == "object"){
+			answer.innerHTML = "Exp search'" + sv.value + "'" +  
+				".search(/" + pattern.value + "/" + (g == true ? "g" : "") + ");<br/>" + 
+				"Answer：" + sv.value.search(exp);
 		}
 	}
 	document.getElementById("pattern").focus();
