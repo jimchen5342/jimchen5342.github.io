@@ -207,37 +207,6 @@
       </li>
     </ol>
   </div>
-  <div title="群組">
-    在 pattern 中，用小括號 ( ) 圈住的部分表示一個子樣式 (subexpression)，也稱作是一個群組 (group)。<br/>
-    小括號在 Regex 當中也有 group 的意思，用在把括號內的條件式當作是一個整體。例如 (foo){2,} 
-    表示匹配連續出現兩次以上的 foo 字串，而不是像 foo{2,} 中的量詞 {2,} 只會作用在最後的 o 字元。
-
-    <ol>
-      <li><h4>(pattern)</h4>：會得到匹配成功的字串，以及記憶樣本的字串
-        <pre><code class='javascript'>
-          /gr(a|e)y/.test("gray")      // true
-          /x(y+)z/g.exec("xxxyyyyzze") // xyyyyz,yyyy
-        </code></pre>
-      </li>
-      <li><h4>(?:pattern)</h4>：會得到匹配成功的字串，不會返回記憶樣本的字串
-        <pre><code class='javascript'>
-          /x(?:y+)z/g.exec("xxxyyyyzze") // xyyyyz
-        </code></pre>
-      </li>
-      <li><h4>x(?=y)</h4>：當 x 後面接著 y 時進行 x 的比對。但是 y 並不算在匹配成功的回傳字串內。
-        <pre><code class='javascript'>
-          /x(?=y)/g.exec("xxxyyyyzze") // x
-          /x(?=y)/g.exec("xray")       // null
-        </code></pre>
-      </li>
-      <li><h4>x(?!y)</h4>：當 x 後面不接著 y 時進行 x 的比對。
-          <pre><code class='javascript'>
-              /x(?!y|z)/.exec("xyz")    // null
-              /x(?!y|z)/.exec("xray")   // x
-          </code></pre>
-      </li>
-    </ol>
-  </div>
   <div title="量詞">
     <ol>
       <li><h4>+</h4>：匹配前一字元 1 至多次，等價於 {1,}。
@@ -298,6 +267,37 @@
             /green|red/.exec('green apple'); // [green]
           </code>
         </pre>
+      </li>
+    </ol>
+  </div>  
+  <div title="群組">
+    在 pattern 中，用小括號 ( ) 圈住的部分表示一個子樣式 (subexpression)，也稱作是一個群組 (group)。<br/>
+    小括號在 Regex 當中也有 group 的意思，用在把括號內的條件式當作是一個整體。例如 (foo){2,} 
+    表示匹配連續出現兩次以上的 foo 字串，而不是像 foo{2,} 中的量詞 {2,} 只會作用在最後的 o 字元。
+
+    <ol>
+      <li><h4>(pattern)</h4>：會得到匹配成功的字串，以及記憶樣本的字串
+        <pre><code class='javascript'>
+          /gr(a|e)y/.test("gray")      // true
+          /x(y+)z/g.exec("xxxyyyyzze") // xyyyyz,yyyy
+        </code></pre>
+      </li>
+      <li><h4>(?:pattern)</h4>：會得到匹配成功的字串，不會返回記憶樣本的字串
+        <pre><code class='javascript'>
+          /x(?:y+)z/g.exec("xxxyyyyzze") // xyyyyz
+        </code></pre>
+      </li>
+      <li><h4>x(?=y)</h4>：當 x 後面接著 y 時進行 x 的比對。但是 y 並不算在匹配成功的回傳字串內。
+        <pre><code class='javascript'>
+          /x(?=y)/g.exec("xxxyyyyzze") // x
+          /x(?=y)/g.exec("xray")       // null
+        </code></pre>
+      </li>
+      <li><h4>x(?!y)</h4>：當 x 後面不接著 y 時進行 x 的比對。
+          <pre><code class='javascript'>
+              /x(?!y|z)/.exec("xyz")    // null
+              /x(?!y|z)/.exec("xray")   // x
+          </code></pre>
       </li>
     </ol>
   </div>
