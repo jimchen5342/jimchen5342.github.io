@@ -32,6 +32,9 @@
 			font-size: 1.2em;
 			margin-top: 10px;
 		}
+		input[disabled]{
+			background-color: #EEEEEE;
+		}
 	</style>
 </head>	
 <body>
@@ -106,10 +109,16 @@
 				val.disabled = true;
 				val.value = "";
 				rv.value = "";
+				//sv.value = "";
+				sv.focus();
 			} else {
 				val.disabled = false;
 				sv.value = "";
-				rv.value = "";
+				if(e.target == document.getElementById("replace"))
+					rv.focus();
+				else {
+					rv.value = "";
+				}
 			}
 		} else if(e.target == rv){
 			val.disabled = false;
