@@ -791,7 +791,8 @@ function loadData(callback){
 			clearEditor(true);
 		} else {
 		}
-
+		
+		//console.log("loadHomework")
 		$("#doc").tabs("select", 1);
 		setTimeout(callback, 600);
 	}
@@ -834,6 +835,8 @@ function treeClick(node){
 		fireBase.listen("datas/" + student + "/" + subject + "/" + node.id);
 	}
 	loadPage(node, true);
+	if(subject == "作業")
+		$("#doc").tabs("select",1);
 }
 
 function loadPage(node, changed){
@@ -862,9 +865,6 @@ function loadPage(node, changed){
 	} else {
 		result.location.assign("./empty.html");
 		$("#doc").tabs("select", 0);
-		// setTimeout(function() {
-		// 	$("#doc").tabs("resize");
-		// }, 600);
 	}
 	centerIcon();
 	function loadEditor(index){
