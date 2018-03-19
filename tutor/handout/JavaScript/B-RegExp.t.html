@@ -210,14 +210,14 @@
   </div>
   <div title="量詞">
     <ol>
-      <li><h4>+</h4>：匹配前一字元 1 至多次，等價於 {1,}。
+      <li><h4>+</h4>：匹配前一字元 1 次以上，等價於 {1,}。
         <pre>
           <code class='javascript'>
             /a+/.exec('caaandy'); // [aaa]
           </code>
         </pre>
       </li>
-      <li><h4>*</h4>：表示連續出現 0 次或多次。
+      <li><h4>*</h4>：表示連續出現 0 次以上。
         <pre>
           <code class='javascript'>
             /bo*/.exec('A ghost boooed'); // [booo]
