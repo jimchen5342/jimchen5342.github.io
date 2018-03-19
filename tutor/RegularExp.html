@@ -43,24 +43,30 @@
 			<td colspan='3'>
 				<fieldset style="margin-bottom: 20px">
 					<legend>選項</legend>
-					<div>
-						<input type='radio' id='test' name='radio' checked/>
-						<label for='test'>test()</label>
-					</div>
-					<div>
-						<input type='radio' id='exec' name='radio'/> 
-						<label for='exec'>exec()</label>
-					</div>
-					<div>
-						<input type='radio' id='replace' name='radio'/> 
-						<label for='replace'>replace()</label>
-						<input id='rv' type='text' />
-					</div>
-					<div>
-							<input type='radio' id='search' name='radio'/> 
-							<label for='search'>search()</label>
-							<input id='sv' type='text' />
-						</div>
+					<table>
+						<tr><td colspan=2>
+							<input type='radio' id='test' name='radio' checked/>
+							<label for='test'>test()</label>
+						</td></tr>
+						<tr><td colspan=2>
+							<input type='radio' id='exec' name='radio'/> 
+							<label for='exec'>exec()</label>
+						</td></tr>
+						<tr>
+							<td>
+								<input type='radio' id='replace' name='radio'/> 
+								<label for='replace'>replace()</label>
+							</td>
+							<td><input id='rv' type='text' /></td>
+						</tr>
+						<tr>
+							<td>
+								<input type='radio' id='search' name='radio'/> 
+								<label for='search'>search()</label>
+							</td>
+							<td><input id='sv' type='text' /></td>
+						</tr>
+					</table>
 				</fieldset>
 			</td>
 		</tr>
@@ -113,9 +119,9 @@
 			} else {
 				val.disabled = false;
 				sv.value = "";
-				if(e.target == document.getElementById("replace"))
+				if(e.target == document.getElementById("replace")){
 					rv.focus();
-				else {
+				} else {
 					rv.value = "";
 				}
 			}
