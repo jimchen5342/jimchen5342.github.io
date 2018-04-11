@@ -210,17 +210,17 @@
   </div>
   <div title="量詞">
     <ol>
+      <li><h4>*</h4>：匹配前一字元 0 次以上。
+        <pre>
+          <code class='javascript'>
+            /bo*/.exec('A ghost boooed'); // [booo]
+          </code>
+        </pre>
+      </li>
       <li><h4>+</h4>：匹配前一字元 1 次以上，等價於 {1,}。
         <pre>
           <code class='javascript'>
             /a+/.exec('caaandy'); // [aaa]
-          </code>
-        </pre>
-      </li>
-      <li><h4>*</h4>：表示連續出現 0 次以上。
-        <pre>
-          <code class='javascript'>
-            /bo*/.exec('A ghost boooed'); // [booo]
           </code>
         </pre>
       </li>
@@ -241,21 +241,21 @@
           </code>
         </pre>
       </li>
-      <li><h4>{min,max}</h4>：表示至少連續出現 min 次，但最多連續出現 max 次。
+      <li><h4>{min,max}</h4>：匹配前一字元，至少連續出現 min 次，但最多連續出現 max 次。
         <pre>
           <code class='javascript'>
               /ab{1,3}c/.test("abc") // true
           </code>
         </pre>
       </li>
-      <li><h4>{n}</h4>：表示要出現 n 次。
+      <li><h4>{n}</h4>：匹配前一字元，要出現 n 次。
         <pre>
           <code class='javascript'>
               /ab{3}c/.test("abbbc") // true
           </code>
         </pre>
       </li>
-      <li><h4>{min,}</h4>：表示至少連續出現 min 次。
+      <li><h4>{min,}</h4>：匹配前一字元，至少連續出現 min 次。
         <pre>
           <code class='javascript'>
               /ab{3,}c/.test("abbbc") // true
