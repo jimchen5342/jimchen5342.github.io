@@ -82,12 +82,13 @@ $(document).ready(function(){
 	}
 
 	function formatter(data){
+		console.log("QRCode: " + data)
 		data += "";
 		let s = "";
 		for(let i = 0; i < data.length; i++){
 			s += data.substr(i, 1);
 			if(i > 0 && i % 4 == 0 && i <= data.length - 2){
-				s += "-";
+				s += " ";
 			}
 		}
 		return s;
