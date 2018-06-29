@@ -43,16 +43,57 @@
 			<li><h4>{}</h4>：程式區塊</li>
 			<li><h4>return</h4>：傳回值</li>
 		</ol>
-		註：this 會在函式物件中說明
-	</div>
-	<div title="立即函式">
-		主要在於產生一個私有的 scope，使在其內宣告的變數不會與外界混淆
 		<pre>
 			<code class='javascript'>
+				function add(a, b){   // 函數宣告式
+					return a + b;
+				}
+				let x = add(2, 3);    // 呼叫函式
+
+				document.write("add(2, 3) = " + x);
+			</code>
+		</pre><br/><br/>
+
+		註：this 會在函式物件中說明
+	</div>
+	<div title="匿名函式">
+		<h4>匿名函式(anonymous function)</h4>
+		<pre>
+			<code class='javascript'>
+				// 第一種寫法
+				setTimeout(function(){ 
+
+				}, 600);
+
+				// 第二種寫法
+				let loop = function(){ 
+
+				}
+				setTimeout(loop, 600);
+
+				// 第三種寫法
+				function cycle(callback){ 
+					if(typeof callback == "function")
+						callback();
+				}
+				cycle(loop)
+
+			</code>
+		</pre>
+	</div>
+
+	<div title="立即函式">
+		<h4>立即函式(Immediately Invoked Function Expression，IIFE)</h4><br/>
+		js 檔載入後即會執行；主要在於產生一個私有的 scope，使在其內宣告的變數不會與外界混淆；
+		很常被使用來進行只會被執行一次的程式碼，譬如說程式的初始化動作。
+		<pre>
+			<code class='javascript'>
+				// 第一種寫法
 				(function () { 
 					//函式內容 
 				})();
 
+				// 第二種寫法
 				(function(window, undefined) {
 					//函式內容
 				})(window);
@@ -118,21 +159,25 @@
 		</pre>
 	</div>
 	<div title="箭頭函式">
-		<h4>箭頭函式(arrow function)</h4>
+		<h4>箭頭函式(arrow function)</h4><br/>ES6
 		<pre>
 			<code class='javascript'>
+				// 第一種：無參數
 				let f1 = () => {
 					document.write(10 * 20);
 				}
 
+				// 第二種：只有一個參數
 				let f2 = a => {
 					 document.write(a + 5);
 				}
 
+				// 第三種：多個參數
 				let f3 = (a, b) => {
 					document.write(a + 5);
 				}
 
+				// 範例
 				let x = 0;
 				setInterval(()=>{
 					 document.write("x: " + x++ + "&lt;br /&gt;");
@@ -155,7 +200,7 @@
 
 				function f2(a, b){ 
 					return new Promise((success, error) => { 
-						if(a > b) 
+						if(a != b) 
 							success(); 
 						else 
 							error(); 
@@ -166,6 +211,9 @@
 				.then(()=>{ 
 					return f2(5, 2); 
 				})
+				.then(()=>{
+					alert("完成......")
+				})				
 				.catch(err=>{
 					document.write(err); 
 				});
