@@ -136,9 +136,11 @@
 		<h4>閉包函式(closure)</h4>
 		<pre>
 			<code class='javascript'>
-				function f1(x){ 
+				function f1(x){
+					let a = 10;
+
 					return function(){ 
-						return x + 10; 
+						return x + a; 
 					}; // 注意要有分號
 				}
 				let f2 = f1(1);
