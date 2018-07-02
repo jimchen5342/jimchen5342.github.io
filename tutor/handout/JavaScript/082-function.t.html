@@ -56,34 +56,50 @@
 
 		註：this 會在函式物件中說明
 	</div>
+
+	<div title="遞迴函式">
+		<h4>遞迴函式(recursion function)</h4>：在一個函式當中再去呼叫它自己，
+		在寫遞回函式的時候一定記得設定終止條件，否則很容易跳不出來，導致無窮迴圈的情況產生。
+		<pre>
+			<code class='javascript'>
+				var x = 0; 
+				function recursion(i){ 
+					x += i; 
+					document.write(i + ": " + x + "&lt;br /&gt;");
+					if(i < 10)
+						recursion(i + 1); 
+				} 
+				recursion(1);
+			</code>
+		</pre>
+	</div>
 	<div title="匿名函式">
 		<h4>匿名函式(anonymous function)</h4>
 		<pre>
 			<code class='javascript'>
 				// 第一種寫法
 				setTimeout(function(){ 
-
+					//函式內容 
 				}, 600);
 
 				// 第二種寫法
 				let loop = function(){ 
-
+					//函式內容 
 				}
 				setTimeout(loop, 600);
 
-				// 第三種寫法
+				// 第二種寫法，補充
 				function cycle(callback){ 
 					if(typeof callback == "function")
 						callback();
 				}
 				cycle(loop)
-
 			</code>
 		</pre>
 	</div>
 
 	<div title="立即函式">
-		<h4>立即函式(Immediately Invoked Function Expression，IIFE)</h4><br/>
+		<h4>立即函式(Immediately Invoked Function Expression，IIFE)：</h4>
 		js 檔載入後即會執行；主要在於產生一個私有的 scope，使在其內宣告的變數不會與外界混淆；
 		很常被使用來進行只會被執行一次的程式碼，譬如說程式的初始化動作。
 		<pre>
@@ -101,7 +117,7 @@
 		</pre>
 	</div>
 	<div title="巢狀函式">
-		<h4>巢狀函式(nest function)</h4>
+		<h4>巢狀函式(nest function)</h4>：函式中的語句中，還可以包含其他的函式，這稱為內部函式(inner)，或是巢狀函式(nested)的結構。
 		<pre>
 			<code class='javascript'>
 				function query(arg){
@@ -117,25 +133,15 @@
 			</code>
 		</pre>
 	</div>
-	<div title="遞迴函式">
-		<h4>遞迴函式(recursion function)</h4>
-		<pre>
-			<code class='javascript'>
-				var x = 0; 
-				function recursion(i){ 
-					x += i; 
-					document.write(x + "&lt;br /&gt;");
-					if(i < 10)
-						recursion(i + 1); 
-				} 
-				recursion(1);
-			</code>
-		</pre>
-	</div>
+
 	<div title="閉包函式">
-		<h4>閉包函式(closure)</h4>
+		<h4>閉包(closure)</h4>：是函式的組合，以及該宣告函式所包含的作用域環境（lexical environment）。
+		閉包實用之處，在於能讓你把一些資料（透過作用域環境）與操控這些資料的函式相關聯。
+		很明顯地，這與把一些資料（物件屬性）與一些方法的相關聯的物件導向程式設計（object-oriented programming）相似。
+		<a href='https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Closures'>參考自 MDN</a>
 		<pre>
 			<code class='javascript'>
+				// 回傳 function
 				function f1(x){
 					let a = 10;
 
@@ -146,6 +152,7 @@
 				let f2 = f1(1);
 				document.write("f1: " + f2() + "&lt;br /&gt;");
 
+				// 回傳 object
 				function f3(x){
 					return {
 						name: "f3",
@@ -161,7 +168,7 @@
 		</pre>
 	</div>
 	<div title="箭頭函式">
-		<h4>箭頭函式(arrow function)</h4><br/>ES6
+		<h4>箭頭函式(arrow function)</h4>：ES6
 		<pre>
 			<code class='javascript'>
 				// 第一種：無參數
@@ -196,16 +203,16 @@
 						if(a > b)
 							success();
 						else
-							error();
+							error("Error: a <= b");
 					})
 				}
 
-				function f2(a, b){ 
+				function f2(x, y){ 
 					return new Promise((success, error) => { 
-						if(a != b) 
+						if(x != y) 
 							success(); 
 						else 
-							error(); 
+							error('Error: x == y'); 
 					}) 
 				}
 
