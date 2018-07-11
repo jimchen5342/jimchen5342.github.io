@@ -1,0 +1,91 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=yes,initial-scale=1, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta http-equiv="Content-Security-Policy" content="font-src *;script-src * 'self' 'unsafe-eval' 'unsafe-inline' http://*.googleapis.com http://maps.gstatic.com;style-src * 'self' 'unsafe-inline' http://fonts.googleapis.com;connect-src * 'self' wss: rd.jabezpos.com;">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link id="js_icon" rel="icon" href="">
+    <title>SocketClient Sample</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!--
+      <script src="js/SocketClientPure.min.js"></script>
+    -->
+    <script src="src/SocketClientPure.js"></script>
+    <style type="text/css">
+      body, * {
+        
+      }
+      input, textarea {
+        font-size: 16px;
+      }
+      input[type="text"] {
+        width: 300px;
+        padding: 5px 5px;
+        border-color:#cccc;
+      }
+      input[type="button"] {
+        padding: 5px;
+        min-width: 80px;
+        border-color:#cccc; 
+        color: blue;
+      }
+      label {
+        width: 60px;
+        text-align: right;
+        display: inline-block;
+        margin-right: 5px;
+      }
+      .input > div + div {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h1>SocketClient測試</h1>
+      <div style="display: flex; ">
+        <div style='padding: 0px 5px;'>
+          <div class='input'>
+            <div>
+              <label>Server: </label><input type="text" v-model="ip"></input>
+            </div>
+            <div>
+              <label>Site: </label><input type="text" v-model="site" />
+            </div>
+
+            <div><input type="button" value="連線" @click="clickConnect"/></div>
+          </div>
+          <hr>
+          <div class='input'>
+            <div>
+              <label>From: </label><input type="text" v-model="clientId" placeholder="設定client" name="clientId"></input>
+            </div>
+            <div>
+              <label>To: </label><input type="text" v-model="receiver" placeholder="接收者" />
+            </div>
+
+            <div>
+              <label>Type: </label><input type="text" v-model="dataType" placeholder="傳送事件" />
+            </div>
+            <div>
+              <label>State: </label><input type="text" v-model="dataState" placeholder="傳送內容" />
+            </div>
+            <div><input type="button" value="傳送" @click="clickSendBtn"/></div>
+          </div>
+        </div>
+        <div style="flex: 1;">
+          <h3 style="margin-top: -30px; margin-bottom: 5px;">接收廣播訊息</h3>
+          <textarea style='width: 100%; height: -webkit-calc(100% - (150px)); resize: none;' v-model="receiveData" style="border-color:#cccc;"></textarea>
+        </div>
+      </div>
+    </div>
+    <script src="js/main.js"></script>
+  </body>
+</html>
