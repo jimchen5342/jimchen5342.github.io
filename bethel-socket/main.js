@@ -28,7 +28,8 @@ new Vue({
       dataState:"", //要傳送的資料
       ip: "",
       site: "",
-      msg: []
+      msg: [],
+      connected: false
     }
   },
   mounted:function(){
@@ -67,6 +68,7 @@ new Vue({
   },
   methods:{
     clickConnect(){
+      let self = this;
       if(this.ip.length == 0 || this.site.length == 0){
         if(this.ip.length == 0)
           alert("請輸入 Server IP")
@@ -78,7 +80,11 @@ new Vue({
         localStorage["ip"] = this.ip
       }
 
-      client = new SocketClient(null, this.ip, null, this.site)
+      client = new SocketClient(null, this.ip, null, this.site);
+      client.onConnect(function (params) {
+        self.connected = true;
+      })
+
       this.clientId = client.getClientId(),//自己的clientId
       client.init()
       client.listen(this.listen);

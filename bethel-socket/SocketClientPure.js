@@ -210,7 +210,9 @@ class SocketClient {
     } else {
       this.socket = window.io(`${this.socketURL}${this.ns}?author=ozzysun&room=${room}`, opts)
     }
-    this.socket.on('connect', () => {})
+    this.socket.on('connect', () => {
+      if (this.connectHandler !== null) this.connectHandler()
+    })
     setTimeout(() => {
       this.trace(`.......socket id=${this.socket.id}`)
     }, 500)
