@@ -149,7 +149,7 @@
       <li><h4>[^ ]</h4>：用來比對不在字元集合裡面的字元。
         <pre>
           <code class='javascript'>
-              /^a[bc123]d/.test("a4d"); // true
+              /a[^bc123]d/.test("a4d"); // true
           </code>
         </pre>
       </li> 
