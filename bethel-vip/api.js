@@ -23,7 +23,7 @@
 				success(result);
 			},
 			error: function (XMLHttpRequest, textStatus, errorThrown){
-				
+				console.log(XMLHttpRequest, textStatus)
 			},
 			timeout: 6000
 		});
