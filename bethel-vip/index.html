@@ -22,6 +22,12 @@
 			font-size: 1em;
 			margin-top: 5px;
 		}
+		#ver {
+			position: absolute;
+			right: 10px;
+			bottom: 10px;
+			color: red;
+		}
 	</style>
 	<script type="text/javascript" src="api.js"></script>
 </head>
@@ -34,6 +40,7 @@
 		<button id='topUp'>儲值/扣款 QRCode</button>
 	</fieldset><br />
 	<div id='wrapper' style="display: inline-block;"> </div>
+	<div id='ver'>2018-08-16</div>
 </body>
 <script type="text/javascript">
 var isLocal = window.location.href.indexOf("localhost") > -1 
