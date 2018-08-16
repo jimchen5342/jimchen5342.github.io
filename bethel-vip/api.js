@@ -11,6 +11,7 @@
 		}
 		if(typeof omniChannel.token != "undefined"){
 			headers["x-app-token"] = omniChannel.token;
+			headers["x-db"] = "vip_dbs01_dbo";
 		}
 		$.ajax({
 			url: url + "/" + api, //encode(),
