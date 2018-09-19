@@ -93,7 +93,11 @@ new Vue({
       // console.log('socket response data')
       // console.log(response)
       // 將接收到的資料轉為string顯示在網頁上
-      this.msg.unshift(JSON.stringify(response.data))
+      if(this.msg.length > 0) this.msg.unshift("----------------------------------------------------------------")
+      let s = "from: " + response.from + "\n" +
+        "to: " + response.to + "\n" +
+        JSON.stringify(response.data);
+      this.msg.unshift(s)
       this.msg = this.msg.splice(0, 50);
 
       this.receiveData = this.msg.join("\n"); //JSON.stringify(response.data)
