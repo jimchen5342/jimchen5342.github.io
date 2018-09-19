@@ -116,6 +116,10 @@ new Vue({
 
       localStorage["to"] = this.receiver;
       localStorage["type"] = this.dataType;
+    },
+    clickClearBtn(){
+      this.msg = [];
+      this.receiveData = "";
     }
   },
   watch:{

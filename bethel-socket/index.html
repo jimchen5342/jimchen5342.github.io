@@ -46,13 +46,20 @@
         height: -webkit-calc(100% - (80px)); 
         resize: none;
         border-color:#cccc;
+        flex: 1;
+      }
+      .row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
       }
     </style>
   </head>
   <body>
-    <div id="app">
+    <div id="app" style="height: 100%; display: flex; flex-direction: column;">
       <h1>SocketClient 測試</h1>
-      <div style="display: flex; ">
+      <div style="display: flex; flex: 1; ">
         <div style='padding: 0px 10px 0px 0px;'>
           <div class='input'>
             <div>
@@ -85,9 +92,13 @@
             <div><input type="button" value="傳送" @click="clickSendBtn"/></div>
           </div>
         </div>
-        <div style="flex: 1;">
-          <h3 v-show="connected" style="margin-top: -31px; margin-bottom: 5px;">接收廣播訊息</h3>
-          <textarea v-show="connected" v-model="receiveData" readonly></textarea>
+        <div style="flex: 1; flex-direction: column;">
+          <div class="row" style="margin-top: -61px; margin-bottom: 5px;">
+            <div v-show="connected" style='font-size: 1.2em;'>接收廣播訊息</div>
+            <div style="flex: 1;"></div>
+            <input v-if='msg.length > 0' type="button" value="清除" @click="clickClearBtn"/>
+          </div>
+          <textarea style="flex: 1;" v-show="connected" v-model="receiveData" readonly></textarea>
         </div>
       </div>
     </div>
