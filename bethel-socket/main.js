@@ -26,6 +26,7 @@ new Vue({
       receiver:"", //接收者
       dataType:"", //要傳送的事件
       dataState:"", //要傳送的資料
+      dataCode: "",
       ip: "",
       site: "",
       msg: [],
@@ -65,6 +66,9 @@ new Vue({
     let type = localStorage["type"];
     if(typeof type == "string")
         this.dataType = type;
+    let code = localStorage["code"];
+    if(typeof code == "string")
+        this.dataCode = code;
   },
   methods:{
     clickConnect(){
@@ -112,10 +116,12 @@ new Vue({
         type:this.dataType, //事件類型
         state:this.dataState //傳送的內容
       }
-      client.send(this.receiver, data)
+
+      client.send(this.receiver, data, this.dataCode)
 
       localStorage["to"] = this.receiver;
       localStorage["type"] = this.dataType;
+      localStorage["code"] = this.dataCode;
     },
     clickClearBtn(){
       this.msg = [];

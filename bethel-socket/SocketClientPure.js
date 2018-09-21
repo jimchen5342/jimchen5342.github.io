@@ -182,13 +182,15 @@ class SocketClient {
   ioHandler() {
   }
   // 提供使用者發送訊息 , _to 可以是 以, 隔開做多使用者廣播
-  send(_to, __data) {
+  send(_to, _data, _code) {
     const _sendData = {
       from: this.clientId,
       to: _to,
       time: new Date().getTime(),
-      data: __data
+      data: _data
     }
+    if(typeof _code == "string" && _code.length > 0) _sendData.code = _code;
+
     if (this.socket !== null) {
       this.socket.emit(this.defaultChannel, _sendData)
     } else {
