@@ -19,7 +19,7 @@
       overflow-y: auto;
       font-size: 16px;
 		}
-		#escape tr td:nth-child(odd){
+		#escape tr td:nth-child(1), #escape tr td:nth-child(2){
 			text-align: center;
 		}
   </style>
@@ -38,7 +38,7 @@
 		</ol>
 
 		<table class='tutor' width='100%'>
-			<tr><th>資料型態</th><th>物件宣告</th><th>實字宣告</th></tr>
+			<tr><th>資料型態</th><th>物件宣告</th><th>實字宣告(literal)</th></tr>
 			<tr><td>物件</td><td>x = new Object()</td><td>x = {}</td></tr>
 			<tr><td>字串</td><td>x = new String()</td><td>x = "", y = ''</td></tr>
 			<tr><td>數值</td><td>x = new Number()</td><td>x = 1</td></tr>
@@ -59,7 +59,7 @@
 				document.write(typeof (new Object()));   // object
 				document.write(typeof (new Date()));     // object
 				document.write(typeof (new String(""))); // object
-				document.write(typeof [1，2，3]);         // object
+				document.write(typeof [1,'2',{key: 4}]); // object
 				document.write(typeof null);             // object
 				document.write(typeof undefined);        // undefined
 
@@ -76,11 +76,19 @@
 			<code class='javascript'>
 				let a = "The answer is: ", b = 25;
 				let c = a + b;                   // The answer is: 25
-				c = 5;                           // number
+				c = 5;                           // typeof: number
 
-				let x = "37" - 7;                // 30
-				let y = "37" + 7;                // 377
-				let z = parseInt("100", 10) + 7; // 107
+				let e = "37" - 7;                // 30
+				let f = "37" + 7;                // 377
+
+				let i = parseInt("100", 10) + 7; // 107
+				let j = parseInt("100a", 10);    // 100
+				let j = new Number("100a");      // NaN
+
+				let w = 2 + null;                // 2
+				let x = 'It is a ' + null;       // It is a null
+				let y = 10 + undefined;          // NaN
+				let z = '10' + undefined;        // 10undefined
 			</code>
 		</pre>
 		<a href='http://javascript.ruanyifeng.com/grammar/conversion.html' target='_parent'>数据类型转换</a>
@@ -204,15 +212,19 @@
 	</div>
 	<div title="特殊字元">
 		<table class='tutor' id='escape'>
-			<tr><th style='width: 100px;'>字元</th><th style='width: 250px;'>意義</th></tr>
-			<tr><td>\b</td><td>後退一格 (Backspace)</td></tr>
-			<tr><td>\f</td><td>換頁 (Form feed)</td></tr>
-			<tr><td>\n</td><td>換行 (New line)</td></tr>
-			<tr><td>\r</td><td>返回 (Carriage return)</td></tr>
-			<tr><td>\t</td><td>定位 (Tab)</td></tr>
-			<tr><td>\'</td><td>單引號</td></tr>
-			<tr><td>\"</td><td>雙引號</td></tr>
-			<tr><td>\\</td><td>反斜線 (Backslash)</td></tr>
+			<tr>
+				<th style='width: 120px;'>字元</th>
+				<th style='width: 120px;'>ASCII</th>
+				<th style='width: 250px;'>意義</th>
+			</tr>
+			<tr><td>\b</td><td>8</td><td>後退一格 (Backspace)</td></tr>
+			<tr><td>\t</td><td>9</td><td>定位 (Tab)</td></tr>
+			<tr><td>\f</td><td>12</td><td>換頁 (Form feed)</td></tr>
+			<tr><td>\n</td><td>10</td><td>換行 (New line)</td></tr>
+			<tr><td>\r</td><td>13</td><td>返回 (Carriage return)</td></tr>
+			<tr><td>\'</td><td>39</td><td>單引號</td></tr>
+			<tr><td>\"</td><td>34</td><td>雙引號</td></tr>
+			<tr><td>\\</td><td>92</td><td>反斜線 (Backslash)</td></tr>
 		</table>
 	</div>
 </body>

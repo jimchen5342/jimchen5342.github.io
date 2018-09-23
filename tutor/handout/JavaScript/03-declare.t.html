@@ -22,13 +22,13 @@
 
 	<h4>變數宣告(declare)</h4>
 	<ol>
-		<li>var：宣告一個可隨意更改其內容的變數
+		<li>var：宣告一個可隨意更改其內容的變數(<span style='color:red'>不建議使用</span>)
 			<pre>
 				<code class='javascript'>
 					{
 						 var a = 0;
 					}
-					document.write(a);
+					document.write("a: " + a);
 				</code>
 			</pre>
 		</li>
@@ -37,8 +37,8 @@
 				<code class='javascript'>
 					{
 						let a = 0;
-						document.write(a);
 					}
+					document.write("a: " + (typeof a));
 				</code>
 			</pre>
 		</li>

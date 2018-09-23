@@ -98,8 +98,8 @@ new Vue({
       // console.log(response)
       // 將接收到的資料轉為string顯示在網頁上
       if(this.msg.length > 0) this.msg.unshift("-----------------------------------------")
-      let s = "from: " + response.from + "\n" +
-        "to: " + response.to + "\n" +
+      let s = "from: " + response.from + "\n" + "to: " + response.to + "\n" +
+        (typeof response.code == "string" && response.code.length > 0 ? ("code: " + response.code + "\n") : "") +
         JSON.stringify(response.data);
       this.msg.unshift(s)
       this.msg = this.msg.splice(0, 50);
