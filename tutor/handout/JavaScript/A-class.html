@@ -14,28 +14,38 @@ class Polygon {
 		this.height = height; 
 		this.width = width; 
   }
+  static get baseName(){
+    return "Polygon";
+  }
   toString(){
     return "Polygon";
   }
+  
   get area() { 
     return this.height * this.width; 
   }
-  set dimension(newLength) { 
-    this.height = newLength; 
-    this.width = newLength; 
+  set dimension(size) { 
+    this.height = size; 
+    this.width = size; 
   }
 } 
  
 class Square extends Polygon { 
-  constructor(dimension) { 
-    super(dimension, dimension); // override
+  constructor(size) { 
+    super(size, size); // override
   }
   toString(){                    // override
-    return "Square from " + super.toString();
+    return "Square inherit from " + super.toString();
   }
-} 
+}
+
+write("Square.baseName", Square.baseName); // 靜態
+
 let square = new Square(2);
-write("toString: " + square.toString());
-write("area: " + square.area);
+write("toString", square.toString());
+write("width", square.width);
+square.dimension = 5;
+write("width", square.width);
+write("area", square.area);
 </script>
 </html>

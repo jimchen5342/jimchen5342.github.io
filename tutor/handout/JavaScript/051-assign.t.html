@@ -49,7 +49,7 @@
 	<pre>
 		<code class='javascript'>
 				let arr = [1, 2, 3, 4, 5]; 
-				let [y, z] = arr;          // 陣列解構
+				let [y, z] = arr;                   // 陣列解構
 				document.write("陣列解構 x: " + y);  // 1 
 				document.write("陣列解構 y: " + z);  // 2
 
@@ -58,10 +58,13 @@
 				document.write("陣列解構 a: " + a);  // 1 
 				document.write("陣列解構 b: " + b);  // [2, 3]
 			 
-				let o = {p: 42, q: true}; 
-				let {p, q} = o;            // 物件解構
+				let o = {p: 42, q: true, r: '', s: ''}; 
+				let {p, q, ...obj} = o;            // 物件解構
 				document.write("物件解構 p: " + p);  // 42 
 				document.write("物件解構 q: " + q);  // true
+				document.write("物件解構 obj: " + 
+				  JSON.stringify(obj));            // {r: '', s: ''}
+
 		</code>
 	</pre>
 </body>

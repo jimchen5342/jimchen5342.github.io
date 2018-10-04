@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ES6 import/export</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		h4 {
+			display: inline-block;
+		}
+	</style>
+	<link rel="stylesheet" href="../pattern.css">
+	<script src="../../system/system.js"></script>
+	<script type="text/javascript" src="../../jQuery/jquery.min.js"></script>
+	<script src="../highlight.js"></script>
+	<script src="system.js"></script>
+</head>
+<body>
+	<h4>ES6 - export</h4>
+	<pre>
+		<code class='javascript'>
+			'use strict';
+
+			export default class Register extends Component {
+				constructor(props) {
+					super(props);
+				}
+			}
+
+			export let firstName = 'Michael';
+			export let lastName = 'Jackson';
+			export let year = 1958;
+			
+			// 或 ----------------------
+			let firstName = 'Michael';
+			let lastName = 'Jackson';
+			let year = 1958;
+			export {firstName, lastName, year};
+
+			// 或 ----------------------
+			let name1 = 'Michael';
+			let name2 = 'Jackson';
+			export {name1 as firstName, name2 as lastName};
+		</code>
+	</pre>
+	<h4>ES6 - import</h4>
+	<pre>
+			<code class='javascript'>
+				import React, { Component } from 'react';
+				import { StyleSheet, View } from 'react-native';
+				import Register, { firstName, lastName, year } from './Register';
+				import from './system';
+			</code>
+		</pre>
+</body>
+</html>

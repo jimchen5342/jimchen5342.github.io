@@ -275,6 +275,10 @@ let menu = [
 				id: "A-class",
 				text: "ES6 Class",
 				files: "ctx,html"
+			}, {
+				id: "A-class2",
+				text: "ES6 import/export",
+				files: "html"
 			}]
 		}, {
 			text: "内建物件",

@@ -23,20 +23,22 @@
 	x /= 10;                   // 除法賦值
 	write("x /= 10", x);
 
-		
+
 	let arr = [1, 2, 3, 4, 5]; 
 	let [y, z] = arr;          // 陣列解構
-	write("陣列解構 x", y);  // 1 
-	write("陣列解構 y", z);  // 2
+	write("陣列解構 x", y);     // 1 
+	write("陣列解構 y", z);     // 2
  
 	
 	let [a, ...b] = [1, 2, 3]; // 將剩餘部分解構到一個變數
-	write("陣列解構 a", a);  // 1 
-	write("陣列解構 b", b);  // [2, 3]
+	write("陣列解構 a", a);     // 1 
+	write("陣列解構 b", b);     // [2, 3]
  
-	let o = {p: 42, q: true}; 
-	let {p, q} = o;            // 物件解構
-	write("物件解構 p", p);  // 42 
-	write("物件解構 q", q);  // true
+	let o = {p: 42, q: true, r: '', s: ''}; 
+	let {p, q, ...obj} = o;    // 物件解構
+	write("物件解構 p", p);     // 42 
+	write("物件解構 q", q);     // true
+	write("物件解構 obj: ", 
+		JSON.stringify(obj));    // {r: '', s: ''}
 </script>
 </html>
