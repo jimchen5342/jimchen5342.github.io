@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ES6 import/export</title>
+	<title>ES6 Module</title>
 	<meta charset="utf-8">
 	<style type="text/css">
 		h4 {
@@ -19,34 +19,55 @@
 	<pre>
 		<code class='javascript'>
 			'use strict';
-
 			export default class Register extends Component {
 				constructor(props) {
 					super(props);
 				}
 			}
 
+			export default 12;
+		</code>
+	</pre>
+	<br/>
+	<pre>
+		<code class='javascript'>
 			export let firstName = 'Michael';
 			export let lastName = 'Jackson';
 			export let year = 1958;
-			
-			// 或 ----------------------
+			export function foo() {};
+		</code>
+	</pre>
+	<br/>
+	<pre>
+		<code class='javascript'>
 			let firstName = 'Michael';
 			let lastName = 'Jackson';
 			let year = 1958;
-			export {firstName, lastName, year};
-
-			// 或 ----------------------
+			function foo() {};
+			export {firstName, lastName, year, foo};
+		</code>
+	</pre>
+	<br/>
+	<pre>
+		<code class='javascript'>
 			let name1 = 'Michael';
 			let name2 = 'Jackson';
 			export {name1 as firstName, name2 as lastName};
 		</code>
 	</pre>
-	<h4>ES6 - import</h4>
+	<br/>
+	<pre>
+		<code class='javascript'>
+			export { encrypt as en } from 'crypto';
+			export * from 'crypto';
+		</code>
+	</pre>
+	<br/><h4>ES6 - import</h4>
 	<pre>
 			<code class='javascript'>
 				import React, { Component } from 'react';
 				import { StyleSheet, View } from 'react-native';
+
 				import Register, { firstName, lastName, year } from './Register';
 				import from './system';
 			</code>

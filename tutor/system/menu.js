@@ -277,7 +277,7 @@ let menu = [
 				files: "ctx,html"
 			}, {
 				id: "A-class2",
-				text: "ES6 import/export",
+				text: "ES6 module",
 				files: "html"
 			}]
 		}, {
