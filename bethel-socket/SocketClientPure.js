@@ -5,7 +5,7 @@ to:
 time:
 data:
 */
-var token = (new Date()).getTime();
+// var token = (new Date()).getTime();
 
 class SocketClient {
   static get author() {
@@ -190,7 +190,7 @@ class SocketClient {
       to: _to,
       time: new Date().getTime(),
       data: _data,
-      token
+      // token
     }
     if(typeof _code == "string" && _code.length > 0) _sendData.code = _code;
 
