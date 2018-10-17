@@ -17,6 +17,7 @@
 'use strict'
 var client; // = new SocketClient(null, 'http://rd.jabezpos.com:54321', null, 'BSMS000032')
 //client.init()
+
 new Vue({
   el:"#app",
   data:function(){
