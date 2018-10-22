@@ -70,6 +70,9 @@ new Vue({
     let code = localStorage["code"];
     if(typeof code == "string")
         this.dataCode = code;
+    let state = localStorage["state"];
+    if(typeof state == "string")
+        this.dataState = state;
   },
   methods:{
     clickConnect(){
@@ -114,16 +117,27 @@ new Vue({
     },
     clickSendBtn:function(){
       // 傳送 socket資料 client.send('接收者id','要傳送的資料')
-      var data = {
-        type:this.dataType, //事件類型
-        state:this.dataState //傳送的內容
+      let state = undefined;
+      try {
+        if(this.dataState.trim().length > 0){
+          state = this.dataState.trim();
+          if(state.indexOf("{") == 0 && state.indexOf("}") > 1){
+            state = JSON.parse(state);
+          }
+        }
+      } catch(e){
+        console.log(e);
+        alert("State 的 JSON 格式錯誤")
       }
-
+      var data = {
+        type: this.dataType, //事件類型
+        state: state //傳送的內容
+      }
       client.send(this.receiver, data, this.dataCode)
-
       localStorage["to"] = this.receiver;
       localStorage["type"] = this.dataType;
       localStorage["code"] = this.dataCode;
+      localStorage["state"] = this.dataState;
     },
     clickClearBtn(){
       this.msg = [];

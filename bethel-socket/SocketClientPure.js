@@ -193,7 +193,6 @@ class SocketClient {
       // token
     }
     if(typeof _code == "string" && _code.length > 0) _sendData.code = _code;
-
     if (this.socket !== null) {
       this.socket.emit(this.defaultChannel, _sendData)
     } else {
