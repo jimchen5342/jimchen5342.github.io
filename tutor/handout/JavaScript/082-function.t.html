@@ -142,18 +142,18 @@
 		<pre>
 			<code class='javascript'>
 				// 回傳 function
-				function f1(x){
+				function closure1(x){
 					let a = 10;          // 私有變數
 
 					return function(){ 
 						return x + a; 
 					}; // 注意要有分號
 				}
-				let f2 = f1(1);
+				let f2 = closure1(1);
 				document.write("f1: " + f2() + "&lt;br /&gt;");
 
 				// 回傳 object
-				function f3(x){
+				function closure2(x){
 					let z = 0;           // 私有變數
 					function sum(a, b){  // 私有函式(巢狀)
 						z += a + b;
@@ -168,7 +168,7 @@
 						}
 					}; // 注意要有分號
 				}
-				let f4 = f3(10); 
+				let f4 = closure2(10); 
 				document.write("function: " + f4.name + "&lt;br /&gt;");
 				document.write("x: " + f4.x + "&lt;br /&gt;");
 				document.write("add: " + f4.add(20) + "&lt;br /&gt;");
