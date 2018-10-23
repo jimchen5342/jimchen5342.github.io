@@ -24,10 +24,13 @@
       input, textarea {
         font-size: 16px;
       }
-      input[type="text"] {
+      input[type="text"], #dataState {
         width: 350px;
         padding: 5px 5px;
         border-color:#cccc;
+      }
+      #dataState { 
+        height: 200px;
       }
       input[type="button"] {
         padding: 5px;
@@ -44,7 +47,7 @@
       .input > div + div {
         margin-top: 10px;
       }
-      textarea {
+      #receiveData {
         width: 100%; 
         height: -webkit-calc(100% - (80px)); 
         resize: none;
@@ -97,10 +100,13 @@
               <label>Type: </label><input type="text" v-model="dataType" placeholder="傳送事件" />
             </div>
             <div>
-              <label>State: </label><input type="text" v-model="dataState" placeholder="傳送內容" />
+              <label>Code: </label><input type="text" v-model="dataCode" placeholder="" />
             </div>
             <div>
-              <label>Code: </label><input type="text" v-model="dataCode" placeholder="" />
+              <label>State: </label><textarea id='dataState' v-model="dataState" placeholder="傳送內容"></textarea>
+              <!--
+                <input type="text" v-model="dataState" placeholder="傳送內容" />
+              -->
             </div>
             <div><input type="button" value="傳送" @click="clickSendBtn"/></div>
           </div>
@@ -111,7 +117,7 @@
             <div style="flex: 1;"></div>
             <input v-if='msg.length > 0' type="button" value="清除" @click="clickClearBtn"/>
           </div>
-          <textarea style="flex: 1;" v-show="connected" v-model="receiveData" readonly></textarea>
+          <textarea id='receiveData' style="flex: 1;" v-show="connected" v-model="receiveData" readonly></textarea>
         </div>
       </div>
     </div>
