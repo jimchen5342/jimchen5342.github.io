@@ -125,19 +125,21 @@ new Vue({
             state = JSON.parse(state);
           }
         }
+
+        var data = {
+          type: this.dataType, //事件類型
+          state: state //傳送的內容
+        }
+        client.send(this.receiver, data, this.dataCode)
+        localStorage["to"] = this.receiver;
+        localStorage["type"] = this.dataType;
+        localStorage["code"] = this.dataCode;
+        localStorage["state"] = this.dataState;        
       } catch(e){
         console.log(e);
         alert("State 的 JSON 格式錯誤")
       }
-      var data = {
-        type: this.dataType, //事件類型
-        state: state //傳送的內容
-      }
-      client.send(this.receiver, data, this.dataCode)
-      localStorage["to"] = this.receiver;
-      localStorage["type"] = this.dataType;
-      localStorage["code"] = this.dataCode;
-      localStorage["state"] = this.dataState;
+
     },
     clickClearBtn(){
       this.msg = [];
