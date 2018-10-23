@@ -143,7 +143,7 @@
 			<code class='javascript'>
 				// 回傳 function
 				function f1(x){
-					let a = 10;
+					let a = 10;          // 私有變數
 
 					return function(){ 
 						return x + a; 
@@ -154,16 +154,24 @@
 
 				// 回傳 object
 				function f3(x){
+					let z = 0;           // 私有變數
+					function sum(a, b){  // 私有函式(巢狀)
+						z += a + b;
+						return z;
+					}
 					return {
 						name: "f3",
+						x: x,
 						add: function(y){
-							return x + y;
+							return sum(x, y);
 						}
 					}; // 注意要有分號
 				}
 				let f4 = f3(10); 
-				document.write("function name: " + f4.name + "&lt;br /&gt;");
-				document.write("add: " + f4.add(50) + "&lt;br /&gt;");
+				document.write("function: " + f4.name + "&lt;br /&gt;");
+				document.write("x: " + f4.x + "&lt;br /&gt;");
+				document.write("add: " + f4.add(20) + "&lt;br /&gt;");
+				document.write("add: " + f4.add(10) + "&lt;br /&gt;");
 			</code>
 		</pre>
 	</div>
