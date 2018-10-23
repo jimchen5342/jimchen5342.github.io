@@ -121,7 +121,7 @@ new Vue({
       try {
         if(this.dataState.trim().length > 0){
           state = this.dataState.trim();
-          if(state.indexOf("{") == 0 && state.indexOf("}") > 1){
+          if((state.indexOf("{") == 0 || state.indexOf("{") == 1)&& state.indexOf("}") > 1){
             state = JSON.parse(state);
           }
         }
