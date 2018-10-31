@@ -10,11 +10,14 @@
 <body>
 </body>
 <script>
-  let person = {               // 宣告
+  let Person = {               // 宣告
     name: "john", 
     age: 25, 
     show: function(){ 
       return this.name + " is " + this.age; 
+    },
+    setName: function(name){
+      this.name = name;
     },
     loop: function(callback){
       let self = this;         // 注意.....
@@ -26,7 +29,8 @@
     }
   }
   
-  let p = new Object(person);  // 實例化
+  let p = new Object(Person);  // 實例化
+  p.setName("jim");
   write("name: " + p.name);
   write(p.show());
   p.loop(function() {
