@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flex box</title>
+  <meta charset="utf-8">
+	<style type="text/css">
+		* {
+			box-sizing: border-box;
+			font-size: 1em;
+		}
+		html, body {
+			height: 100%;
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			padding: 5px;
+		}
+	</style>
+</head>	
+<body>
+	<div style="padding-bottom: 5px;">
+		<span>
+			<label>flexDirection: </label>
+			<select id='flexDirection' onchange="changeDirection()">
+				<option value='row'>row</option>
+				<option value='column'>column</option>
+			</select>
+		</span>
+		<span>
+				<label>justifyContent: </label>
+				<select id='justifyContent' onchange="changeDirection()">
+					<option value='flex-start'>flex-start</option>
+					<option value='flex-end'>felx-end</option>
+					<option value='center'>center</option>
+					<option value='space-between'>space-between</option>
+					<option value='space-around'>space-around</option>
+					<option value='space-evenly'>space-evenly</option>
+				</select>
+			</span>
+			<span>
+				<label>alignItems: </label>
+				<select id='alignItems' onchange="changeDirection()">
+					<option value='flex-start'>flex-start</option>
+					<option value='flex-end'>felx-end</option>
+					<option value='center'>center</option>
+					<option value='stretch'>stretch</option>
+				</select>
+				</span>
+	</div>
+	<div id='contain' style="flex: 1; border: 1px blue solid">
+		<div class='items' id='item1'></div>
+		<div class='items' id='item2'></div>
+		<div class='items' id='item3'></div>
+		<div class='items' id='item4'></div>
+	</div>
+</body>
+<script>
+	let flexDirection = "row", justifyContent="flex-start", alignItems = "";
+
+	function changeDirection(){
+		flexDirection = document.getElementById("flexDirection").value;
+		justifyContent = document.getElementById("justifyContent").value;
+		alignItems = document.getElementById("alignItems").value;
+		items();
+	}
+
+	function items(){
+		console.log(flexDirection)
+		console.log(justifyContent)
+		console.log(alignItems)
+		let items = document.querySelectorAll(".items");
+		console.log(items)
+	}
+
+	changeDirection();
+
+</script>
+</html>
