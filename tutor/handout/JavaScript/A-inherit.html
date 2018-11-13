@@ -27,9 +27,9 @@ function Student(firstName, subject) {         // 定義 Student 建構子
 Student.prototype = Object.create(Person.prototype);
 Student.prototype.constructor = Student;
 
-Student.prototype.sayHello = function(){       // 替換 Person.sayHello
-	write("Hello, I'm " + this.firstName + 
-		". I'm studying " + this.subject + ".");
+Student.prototype.sayHello = function(){       // 覆寫(override), Person.sayHello
+	Person.prototype.sayHello.call(this);
+	write("..... I'm studying " + this.subject + ".");
 };
  
 Student.prototype.sayGoodBye = function(){     // 加入方法到 Student
