@@ -315,10 +315,13 @@ let menu = [
 				text: "RegExp",
 				files: "html"				
 			}]	
-			/*}, {
+		}, {
 				text: "BOM",
+				id: "C-BOM",
+				files: "ctx",
 				children: [{
 					text: "window",
+					id: "C-window"
 				}, {
 					text: "navigator"
 				}, {
@@ -340,7 +343,7 @@ let menu = [
 					text: "event"
 				}, {
 					text: "style"
-				}]*/
+				}]
 		}]
 	}, {
 		text: "作業",
