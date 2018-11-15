@@ -822,8 +822,13 @@ function treeClick(node){
 	}
 	storage.Setting(setting);
 	//console.log(setting)
+	console.log(subject, node["context"])
 	if(typeof node.context == "string" && node.context.length > 0){
-		$("#context").attr("src", "./handout/" + subject + "/" + node["context"]);
+		let ss = subject;
+		if(subject == "JavaScript" && node["context"] == "lesson08.t.html"){
+			ss = "HTML";
+		}
+		$("#context").attr("src", "./handout/" + ss + "/" + node["context"]);
 	} else 
 		$("#context").attr("src", "");
 	$("#source").tabs("select",0);
@@ -858,7 +863,12 @@ function loadPage(node, changed){
 	} else if(system.isTeacher())
 		readOnly = true;
 	if(readOnly == true && typeof node.html == "string" && node.html.length > 0){
-		result.location.assign("./handout/" + subject + "/" + node["html"]);
+		let ss = subject;
+		if(subject == "JavaScript" && node["html"] == "lesson08.html"){
+			ss = "HTML";
+		}
+
+		result.location.assign("./handout/" + ss + "/" + node["html"]);
 	} else {
 		result.location.assign("./empty.html");
 		$("#doc").tabs("select", 0);

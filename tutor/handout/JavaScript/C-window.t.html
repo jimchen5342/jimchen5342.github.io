@@ -15,6 +15,10 @@
 	<script src="system.js"></script>
 </head>
 <body>
+	<a href='http://techbrood.com/jsref?p=obj-window' target='_parent'>
+		http://techbrood.com
+	</a><br/>
+
 	<table class='tutor' width="100%">
 		<tr><th style="width: 130px;">屬性</th><th>描述</th></tr>
 		<tr>
@@ -41,136 +45,203 @@
 	<table class='tutor' width="100%">
 			<tr><th style="width: 130px;">屬性(HTML 5)</th><th>描述</th></tr>
 			<tr>
-				<td>localStorage</td>
-				<td></td>
+				<td>
+					<a href='http://www.runoob.com/html/html5-webstorage.html' target='_parent'>
+						localStorage
+					</a>
+				</td>
+				<td>
+					Web 資料儲存
+					<h4>方法：</h4>
+					<ol>
+						<li>getItem(key)</li>
+						<li>setItem(key, value)</li>
+						<li>removeItem(key)</li>
+						<li>clear()</li>
+					</ol>
+					<h4>屬性：</h4>
+					<ol>
+						<li>localStorage[key]</li>
+						<li>length</li>
+					</ol>
+				</td>
 			</tr>
 			<tr>
 				<td>sessionStorage</td>
-				<td></td>
+				<td>Web 資料儲存；同 localStorage，但網頁關閉後，資料即消失</td>
 			</tr>
 			<tr>
-				<td>indexedDB</td>
-				<td></td>
+				<td>
+					<a href='https://developer.mozilla.org/zh-TW/docs/Web/API/IndexedDB_API/Using_IndexedDB' target='_parent'>
+						indexedDB
+					</a >
+				</td>
+				<td>NoSQL 資料庫</td>
 			</tr>
 			<tr>
-				<td>openDatabase</td>
-				<td></td>
+				<td>
+					<a href='http://www.runoob.com/html/html5-web-sql.html' target='_parent'>
+						openDatabase
+					</a>
+				</td>
+				<td>SQLite 資料庫</td>
 			</tr>
 		</table>
 	<table class='tutor' width="100%">
 		<tr><th style="width: 130px;">屬性</th><th>描述</th></tr>
 		<tr>
-			<td>frames[]</td>
-			<td></td>
+			<td>frames</td>
+			<td>取得 window 內的 iframe 的陣列集合</td>
+		</tr>
+		<tr>
+			<td>self</td>
+			<td>目前的瀏覽視窗</td>
+		</tr>
+		<tr>
+			<td>parent</td>
+			<td>若是 iframe，則指父視窗，反之會等同於 self</td>
+		</tr>
+		<tr>
+			<td>top</td>
+			<td>最上層的瀏覽視窗；如沒有，則等同於 self</td>
 		</tr>
 		<tr>
 			<td>innerWidth</td>
-			<td></td>
+			<td rowspan="6"><img height="400px" src="../images/windowScreen.png" /></td>
 		</tr>
 		<tr>
 			<td>innerHeight</td>
-			<td></td>
 		</tr>
 		<tr>
 			<td>outerWidth</td>
-			<td></td>
 		</tr>
 		<tr>
 			<td>outerHeight</td>
-			<td></td>
 		</tr>
 		<tr>
-			<td></td>
-			<td></td>
+			<td>screenY<br/>screenTop</td>
 		</tr>
 		<tr>
-			<td></td>
-			<td></td>
+			<td>screenX<br/>screenLeft</td>
 		</tr>
 		<tr>
-			<td></td>
-			<td></td>
+			<td>scrollX<br/>pageXOffset</td>
+			<td>以 px 為單位，返回水平軸上 document 已經被捲去的寬度</td>
 		</tr>
 		<tr>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
+			<td>scrollY<br/>pageYOffset</td>
+			<td>以 px 為單位，返回垂直軸上 document 已經被捲去的高度</td>
 		</tr>
 	</table>
 
 	<table class='tutor' width="100%">
 		<tr><th>方法</th><th>描述</th></tr>
 		<tr>
-			<td>alert()</td>
-			<td></td>
+			<td>alert(msg)</td>
+			<td>訊息對話盒</td>
 		</tr>
 		<tr>
-			<td>confirm()</td>
-			<td></td>
+			<td>confirm(msg)</td>
+			<td>訊息對話盒；傳回 true / false</td>
 		</tr>
 		<tr>
-			<td>prompt()</td>
-			<td></td>
+			<td>prompt(msg, defaultValue)</td>
+			<td>提示對話盒；傳回對話盒中的輸入值</td>
 		</tr>
 		<tr>
 			<td>print()</td>
-			<td></td>
+			<td>列印網頁的內容</td>
 		</tr>
 		<tr>
-			<td>setInterval()</td>
-			<td></td>
+			<td>setInterval(callback, n)</td>
+			<td>週期計時器，延遲 n 毫秒執行；傳回 id</td>
 		</tr>
 		<tr>
-			<td>clearInterval()</td>
-			<td></td>
+			<td>clearInterval(id)</td>
+			<td>結束週期計時器</td>
 		</tr>
 		<tr>
-			<td>setTimeout()</td>
-			<td></td>
+			<td>setTimeout(callback, n)</td>
+			<td>一次計時器，延遲 n 毫秒執行；傳回 id</td>
 		</tr>
 		<tr>
-			<td>clearTimeout()</td>
-			<td></td>
+			<td>clearTimeout(id)</td>
+			<td>結束一次計時器</td>
 		</tr>
 		<tr>
-			<td>requestAnimationFrame()</td>
-			<td></td>
+			<td>requestAnimationFrame(callback)</td>
+			<td>取代 setTimeout 及 setInterval；傳回 id</td>
 		</tr>
 		<tr>
-			<td>cancelAnimationFrame()</td>
-			<td></td>
+			<td>cancelAnimationFrame(id)</td>
+			<td>結束 requestAnimationFrame</td>
 		</tr>
 		<tr>
-			<td>addEventListener()</td>
-			<td></td>
+			<td>
+					<a href='https://developer.mozilla.org/zh-TW/docs/Web/API/Fetch_API/Using_Fetch' target='_parent'>
+						fetch()
+					</a>
+			</td>
+			<td>遠端資料請求</td>
 		</tr>
 		<tr>
-			<td>removeEventListener()</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>fetch()</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>postMessage()</td>
-			<td></td>
+			<td>
+				<a href='https://developer.mozilla.org/zh-CN/docs/Web/API/Window/postMessage' target='_parent'>
+					postMessage()
+				</a>
+			</td>
+			<td>不同 window 間傳送訊息；以 onmessage 接收訊息</td>
 		</tr>
 	</table>
+	<table class='tutor' width="100%">
+		<tr><th style="width: 130px;">事件</th><th>描述</th></tr>
+		<tr>
+			<td>onload</td>
+			<td>視窗下載網頁完成時</td>
+		</tr>
+		<tr>
+			<td>onunload</td>
+			<td>結束視窗時</td>
+		</tr>
+		<tr>
+			<td>onmessage</td>
+			<td>收到別的視窗呼叫 postMessage 時</td>
+		</tr>
+		<tr>
+			<td>onfocus</td>
+			<td>視窗獲得焦點時</td>
+		</tr>
+		<tr>
+				<td>onblur</td>
+				<td>視窗失去焦點時</td>
+			</tr>
+		<tr>
+			<td>ononline</td>
+			<td>網頁連線時</td>
+		</tr>
+		<tr>
+			<td>onoffline</td>
+			<td>失去網頁連線時</td>
+		</tr>
+		<tr>
+			<td>onresize</td>
+			<td>改變視窗大小時</td>
+		</tr>
+		<tr>
+			<td>onstorage</td>
+			<td>localStorage 或 sessionStorage 資料異動時</td>
+		</tr>
+	</table>
+	
+	
 
-	<a href='http://techbrood.com/jsref?p=obj-window' target='_parent'>
-		http://techbrood.com
+	
+<!--
+	
+	<a href='' target='_parent'>
+		
 	</a><br/>
-	<a href='http://techaride.blogspot.com/2012/07/javascript-localstorage.html' target='_parent'>
-		localStorage
-	</a>
+-->
 </body>
 <script>
 	$(document).ready(function(){

@@ -24,22 +24,24 @@ class Polygon {
   get area() { 
     return this.height * this.width; 
   }
+  
+} 
+
+class Square extends Polygon { 
+  constructor(size) {            // override
+    super(size, size);           // 呼叫父類別的建構式
+  }
+  toString(){                    // override
+    return "Square inherit from " + 
+      super.toString();          // 呼叫父類別的 function
+  }
   set dimension(size) { 
     this.height = size; 
     this.width = size; 
   }
-} 
- 
-class Square extends Polygon { 
-  constructor(size) { 
-    super(size, size); // override
-  }
-  toString(){                    // override
-    return "Square inherit from " + super.toString();
-  }
 }
 
-write("Square.baseName", Square.baseName); // 靜態
+write("Square.baseName", Square.baseName); // 靜態方法
 
 let square = new Square(2);
 write("toString", square.toString());

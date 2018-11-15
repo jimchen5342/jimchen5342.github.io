@@ -24,11 +24,11 @@ function Student(firstName, subject) {         // 定義 Student 建構子
   Person.call(this, firstName);                // 繼承 Person
   this.subject = subject;
 }
-Student.prototype = Object.create(Person.prototype);
-Student.prototype.constructor = Student;
+Student.prototype = Object.create(Person.prototype); // 原型繼承*****
+Student.prototype.constructor = Student;             // 建構式繼承*****
 
 Student.prototype.sayHello = function(){       // 覆寫(override), Person.sayHello
-	Person.prototype.sayHello.call(this);
+	Person.prototype.sayHello.call(this);        // 呼叫父類別
 	write("..... I'm studying " + this.subject + ".");
 };
  
@@ -36,7 +36,7 @@ Student.prototype.sayGoodBye = function(){     // 加入方法到 Student
   write("Goodbye!");
 };
 
-let student1 = new Student("Janet", "Coding"); // 範例用法:
+let student1 = new Student("Janet", "Coding"); // 實例類別成物件
 student1.sayHello();
 student1.walk();
 student1.sayGoodBye();

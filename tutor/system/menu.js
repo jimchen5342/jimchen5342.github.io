@@ -333,6 +333,8 @@ let menu = [
 				}]
 			}, {
 				text: "DOM",
+				id: "D-DOM",
+				files: "ctx",
 				children: [{
 					text: "document"
 				}, {
@@ -344,6 +346,11 @@ let menu = [
 				}, {
 					text: "style"
 				}]
+			}, {
+				id: "08-event",
+				text: "事件",
+				context: "lesson08.t.html",
+				html: "lesson08.html",	
 		}]
 	}, {
 		text: "作業",
