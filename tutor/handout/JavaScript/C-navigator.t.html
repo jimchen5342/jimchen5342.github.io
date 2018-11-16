@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>navigator</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		h4 {
+			display: inline-block;
+		}
+		td > div {
+			color: blue;
+			display: inline-block;
+		}
+		td > div::before {
+			content:"：";
+			color:red;
+		}
+	</style>
+	<link rel="stylesheet" href="../pattern.css">
+	<script src="../../system/system.js"></script>
+	<script type="text/javascript" src="../../jQuery/jquery.min.js"></script>
+	<script src="../highlight.js"></script>
+	<script src="system.js"></script>
+</head>
+<body>
+	<a href='http://techbrood.com/jsref?p=obj-navigator' target='_parent'>
+		http://techbrood.com
+	</a><br/>
+	<table class="tutor" width="100%">
+			<tr><th style="width: 130px;">屬性</th><th>描述</th></tr>
+			<tr>
+				<td>appCodeName</td>
+				<td>瀏覽器的代碼名稱<div id='appCodeName'></div></td>
+			</tr>
+			<tr>
+				<td>appName</td>
+				<td>瀏覽器的名稱<div id='appName'></div></td>
+			</tr>
+			<tr>
+				<td>appVersion</td>
+				<td>瀏覽器的平台和版本訊息<div id='appVersion' ></div></td>
+			</tr>
+			<tr>
+				<td>deviceMemory</td>
+				<td>裝置的記憶體容量<div id='deviceMemory'></div>(GB)</td>
+			</tr>
+			<tr>
+				<td>hardwareConcurrency</td>
+				<td>裝置的 CPU 核心數<div id='hardwareConcurrency'></div></td>
+			</tr>
+			<tr>
+				<td>language</td>
+				<td>語系<div id='language'></div></td>
+			</tr>
+			<tr>
+				<td>maxTouchPoints</td>
+				<td>是否有觸控螢幕<div id='maxTouchPoints'></div></td>
+			</tr>
+			<tr>
+				<td>platform</td>
+				<td>瀏覽器作業系統<div id='platform'></div></td>
+			</tr>
+			<tr>
+				<td>product</td>
+				<td>瀏覽器產品名稱<div id='product'></div></td>
+			</tr>
+			<tr>
+				<td>productSub</td>
+				<td>瀏覽器產品編碼<div id='productSub'></div></td>
+			</tr>
+			<tr>
+				<td>userAgent</td>
+				<td>request 時發送給 web server 的 header 值<div id='userAgent'></div></td>
+			</tr>
+			<tr>
+				<td>vendor</td>
+				<td>製造商<div id='vendor'></div></td>
+			</tr>
+	</table>
+	<table class="tutor" width="100%">
+		<tr><th style="width: 130px;">物件</th><th>描述</th></tr>
+		<tr>
+			<td>geolocation</td>
+			<td>GPS</td>
+		</tr>
+		<tr>
+			<td>mediaDevices</td>
+			<td>多媒體</td>
+		</tr>
+	</table>
+
+	<table class="tutor" width="100%">
+		<tr><th style="width: 130px;">方法</th><th>描述</th></tr>
+		<tr>
+			<td>getBattery</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>getUserMedia</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>sendBeacon</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>vibrate</td>
+			<td></td>
+		</tr>
+	</table>
+</body>
+<script>
+	$(document).ready(function(){
+		// $("#appCodeName").text(navigator.appCodeName);
+
+		let arr = $("td > div").get();
+		for(let i = 0; i < arr.length; i++){
+			$(arr[i]).text(navigator[arr[i].id])
+		}
+		
+	});
+</script>
+</html>

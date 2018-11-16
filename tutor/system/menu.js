@@ -321,15 +321,24 @@ let menu = [
 				files: "ctx",
 				children: [{
 					text: "window",
-					id: "C-window"
+					id: "C-window",
+					files: "ctx"
 				}, {
-					text: "navigator"
+					text: "navigator",
+					id: "C-navigator",
+					files: "ctx"
 				}, {
-					text: "location"
+					text: "location",
+					id: "C-location",
+					files: "ctx"
 				}, {
-					text: "histroy"
+					text: "histroy",
+					id: "C-histroy",
+					files: "ctx"
 				}, {
-					text: "screen"									
+					text: "screen",
+					id: "C-screen",
+					files: "ctx"
 				}]
 			}, {
 				text: "DOM",

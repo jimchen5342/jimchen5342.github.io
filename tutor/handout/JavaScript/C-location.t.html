@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>location</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		h4 {
+			display: inline-block;
+		}
+		td > div {
+			color: blue;
+			display: inline-block;
+		}
+		td > div::before {
+			content:"：";
+			color:red;
+		}
+	</style>
+	<link rel="stylesheet" href="../pattern.css">
+	<script src="../../system/system.js"></script>
+	<script type="text/javascript" src="../../jQuery/jquery.min.js"></script>
+	<script src="../highlight.js"></script>
+	<script src="system.js"></script>
+</head>
+<body>
+	<a href='http://techbrood.com/jsref?p=obj-location' target='_parent'>
+		http://techbrood.com
+	</a><br/>
+	<table class="tutor" width="100%">
+		<tr><th style="width: 130px;">屬性</th><th>描述</th></tr>
+		<tr>
+			<td>hash</td>
+			<td><div id="hash"></div></td>
+		</tr>
+		<tr>
+			<td>host</td>
+			<td><div id="host"></div></td>
+		</tr>
+		<tr>
+			<td>hostname</td>
+			<td><div id="hostname"></div></td>
+		</tr>
+		<tr>
+			<td>href</td>
+			<td><div id="href"></div></td>
+		</tr>
+		<tr>
+			<td>origin</td>
+			<td><div id="origin"></div></td>
+		</tr>
+		<tr>
+			<td>pathname</td>
+			<td><div id="pathname"></div></td>
+		</tr>
+		<tr>
+			<td>port</td>
+			<td><div id="port"></div></td>
+		</tr>
+		<tr>
+			<td>protocol</td>
+			<td><div id="protocol"></div></td>
+		</tr>
+		<tr>
+			<td>search</td>
+			<td><div id="search"></div></td>
+		</tr>
+	</table>
+	<table class="tutor" width="100%">
+		<tr><th style="width: 130px;">方法</th><th>描述</th></tr>
+		<tr>
+			<td>assign</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>reload</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>replace</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>toString</td>
+			<td></td>
+		</tr>
+	</table>
+
+	<table class="tutor" width="100%">
+		<tr><th style="width: 130px;">object</th><th>描述</th></tr>
+		<tr>
+			<td>ancestorOrigins</td>
+			<td></td>
+		</tr>
+	</table>
+		
+</body>
+<script>
+	$(document).ready(function(){
+		let arr = $("td > div").get();
+		for(let i = 0; i < arr.length; i++){
+			$(arr[i]).text(location[arr[i].id])
+		}
+		
+	});
+</script>
+</html>
