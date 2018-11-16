@@ -25,26 +25,40 @@
   <div title="form">
 		<h4 style="color: blue">form</h4>
     <ol>
-			<li>用途：表單；用於收集各類型的使用者輸入的資訊，回傳給主機</li>
+			<li>用途：表單，用於收集各類型的使用者輸入的資訊，回傳給主機</li>
 			<li>表單元素：input, textarea, select, option, button</li>
-			<li>表單輔助元素：label, fieldset, legend</li>
-			<li>action：URL, 當表單提交時，向何處發送數據</li>
-			<li>method：
-				<ul>
-					<li>get(default)：網址會帶有 HTML Form 表單的參數與資料；以 ? 開頭，& 為間隔；如：<br />
-						<span style='color: blue;'>https://www.google.com.tw/search?source=hp&q=html5</span>
+			<li>表單輔助元素：label, fieldset, legend</li>			
+			<li>屬性：id, name
+				<ol type="a">
+					<li>action：URL, 當表單提交時，向何處發送數據</li>
+					<li>method：
+						<ul>
+							<li>get(default)：網址會帶有 HTML Form 表單的參數與資料；以 ? 開頭，& 為間隔；如：<br />
+								<span style='color: blue;'>https://www.google.com.tw/search?source=hp&q=html5</span>
+							</li>
+							<li>post：</li>
+						</ul>
 					</li>
-					<li>post：</li>
-				</ul>
+					<li>target：<br/>
+							_self (default)<br/>
+							_blank<br/>
+							_parent<br/>
+							_top
+					</li>
+				</ol>
 			</li>
-			<li>target：<br/>
-				  _self (default)<br/>
-					_blank<br/>
-					_parent<br/>
-					_top
+			<li>方法：
+				<ol type="a">
+					<li>submit()</li>
+					<li>reset()</li>
+				</ol>
 			</li>
-			<li>屬性：id, name</li>
-			<li>事件：onreset, onsubmit</li></li>
+			<li>事件：
+				<ol type="a">
+					<li>onsubmit</li>
+					<li>onreset</li>
+				</ol>
+			</li>
 		</ol>
 	</div>
 
@@ -56,8 +70,10 @@
 			<li>屬性：name, id, class, style, size, maxlength, value, placeholder, readonly,
 				disabled
 			</li>
-			<li>事件：onkeydonw, onkeyup, onkeypress, onselect, onclick, ondblclick, 
-				onfocus, onblur, onchange, onmousedown, onmouseup, onmouseover, onmousemove, onmouseout</li>
+			<li>事件：<span style='color: red;'>oninput</span>,
+				onkeydonw, onkeyup, onkeypress, onselect, onclick, ondblclick, 
+				onfocus, onblur, onchange, 
+				onmousedown, onmouseup, onmouseover, onmousemove, onmouseout</li>
 			<pre>
 				<code class='html'>
 						&lt;input type='text' id='userid' value='' placeholder='請輸入 ID'/&gt;
@@ -70,7 +86,8 @@
 			<li>用途：密碼輸入</li>
 			<li>屬性：name, id, class, style, size, maxlength, value, placeholder, readonly,
 					disabled</li>
-			<li>事件：onkeydonw, onkeyup, onkeypress, onselect, onclick, ondblclick, 
+			<li>事件：<span style='color: red;'>oninput</span>,
+				onkeydonw, onkeyup, onkeypress, onselect, onclick, ondblclick, 
 				onfocus, onblur, onchange, onmousedown, onmouseup, onmouseover, onmousemove, onmouseout</li>
 			<pre>
 				<code class='html'>
@@ -116,7 +133,9 @@
 			<li>屬性：name, id, class, style, value, disabled</li>
 			<li>事件：onclick, onfocus, onblur, onmousedown, onmouseup, onmouseover, onmousemove, onmouseout</li>
 		</ol>
-		<h4>註：url, email, tel, number, range, date, time, datetime, search</h4>
+
+		<h4>註一：submit, reset, hidden</h4>
+		<h4>註二：url, email, tel, number, range, date, time, datetime, search</h4>
 	</div>
 	<div title="textarea">
 		<h4 style="color: blue">textarea</h4>
@@ -124,7 +143,8 @@
 			<li>用途：多列文字輸入</li>
 			<li>CSS：resize </li>
 			<li>屬性：name, id, class, style, placeholder, cols, rows, disabled</li>
-			<li>事件：onkeydonw, onkeyup, onkeypress, onslect, onclick, onfocus, onblur, onchange, 
+			<li>事件：<span style='color: red;'>oninput</span>,
+				onkeydonw, onkeyup, onkeypress, onslect, onclick, onfocus, onblur, onchange, 
 				onmousedown, onmouseup, onmouseover, onmousemove, onmouseout</li>
 		</ol>
 	</div>
