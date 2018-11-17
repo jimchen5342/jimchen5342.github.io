@@ -332,8 +332,8 @@ let menu = [
 					id: "C-location",
 					files: "ctx"
 				}, {
-					text: "histroy",
-					id: "C-histroy",
+					text: "history",
+					id: "C-history",
 					files: "ctx"
 				}, {
 					text: "screen",
@@ -345,9 +345,13 @@ let menu = [
 				id: "D-DOM",
 				files: "ctx",
 				children: [{
-					text: "document"
+					text: "document",
+					id: "D-document",
+					files: "ctx"
 				}, {
-					text: "element"
+					text: "element",
+					id: "D-element",
+					files: "ctx"
 				}, {
 					text: "attribute"
 				}, {

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>element</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		h4 {
+			display: inline-block;
+		}
+		td > div {
+			color: blue;
+			display: inline-block;
+		}
+		td > div::before {
+			content:"：";
+			color:red;
+		}
+	</style>
+	<link rel="stylesheet" href="../pattern.css">
+	<script src="../../system/system.js"></script>
+	<script type="text/javascript" src="../../jQuery/jquery.min.js"></script>
+	<script src="../highlight.js"></script>
+	<script src="system.js"></script>
+</head>
+<body>
+	<a href='http://techbrood.com/jsref?p=dom-obj-all' target='_parent'>
+		http://techbrood.com
+	</a><br/>
+	<table class="tutor" width="100%">
+		<tr><th style="width: 130px;">屬性</th><th>描述</th></tr>
+		<tr>
+			<td>id</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>innerHTML</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>outerHTML</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>innerText</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>outerText</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>childElementCount</td>
+			<td>取得子節點的元件數量</td>
+		</tr>
+		<tr>
+			<td>className</td>
+			<td>傳回元件的 class 屬性值</td>
+		</tr>
+		<tr>
+			<td>clientHeight</td>
+			<td>傳回元件的高度</td>
+		</tr>
+		<tr>
+			<td>clientWidth</td>
+			<td>傳回元件的寬度</td>
+		</tr>
+		<tr>
+			<td>contentEditable</td>
+			<td>傳回元件是否可編輯</td>
+		</tr>
+		<tr>
+			<td>nodeValue</td>
+			<td>傳回元件 value 的屬性值</td>
+		</tr>
+		<tr>
+			<td>nodeName</td>
+			<td>傳回元件的標籤名稱</td>
+		</tr>
+		
+		<tr>
+			<td>attributes</td>
+			<td>傳回元件的屬性陣列</td>
+		</tr>
+		<tr>
+			<td>childNodes</td>
+			<td>傳回元件的子節點元件陣列</td>
+		</tr>
+		<tr>
+			<td>firstChild</td>
+			<td>傳回元件的第一個子節點元件</td>
+		</tr>
+		<tr>
+			<td>lastChild</td>
+			<td>傳回元件的最後一個子節點元件</td>
+		</tr>
+		<tr>
+			<td>previousSibling</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>nextSibling</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>parentElement</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>parentNode</td>
+			<td></td>
+		</tr>
+		
+	</table>
+
+	<table class="tutor" width="100%">
+		<tr><th style="width: 130px;">function</th><th>描述</th></tr>
+		
+	</table>
+	
+	<table class="tutor" width="100%">
+		<tr><th style="width: 130px;">event</th><th>描述</th></tr>
+		
+	</table>	
+</body>
+<script>
+	$(document).ready(function(){
+		let arr = $("td > div").get();
+		for(let i = 0; i < arr.length; i++){
+			$(arr[i]).text(document[arr[i].id])
+		}
+	});
+</script>
+</html>
