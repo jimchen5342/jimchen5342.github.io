@@ -30,19 +30,39 @@
 		<tr><th style="width: 130px;">屬性</th><th>描述</th></tr>
 		<tr>
 			<td>id</td>
-			<td></td>
+			<td>元件在網頁中的唯一識別碼</td>
+		</tr>
+		<tr>
+			<td>style</td>
+			<td>設定或取得元件的 style 屬性值</td>
+		</tr>
+		<tr>
+			<td>classList</td>
+			<td>傳回元件的 class 屬性；
+				<ol>
+					<li>length</li>
+					<li>contains(value)</li>
+					<li>add(value)</li>
+					<li>remove(value)</li>
+					<li>toggle(value)</li>
+				</ol>
+			</td>
+		</tr>
+		<tr>
+			<td>className</td>
+			<td>設定或取得元件的 class 屬性值(字串)</td>
 		</tr>
 		<tr>
 			<td>innerHTML</td>
-			<td></td>
+			<td>設定或取得元件內的 HTML 內容</td>
 		</tr>
 		<tr>
 			<td>outerHTML</td>
-			<td></td>
+			<td>設定或取得元件內的 HTML 內容，含元件本身</td>
 		</tr>
 		<tr>
 			<td>innerText</td>
-			<td></td>
+			<td>設定或取得元件內的 text 內容</td>
 		</tr>
 		<tr>
 			<td>outerText</td>
@@ -53,16 +73,39 @@
 			<td>取得子節點的元件數量</td>
 		</tr>
 		<tr>
-			<td>className</td>
-			<td>傳回元件的 class 屬性值</td>
+			<td>clientWidth <br/>clientHeight</td>
+			<td>傳回元件的寬/高度；不含 margin, border, padding, scrollbar
+				<a href='https://developer.mozilla.org/en-US/docs/Web/API/Element/clientHeight' target="_parent">
+					<img src='https://developer.mozilla.org/@api/deki/files/185/=Dimensions-client.png' />
+				</a>
+			</td>
 		</tr>
 		<tr>
-			<td>clientHeight</td>
-			<td>傳回元件的高度</td>
+			<td>offsetWidth<br/>offsetHeight</td>
+			<td>傳回元件的寬/高度；不含 margin
+				<a href='https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetHeight' target="_parent">
+					<img src='https://developer.mozilla.org/@api/deki/files/186/=Dimensions-offset.png' />
+				</a>
+			</td>
 		</tr>
 		<tr>
-			<td>clientWidth</td>
-			<td>傳回元件的寬度</td>
+			<td>scrollHeight</td>
+			<td>在沒有垂直 scrollbar 的情況時, scrollHeight == clientHeight；
+				在元件的 overflow 樣式值為 hidden，當有 scrollBar 時，scrollHeight 不含 marginTop
+			</td>
+		</tr>
+		<tr>
+			<td>scrollWidth</td>
+			<td>在沒有水平 scrollbar 的情況時, scrollWidth == clientWidth；
+					在元件的 overflow 樣式值為 hidden，當有 scrollBar 時，scrollHeight 不含 marginTop</td>
+		</tr>
+		<tr>
+			<td>scrollTop</td>
+			<td>設定或取得元件頂點與父元件的頂點的距離</td>
+		</tr>
+		<tr>
+			<td>scrollLeft</td>
+			<td>設定或取得元件左邊與父元件左邊的距離</td>
 		</tr>
 		<tr>
 			<td>contentEditable</td>
@@ -73,10 +116,9 @@
 			<td>傳回元件 value 的屬性值</td>
 		</tr>
 		<tr>
-			<td>nodeName</td>
+			<td>nodeName/tagName</td>
 			<td>傳回元件的標籤名稱</td>
 		</tr>
-		
 		<tr>
 			<td>attributes</td>
 			<td>傳回元件的屬性陣列</td>
@@ -102,14 +144,9 @@
 			<td></td>
 		</tr>
 		<tr>
-			<td>parentElement</td>
-			<td></td>
+			<td>parentNode<br/>parentElement</td>
+			<td>傳回元件的父節點元件</td>
 		</tr>
-		<tr>
-			<td>parentNode</td>
-			<td></td>
-		</tr>
-		
 	</table>
 
 	<table class="tutor" width="100%">
