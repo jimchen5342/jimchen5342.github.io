@@ -113,10 +113,10 @@
 		</tr>
 		<tr>
 			<td>nodeValue</td>
-			<td>傳回元件 value 的屬性值</td>
+			<td></td>
 		</tr>
 		<tr>
-			<td>nodeName/tagName</td>
+			<td>nodeName<br/>tagName</td>
 			<td>傳回元件的標籤名稱</td>
 		</tr>
 		<tr>
@@ -151,13 +151,86 @@
 
 	<table class="tutor" width="100%">
 		<tr><th style="width: 130px;">function</th><th>描述</th></tr>
+		<tr>
+			<td>addEventListener(eventName, callback, capture)</td>
+			<td>
+				註冊事件
+				<ol>
+					<li>eventName：事件名稱，不要加 on</li>
+					<li>callback：函式變數名稱；儘量不要用匿名函式</li>
+					<li>capture：
+						<ol>
+							<li>false：bubble 方向由元件本身再到父元件；default</li>
+							<li>true：bubble 方向由父元件再到元件本身</li>
+						</ol>
+					</li>
+			</ol>
+			</td>
+		</tr>
+		<tr>
+			<td>removeEventListener(eventName, callback)</td>
+			<td>移除事件，callback 不可為匿名函式</td>
+		</tr>
+		<tr>
+			<td>dispatchEvent()</td>
+			<td></td>
+		</tr>				
+		<tr>
+			<td>append()</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>appendChild()</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>cloneNode(deep)</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>removeChild</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>replaceChild</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>contains</td>
+			<td></td>
+		</tr>
 		
+		<tr>
+			<td>hasChildNodes</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>hasFocus()</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>insertBefore</td>
+			<td></td>
+		</tr>
+
+		<tr>
+			<td>isEqualNode</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>isSameNode</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>createRange</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>getSelection</td>
+			<td></td>
+		</tr>
 	</table>
-	
-	<table class="tutor" width="100%">
-		<tr><th style="width: 130px;">event</th><th>描述</th></tr>
-		
-	</table>	
+
 </body>
 <script>
 	$(document).ready(function(){
