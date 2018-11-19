@@ -352,12 +352,12 @@ let menu = [
 					text: "element",
 					id: "D-element",
 					files: "ctx"
-				}, {
-					text: "attribute"
-				}, {
-					text: "event"
-				}, {
-					text: "style"
+				// }, {
+				// 	text: "attribute"
+				// }, {
+				// 	text: "event"
+				// }, {
+				// 	text: "style"
 				}]
 			}, {
 				id: "08-event",
