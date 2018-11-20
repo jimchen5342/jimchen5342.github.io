@@ -97,14 +97,20 @@
 		</tr>
 		<tr>
 			<td>scrollHeight</td>
-			<td>在沒有垂直 scrollbar 的情況時, scrollHeight == clientHeight；
-				在元件的 overflow 樣式值為 hidden，當有 scrollBar 時，scrollHeight 不含 marginTop
+			<td>
+				<ol>
+					<li>在沒有垂直 scrollbar 的情況時；scrollHeight == clientHeight</li>
+					<li>在有垂直 scrollbar 的情況時；scrollHeight 才有意義，scrollHeight >= clientHeight</li>
+				</ol>
 			</td>
 		</tr>
 		<tr>
 			<td>scrollWidth</td>
-			<td>在沒有水平 scrollbar 的情況時, scrollWidth == clientWidth；
-					在元件的 overflow 樣式值為 hidden，當有 scrollBar 時，scrollHeight 不含 marginTop</td>
+			<td>
+				<ol>
+					<li>在沒有水平 scrollbar 的情況時；scrollWidth == clientWidth</li>
+					<li>在有水平 scrollbar 的情況時；scrollWidth 才有意義，scrollWidth >= clientWidth</li>
+				</ol>
 		</tr>
 		<tr>
 			<td>scrollTop</td>

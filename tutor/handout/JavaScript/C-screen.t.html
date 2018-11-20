@@ -29,43 +29,38 @@
 	<table class="tutor" width="100%">
 		<tr><th style="width: 130px;">屬性</th><th>描述</th></tr>
 		<tr>
-			<td>availHeight</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>availLeft</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>availTop</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>availWidth</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>colorDepth</td>
-			<td></td>
+			<td>width</td>
+			<td>螢幕寬度<div id='width'></div></td>
 		</tr>
 		<tr>
 			<td>height</td>
-			<td></td>
+			<td>螢幕高度<div id='height'></div></td>
 		</tr>
 		<tr>
-			<td>pixelDepth</td>
-			<td></td>
+			<td>availWidth</td>
+			<td>螢幕有效寬度<div id='availWidth'></div></td>
 		</tr>
 		<tr>
-			<td>width</td>
-			<td></td>
+			<td>availHeight</td>
+			<td>螢幕有效寬度(螢幕高度 - dock 高度)<div id='availHeight'></div></td>
 		</tr>
+		<tr>
+			<td>colorDepth<br/>pixelDepth</td>
+			<td>色彩深度<div id='colorDepth'></div></td>
+		</tr>
+		
 	</table>
 	<table class="tutor" width="100%">
 		<tr><th style="width: 130px;">object</th><th>描述</th></tr>
 		<tr>
 			<td>orientation</td>
-			<td></td>
+			<td>
+				<ol>
+					<li>angle：螢幕角度；0 | 90 | 180 | -90</li>
+					<li>type：螢幕方向；portrait-primary | portrait-secondary | landscape-primary | landscape-secondary</li>
+					<li>onchange：螢幕改變時觸發的事件</li>
+				</ol>
+			</td>
 		</tr>
 	</table>
 		
@@ -74,7 +69,7 @@
 	$(document).ready(function(){
 		let arr = $("td > div").get();
 		for(let i = 0; i < arr.length; i++){
-			$(arr[i]).text(location[arr[i].id])
+			$(arr[i]).text(screen[arr[i].id])
 		}
 	});
 </script>
