@@ -7,14 +7,16 @@
 		h4 {
 			display: inline-block;
 		}
-		td > div {
+		/*
+		td > div[id]{
 			color: blue;
 			display: inline-block;
 		}
-		td > div::before {
+		td > div[id]::before {
 			content:"：";
 			color:red;
 		}
+		*/
 	</style>
 	<link rel="stylesheet" href="../pattern.css">
 	<script src="../../system/system.js"></script>
@@ -23,14 +25,23 @@
 	<script src="system.js"></script>
 </head>
 <body>
+	<!-- 
+		NodeList
+		childNodes
+		nodeValue
+	-->
 	<a href='http://techbrood.com/jsref?p=dom-obj-all' target='_parent'>
 		http://techbrood.com
 	</a><br/>
-	<table class="tutor" width="100%">
+	<table class="tutor" width="100%" style='display: none;'>
 		<tr><th style="width: 130px;">屬性</th><th>描述</th></tr>
 		<tr>
 			<td>id</td>
 			<td>設定或取得元件在網頁中的唯一識別碼</td>
+		</tr>
+		<tr>
+			<td>attributes</td>
+			<td>傳回元件的屬性陣列</td>
 		</tr>
 		<tr>
 			<td>style</td>
@@ -38,7 +49,7 @@
 		</tr>
 		<tr>
 			<td>classList</td>
-			<td>傳回元件的 class 屬性；
+			<td>傳回元件的 class 屬性值的陣列；
 				<ol>
 					<li>length</li>
 					<li>contains(value)</li>
@@ -61,12 +72,8 @@
 			<td>設定或取得元件內的 HTML 內容，含元件本身</td>
 		</tr>
 		<tr>
-			<td>innerText</td>
+			<td>innerText<br/>outerText</td>
 			<td>設定或取得元件內的 text 內容</td>
-		</tr>
-		<tr>
-			<td>outerText</td>
-			<td></td>
 		</tr>
 		<tr>
 			<td>childElementCount</td>
@@ -74,7 +81,7 @@
 		</tr>
 		<tr>
 			<td>clientWidth <br/>clientHeight</td>
-			<td>傳回元件的寬/高度；不含 margin, border, padding, scrollbar
+			<td><div>傳回元件的寬/高度；不含 margin, border, padding, scrollbar</div>
 				<a href='https://developer.mozilla.org/en-US/docs/Web/API/Element/clientHeight' target="_parent">
 					<img src='https://developer.mozilla.org/@api/deki/files/185/=Dimensions-client.png' />
 				</a>
@@ -82,7 +89,7 @@
 		</tr>
 		<tr>
 			<td>offsetWidth<br/>offsetHeight</td>
-			<td>傳回元件的寬/高度；不含 margin
+			<td><div>傳回元件的寬/高度；不含 margin</div>
 				<a href='https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetHeight' target="_parent">
 					<img src='https://developer.mozilla.org/@api/deki/files/186/=Dimensions-offset.png' />
 				</a>
@@ -112,17 +119,10 @@
 			<td>傳回元件是否可編輯</td>
 		</tr>
 		<tr>
-			<td>nodeValue</td>
-			<td></td>
-		</tr>
-		<tr>
 			<td>nodeName<br/>tagName</td>
 			<td>傳回元件的標籤名稱</td>
 		</tr>
-		<tr>
-			<td>attributes</td>
-			<td>傳回元件的屬性陣列</td>
-		</tr>
+		<!--
 		<tr>
 			<td>childNodes</td>
 			<td>傳回元件的子節點元件陣列</td>
@@ -137,12 +137,13 @@
 		</tr>
 		<tr>
 			<td>previousSibling</td>
-			<td></td>
+			<td>傳回元件的前一個兄弟節點，如沒有則傳回 null</td>
 		</tr>
 		<tr>
 			<td>nextSibling</td>
-			<td></td>
+			<td>傳回元件的下一個兄弟節點，如沒有則傳回 null</td>
 		</tr>
+		-->
 		<tr>
 			<td>parentNode<br/>parentElement</td>
 			<td>傳回元件的父節點元件</td>
@@ -157,7 +158,7 @@
 				註冊事件
 				<ol>
 					<li>eventName：事件名稱，不要加 on</li>
-					<li>callback：函式變數名稱；儘量不要用匿名函式</li>
+					<li>callback：函式變數名稱或匿名函式；儘量不要用匿名函式</li>
 					<li>capture：
 						<ol>
 							<li>false：bubble 方向由元件本身再到父元件；default</li>
@@ -172,54 +173,72 @@
 			<td>移除事件，callback 不可為匿名函式</td>
 		</tr>
 		<tr>
-			<td>dispatchEvent()</td>
-			<td></td>
-		</tr>				
-		<tr>
-			<td>append()</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>appendChild()</td>
-			<td></td>
+			<td>appendChild(el)</td>
+			<td>為元件新增子元件</td>
 		</tr>
 		<tr>
 			<td>cloneNode(deep)</td>
-			<td></td>
+			<td>複製並傳回元件；<br/>
+				deep(true/false)：是否連元件內的子元件都一併複製</td>
 		</tr>
 		<tr>
-			<td>removeChild</td>
-			<td></td>
+			<td>replaceChild(new, old)</td>
+			<td>代換子元件</td>
 		</tr>
 		<tr>
-			<td>replaceChild</td>
-			<td></td>
+			<td>removeChild(el)</td>
+			<td>移除子元件</td>
 		</tr>
 		<tr>
-			<td>contains</td>
-			<td></td>
+			<td>insertBefore(newNode, existNode)</td>
+			<td>在某子元件前插入一個新子元件</td>
 		</tr>
-		
 		<tr>
-			<td>hasChildNodes</td>
-			<td></td>
+			<td>contains(otherNode)</td>
+			<td>在元件的子元件中是否含有 otherNode 元件</td>
+		</tr>
+		<tr>
+			<td>hasAttribute(attr)</td>
+			<td>元件是否有指定屬性，傳回 true/false</td>
+		</tr>
+		<tr>
+			<td>hasAttributes()</td>
+			<td>元件是否具有任何屬性，傳回 true/false</td>
+		</tr>
+		<tr>
+			<td>getAttribute(attr)</td>
+			<td>傳回元件指定屬性的值，如沒有設定則傳回 null</td>
+		</tr>
+		<tr>
+			<td>getAttributeNode(attr)</td>
+			<td>傳回元件指定屬性節點，如沒有設定則傳回 null</td>
+		</tr>
+		<tr>
+			<td>setAttribute(attr, value)</td>
+			<td>設定元件的指定屬性的值<br/>
+				請參考 document.createAttribute();
+			</td>
+		</tr>
+		<tr>
+			<td>setAttributeNode(attrNode)</td>
+			<td>設定元件的指定屬性節點</td>
+		</tr>
+
+		<tr>
+			<td>hasChildNodes()</td>
+			<td>元件是否具有任何子元件，傳回 true/false</td>
 		</tr>
 		<tr>
 			<td>hasFocus()</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td>insertBefore</td>
-			<td></td>
-		</tr>
-
-		<tr>
-			<td>isEqualNode</td>
-			<td></td>
+			<td>querySelector(selector)</td>
+			<td>依 selector 查找網頁中的元件，並傳回元件；如找不到則傳回 null</td>
 		</tr>
 		<tr>
-			<td>isSameNode</td>
-			<td></td>
+			<td>querySelectorAll(selector)</td>
+			<td>依 selector 查找網頁中的元件，並傳回元件陣列</td>
 		</tr>
 		<tr>
 			<td>createRange</td>
@@ -227,10 +246,6 @@
 		</tr>
 		<tr>
 			<td>getSelection</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>setAttributeNode(attrNode)</td>
 			<td></td>
 		</tr>
 	</table>
