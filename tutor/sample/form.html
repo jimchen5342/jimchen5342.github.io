@@ -14,7 +14,7 @@
       form * {
         font-size: 16px !important;
       }
-      input[type=submit], input[type=reset] {
+			input[type=submit], input[type=reset] {
 				background-color: #4CAF50;
 				color: white;
 				padding: 5px 16px;
@@ -28,7 +28,7 @@
   </head>
   <body>
     <h3 style="color: blue">第六課：表單</h3>
-    <form action="./index.html" method='post' target="_self">
+    <form action='userSave' method='get' target="_self" id='form'>
       帳號：<input type='text' name='userID' value='John' /><br/>
       密碼：<input type='password' name='userPwd' value='12345' />
       <br /><br />
@@ -83,10 +83,11 @@
       <input type='reset' />
       <button disabled style='width: 80px;'>存檔</button>
     </form>
-  </body>
+	</body>
 	<script>
 		function send() {
 			let form = document.getElementById("form");
 			form.submit();
 		}
+	</script>
 </html>
