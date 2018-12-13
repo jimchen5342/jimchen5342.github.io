@@ -196,8 +196,51 @@
 			<td>移除子元件</td>
 		</tr>
 		<tr>
-			<td>insertBefore(newNode, existNode)</td>
-			<td>在某子元件前插入一個新子元件</td>
+			<td><a taget="_parent" href='https://codepen.io/jimchen5342/pen/JwYLEx?editors=1011'>
+				insertBefore(new, exist)</a>
+			</td>
+			<td>在某子元件前插入一個新子元件 </td>
+		</tr>
+		<tr>
+			<td><a taget="_parent" href='https://codepen.io/jimchen5342/pen/JwYLEx?editors=1011'>
+				insertAdjacentElement(position, el)</a>
+			</td>
+			<td>
+				在指定位置，插入一個新元件。<br/>
+				position：
+				<ol>
+					<li>'beforebegin'：元件的前面</li>
+					<li>'afterbegin'：子節點的第一個位置</li>
+					<li>'beforeend'：子節點的最後一個位置</li>
+					<li>'afterend':：元件的後面</li>
+				</ol>
+			</td>
+		</tr>
+		<tr>
+			<td>insertAdjacentHTML(position, html)</td>
+			<td>
+					把傳入的 html 字串解析成新元件，在指定位置，插入新元件。<br/>
+					position：
+					<ol>
+						<li>'beforebegin'：元件的前面</li>
+						<li>'afterbegin'：子節點的第一個位置</li>
+						<li>'beforeend'：子節點的最後一個位置</li>
+						<li>'afterend':：元件的後面</li>
+					</ol>
+			</td>
+		</tr>
+		<tr>
+			<td>insertAdjacentText(position, text)</td>
+			<td>
+				在指定位置，插入傳入的文字。<br/>
+				position：
+				<ol>
+					<li>'beforebegin'：元件的前面</li>
+					<li>'afterbegin'：子節點的第一個位置</li>
+					<li>'beforeend'：子節點的最後一個位置</li>
+					<li>'afterend':：元件的後面</li>
+				</ol>
+			</td>
 		</tr>
 		<tr>
 			<td>contains(otherNode)</td>
