@@ -26,11 +26,35 @@
 					<li>回傳一個 db 物件</li>
 			</ol>
 		</li>
+		<li>
+			<ol type='1'>
+				<li></li>
+				<li></li>
+			</ol>
+		</li>
+		<li>
+			<ol type='1'>
+				<li></li>
+				<li></li>
+			</ol>
+		</li>
 		
 	</ol>
 	<pre>
 		<code class='javascript'>
-			
+				var db;
+				var request = indexedDB.open("MyTestDatabase");
+				request.onerror = function(event) {
+					alert("Why didn't you allow my web app to use IndexedDB?!");
+				};
+				request.onsuccess = function(event) {
+					db = request.result;
+				};
+				request.onupgradeneeded = function(event) { 
+					var db = event.target.result;
+					// Create an objectStore for this database
+					var objectStore = db.createObjectStore("name", { keyPath: "myKey" });
+				};
 		</code>
 	</pre>
 				
