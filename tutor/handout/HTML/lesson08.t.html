@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>第八課：事件</title>
+    <title>事件</title>
     <meta charset="utf-8" />
     <style type="text/css">
 		</style>
@@ -51,7 +51,7 @@
 		</li>
 		<li>外部／內部：在 script 內，事件綁定／移除；(屬性用法要加 on，反之不用加)
 			<pre><code>
-				window.load = function(){
+				window.onload = function(){
 					
 				}
 				document.getElementById("mouse").onclick = function(e){
@@ -70,6 +70,7 @@
 			</code></pre>
 		</li>
 	</ol>
+
 
 	<h4>DOM Event Object - 方法</h4>
 	<ol>
@@ -118,6 +119,18 @@
 		<li>returnValue</li>
 		<li>cancelBubble</li>
 	</ol>
+
+	<h4>自訂事件 - dispatchEvent</h4>
+	<pre><code class='javascript'>
+			let event = new Event('build');
+
+			// 註冊事件
+			el.addEventListener('build', function (e) { ... }, false);
+			
+			// 觸發事件
+			el.dispatchEvent(event);
+	</code></pre>	
+	
 	註：阻止 bubble，有下列三種寫法
 	<ul>
 		<li>e.preventDefault()</li>

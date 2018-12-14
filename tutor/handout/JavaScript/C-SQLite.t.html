@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SQLite</title>
+	<meta charset="utf-8" />
+	<style type="text/css">
+		h4 {
+			display: inline-block;
+		}
+	</style>
+	<link rel="stylesheet" href="../pattern.css">
+	<script src="../../system/system.js"></script>
+	<script type="text/javascript" src="../../jQuery/jquery.min.js"></script>
+	<script src="../highlight.js"></script>
+	<script src="system.js"></script>
+</head>
+<body>
+	<a href='http://www.runoob.com/html/html5-web-sql.html' target='_parent'>
+		SQLite 資料庫
+	</a>
+				
+	<ol type='a'>
+		<li>openDatabase(dbName, verName, description, capacity)
+			<ol type='1'>
+					<li>capacity：資料庫空間，單位是 byte</li>
+					<li>回傳一個 db 物件</li>
+			</ol>
+		</li>
+		<li>db.transaction(callback)<br/>
+			callback 傳入參數是一個 transaction 物件
+		</li>
+		<li>tx.executeSql(sql[, values, successCB, errorCB])
+			<ol type='1'>
+				<li>sql 語法</li>
+				<li>values：陣列值，當 sql 語法中有 ? 時會用 values 中的元素取代，如果沒有要用請放 null</li>
+				<li>success callback：callbacke 回傳 tx 跟 results 2個參數；
+					results 參數有下列屬性
+					<ul>
+							<li>rowsAffected：執行 insert, update, delete 語法時，回傳影響的資料列筆數</li>
+							<li>rows：執行 select 語法時，回傳查詢結果資料列</li>
+							<li>insertId：執行 insert 語法時，回傳新增資料列的 rowID</li>
+					</ul>
+				</li>
+				<li>error callback：callbacke 回傳 tx 跟 error 2個參數</li>
+			</ol>
+		</li>
+	</ol>
+	<pre>
+		<code class='javascript'>
+			var db = openDatabase('BiPOS', '1.0', 'POS 資料庫', 10 * 1024 * 1024);
+			db.transaction(function (tx) {  
+				tx.executeSql('create table if not exists ' +
+					'PRODUCT(ID int not null, PC_NAME varchar(10), primary key(id)');
+				tx.executeSql('insert into PRODUCT (ID, PC_NAME) VALUES (1, "紅茶")');
+				tx.executeSql('insert into PRODUCT (ID, PC_NAME) VALUES (?, ?)', [2, "可樂"]);
+			});
+
+			db.transaction(function (tx) {
+				tx.executeSql('select * from PRODUCT', null, function (tx, results) {
+					console.log("筆數: " + results.rows.length);
+					for (var i = 0; i < results.rows.length; i++){
+						console.log( results.rows.item(i).PC_NAME );
+					}
+				}, function(tx, err){
+					console.log(err.message)
+				});
+			});
+		</code>
+	</pre>
+				
+</body>
+<script>
+
+</script>
+</html>

@@ -364,6 +364,15 @@ let menu = [
 				text: "事件",
 				context: "lesson08.t.html",
 				html: "lesson08.html",	
+			}, {
+				id: "C-SQLite",
+				text: "SQLite",
+				context: "C-SQLite.t.html",
+				// html: "lesson08.html",
+			}, {
+				id: "C-indexedDB",
+				text: "indexedDB",
+				context: "C-indexedDB.t.html",							
 		}]
 	}, {
 		text: "作業",

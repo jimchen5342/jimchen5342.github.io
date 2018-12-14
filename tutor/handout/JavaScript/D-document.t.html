@@ -134,7 +134,10 @@
 				註冊事件
 				<ol>
 					<li>eventName：事件名稱，不要加 on</li>
-					<li>callback：函式變數名稱或匿名函式；儘量不要用匿名函式</li>
+					<li>callback：函式變數名稱或匿名函式<br/>
+						註：callback 傳入參數 Event Object。<br/>
+						儘量不要用匿名函式。
+					</li>
 					<li>capture：
 						<ol>
 							<li>false：bubble 方向由元件本身再到父元件；default</li>
@@ -147,6 +150,16 @@
 		<tr>
 			<td>removeEventListener(eventName, callback)</td>
 			<td>移除事件，callback 不可為匿名函式</td>
+		</tr>
+		<tr>
+			<td>dispatchEvent</td>
+			<td>自訂事件<br/><br/>
+						let event = new Event('build');<br/><br/>
+						// 註冊事件<br/>
+						el.addEventListener('build', function (e) { ... }, false);<br/><br/>
+						// 觸發事件<br/>
+						el.dispatchEvent(event);
+			</td>
 		</tr>
 		<tr>
 			<td><a taget="_parent" href='https://codepen.io/jimchen5342/pen/JwYLEx?editors=1011'>

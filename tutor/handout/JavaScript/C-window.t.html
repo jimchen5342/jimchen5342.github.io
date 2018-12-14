@@ -51,7 +51,7 @@
 					</a>
 				</td>
 				<td>
-					Web 資料儲存
+					Web 資料儲存<br/>
 					<h4>方法：</h4>
 					<ol>
 						<li>getItem(key)</li>
@@ -84,54 +84,7 @@
 						openDatabase
 					</a>
 				</td>
-				<td>SQLite 資料庫
-					<ol type='a'>
-						<li>openDatabase(dbName, verName, description, capacity)
-							<ol type='1'>
-									<li>capacity：資料庫空間，單位是 byte</li>
-									<li>回傳一個 db 物件</li>
-							</ol>
-						</li>
-						<li>db.transaction(callback)<br/>
-
-						</li>
-						<li>tx.executeSql(sql[, values, successCB, errorCB])
-							<ol type='1'>
-								<li>sql 語法</li>
-								<li>values：陣列值，當 sql 語法中有 ? 時會用 values 中的元素取代，如果沒有要用請放 null</li>
-								<li>success callback：callbacke 回傳 tx 跟 results 2個參數；
-									results 參數有下列屬性
-									<ul>
-											<li>rowsAffected：執行 insert, update, delete 語法時，回傳影響的資料列筆數</li>
-											<li>rows：執行 select 語法時，回傳查詢結果資料列</li>
-											<li>insertId：執行 insert 語法時，回傳新增資料列的 rowID</li>
-									</ul>
-								</li>
-								<li>error callback：callbacke 回傳 tx 跟 error 2個參數</li>
-							</ol>
-						</li>
-					</ol>
-					<pre>
-						<code class='javascript'>
-							var db = openDatabase('BiPOS', '1.0', 'POS', 10 * 1024 * 1024);
-							db.transaction(function (tx) {  
-								tx.executeSql('create table if not exists ' +
-									'PRODUCT(ID int not null, PC_NAME varchar(10), primary key(id)');
-								tx.executeSql('insert into PRODUCT (ID, PC_NAME) VALUES (1, "紅茶")');
-								tx.executeSql('insert into PRODUCT (ID, PC_NAME) VALUES (2, "可樂")');
-							});
-
-							db.transaction(function (tx) {
-								tx.executeSql('select * from PRODUCT', [], function (tx, results) {
-									console.log("筆數: " + results.rows.length);
-									for (var i = 0; i < results.rows.length; i++){
-										console.log( results.rows.item(i).PC_NAME );
-									}
-								}, null);
-							});
-						</code>
-					</pre>
-				</td>
+				<td>SQLite 資料庫</td>
 			</tr>
 		</table>
 	<table class='tutor' width="100%">
