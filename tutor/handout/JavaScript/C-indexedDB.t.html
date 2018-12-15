@@ -20,25 +20,42 @@
 	</a>
 				
 	<ol type='a'>
-		<li>open(dbName, ver)
+		<li>開啟資庫：open(dbName, version)
 			<ol type='1'>
-					<li></li>
-					<li>回傳一個 db 物件</li>
+					<li>dbName：資料庫名稱</li>
+					<li>version：版號(integer)</li>
+					<li>回傳一個 IDBOpenDBRequest 物件
+						<ul>
+							<li>onsuccess：</li>
+							<li>onerror：</li>
+							<li>onupgradeneeded</li>
+						</ul>
+					</li>
 			</ol>
 		</li>
-		<li>
-			<ol type='1'>
-				<li></li>
-				<li></li>
-			</ol>
-		</li>
-		<li>
-			<ol type='1'>
-				<li></li>
-				<li></li>
-			</ol>
-		</li>
+		<li>關閉資庫：db.close();</li>
 		
+		<li>建立資料表：db.createObjectStore
+			<ol type='1'>
+				<li></li>
+				<li></li>
+			</ol>
+		</li>
+		<li>
+			db.transaction()
+			<ol type='1'>
+				<li></li>
+				<li></li>
+			</ol>
+		</li>
+		<li>transaction.objectStore(storeName)
+			<ol type='1'>
+				<li></li>
+				<li></li>
+			</ol>
+		</li>
+		<li>刪除資料表：db.deleteObjectStore(objectStoreName) </li>
+		<li>刪除資料庫：indexedDB.deleteDatabase(name) </li>
 	</ol>
 	<pre>
 		<code class='javascript'>
@@ -49,11 +66,13 @@
 				};
 				request.onsuccess = function(event) {
 					db = request.result;
+					// event.target.result
 				};
 				request.onupgradeneeded = function(event) { 
 					var db = event.target.result;
-					// Create an objectStore for this database
-					var objectStore = db.createObjectStore("name", { keyPath: "myKey" });
+	
+					var objectStore = db.createObjectStore("name", {keyPath: "myKey" });
+					objectStore.createIndex("name", "name", { unique: false });
 				};
 		</code>
 	</pre>
