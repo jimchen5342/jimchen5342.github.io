@@ -14,6 +14,9 @@
 		.gray {
 			color: rgb(183, 183, 183);
 		}
+		ol[type=a] > li{
+			margin-bottom: 10px;
+		}
 	</style>
 	<link rel="stylesheet" href="../pattern.css">
 	<script src="../../system/system.js"></script>
@@ -75,10 +78,10 @@
 		<li>建立物件庫：db.<span class='title'>createObjectStore</span>(name, options)
 			<ol type='1'>
 				<li>name：物件庫名稱</li>
-				<li>options
+				<li>options：
 					<ul>
 						<li>keyPath：欄位名稱，物件庫預設索引</li>
-						<li>autoIncrement：true/false，欄位值自動加一</li>
+						<li>autoIncrement：true/false，欄位值是否自動加一</li>
 					</ul>
 				</li>
 				<li>返回一個 objectStore 物件，有下列事件：
@@ -88,21 +91,21 @@
 					</ul>
 				</li>
 			</ol>
-			註：要寫在 onupgradeneeded 事件內
+			註：要寫在 onupgradeneeded 事件內，keyPath 的值不能含有空白
 		</li>
 		<li>建立索引：db.<span class='title'>createIndex</span>(name, key, options)
 			<ol type='1'>
 				<li>name：索引名稱</li>
 				<li>key：欄位名稱或欄位陣列</li>
-				<li>options
+				<li>options：
 					<ul>
-						<li>unique：true/flase，唯一鍵值</li>
+						<li>unique：true/flase，是否唯一鍵值</li>
 					</ul>
 				</li>
 			</ol>
 			註：要寫在 onupgradeneeded 事件內
 		</li>
-		<li>開啓交易：db.<span class='title'>transaction</span>(name, mode)
+		<li>開啓交易：db.<span class='title'>transaction</span>(name<span class='gray'>[</span>, mode<span class='gray'>]</span>)
 			<ol type='1'>
 				<li>name：物件庫名稱或陣列</li>
 				<li>mode：
@@ -147,12 +150,13 @@
 				<li>onerror</li>
 			</ul>
 		</li>
-		<li>讀取資料：store.<span class='title'>get</span>(key)
+		<li>讀取資料：store.<span class='title'>get</span>(value)
 			<ol type='1'>
-				<li>key：物件庫的主鍵值，以 store 預設索引取得資料</li>
+				<li>value：物件庫的主鍵值，以 store 預設索引取得資料</li>
 				<li>返回一個 request 物件，有下列事件：
 					<ul>
-						<li>onsuccess：當讀取完成後，觸發該事；如果找到資料，可在 request.result 取得讀取結果</li>
+						<li>onsuccess：當讀取完成後，觸發該事件；如果找到資料，可在 request.result 取得讀取結果；
+							反之 request.result 等於 undefined</li>
 						<li>onerror</li>
 					</ul>
 				</li>
@@ -161,51 +165,49 @@
 		<li>cursor 存取資料：store.<span class='title'>openCursor</span>(
 			<span class='gray'>[</span>IDBKeyRange, direction<span class='gray'>]</span>)
 			<ol type='1'>
-				<li></li>
-				<li></li>
+				<li>IDBKeyRange：搜尋條件，創建方法主要有以下幾種
+					<ul>
+						<li>IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen)
+							<ul type='disc'>
+								<li>lower：最小鍵值</li>
+								<li>upper：最大鍵值</li>
+								<li>lowerOpen：true，則表示不包含最小鍵值；預設為 false</li>
+								<li>upperOpen：true，則表示不包含最大鍵值；預設為 false</li>
+							</ul>
+						</li>
+						<li>IDBKeyRange.only(value)：只找一個主鍵值的集合</li>
+						<li>IDBKeyRange.lowerBound(lower, lowerOpen)
+							<ul type='disc'>
+								<li>lower：最小鍵值</li>
+								<li>lowerOpen：true，則表示不包含最小鍵值；預設為 false</li>
+							</ul>
+						</li>
+						<li>IDBKeyRange.upperBound(upper, upperOpen)
+							<ul type='disc'>
+								<li>upper：最大鍵值</li>
+								<li>upperOpen：true，則表示不包含最大鍵值；預設為 false</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>direction：游標讀取方向
+					<ul>
+						<li>next：從前往後讀取所有數據（包括重複數據）</li>
+						<li>prev：從後往前讀取所有數據（包括重複數據）</li>
+						<li>nextunique：從前往後讀取數據（重複數據只取第一條，索引重複即認為重複，下同）</li>
+						<li>prevunique：從後往前讀取數據（重複數據只取第一條）</li>
+					</ul>
+				</li>
 				<li>返回一個 request 物件，有下列事件：
 					<ul>
-						<li>onsuccess：</li>
+						<li>onsuccess：讀取成功後觸發該事件；由事件的傳入參數 event.target.result 取得 cursor 物件，
+							如果 cursor 等於 undefined 表示，游標已到尾端；反之，可由 cursor.key 及 cursor.value 取得資料；
+							然後用 cursor.continue() 進入下一筆資料讀取
+						</li>
 						<li>onerror</li>
 					</ul>
 				</li>
 			</ol>
-			<!--
-				openCursor 方法接收两个参数，第一个是 IDBKeyRange 对象，该对象创建方法主要有以下几种：
-
-				// boundRange 表示主键值从1到10(包含1和10)的集合。
-				// 如果第三个参数为true，则表示不包含最小键值1，如果第四参数为true，则表示不包含最大键值10，默认都为false
-				var boundRange = IDBKeyRange.bound(1, 10, false, false);
-
-				// onlyRange 表示由一个主键值的集合。only() 参数则为主键值，整数类型。
-				var onlyRange = IDBKeyRange.only(1);
-
-				// lowerRaneg 表示大于等于1的主键值的集合。
-				// 第二个参数可选，为true则表示不包含最小主键1，false则包含，默认为false
-				var lowerRange = IDBKeyRange.lowerBound(1, false);
-
-				// upperRange 表示小于等于10的主键值的集合。
-				// 第二个参数可选，为true则表示不包含最大主键10，false则包含，默认为false
-				var upperRange = IDBKeyRange.upperBound(10, false);
-				-------------------------------------------------
-				openCursor 方法的第二个参数表示游标的读取方向，主要有以下几种：
-
-				next : 游标中的数据按主键值升序排列，主键值相等的数据都被读取
-				nextunique : 游标中的数据按主键值升序排列，主键值相等只读取第一条数据
-				prev : 游标中的数据按主键值降序排列，主键值相等的数据都被读取
-				prevunique : 游标中的数据按主键值降序排列，主键值相等只读取第一条数据
-
-				------------------------
-				request.onsuccess = function (event) {
-						var cursor = event.target.result;
-						if (cursor) {
-								// 使用Object.assign方法是为了避免控制台打印时出错
-								console.log(Object.assign(cursor.value));
-								cursor.continue();
-						}
-				};
-
-			-->
 		</li>
 		<li>使用索引：store.<span class='title'>index</span>(name)
 			<ol type='1'>
