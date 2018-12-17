@@ -281,12 +281,14 @@
 						<li>lower：最小鍵值</li>
 						<li>lowerOpen：true，則表示不包含最小鍵值；預設為 false</li>
 					</ul>
+					註：IDBKeyRange.lowerBound("B") 等於  >= 'B'
 				</li>
 				<li>IDBKeyRange.upperBound(upper, upperOpen)
 					<ul>
 						<li>upper：最大鍵值</li>
 						<li>upperOpen：true，則表示不包含最大鍵值；預設為 false</li>
 					</ul>
+					註：IDBKeyRange.upperBound("F", ture) 等於  < 'F'
 				</li>
 			</ol>
 		</li>
