@@ -66,7 +66,7 @@
 						let db;
 						let request = indexedDB.open("BiPOS", 1);
 						request.onerror = function(event) {
-							alert("IndexedDB open error!!");
+							alert("indexedDB open error!!");
 						};
 						request.onupgradeneeded = function(event) {
 							let db = event.target.result;
