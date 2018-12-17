@@ -13,6 +13,8 @@
 		}
 		.gray {
 			color: rgb(183, 183, 183);
+			font-weight: 500;
+			margin: 0 2px;
 		}
 		ol[type=a] > li{
 			margin-bottom: 10px;
@@ -135,6 +137,24 @@
 				<li>onsuccess</li>
 				<li>onerror</li>
 			</ul>
+			<pre>
+				<code class='javascript'>
+					let transaction = db.transaction(["PRODUCT"], "readwrite");
+					let store = transaction.objectStore("PRODUCT")
+					transaction.oncomplete = function(event) {
+					}
+					transaction.onabort = function(event) {
+					}
+					transaction.onerror = function(event) {
+					}
+
+					let request = store.add({PLU_CODE: 1, PLU_NAME: "紅茶"});
+					request.onsuccess = function(event) {
+					}
+					request.onerror = function(event) {
+					}
+				</code>
+			</pre>
 		</li>
 		<li>新增或更新資料：store.<span class='title'>put</span>(value)<br/>
 			返回一個 request 物件，有下列事件：
@@ -144,15 +164,27 @@
 			</ul>
 		</li>
 		<li>刪除資料：store.<span class='title'>delete</span>(key)<br/>
+			<ol type='1'>
+				<li>key：key 或 IDBKeyRange(請參考 cursor)</li>
+				<li>
+					返回一個 request 物件，有下列事件：
+					<ul>
+						<li>onsuccess</li>
+						<li>onerror</li>
+					</ul>					
+				</li>
+			</ol>
+		</li>
+		<li>刪除全部資料：store.<span class='title'>clear</span>()<br/>
 			返回一個 request 物件，有下列事件：
 			<ul>
 				<li>onsuccess</li>
 				<li>onerror</li>
 			</ul>
 		</li>
-		<li>讀取資料：store.<span class='title'>get</span>(value)
+		<li>讀取資料：store.<span class='title'>get</span>(key)
 			<ol type='1'>
-				<li>value：物件庫的主鍵值，以 store 預設索引取得資料</li>
+				<li>key：物件庫的主鍵值，以 store 預設索引取得資料</li>
 				<li>返回一個 request 物件，有下列事件：
 					<ul>
 						<li>onsuccess：當讀取完成後，觸發該事件；如果找到資料，可在 request.result 取得讀取結果；
@@ -162,10 +194,9 @@
 				</li>
 			</ol>
 		</li>
-		<li>cursor 存取資料：store.<span class='title'>openCursor</span>(
-			<span class='gray'>[</span>IDBKeyRange, direction<span class='gray'>]</span>)
+		<li>cursor 存取資料：store.<span class='title'>openCursor</span>(<span class='gray'>[</span>IDBKeyRange, direction<span class='gray'>]</span>)
 			<ol type='1'>
-				<li>IDBKeyRange：搜尋條件，創建方法主要有以下幾種
+				<li>IDBKeyRange：搜尋條件；創建方法主要有以下幾種
 					<ul>
 						<li>IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen)
 							<ul type='disc'>
@@ -189,6 +220,7 @@
 							</ul>
 						</li>
 					</ul>
+					註：選項，如沒有用到可以設定為 null
 				</li>
 				<li>direction：游標讀取方向
 					<ul>
@@ -197,6 +229,7 @@
 						<li>nextunique：從前往後讀取數據（重複數據只取第一條，索引重複即認為重複，下同）</li>
 						<li>prevunique：從後往前讀取數據（重複數據只取第一條）</li>
 					</ul>
+					註：選項
 				</li>
 				<li>返回一個 request 物件，有下列事件：
 					<ul>
@@ -208,11 +241,39 @@
 					</ul>
 				</li>
 			</ol>
+			<pre>
+				<code class='javascript'>
+						store = db.transaction("PRODUCT").objectStore("PRODUCT");
+  
+						let range = IDBKeyRange.bound(2, 10);
+						let request = store.openCursor(range, 'next');
+						request.onsuccess = function (event) {
+							let cursor = event.target.result;
+							if (cursor) {
+								document.getElementById("result").innerText += "\nkey: " + cursor.key +
+									"\n" + JSON.stringify(cursor.value);
+								cursor.continue();
+							}
+						}
+				</code>
+			</pre>
 		</li>
 		<li>使用索引：store.<span class='title'>index</span>(name)
 			<ol type='1'>
 				<li>name：索引名稱</li>
 				<li>返回一個 index 物件，也有 get 及 openCursor 方法，可供讀取資料</li>
+			</ol>
+		</li>
+		<li>資料筆數：store.<span class='title'>count</span>(<span class='gray'>[</span>IDBKeyRange<span class='gray'>]</span>)<br/>
+			<ol type='1'>
+				<li>IDBKeyRange 請參考 cursor</li>
+				<li>
+					返回一個 request 物件，有下列事件：
+					<ul>
+						<li>onsuccess：當讀取完成後，觸發該事件；可在 event.target.result 取得資料筆數</li>
+						<li>onerror</li>
+					</ul>					
+				</li>
 			</ol>
 		</li>
 		<li>刪除物件庫：db.<span class='title'>deleteObjectStore</span>(name)<br/>
