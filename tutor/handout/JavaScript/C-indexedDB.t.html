@@ -225,15 +225,14 @@
 			</ol>
 			<pre>
 				<code class='javascript'>
-						store = db.transaction("PRODUCT").objectStore("PRODUCT");
-  
+						let store = db.transaction("PRODUCT").objectStore("PRODUCT");
 						let range = IDBKeyRange.bound(2, 10);
 						let request = store.openCursor(range, 'next');
 						request.onsuccess = function (event) {
 							let cursor = event.target.result;
 							if (cursor) {
-								document.getElementById("result").innerText += "\nkey: " + cursor.key +
-									"\n" + JSON.stringify(cursor.value);
+								document.getElementById("result").innerText += 
+									"\nkey: " + cursor.key + "\n" + JSON.stringify(cursor.value);
 								cursor.continue();
 							}
 						}
@@ -268,7 +267,7 @@
 		<li><a name='IDBKeyRange'>IDBKeyRange</a>：搜尋條件；創建方法主要有以下幾種
 			<ol type="1">
 				<li>IDBKeyRange.bound(lower, upper<span class='gray'>[</span>, lowerOpen, upperOpen<span class='gray'>]</span>)
-					<ul type='disc'>
+					<ul>
 						<li>lower：集合中的最小鍵值</li>
 						<li>upper：集合中的最大鍵值</li>
 						<li>lowerOpen：true，則表示不包含最小鍵值；預設為 false</li>
@@ -278,13 +277,13 @@
 				</li>
 				<li>IDBKeyRange.only(value)：只找一個主鍵值的集合</li>
 				<li>IDBKeyRange.lowerBound(lower, lowerOpen)
-					<ul type='disc'>
+					<ul>
 						<li>lower：最小鍵值</li>
 						<li>lowerOpen：true，則表示不包含最小鍵值；預設為 false</li>
 					</ul>
 				</li>
 				<li>IDBKeyRange.upperBound(upper, upperOpen)
-					<ul type='disc'>
+					<ul>
 						<li>upper：最大鍵值</li>
 						<li>upperOpen：true，則表示不包含最大鍵值；預設為 false</li>
 					</ul>
