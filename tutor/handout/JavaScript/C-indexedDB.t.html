@@ -19,6 +19,13 @@
 		ol[type=a] > li{
 			margin-bottom: 10px;
 		}
+		ol[type='1'] {
+			border-left: 5px #eee solid;
+			padding-left: 25px;
+		}
+		ol[type='1'] > li{
+			margin-bottom: 5px ;
+		}
 	</style>
 	<link rel="stylesheet" href="../pattern.css">
 	<script src="../../system/system.js"></script>
@@ -165,7 +172,7 @@
 		</li>
 		<li>刪除資料：store.<span class='title'>delete</span>(key)<br/>
 			<ol type='1'>
-				<li>key：key 或 IDBKeyRange(請參考 cursor)</li>
+				<li>key：物件庫的主鍵值或<a href='#IDBKeyRange'>IDBKeyRange</a></li>
 				<li>
 					返回一個 request 物件，有下列事件：
 					<ul>
@@ -196,32 +203,7 @@
 		</li>
 		<li>cursor 存取資料：store.<span class='title'>openCursor</span>(<span class='gray'>[</span>IDBKeyRange, direction<span class='gray'>]</span>)
 			<ol type='1'>
-				<li>IDBKeyRange：搜尋條件；創建方法主要有以下幾種
-					<ul>
-						<li>IDBKeyRange.bound(lower, upper, lowerOpen, upperOpen)
-							<ul type='disc'>
-								<li>lower：最小鍵值</li>
-								<li>upper：最大鍵值</li>
-								<li>lowerOpen：true，則表示不包含最小鍵值；預設為 false</li>
-								<li>upperOpen：true，則表示不包含最大鍵值；預設為 false</li>
-							</ul>
-						</li>
-						<li>IDBKeyRange.only(value)：只找一個主鍵值的集合</li>
-						<li>IDBKeyRange.lowerBound(lower, lowerOpen)
-							<ul type='disc'>
-								<li>lower：最小鍵值</li>
-								<li>lowerOpen：true，則表示不包含最小鍵值；預設為 false</li>
-							</ul>
-						</li>
-						<li>IDBKeyRange.upperBound(upper, upperOpen)
-							<ul type='disc'>
-								<li>upper：最大鍵值</li>
-								<li>upperOpen：true，則表示不包含最大鍵值；預設為 false</li>
-							</ul>
-						</li>
-					</ul>
-					註：選項，如沒有用到可以設定為 null
-				</li>
+				<li><a href='#IDBKeyRange'>IDBKeyRange</a>：搜尋條件；選項，如沒有用到可以設定為 null</li>
 				<li>direction：游標讀取方向
 					<ul>
 						<li>next：從前往後讀取所有數據（包括重複數據）</li>
@@ -266,7 +248,7 @@
 		</li>
 		<li>資料筆數：store.<span class='title'>count</span>(<span class='gray'>[</span>IDBKeyRange<span class='gray'>]</span>)<br/>
 			<ol type='1'>
-				<li>IDBKeyRange 請參考 cursor</li>
+				<li><a href='#IDBKeyRange'>IDBKeyRange</a></li>
 				<li>
 					返回一個 request 物件，有下列事件：
 					<ul>
@@ -279,8 +261,36 @@
 		<li>刪除物件庫：db.<span class='title'>deleteObjectStore</span>(name)<br/>
 			註：要寫在 onupgradeneeded 事件內
 		</li>
-		<li>刪除索引：store.<span class='title'>deleteIndex</span>(name)
+		<li>刪除索引：store.<span class='title'>deleteIndex</span>(name)<br/>
+			註：要寫在 onupgradeneeded 事件內
+		</li>
 		<li>刪除資料庫：indexedDB.<span class='title'>deleteDatabase</span>(name) </li>
+		<li><a name='IDBKeyRange'>IDBKeyRange</a>：搜尋條件；創建方法主要有以下幾種
+			<ol type="1">
+				<li>IDBKeyRange.bound(lower, upper<span class='gray'>[</span>, lowerOpen, upperOpen<span class='gray'>]</span>)
+					<ul type='disc'>
+						<li>lower：集合中的最小鍵值</li>
+						<li>upper：集合中的最大鍵值</li>
+						<li>lowerOpen：true，則表示不包含最小鍵值；預設為 false</li>
+						<li>upperOpen：true，則表示不包含最大鍵值；預設為 false</li>
+					</ul>
+					註：IDBKeyRange.bound("B", "F") 等於  >= 'B' and  <= 'F'
+				</li>
+				<li>IDBKeyRange.only(value)：只找一個主鍵值的集合</li>
+				<li>IDBKeyRange.lowerBound(lower, lowerOpen)
+					<ul type='disc'>
+						<li>lower：最小鍵值</li>
+						<li>lowerOpen：true，則表示不包含最小鍵值；預設為 false</li>
+					</ul>
+				</li>
+				<li>IDBKeyRange.upperBound(upper, upperOpen)
+					<ul type='disc'>
+						<li>upper：最大鍵值</li>
+						<li>upperOpen：true，則表示不包含最大鍵值；預設為 false</li>
+					</ul>
+				</li>
+			</ol>
+		</li>
 	</ol>
 	<a href='https://codepen.io/jimchen5342/pen/KbzJbK' target='_parent'>範例</a>
 </body>
