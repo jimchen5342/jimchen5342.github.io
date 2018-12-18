@@ -39,7 +39,7 @@
 	</a>
 				
 	<ol type='a'>
-		<li>開啟資庫：<span class='title'>indexedDB.open</span>(name, version)
+		<li>開啟資料庫：<span class='title'>indexedDB.open</span>(name, version)
 			<ol type='1'>
 					<li>name：資料庫名稱</li>
 					<li>version：版號(integer)</li>
@@ -83,7 +83,7 @@
 				</code>
 			</pre>			
 		</li>
-		<li>關閉資庫：db.<span class='title'>close</span>();</li>
+		<li>關閉資料庫：db.<span class='title'>close</span>();</li>
 		<li>建立物件庫：db.<span class='title'>createObjectStore</span>(name, options)
 			<ol type='1'>
 				<li>name：物件庫名稱</li>
@@ -102,7 +102,7 @@
 			</ol>
 			註：要寫在 onupgradeneeded 事件內，keyPath 的值不能含有空白
 		</li>
-		<li>建立索引：db.<span class='title'>createIndex</span>(name, key, options)
+		<li>建立索引：store.<span class='title'>createIndex</span>(name, key, options)
 			<ol type='1'>
 				<li>name：索引名稱</li>
 				<li>key：欄位名稱或欄位陣列</li>
