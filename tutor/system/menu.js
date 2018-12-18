@@ -360,7 +360,7 @@ let menu = [
 				// 	text: "style"
 				}]
 			}, {
-				id: "event",
+				id: "E-Event",
 				text: "事件",
 				context: "Event.t.html",
 				html: "Event.html",	
