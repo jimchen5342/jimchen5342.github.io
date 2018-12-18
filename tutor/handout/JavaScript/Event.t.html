@@ -18,7 +18,8 @@
 		<li>keydown, keypress, keyup<br/>
 			<h4 style='display: inline-block'>keyPress 和 keyDown、keyUp 之間的差別</h4>：
 			<ul>
-				<li>keyPress 首要用來捕獲可列印的字元。<br/>比如數字（重點：包含 Shift + 數字的符號）、字母（重點：包含大小寫）、小鍵盤等除了 F1-F12、SHIFT、Alt、Ctrl、Insert、Home、PgUp、Delete、End、PgDn、ScrollLock、Pause、NumLock...</li>
+				<li>keyPress 首要用來捕獲可列印的字元。<br/>比如數字（重點：包含 Shift + 數字的符號）、字母（重點：包含大小寫）、小鍵盤等；
+					除了 F1-F12、SHIFT、Alt、Ctrl、Insert、Home、PgUp、Delete、End、PgDn、ScrollLock、Pause、NumLock...</li>
 				<li>keyPress 只能捕獲單個字元。<br/>keyDown 和 keyUp 可以捕獲組合鍵</li>
 				<li>keyPress 可以捕獲單個字元的大小寫。<br/>keyDown 和 keyUp 不區分字元的大小寫</li>
 				<li>keyPress 不區分小鍵盤和主鍵盤的數字字元。<br/>keyDown 和 keyUp 區分小鍵盤和主鍵盤的數字字元</li>
@@ -52,7 +53,6 @@
 		<li>外部／內部：在 script 內，事件綁定／移除；(屬性用法要加 on，反之不用加)
 			<pre><code>
 				window.onload = function(){
-					
 				}
 				document.getElementById("mouse").onclick = function(e){
 					this.innerHTML = "滑鼠事件移除";
