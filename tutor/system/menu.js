@@ -44,11 +44,11 @@ let menu = [
 				text: "框窗",
 				context: "lesson07.t.html",
 				html: "lesson07.html",	
-			}, {
-				id: "08-event",
-				text: "事件",
-				context: "lesson08.t.html",
-				html: "lesson08.html",	
+			// }, {
+			// 	id: "08-event",
+			// 	text: "事件",
+			// 	context: "lesson08.t.html",
+			// 	html: "lesson08.html",	
 			}, {
 				id: "09-color",
 				text: "顏色",
@@ -360,15 +360,14 @@ let menu = [
 				// 	text: "style"
 				}]
 			}, {
-				id: "08-event",
+				id: "event",
 				text: "事件",
-				context: "lesson08.t.html",
-				html: "lesson08.html",	
+				context: "Event.t.html",
+				html: "Event.html",	
 			}, {
 				id: "C-SQLite",
 				text: "SQLite",
 				context: "C-SQLite.t.html",
-				// html: "lesson08.html",
 			}, {
 				id: "C-indexedDB",
 				text: "indexedDB",

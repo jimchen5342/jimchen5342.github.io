@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>事件</title>
+    <meta charset="utf-8" />
+    <style type="text/css">
+      #mouse {
+        border: 1px solid green;
+        height: 200px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h3 style="color: blue;">事件(event)</h3>
+    <input type='button' onclick='alert("Hi")' value='Say Hi.'  />
+    <br/>
+    <fieldset style='width: 200px; min-height: 200px;'>
+      <legend>鍵盤測試</legend>
+      <input type='radio' id='down' name='key' checked><label for='down'>down</label>
+      <input type='radio' id='press' name='key'><label for='press'>press</label>
+      <input type='radio' id='up' name='key'><label for='up'>up</label><br/>
+      <input onkeydown='key(event)'  onkeypress='key(event)'  onkeyup='key(event)' placeholder="請輸入文字" />
+      <div id='code' style='margin: 5px 0;'></div>
+    </fieldset>
+    <br/>
+    <div id='mouse'>請移動滑鼠</div>
+  </body>
+  
+  <script>
+    function key(e) {
+      let radio = document.querySelectorAll("input[type=radio]:checked");
+      if(e.type == "key" + radio[0].id){
+        let s = "";
+        for(let k in e){
+          if(typeof e[k] == "function")
+            continue;
+          else if(k.indexOf("key") > -1 || k.indexOf("Key") > -1 || k.indexOf("code") > -1 || k == "which"){
+            s += (s.length > 0 ? "\n" : "") + k + ": " + e[k];
+            console.log(k + ": " + e[k]);
+          }
+        }
+        document.getElementById("code").innerText = s;
+      }
+    }
+
+    document.getElementById("mouse").onmouseout = function(e){
+      this.innerHTML = "請移動滑鼠";
+    };
+    document.getElementById("mouse").onclick = function(e){
+      this.innerHTML = "滑鼠事件移除";
+      document.getElementById("mouse").removeEventListener("mousemove", move, false);
+    };
+    document.getElementById("mouse").addEventListener("mousemove", move, false);
+
+    function move(e){
+      this.innerHTML = "screenX: " + e.screenX + ", screenY: " + e.screenY + "<br/>" +
+        "clientX: " + e.clientX + ", clientY: " + e.clientY + "<br/>" +
+        "pageX: " + e.pageX + ", pageY: " + e.pageY + "<br/>" +
+        "offsetX: " + e.offsetX + ", offsetY: " + e.offsetY;
+    }
+  </script>
+</html>
