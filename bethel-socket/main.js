@@ -97,8 +97,7 @@ new Vue({
     },
     listen(response){
       if(typeof response.sendTime != "undefined"){
-        if(response.sendTime == sendTime && response.from == from)
-          return;
+        if(response.sendTime == sendTime && response.from == from) return;
         from = response.from;
         sendTime = response.sendTime;
       }
