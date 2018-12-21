@@ -1,23 +1,21 @@
 /*
-1.初始化
-  client = new SocketClient('設定的clientId','連線socket主機','連線socket path',site) //clientId設定為null,會自動產生,並存在localStorage
-  client.init() 
-2.接收socket訊息
-  client.listen(function(response){
-    // response.data 為接收到的資料
-    data.type:事件類別
-    data.state:所帶的socket資料
-  })
-3.傳送socket訊息  
-  client.send('接收者id','要傳送的資料') //接收者id為string,傳送資料可以是物件或字串
-4.設定clinetId
-  client.setClientId('要設定的client id字串') //可以隨時改變clientId, 
+  1.初始化
+    client = new SocketClient('設定的clientId','連線socket主機','連線socket path',site) //clientId設定為null,會自動產生,並存在localStorage
+    client.init() 
+  2.接收socket訊息
+    client.listen(function(response){
+      // response.data 為接收到的資料
+      data.type:事件類別
+      data.state:所帶的socket資料
+    })
+  3.傳送socket訊息  
+    client.send('接收者id','要傳送的資料') //接收者id為string,傳送資料可以是物件或字串
+  4.設定clinetId
+    client.setClientId('要設定的client id字串') //可以隨時改變clientId, 
 */
 //var client = new SocketClient(null,'https://rd.jabezpos.com','/socket/socket.io','mmjd5566')
 'use strict'
-var client; // = new SocketClient(null, 'http://rd.jabezpos.com:54321', null, 'BSMS000032')
-//client.init()
-
+var client, from, sendTime;
 new Vue({
   el:"#app",
   data:function(){
@@ -98,12 +96,19 @@ new Vue({
       client.listen(this.listen);
     },
     listen(response){
+      if(typeof response.sendTime != "undefined"){
+        if(response.sendTime == sendTime && response.from == from)
+          return;
+        from = response.from;
+        sendTime = response.sendTime;
+      }
       // console.log('socket response data')
       // console.log(response)
       // 將接收到的資料轉為string顯示在網頁上
       if(this.msg.length > 0) this.msg.unshift("-----------------------------------------")
       let s = "from: " + response.from + "\n" + "to: " + response.to + "\n" +
-        // (typeof response.token != "undefined" ? ("token: " + response.token + "\n") : "") +
+        (typeof response.token != "undefined" ? ("token: " + response.token + "\n") : "") +
+        (typeof response.sendTime != "undefined" ? ("sendTime: " + response.sendTime + "\n") : "") +
         (typeof response.code == "string" && response.code.length > 0 ? ("code: " + response.code + "\n") : "") +
         JSON.stringify(response.data);
       this.msg.unshift(s)
