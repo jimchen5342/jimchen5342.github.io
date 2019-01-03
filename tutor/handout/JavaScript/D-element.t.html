@@ -49,7 +49,7 @@
 		</tr>
 		<tr>
 			<td>classList</td>
-			<td>傳回元件的 class 屬性值的陣列；
+			<td>取得元件的 class 屬性值的陣列；
 				<ol>
 					<li>length</li>
 					<li>contains(value)</li>
@@ -76,12 +76,8 @@
 			<td>設定或取得元件本身及元件內的 text 內容；<br/>這 2 個屬性會一樣，因為元件本身的 tag 不會回傳</td>
 		</tr>
 		<tr>
-			<td>childElementCount</td>
-			<td>取得子節點的元件數量</td>
-		</tr>
-		<tr>
 			<td>clientWidth <br/>clientHeight</td>
-			<td><div>傳回元件的寬/高度；不含 margin, border, padding, scrollbar</div>
+			<td><div>取得元件的寬/高度；不含 margin, border, padding, scrollbar</div>
 				<a href='https://developer.mozilla.org/en-US/docs/Web/API/Element/clientHeight' target="_parent">
 					<img src='https://developer.mozilla.org/@api/deki/files/185/=Dimensions-client.png' />
 				</a>
@@ -89,7 +85,7 @@
 		</tr>
 		<tr>
 			<td>offsetWidth<br/>offsetHeight</td>
-			<td><div>傳回元件的寬/高度；不含 margin</div>
+			<td><div>取得元件的寬/高度；不含 margin</div>
 				<a href='https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetHeight' target="_parent">
 					<img src='https://developer.mozilla.org/@api/deki/files/186/=Dimensions-offset.png' />
 				</a>
@@ -122,11 +118,11 @@
 		</tr>
 		<tr>
 			<td>contentEditable</td>
-			<td>傳回元件是否可編輯</td>
+			<td>取得元件是否可編輯的屬性值</td>
 		</tr>
 		<tr>
 			<td>nodeName<br/>tagName</td>
-			<td>傳回元件的標籤名稱</td>
+			<td>取得元件的標籤名稱</td>
 		</tr>
 		<!--
 		<tr>
@@ -153,6 +149,20 @@
 		<tr>
 			<td>parentNode<br/>parentElement</td>
 			<td>傳回元件的父節點元件</td>
+		</tr>
+		<tr>
+			<td>children</td>
+			<td>取得子節點的元件陣列</td>
+		</tr>
+		<tr>
+			<td>childElementCount</td>
+			<td>取得子節點的元件數量</td>
+		</tr>
+		<tr>
+			<td colspan='2'>
+				不建議用下列屬性：<br/>
+				childNodes, firstChild, lastChild, previousSibling, nextSibling
+			</td>
 		</tr>
 	</table>
 
