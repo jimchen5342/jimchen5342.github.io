@@ -34,19 +34,19 @@
 		</tr>
 		<tr>
 			<td>activeElement</td>
-			<td>傳回目前焦點元件</td>
+			<td>取得目前焦點元件</td>
 		</tr>
 		<tr>
 			<td>location</td>
-			<td>傳回 URL<div id='location'></div></td>
+			<td>取得 URL<div id='location'></div></td>
 		</tr>
 		<tr>
 			<td>baseURI</td>
-			<td>傳回 URL<div id='baseURI'></div></td>
+			<td>取得 URL<div id='baseURI'></div></td>
 		</tr>
 		<tr>
 			<td>documentURI</td>
-			<td>傳回 URL<div id='documentURI'></div></td>
+			<td>取得 URL<div id='documentURI'></div></td>
 		</tr>
 		<tr>
 			<td>bgColor</td>
@@ -58,19 +58,19 @@
 		</tr>
 		<tr>
 			<td>characterSet<br/>charset</td>
-			<td>網頁編碼<div id='characterSet'></div></td>
+			<td>取得網頁編碼<div id='characterSet'></div></td>
 		</tr>
 		<tr>
 			<td>contentType</td>
 			<td>
 				<a href='http://www.runoob.com/http/http-content-type.html' target="_parent">
-					網頁內容類型
+					取得網頁內容類型
 				</a>
 				<div id='contentType'></div></td>
 		</tr>
 		<tr>
 			<td>domain</td>
-			<td>網域<div id='domain'></div></td>
+			<td>取得網域<div id='domain'></div></td>
 		</tr>
 		<tr>
 			<td>alinkColor</td>
@@ -86,15 +86,15 @@
 		</tr>
 		<tr>
 			<td>all</td>
-			<td>傳回網頁中所有元件的陣列</td>
+			<td>取得網頁中所有元件的陣列</td>
 		</tr>
 		<tr>
 			<td>anchors</td>
-			<td>傳回標籤 a 元件陣列；元件要有 name 屬性值</td>
+			<td>取得標籤 a 元件陣列；元件要有 name 屬性值</td>
 		</tr>
 		<tr>
 			<td>links</td>
-			<td>傳回標籤 a 元件陣列；元件要有 href 屬性值</td>
+			<td>取得標籤 a 元件陣列；元件要有 href 屬性值</td>
 		</tr>		
 		<tr>
 			<td>body</td>
@@ -102,24 +102,38 @@
 		</tr>
 		<tr>
 			<td>forms</td>
-			<td>傳回標籤 form 元件陣列</td>
+			<td>取得標籤 form 元件陣列</td>
 		</tr>
 		<tr>
 			<td>head</td>
-			<td>傳回標籤 head 元件</td>
+			<td>取得標籤 head 元件</td>
 		</tr>
 		<tr>
 			<td>images</td>
-			<td>傳回標籤 images 元件陣列</td>
+			<td>取得標籤 images 元件陣列</td>
 		</tr>
 		<tr>
 			<td>scripts</td>
-			<td>傳回標籤 script 元件陣列</td>
+			<td>取得標籤 script 元件陣列</td>
 		</tr>
 		<tr>
 			<td>styleSheets</td>
-			<td>傳回標籤 style 元件陣列</td>
+			<td>取得標籤 style 元件陣列</td>
 		</tr>
+		<tr>
+				<td>children</td>
+				<td>取得子節點的元件陣列</td>
+			</tr>
+			<tr>
+				<td>childElementCount</td>
+				<td>取得子節點的元件數量</td>
+			</tr>
+			<tr>
+				<td colspan='2'>
+					不建議用下列屬性：<br/>
+					childNodes, firstChild, lastChild, previousSibling, nextSibling
+				</td>
+			</tr>
 	</table>
 
 	<table class="tutor" width="100%">
