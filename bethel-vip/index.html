@@ -65,6 +65,7 @@ $(document).ready(function(){
 			times = null;
 		}
 		omniChannel.topUp(function(result){
+			// result = "";
 			$("#wrapper").html("");
 			$("<div id='qrcode' style='margin: 20px;' ></div>").appendTo("#wrapper");
 			$("#qrcode").qrcode({text: '' + result, ecLevel: 'M', size: 100});
