@@ -24,9 +24,9 @@
     // Define difficulties by how many squares are given to the player in a new
     // puzzle.
     var DIFFICULTY = {
-        "easy":         62,
-        "medium":       53,
-        "hard":         44,
+        "easy":         65, // 62,
+        "medium":       53, // 53,
+        "hard":         45, // 44,
         "very-hard":    35,
         "insane":       26,
         "inhuman":      17,
