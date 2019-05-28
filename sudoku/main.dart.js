@@ -35099,7 +35099,7 @@ Y.o4.prototype={
 aG:function(){return new Y.wX(C.m)}}
 Y.wX.prototype={
 b9:function(){this.bB()
-var u=window.localStorage.getItem("level")
+var u=window.localStorage.getItem("sudoku-level")
 if(typeof u==="string")this.d=u},
 K:function(a){var u,t,s,r=this,q=null
 r.e=new Q.pM(r.d,q)
@@ -35157,7 +35157,7 @@ $S:0}
 Y.x0.prototype={
 $0:function(){var u=this.a,t=this.b
 u.d=t
-window.localStorage.setItem("level",t)
+window.localStorage.setItem("sudoku-level",t)
 u.aA(new Y.wY())},
 $S:0}
 Y.wY.prototype={
