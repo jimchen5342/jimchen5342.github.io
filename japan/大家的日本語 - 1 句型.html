@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>大家的日本語 - 1 句型</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="sentence.css" />
+    <script type="text/javascript" src="sentence.js" defer></script>
+    <style></style>
+  </head>
+  <body>
+	</body>
+	<script>
+		function execute(){
+			let sentence1 = ["わたし", "あのひと", "サントスさん"];
+			let sentence2 = ["せんせい", "きょうし", "がくせい", "かいしゃいん", 
+				"ぎんこういん",
+				"けんきゅうしゃ", "エンジニア", "ドイツじん", "にほんじん"];
+
+			let sentence3 = ["は,です",
+				"は,じゃありません", 
+				"は,ではありません",
+				"は,ですか", 
+				"も,です"];
+			let arr = [], index = 1;
+			for(let k = 0; k < sentence3.length; k++){
+				let s3 = sentence3[k].split(",");
+				for(let i = 0; i < sentence1.length; i++){
+					let s1 = sentence1[i];
+					for(let j = 0; j < sentence2.length; j++){
+						let s2 = sentence2[j];
+						
+						arr.push("<div class='sentence'><span class='sentence'>" +
+							"<span class='item'>" + (arr.length + 1) + ".</span>" +
+							"<span>" + s1 + "</span>" +
+							"<span style='color: red'> " + s3[0] + " </span>" +
+							"<span>" + s2 + "</span>" +
+							"<span style='color: red'> " + s3[1] + "</span></span></div>" 
+						)
+					}
+				}
+			}
+			// document.body.innerHTML = arr.join("");
+			return arr.join("");
+		}
+	</script>
+</html>

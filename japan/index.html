@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>大家的日本語</title>
+    <meta charset="UTF-8" />
+    <style>
+			button {
+				width: 120px;
+				font-size: 18px;
+
+			}
+			div + div {
+				margin-top: 20px;
+			}
+		</style>
+  </head>
+  <body>
+		<div>
+			<button onclick="execute('1')">第一課單字</button>
+			<button onclick="execute('1 句型')">第一課句型</button>			
+		</div>
+		<div>
+			<button onclick="execute('2')">第二課單字</button>
+		</div>
+		<div>
+			<button onclick="execute('3')">第三課單字</button>
+		</div>
+		<div>
+			<button onclick="execute('4')">第四課單字</button>
+		</div>
+		
+		
+	</body>
+	<script>
+		function execute(index){
+			location.assign("大家的日本語 - " + index +  ".html")
+		}
+	</script>
+</html>
