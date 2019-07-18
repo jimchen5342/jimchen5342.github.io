@@ -3,7 +3,6 @@ msg.lang = "ja-JP";
 
 msg.voice = speechSynthesis.getVoices().filter(function(voice) { 
 	return voice.name == 'Google 日本語';  // Kyoko, Google 日本語
-	// return voice.lang == "ja-JP"; 
 })[0];
 // msg.voiceURI = 'native'; 
 msg.rate = 0.9; // 0.1-10
@@ -83,18 +82,20 @@ function reset(){
 
 let words = null, isSerial = false, current = -1, playID;
 let panel, btnStop, range = [], pathname, startTime = null, iTimes = 0, isRandom = false;
+let isMobile = false;
 document.body.onload = function(){
+	isMobile = document.body.offsetWidth > 600 ? true : false;
 	let arr = decodeURI(location.pathname).split("/");
 	pathname = arr[arr.length - 1].replace(/ /g, "").replace(".html", "");
 	
 	let s = document.body.innerHTML;
 	document.body.innerHTML = "<div id='toolbar'>" +
 		"  <button id='play'>播放</button>" +
-		"  <input id='range' size=12 style='margin: 0px 5px;' />" +
+		"  <input id='range' size=8 style='margin: 0px 5px;' />" +
 		"  <button id='random'>亂數</button>" +
 		"  <button id='stop'>停止</button>" +
-		"  <div id='panel' style='flex: 1; padding: 2px 10px; overflow: hidden;'></div>" + 
-		"  <div id='timer' style='padding: 2px 0px 2px 10px; color: red;'></div>" + 
+		"  <div id='panel' style='flex: 1; padding: 0px 0px; overflow: hidden;'></div>" + // 
+		"  <div id='timer' style='padding: 2px 0px 2px 5px; color: red;'></div>" + 
 		"</div>" +
 		"<div id='seciton' style='flex: 1; '>" + s + "</div>"
 
@@ -111,7 +112,7 @@ document.body.onload = function(){
 				item.setAttribute('data-text', index);
 				item.addEventListener("click", function(event){
 					if(isSerial == true) return;
-					if(event.metaKey){ // event.ctrlKey;
+					if(event.metaKey || isMobile == false){ // event.ctrlKey;
 						clearTimeout(playID);
 						// isSerial = false; 
 						play(index)

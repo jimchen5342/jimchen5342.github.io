@@ -33,13 +33,14 @@ msg.onend = function (e) {
 }
 
 let sentence = [], startTime = null, playID, current = -1, isSerial = true;
-let isPlaying = false;
+let isPlaying = false, isMobile = false;
 document.body.onload = function(){
+	isMobile = document.body.offsetWidth > 600 ? true : false;
 	document.body.innerHTML = "<div id='toolbar'>" +
 		"  <button id='play'>播放</button>" +
-		"  <input id='range' size=12 style='margin: 0px 5px;' />" +
+		"  <input id='range' size=8 style='margin: 0px 5px;' />" +
 		"  <button id='stop'>停止</button>" +
-		"  <div id='panel' style='flex: 1; padding: 2px 10px; overflow: hidden;'></div>" + 
+		"  <div id='panel' style='flex: 1; padding: 0px 0px; overflow: hidden;'></div>" + 
 		"  <div id='timer' style='padding: 2px 0px 2px 10px; color: red;'></div>" + 
 		"</div>" +
 		"<div id='seciton' style='flex: 1; '>" + execute() + "</div>"; //
@@ -49,7 +50,7 @@ document.body.onload = function(){
 	if(sentence != null){
 		sentence.forEach( (item, index) =>{
 				item.addEventListener("click", function(event){
-					if(event.metaKey){ // event.ctrlKey;
+					if(event.metaKey || isMobile == false){ // event.ctrlKey;
 						speechSynthesis.cancel();
 						clearTimeout(playID);
 						isSerial = false; 
