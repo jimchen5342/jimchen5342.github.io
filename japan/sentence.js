@@ -87,32 +87,6 @@ document.body.onload = function(){
 		isSerial = false; 
 		current = -1;
 	});
-
-	let body = "ID_NO=food&PW=12345&TOKEN=aaaa&DATA="
-	let header = {
-		method: 'post',
-		'x-app-id': 'V1',
-		headers: {
-			"content-type": "application/x-www-form-urlencoded",
-			"cache-control": "no-cache",
-		},
-		timeout: 5,
-		body: body
-	};
-
-	fetch("http://192.168.0.116:1234", header)
-	.then((response) => {
-		return response.text();
-	})
-	.then((responseText) => {
-		console.log(responseText)
-	})
-	.catch((err) => {
-		console.log(err)
-	});
-			
-
-
 }
 
 function play(index) {
