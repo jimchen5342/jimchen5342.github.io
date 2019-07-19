@@ -6,7 +6,7 @@
 		overflow: hidden;
 	}
 	#toolbar {
-		padding: 5px;
+		padding: 5px 0px;
 		display: flex; 
 		flex-direction: row;
 	}

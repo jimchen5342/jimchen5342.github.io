@@ -89,11 +89,11 @@ document.body.onload = function(){
 	isMobile = document.body.offsetWidth > 600 ? true : false;
 	let arr = decodeURI(location.pathname).split("/");
 	pathname = arr[arr.length - 1].replace(/ /g, "").replace(".html", "");
-	
+	let size = document.body.offsetWidth < 400  ? 6 : 20;
 	let s = document.body.innerHTML;
 	document.body.innerHTML = "<div id='toolbar'>" +
-		"  <button id='play'>播放</button>" +
-		"  <input id='range' size=8 style='margin: 0px 5px;' />" +
+		"  <button id='play' style=''>播放</button>" +
+		"  <input id='range' size='" + size + "' style='margin: 0px 5px;' />" +
 		"  <button id='random'>亂數</button>" +
 		"  <button id='stop'>停止</button>" +
 		"  <div id='panel' style='flex: 1; padding: 0px 0px; overflow: hidden;'></div>" + // 
@@ -128,13 +128,10 @@ document.body.onload = function(){
 	document.getElementById("range").addEventListener("keydown", function(event){
 		let code = event.keyCode;
 		let val = document.getElementById("range").value;
-		// console.log("code: " + code)
 
 		if(code == 13 || (code == 38 || code == 40)){
 			event.preventDefault();
 			event.cancelBubble = false;
-			clearTimeout(playID);
-			speechSynthesis.cancel();
 			if(code == 13){
 				playClick();
 			} else if((code == 38 || code == 40) ){
@@ -176,7 +173,12 @@ document.body.onload = function(){
 					playClick();
 				}
 			}
-		}	
+		}
+
+		// function stop(params) {
+		// 	clearTimeout(playID);
+		// 	speechSynthesis.cancel();
+		// }
 	});
 
 	document.getElementById("play").addEventListener("click", function(){
