@@ -4,13 +4,15 @@ msg.lang = "ja-JP";
 msg.voice = speechSynthesis.getVoices().filter(function(voice) { 
 	return voice.name == 'Google 日本語';  // Kyoko, Google 日本語
 })[0];
-// msg.voiceURI = 'native'; 
+msg.voiceURI = 'native'; 
 msg.rate = 0.9; // 0.1-10
 // msg.pitch = 1.2; // 0-2
 msg.onstart = function (e) {
 }
 msg.onend = function (e) {
 	if(isPlaying == false) return;
+	isPlaying = false;
+
 	if(isSerial == true && startTime != null){
 		let timer = document.getElementById("timer");
 		let d = new Date(startTime);
@@ -63,9 +65,9 @@ msg.onend = function (e) {
 	}
 
 	playID = setTimeout(function() {
+		if(isPlaying == true) return;
 		play(x);
 	}, sec * 1000);
-	isPlaying = false;
 }
 
 function reset(){
@@ -139,13 +141,28 @@ document.body.onload = function(){
 				let index = val.indexOf("-");
 				if(index > 0 && index < val.length - 1) {
 					let arr = val.split("-");
-					if(arr.length > 1 && code == 40){
+					if(arr.length > 1 && (code == 38 || code == 40)){
 						let x = parseInt(arr[0], 10);
 						let y = parseInt(arr[1], 10);
-						let z = y - x + 1;
-						x = y + 1;
-						y += z;
-						if(y >= words.length) y = words.length - 1;
+						if(code == 38) {
+							if(x <= 1) return;
+							let z = y - x + 1;
+							if(y == words.length - 1 && x % 10 == 1) {
+								x -= 10;
+								y = x + 9;
+							} else {
+								y = x - 1;
+								x -= z;
+								if(x < 1) x = 1;								
+							}
+						} else {
+							if(y >= words.length - 1) return;
+							let z = y - x + 1;
+							x = y + 1;
+							y += z;
+							if(y >= words.length) y = words.length - 1;							
+						}
+
 						document.getElementById("range").value = x + "-" + y;
 						playClick();
 					}
@@ -219,7 +236,7 @@ document.body.onload = function(){
 		}
 	}
 
-	btnStop.addEventListener("click", function(){
+	btnStop.addEventListener("click", function(){ // 停止
 		document.getElementById("timer").innerHTML = "";
 		removeActive();
 		panel.innerHTML =  "";
