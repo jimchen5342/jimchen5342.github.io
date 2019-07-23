@@ -78,7 +78,6 @@ function reset(){
 	iTimes = 0;
 	range = []; 
 	startTime = null;
-	
 	isRandom = false;
 }
 
@@ -250,9 +249,14 @@ document.body.onload = function(){
 	window.addEventListener('keydown', function(event){
 		let self = this, code = event.keyCode, pk = event.metaKey;
 		let tag = document.activeElement.tagName;
+		// console.log(code)
 		if(tag == "INPUT")
 			return;
-		else if(code == 40 || code == 38 || code == 32){
+		else if(code == 32 && current > 1) {
+			event.preventDefault();
+			iTimes = 0;
+			play(current);
+		} else if(code == 40 || code == 38 || code == 32){
 			reset();
 			event.preventDefault();
 			if(isSerial == true || current < 1) return;
