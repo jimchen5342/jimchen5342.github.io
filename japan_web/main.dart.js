@@ -38909,7 +38909,7 @@ if(s.f){u=s.a.c
 t=s.d
 if(t<0||t>=u.length)return H.l(u,t)
 M.Om(H.Y(u[t].j(0,"\u5e73")),new Q.Bw(s))}},
-pE:function(){return this.r!=null?1-C.f.cR(P.cB(0,Date.now()-this.r.a,0).a,6e7):0},
+pE:function(){return this.r!=null?30-C.f.cR(P.cB(0,Date.now()-this.r.a,0).a,6e7):0},
 JA:function(a){var u,t=this
 if(!t.f)return
 u=t.d
