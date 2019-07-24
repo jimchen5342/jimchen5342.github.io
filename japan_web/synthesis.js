@@ -10,7 +10,7 @@
 		if(arr.length == 0){
 			setTimeout(getVoice, 600);
 		} else {
-			msg.voice = window.speechSynthesis.getVoices().filter(function(voice) { 
+			msg.voice = arr.filter(function(voice) { 
 				return voice.name == 'Google 日本語';  // Kyoko, Google 日本語
 			})[0];
 			// console.log(msg.voice)
