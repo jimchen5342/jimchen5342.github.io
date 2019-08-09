@@ -29,12 +29,18 @@
 		<div>
 			<button onclick="execute('4')">第四課單字</button>
 		</div>
+		<div>
+				<button onclick="execute2('日常用語')">日常用語</button>
+		</div>
 		
 		
 	</body>
 	<script>
 		function execute(index){
 			location.assign("大家的日本語 - " + index +  ".html")
+		}
+		function execute2(index){
+			location.assign(index +  ".html")
 		}
 	</script>
 </html>

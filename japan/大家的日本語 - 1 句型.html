@@ -17,11 +17,11 @@
 				"医者", "エンジニア", "中国人", "日本人"];
 
 			let sentence3 = ["は,です",
+				"は,ですか", 
 				"は,じゃありません", 
 				"は,ではありません",
-				"は,ですか", 
 				"も,です"];
-			let arr = [], index = 1;
+			let arr = [];
 			for(let k = 0; k < sentence3.length; k++){
 				let s3 = sentence3[k].split(",");
 				for(let i = 0; i < sentence1.length; i++){
@@ -40,6 +40,29 @@
 				}
 			}
 			// document.body.innerHTML = arr.join("");
+
+			// arr = [];
+			let sentence4 = ["サントス", "陳", "佐藤"];
+			for(let j = 0; j < sentence4.length; j++){
+				let s2 = sentence4[j];
+				arr.push("<div class='sentence'><span class='sentence'>" +
+					"<span class='item'>" + (arr.length + 1) + ".</span>" +
+					"<span style='color: red'>こちらは</span>" +
+					"<span>" + s2 + "</span>" +
+					"<span style='color: red'>さんです</span></span></div>" 
+				)
+			}
+			let sentence5 = ["アメリカ", "イギリス", "日本", "中国"];
+			for(let j = 0; j < sentence4.length; j++){
+				let s2 = sentence5[j];
+				
+				arr.push("<div class='sentence'><span class='sentence'>" +
+					"<span class='item'>" + (arr.length + 1) + ".</span>" +
+					"<span>" + s2 + "</span>" +
+					"<span style='color: red'>から来ました</span></span></div>" 
+				)
+			}
+					
 			return arr.join("");
 		}
 	</script>

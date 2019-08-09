@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>日常用語</title>
+		<meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript" src="system.js" defer></script>
+    <style></style>
+  </head>
+  <body>
+		<table cellpadding='5px' border='0px' cellspacing='0px'><tr><td>假名</td><td>漢字</td><td>中文</td></tr>
+				<!-- -->
+		</table>
+	</body>
+	<script>
+		console.log("execute: " + (new Date()))
+		function execute(callback){
+			// ASCII 編碼：12354 - 12531
+
+			let s = "";
+			for(let i = 0; i < Kana.length; i++) {
+				// console.log(i + ": " + Kana[i].kana)
+				let s1 = Kana[i].kana;
+				// if(s1.indexOf("/")>-1 || s1.indexOf("a")>-1 ){
+				// 	console.log(i + ": " + Kana[i].kana)
+				// }
+				// // ----------
+				// for(let j = 0; j <= s1.length; j++) {
+				// 		let ch = s1.substr(j, 1);
+				// 		if(ch.charCodeAt(0) >= 12354 && ch.charCodeAt(0) <= 12531) {
+				// 			continue;
+				// 		}
+
+				// 		if(s.indexOf(ch) == -1) s += ch;
+				// }
+
+				// continue;
+
+				let index = s1.indexOf("（");
+				let s2 = index > -1 ? s1 : "";
+
+				// if(i == 19) {
+				// 	console.log(s1)		
+				// }
+				
+				let x = -1;
+				while (index > -1 && x < 3) {
+					let end = -1;
+					for(let j = index - 1; j >= 0; j--) {
+						let str = s1.substr(j, 1)
+						let ch = str.charCodeAt(0);
+	
+						if(ch >= 12354 && ch <= 12531) {
+							end = j;
+							// if(i == 19) {
+							// 	console.log(j + ": " + str + ": " + ch + ", end: " + end)		
+							// }
+							break;
+						} else if(",、！？".indexOf(str) > -1) { // ",、！？
+							end = j;
+							// if(i == 19) {
+							// 	console.log(j + ": " + str + ": " + ch + ", end: " + end)		
+							// }
+							break;
+						}
+					}
+					s1 = (end > -1 ? s1.substr(0, end + 1) : "") +
+						s1.substr(index);
+					s1 = s1.replace("（", "").replace("）", "")
+					
+					// s2 = s2.substr(0, index) + s2.substr(index2 + 1)
+
+					// もぅ一度（いちど）言（い）ってください
+					index = s1.indexOf("（");
+					x++;
+				}
+
+				x = 0;
+				index = s2.indexOf("（");
+				while (index > -1 && x < 3) {
+					let index2 = s2.indexOf("）");
+					s2 = s2.substr(0, index) + s2.substr(index2 + 1)
+					index = s2.indexOf("（");
+					x++;
+				}
+				// if(i > 50) break;
+				
+				// -------------------
+				let s3 = Kana[i].chinese;
+				s += "<tr><td>" + s1 + "</td><td>" + s2 + "</td><td>" + s3 + "</td></tr>";
+			}
+
+			// let arr = [];
+			// for(let i = 0; i < s.length; i++) {
+			// 	arr.push(s.substr(i, 1))
+			// }
+			// arr.sort();
+			// // console.log(arr.join())
+			// console.log(arr)
+
+			document.querySelector("tbody").innerHTML += s;
+			callback();
+		}
+
+		let Kana = [
+			{"kana":"おはようごぢいます","chinese":"早上好"},
+			{"kana":"こんにちは","chinese":"您好,am.10:00~pm.5:00"},
+			{"kana":"こんばんは","chinese":"晚上好"},
+			{"kana":"お休（やす）みなさい","chinese":"晚安"},
+			{"kana":"どうもありがとうございます","chinese":"謝謝"},
+			{"kana":"さようなら","chinese":"再見"},
+			{"kana":"はじめまして","chinese":"你好,[初次見面]"},
+			{"kana":"どうぞよろしく","chinese":"請多多關照"},
+			{"kana":"ありがとう","chinese":"謝謝"},
+			{"kana":"ごめんなさい","chinese":"對不起"},
+			{"kana":"あしたまた","chinese":"明天見"},
+			{"kana":"いいぇ,まだまだです","chinese":"哪裏哪裏,還差得遠呢"},
+			{"kana":"大丈夫（だいじょぅぶ）です","chinese":"沒關係的，沒事的"},
+			{"kana":"殘念（ざんねん）です","chinese":"真可惜"},
+			{"kana":"おいしいですょ","chinese":"很好吃啊"},
+			{"kana":"ちょっと待（ま）って","chinese":"等一下"},
+			{"kana":"はい、分（わか）りました","chinese":"好的,沒問題/知道了/明白了"},
+			{"kana":"もしもし","chinese":"喂,你好[電話用語]"},
+			{"kana":"どなたですか","chinese":"你是哪位啊? [電話用語]"},
+			{"kana":"もぅ一度（いちど）言（い）ってください","chinese":"請再說一遍"},
+			{"kana":"そぅしましぅょ","chinese":"一言爲定"},
+			{"kana":"いらっしゃぃませ","chinese":"歡迎光臨"},
+			{"kana":"綺麗（きれい）です","chinese":"很漂亮"},
+			{"kana":"これは何（なん）ですか","chinese":"這是什麽"},
+			{"kana":"どうしましたか","chinese":"你怎麽啦?"},
+			{"kana":"知（し）りません","chinese":"不知道"},
+			{"kana":"お願（ねが）いします","chinese":"那就拜托了"},
+			{"kana":"かまいません","chinese":"沒關係"},
+			{"kana":"失禮（しつれい）しました","chinese":"失禮了"},
+			{"kana":"元気（げんき）を出（だ）して","chinese":"振作起來"},
+			{"kana":"おなかがすきましたか","chinese":"肚子餓嗎？"},
+			{"kana":"寒（さむ）くないですか","chinese":"不冷嗎？"},
+			{"kana":"お疲（つか）れではないですか","chinese":"不累嗎？"},
+			{"kana":"取（と）り替（か）えたほうがいいですね","chinese":"該換新的了"},
+			{"kana":"私（わたし）はすでに伝（つた）えました","chinese":"我已經告訴他了"},
+			{"kana":"あなたは今（いま）どこにいらっしゃいますか","chinese":"你現在在哪裏"},
+			{"kana":"褒（ほ）めすぎです","chinese":"您過獎了"},
+			{"kana":"読（よ）むだけで、話（はな）すことができません","chinese":"只會看，不會講"},
+			{"kana":"私（わたし）には向（む）いていそうです","chinese":"好像適合我"},
+			{"kana":"お元気（げんき）ですか","chinese":"您還好吧"},
+			{"kana":"いくらですか","chinese":"多少錢？"},
+			{"kana":"すみません","chinese":"不好意思/麻煩你"},
+			{"kana":"ごめんなさい","chinese":"對不起"},
+			{"kana":"どういうことですか","chinese":"什麽意思呢/怎麽回事？"},
+			{"kana":"まだまだです","chinese":"差得遠了/一般/還不行"},
+			{"kana":"どうしたの","chinese":"發生了什麽事啊？"},
+			{"kana":"どうしたんですか","chinese":"發生了什麽事啊？"},
+			{"kana":"なんでもない","chinese":"沒什麽事"},
+			{"kana":"ちょっと待ってください","chinese":"請稍等一下"},
+			{"kana":"約束（やくそく）します","chinese":"就這麽說定了"},
+			{"kana":"これでいいですか","chinese":"這樣可以嗎？"},
+			{"kana":"けっこうです","chinese":"不用了"},
+			{"kana":"もういいです","chinese":"不用了"},
+			{"kana":"どうして","chinese":"爲什麽啊？"},
+			{"kana":"なぜ","chinese":"爲什麽啊？"},
+			{"kana":"いただきます","chinese":"那我開動了〔吃飯動筷子前〕"},
+			{"kana":"ごちそうさまでした","chinese":"我吃飽了/多謝款待"},
+			{"kana":"どういたしまして","chinese":"別客氣"},
+			{"kana":"本當（ほんとう）ですか","chinese":"真的？"},
+			{"kana":"嬉（うれし）い","chinese":"我好高興〔女性用語〕"},
+			{"kana":"よし、いくぞ","chinese":"好！出發/行動〔男性用語〕"},
+			{"kana":"いってきます","chinese":"我走了/我出去了"},
+			{"kana":"いってらしゃい","chinese":"您好走"},
+			{"kana":"また、どうぞお越（こ）しください","chinese":"歡迎下次光臨"},
+			{"kana":"じゃ、またね","chinese":"再見"},
+			{"kana":"では、また","chinese":"再見"},
+			{"kana":"信（しん）じられない","chinese":"真令人難以相信"},
+			{"kana":"どうも","chinese":"該詞意思模糊。有問候、多謝、不好意思、對不起……"},
+			{"kana":"あ、そうだ","chinese":"啊，對了〔男性用語居多〕"},
+			{"kana":"えへ？","chinese":"表示輕微驚訝的感嘆語"},
+			{"kana":"うん、いいわよ","chinese":"恩，好的〔女性用語〕"},
+			{"kana":"ううん、そうじゃない","chinese":"不，不是那樣的〔女性用語〕"},
+			{"kana":"がんばってください","chinese":"加油"},
+			{"kana":"がんばります","chinese":"我會加油的/我會努力的"},
+			{"kana":"ご苦労（くろう）さま","chinese":"辛苦了〔用于上級對下級〕"},
+			{"kana":"お疲（つか）れさま","chinese":"辛苦了〔用于下級對上級和平級間〕"},
+			{"kana":"どうぞ遠慮（えんりょ）なく","chinese":"請別客氣"},
+			{"kana":"おひさしぶりです","chinese":"好久不見了"},
+			{"kana":"しばらくですね","chinese":"好久不見了"},
+			{"kana":"お久（さ）しぶりです","chinese":"好久不見了"},
+			{"kana":"お帰（かえ）り","chinese":"您回來啦"},
+			{"kana":"ただいま","chinese":"我回來了"},
+			{"kana":"たいへん！","chinese":"不得了啦"},
+			{"kana":"おじゃまします","chinese":"打攪了。到別人的住所時進門時說的話。"},
+			{"kana":"おじゃましました","chinese":"打攪了。離開別人的處所時講的話。"},
+			{"kana":"いままでお世話（せわ）になにました","chinese":"多謝您長久以來的關照"},
+			{"kana":"いままでありがとうございます","chinese":"多謝您長久以來的關照"},
+			{"kana":"お待（ま）たせいたしました","chinese":"讓您久等了。"},
+			{"kana":"お願（ねが）いします","chinese":"拜托了"},
+			{"kana":"そのとおりです","chinese":"說的對"},
+			{"kana":"なるほど","chinese":"原來如此啊"},
+			{"kana":"どうしようかな","chinese":"我該怎麽辦啊？"},
+			{"kana":"どうすればいい","chinese":"我該怎麽辦啊？"},
+			{"kana":"やめなさいよ","chinese":"住手"}
+		];
+	</script>
+</html>

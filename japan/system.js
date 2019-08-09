@@ -85,6 +85,12 @@ let words = null, isSerial = false, current = -1, playID;
 let panel, btnStop, range = [], pathname, startTime = null, iTimes = 0, isRandom = false;
 let isMobile = false;
 document.body.onload = function(){
+	if(typeof execute == "function") 
+		execute(onReady);
+	else 
+		onReady()
+}
+function onReady() {
 	isMobile = document.body.offsetWidth > 600 ? true : false;
 	let arr = decodeURI(location.pathname).split("/");
 	pathname = arr[arr.length - 1].replace(/ /g, "").replace(".html", "");
