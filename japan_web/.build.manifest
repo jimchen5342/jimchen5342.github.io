@@ -1,6 +1,10 @@
 .DS_Store
 .packages
 assets/FontManifest.json
+assets/japanese/01.json
+assets/japanese/02.json
+assets/japanese/03.json
+assets/japanese/04.json
 index.html
 main.dart.js
 packages/$sdk/_internal/ddc_sdk.sum

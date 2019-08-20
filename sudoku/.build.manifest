@@ -1,8 +1,6 @@
 .DS_Store
 .packages
 assets/FontManifest.json
-images/48.png
-images/96.png
 index.html
 main.dart.js
 manifest.json
