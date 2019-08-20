@@ -1,0 +1,11 @@
+{
+  "name": "日語",
+  "short_name": "日語",
+  "start_url": ".",
+  "display": "fullscreen",
+  "background_color": "#fff",
+  "description": "flutter_web",
+  "related_applications": [{
+    "platform": "web"
+  }]
+}

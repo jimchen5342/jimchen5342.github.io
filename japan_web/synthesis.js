@@ -32,7 +32,6 @@
 		msg.text = text;
 		window.speechSynthesis.cancel();
 		window.speechSynthesis.speak(msg);
-
 	}
 window.Synthesis = Synthesis;
 })(this);

@@ -7,6 +7,7 @@ assets/japanese/03.json
 assets/japanese/04.json
 index.html
 main.dart.js
+manifest.json
 packages/$sdk/_internal/ddc_sdk.sum
 packages/$sdk/_internal/strong.sum
 packages/$sdk/dev_compiler/amd/dart_sdk.js
