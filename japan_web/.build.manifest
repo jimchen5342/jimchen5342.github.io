@@ -1,10 +1,12 @@
 .DS_Store
 .packages
 assets/FontManifest.json
-assets/japanese/01.json
-assets/japanese/02.json
-assets/japanese/03.json
-assets/japanese/04.json
+assets/japanese/01A.json
+assets/japanese/02A.json
+assets/japanese/03A.json
+assets/japanese/04A.json
+favicon.ico
+images/icon.png
 index.html
 main.dart.js
 manifest.json

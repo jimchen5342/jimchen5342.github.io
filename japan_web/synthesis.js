@@ -3,8 +3,8 @@
 	var _onstart, _onend;
 	var msg = new SpeechSynthesisUtterance();
 	msg.lang = "ja-JP";
-	// msg.voiceURI = 'native';
-	// msg.rate = 0.9; // 0.1-10
+	msg.voiceURI = 'native';
+	msg.rate = 0.9; // 0.1-10
 	function getVoice() {
 		let arr = window.speechSynthesis.getVoices();
 		if(arr.length == 0){
@@ -12,7 +12,7 @@
 		} else {
 			msg.voice = arr.filter(function(voice) { 
 				return voice.name == 'Google 日本語';  // Kyoko, Google 日本語
-			})[0];
+			})[1];
 			// console.log(msg.voice)
 		}
 	}
@@ -23,6 +23,11 @@
 	}
 	msg.onend = function (e) {
 		if(typeof _onend == "function") _onend();
+	}
+	Synthesis.cancel = function () {
+		_onend = null;
+		_onstart = null;
+		window.speechSynthesis.cancel();
 	}
 
 	Synthesis.speak = function (text, onEnd, onStart) {
