@@ -9569,7 +9569,7 @@ this.b=null
 this.c=!1},
 uj:function uj(){},
 QQ:function(a,b){var u=null,t=H.h([new O.lW("\u4e94\u5341\u97f3","pronounce"),new O.lW("\u5927\u5bb6\u7684\u65e5\u672c\u8a9e","JPList")],[O.lW]),s=[N.a5],r=M.aB(C.dd,T.f3(H.h([new T.cf(1,C.a_,L.aD("",u,u,u,u,u,u),u)],s),C.U,C.P,C.af),C.Q,u,u,u,u,new V.a8(10,34,10,10),u)
-return T.eJ(H.h([r,new T.cf(1,C.a_,new B.BF(new G.GE(new O.yF(t,b,a),2,!0,!0,!0),u,C.l,!1,u,!0,C.hE,!1,u,2,C.bD,u),u),M.aB(C.dd,T.eJ(H.h([L.aD("\u7248\u672c\uff1a 2019-08-23",u,u,u,u,A.bf(u,u,C.u,u,u,u,u,u,u,16,u,u,u,u,!0,u,u,u,u,u,u),u)],s),C.dw,C.P),C.Q,u,u,u,u,new V.a8(10,15,10,15),u)],s),C.U,C.P)},
+return T.eJ(H.h([r,new T.cf(1,C.a_,new B.BF(new G.GE(new O.yF(t,b,a),2,!0,!0,!0),u,C.l,!1,u,!0,C.hE,!1,u,2,C.bD,u),u),M.aB(C.dd,T.eJ(H.h([L.aD("\u7248\u672c\uff1a 2019-08-23 16:00",u,u,u,u,A.bf(u,u,C.u,u,u,u,u,u,u,16,u,u,u,u,!0,u,u,u,u,u,u),u)],s),C.dw,C.P),C.Q,u,u,u,u,new V.a8(10,15,10,15),u)],s),C.U,C.P)},
 lW:function lW(a,b){this.a=a
 this.b=b},
 yF:function yF(a,b,c){this.a=a
@@ -43632,7 +43632,7 @@ D.AK.prototype={
 aN:function(){this.be()
 var u=window.localStorage.getItem("japanese.list.index")
 if(typeof u==="string")this.d=P.h4(u,null,null)
-if(J.Qd(H.Y(J.br($.Q4().j(0,"location"),"href")),"localhost")>-1)P.bW(P.cp(0,1000,0),new D.AO(this))},
+if(J.Qd(H.Y(J.br($.Q4().j(0,"location"),"href")),"localhost")>0)P.bW(P.cp(0,1000,0),new D.AO(this))},
 bx:function(){this.e1()},
 aC:function(){this.bw()},
 w:function(){this.bd()},
