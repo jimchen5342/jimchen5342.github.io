@@ -43741,7 +43741,7 @@ u=J.bq(s[u],"\u5047\u540d")
 s=u}else{s=s.c
 if(u<0||u>=s.length)return H.n(s,u)
 u=J.bq(s[u],"\u65e5\u6587")
-s=u}M.tf(H.Y(s),3000,new Q.E7(t),2)},
+s=u}M.tf(H.Y(s),1000,new Q.E7(t),2)},
 iq:function(){return this.r!=null?30-C.i.d7(P.c0(0,Date.now()-this.r.a,0).a,6e7):0},
 $aaa:function(){return[Q.ri]}}
 Q.E1.prototype={
@@ -43858,7 +43858,7 @@ r.af(new A.AS())
 u=J.bq(J.bq(r.d,r.r),"\u5047\u540d")
 t=r.d
 s=r.r
-M.tf(H.Y(typeof u==="string"?J.bq(J.bq(t,s),"\u5047\u540d"):J.bq(J.bq(t,s),"\u65e5\u6587")),1500,new A.AT(),2)},
+M.tf(H.Y(typeof u==="string"?J.bq(J.bq(t,s),"\u5047\u540d"):J.bq(J.bq(t,s),"\u65e5\u6587")),1000,new A.AT(),2)},
 IC:function(){var u,t,s,r,q=this,p=q.y.split(","),o=[]
 for(u=0;u<p.length;++u){t=p[u]
 if(J.b4(t)!==0)o.push(P.h4(t,null,null))}C.b.dL(o)
@@ -44070,7 +44070,7 @@ i9:function(a){var u,t,s=this
 if(s.f){u=s.a.c
 t=s.d
 if(t<0||t>=u.length)return H.n(u,t)
-M.tf(u[t].j(0,"\u5e73"),1500,new Q.E8(s),null)}},
+M.tf(u[t].j(0,"\u5e73"),1000,new Q.E8(s),null)}},
 iq:function(){return this.r!=null?30-C.i.d7(P.c0(0,Date.now()-this.r.a,0).a,6e7):0},
 OY:function(a){var u,t=this
 if(!t.f)return
@@ -44263,7 +44263,7 @@ M.ED.prototype={
 $0:function(){return P.qD([this.a.qP(this.b,"row",this.c)])},
 $S:22}
 M.EA.prototype={
-$0:function(){return P.Rv([M.tf(this.a.j(0,"\u5e73"),1500,new M.Ez(),null)],-1)},
+$0:function(){return P.Rv([M.tf(this.a.j(0,"\u5e73"),1000,new M.Ez(),null)],-1)},
 $S:76}
 M.Ez.prototype={
 $0:function(){return P.Rv([P.wK("onEnd....")],-1)},
