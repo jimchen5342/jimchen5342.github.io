@@ -22,7 +22,7 @@ class SocketClient {
   }
   constructor(_clientId = null, socketURL, socketPath = null, room = 'all') {
     this.socketURL = socketURL
-    this.socketPath = socketPath === null ? '/socket.io' : socketPath
+    this.socketPath = socketPath === null ? '/socket/socket.io' : socketPath
     // if (ns === 'all' || ns === null) ns = '/'
     // if (ns.indexOf('/') === -1) ns = `/${ns}`
     // this.ns = ns // 連線name space 與socketPath不同
