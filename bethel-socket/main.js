@@ -50,7 +50,7 @@ new Vue({
     if(typeof ip == "string") {
       this.ip = ip;
     } else {
-      this.ip = 'http://rd.jabezpos.com:54321';
+      this.ip = 'http://rd.jabezpos.com';
     }
     let site = localStorage["site"];
     if(typeof site == "string") {
@@ -61,10 +61,15 @@ new Vue({
     let to = localStorage["to"];
     if(typeof to == "string")
       this.receiver = to;
+    else 
+      this.receiver = "kds/" + this.site + "/000000"
     
     let type = localStorage["type"];
     if(typeof type == "string")
         this.dataType = type;
+    else {
+      this.dataType = "WebMenu.HaveNewOrder";
+    }
     let code = localStorage["code"];
     if(typeof code == "string")
         this.dataCode = code;
