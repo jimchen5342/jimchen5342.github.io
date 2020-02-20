@@ -5,6 +5,7 @@
 	<meta charset="utf-8" />
 	<script type="text/javascript"  src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.0/JsBarcode.all.js"></script>
 	<style type="text/css">
 		button {
 			font-size: 1em;
@@ -38,8 +39,12 @@
 		<label>PW：</label><input type="text" id='VERIFY_PW' /><br />
 		<label>SITE：</label><input type="text"  id='SITE' /><br />
 		<button id='topUp'>儲值/扣款 QRCode</button>
-	</fieldset><br />
-	<div id='wrapper' style="display: inline-block;"> </div>
+	</fieldset>
+	<div style="display: flex; flex-direction: row;  justify-content: flex-start; align-items: center;">
+		<div id='wrapper' style="display: inline-block;">
+		</div>
+		<svg id="barcode"></svg>		
+	</div>
 	<div id='ver'>2018-08-16</div>
 </body>
 <script type="text/javascript">
@@ -69,6 +74,7 @@ $(document).ready(function(){
 			$("#wrapper").html("");
 			$("<div id='qrcode' style='margin: 20px;' ></div>").appendTo("#wrapper");
 			$("#qrcode").qrcode({text: '' + result, ecLevel: 'M', size: 100});
+			JsBarcode("#barcode", result);
 			$("<div style='text-align: center; color: blue;' >" + formatter(result) + "</div>").appendTo("#wrapper");
 			$("<div id='times' style='text-align: center; color: blue; margin-top: 20px;' ></div>").appendTo("#wrapper");
 			localStorage["VERIFY_ID"] = $("#VERIFY_ID").val();

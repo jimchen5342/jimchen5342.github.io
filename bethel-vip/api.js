@@ -48,13 +48,18 @@
 	}
 	
 	function signon(success, error){
+		console.log(JSON.stringify({
+			VERIFY_ID: $("#VERIFY_ID").val(), //'0937170831',
+			VERIFY_PW: $("#VERIFY_PW").val(), //"12345",
+			SITE: $("#SITE").val(), //"BSMS000032"
+		}))
 		omniChannel.ajax("retailAPP_VIP/loginByVerifyID",  {
 			VERIFY_ID: $("#VERIFY_ID").val(), //'0937170831',
 			VERIFY_PW: $("#VERIFY_PW").val(), //"12345",
 			SITE: $("#SITE").val(), //"BSMS000032"
 		}, 
 		function(result){
-			if(typeof result.data == "object" && typeof result.data.token == "string"){
+			if(typeof result.data == "object" && result.data != null && typeof result.data.token == "string"){
 				omniChannel.ID_NO = result.data.ID_NO;
 				omniChannel.token = result.data.token;
 				success({token: omniChannel.token, ID_NO: omniChannel.ID_NO});
