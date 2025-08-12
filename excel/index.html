@@ -70,6 +70,7 @@
     </div>
   </div>
   <script>
+    let rowStart = 0, rowEnd = 0;
     window.onload = () => {
       renderSpec();
     }
@@ -110,21 +111,24 @@
       }
       if(maxCols == rows[4].length) maxCols = 0;
 
-      let s = "";
-      rows.forEach((row, index) => {
+       rows.forEach((row, index) => {
+        if(row.length > 0) {
+          // console.log(index + ": " + row[0])
+          if(row[0] == "戶號") {
+            rowStart = index;
+          } else if(typeof row[0] == "string" && row[0].indexOf("備註") > -1) {
+            rowEnd = index;
+          }
+        }
+      });
 
-        if(index > 3 && row.length > 10) {
+      // let s = "";
+      rows.forEach((row, index) => {
+        if(index >= rowStart && index <= rowEnd) {
           const tr = table.insertRow();
           const td1 = tr.insertCell();
           td1.textContent = index + 1;
           td1.style.backgroundColor = 'lightgray';
-
-          // const trSpec = spec.insertRow();
-          // const td1Spec = trSpec.insertCell();
-          // td1Spec.textContent = index + 1;
-
-          //  const td2Spec = trSpec.insertCell();
-          // td2Spec.textContent = String(row[0]);
 
           if(maxCols > 0 && row.length == maxCols && row[maxCols - 1]) {
             td1.classList.add('has-tooltip');
@@ -140,13 +144,10 @@
                   });
               }
             });
-
-            // const td = trSpec.insertCell();
-            // td.textContent = tooltipContent;
           }
           row.forEach((cell, cellIndex) => {
             if(maxCols > 0 && cellIndex == maxCols - 1) {
-              s += (s.length > 0 ? "\n" : "") + index + ": " + cell
+              // s += (s.length > 0 ? "\n" : "") + index + ": " + cell
             } else if(cellIndex > 1) {
               const td = tr.insertCell();
               td.textContent = cell;
@@ -475,48 +476,6 @@
       
     }
 
-
-
-
-    /*
-  [
-    {
-      row: 6,
-      left: "",
-      right: ""
-
-    }
-  ]
-6: 1戶只有能有1個人回答，如果全戶都没人回答47要備註
-7: 1.關係如為巳婚者配偶要出現在戶內,如果没有的話要備源因
-
-9: 1.47年次後出生教育程度要為國中以上
-   2.夫妻年齡差距10Y要跳出檢誤
-   3.子女與父母年齡差距16Y以下跳出檢誤
-
-10: 戶內有配偶的要成雙成對
-11: 1.在學者要為23Y以下
-    2.肄業者跳出提示
-    3.從未正規學校求學過要為70Y以上
-12: 如是1跳出提示
-13: 1.夫妻的教育程度差四皆以上要跳出提示
-    2.教育程度要和年齡搭配
-16: 本列為1請提示
-17: 1.戶內人口僅1人且65Y以上又無工作，這一選項只能為8
-    2.同1戶內有2個選7跳出檢誤
-    3.65Y以下，選8,47要備註
-    4.選11要備註是三者何種
-37: 8列選1者這裡要有數字編號
-38: 38列有數字者這列要有文字
-39: 38.39值這列要有編號
-40: 40有編號這列要有文字
-41: 38~41列有值這裡要有值
-42: 38~42有值這列要有值
-43: 43列有值44要有值
-44: 1.42列選1本列要為2
-    2.45列選4者42列選項要為2以
-45: 本列的3個字要和39列一樣
-    */
   </script>
 </body>
 </html>
