@@ -8,17 +8,28 @@
   <script type="text/javascript" src="../tutor/jQuery/jquery.min.js"></script>
   <script type="text/javascript" src="../tutor/jQuery/easyui/jquery.easyui.min.js"></script>
   <style>
-    table,
-    th,
-    td {
+    html, body{
+      margin: 0;
+      padding: 0;
+      height:100%;
+      overflow: hidden;
+		}
+    * {
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+    input[type=file] {
+      /* font-size: 16px; */
+    }
+    table, th, td {
       border: 1px solid black;
       border-collapse: collapse;
       padding: 5px;
       text-align: left;
     }
-    tr {
+    /* tr {
       min-height: 20px;
-    }
+    } */
     .has-tooltip {
       position: relative;
     }
@@ -32,13 +43,28 @@
       background-color: red;
       border-radius: 50%;
     }
+    .second-level {
+      margin-left: 10px;
+    }
+    .error {
+      color: red;
+    }
   </style>
 </head>
-<body>
-  <h2>選擇 Excel 檔案</h2>
-  <input type="file" id="excelFile" accept=".xlsx, .xls, .csv" />
-  <table id="excelTable" style="margin-top: 10px;""></table>
-
+<body style="display: flex; flex-direction: column; height: 100%;">
+  <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center; padding: 5px;">
+    <!-- <h2>選擇 Excel 檔案</h2> -->
+    <input type="file" id="excelFile" accept=".xlsx, .xls, .csv" />    
+  </div>
+  <div id="tt" class="easyui-tabs" style="flex: 1; width: 100%; height: 100%;">
+    <div title="Excel 内容" style="padding: 5px; display:none;">
+        <table id="excelTable"></table>
+    </div>
+    <div title="檢核結果" style="overflow:auto; padding: 5px;">
+      <div id="content" style="width: 100%; height: 100%;">
+      </div>
+    </div>
+  </div>
   <script>
     document.getElementById('excelFile').addEventListener('change', function (e) {
       const file = e.target.files[0];
@@ -103,9 +129,66 @@
           }
         });
         // console.log(s)
+        check();
       };
       reader.readAsArrayBuffer(file);
     });
+
+    function check() {
+      let content = document.getElementById('content');
+      content.innerHTML = "";
+      const table = document.getElementById('excelTable');
+
+      let createDiv = (data, className, id, state) => {
+        const newDiv = document.createElement('div');
+        newDiv.textContent = data;
+        newDiv.classList.add(className);
+        if(state) newDiv.classList.add(state);
+        newDiv.id = id;
+        content.appendChild(newDiv);
+      }
+
+      let start = 1, end = -1, home = 0;
+
+      let checkGroup = () => {
+        let cell1 = table.rows[0].cells[start].textContent;
+        // content.appendChild()
+        // content.innerHTML += (content.innerHTML.length > 0 ? "<br />" : "") + "戶號: " + cell1
+        createDiv("戶號: " + cell1, "first-level", cell1);
+        let answer = "否";
+        for(let i = start; i <= end; i++) {
+          if(table.rows[2].cells[i].textContent == "1") {
+            answer = "是";
+            break;
+          }
+        }
+        createDiv("本人回答否: " + answer, "second-level", cell1 + "-7", 
+          answer != "是" ? "error" : undefined
+        );
+        home++;
+        // console.log("start: " + start + ", 戶號: " + cell1)
+      }
+
+
+      for(let i = 1; i < table.rows[0].cells.length; i++) {
+        let cell1 = table.rows[0].cells[i - 1].textContent;
+        let cell2 = table.rows[0].cells[i].textContent;
+        // console.log(i + ": " + cell1 + ", " + cell2)
+        if(i > 1 && cell1 != cell2) {
+          end = i - 1;
+          checkGroup();
+          start = i;
+        }
+        // console.log(i + ": " + cell.textContent)
+      }
+
+      // for (let i = 0; i < table.rows.length; i++) { 
+      //   let row = table.rows[i];
+      //   for (let j = 0; j < row.cells.length; j++) { 
+      //       // row.cells[j].style.backgroundColor = "yellow";  
+      //   }
+      // }      
+    }
 
 
     /*
