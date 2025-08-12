@@ -64,8 +64,15 @@
       <div id="content" style="width: 100%; height: 100%;">
       </div>
     </div>
+    <div title="規格說明" style="overflow:auto; padding: 5px;">
+      <table id="spec"></table>
+      </div>
+    </div>
   </div>
   <script>
+    window.onload = () => {
+      renderSpec();
+    }
     document.getElementById('excelFile').addEventListener('change', function (e) {
       const file = e.target.files[0];
       if (!file) {
@@ -83,61 +90,79 @@
 
         // 將工作表轉成二維陣列
         const rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-        const table = document.getElementById('excelTable');
-        table.innerHTML = ''; // 清空舊資料
-
-        let maxCols = 0;
-        for(let i = 0; i < 10; i++) {
-          let row = rows[i];
-          // console.log(i + ": " + row.length)
-          if(maxCols < row.length) {
-            maxCols = row.length;
-          }
-        }
-        if(maxCols == rows[4].length) maxCols = 0;
-
-        let s = "";
-        rows.forEach((row, index) => {
-          if(index > 3 && row.length > 10) {
-            const tr = table.insertRow();
-            const td1 = tr.insertCell();
-            td1.textContent = index + 1;
-            td1.style.backgroundColor = 'lightgray';
-            if(maxCols > 0 && row.length == maxCols && row[maxCols - 1]) {
-              td1.classList.add('has-tooltip');
-              const tooltipContent = String(row[maxCols - 1]);
-              $(td1).tooltip({
-                content: `<div style="padding:5px; max-width:300px; font-size:16px; white-space: pre-wrap; word-wrap: break-word;">${tooltipContent}</div>`,
-                trackMouse: true,
-                position: 'right',
-                onShow: function(){
-                    $(this).tooltip('tip').css({
-                        backgroundColor: '#FFFFE1',
-                        borderColor: '#CCCCCC'
-                    });
-                }
-              });
-            }
-            row.forEach((cell, cellIndex) => {
-              if(maxCols > 0 && cellIndex == maxCols - 1) {
-                s += (s.length > 0 ? "\n" : "") + index + ": " + cell
-              } else if(cellIndex > 1) {
-                const td = tr.insertCell();
-                td.textContent = cell;
-              }
-            });            
-          }
-        });
-        // console.log(s)
-        check();
+        retrieve(rows);
       };
       reader.readAsArrayBuffer(file);
     });
+
+    function retrieve(rows) {
+      const table = document.getElementById('excelTable');
+      table.innerHTML = ''; // 清空舊資料
+      // const spec = document.getElementById('spec');
+
+      let maxCols = 0;
+      for(let i = 0; i < 10; i++) {
+        let row = rows[i];
+        // console.log(i + ": " + row.length)
+        if(maxCols < row.length) {
+          maxCols = row.length;
+        }
+      }
+      if(maxCols == rows[4].length) maxCols = 0;
+
+      let s = "";
+      rows.forEach((row, index) => {
+
+        if(index > 3 && row.length > 10) {
+          const tr = table.insertRow();
+          const td1 = tr.insertCell();
+          td1.textContent = index + 1;
+          td1.style.backgroundColor = 'lightgray';
+
+          // const trSpec = spec.insertRow();
+          // const td1Spec = trSpec.insertCell();
+          // td1Spec.textContent = index + 1;
+
+          //  const td2Spec = trSpec.insertCell();
+          // td2Spec.textContent = String(row[0]);
+
+          if(maxCols > 0 && row.length == maxCols && row[maxCols - 1]) {
+            td1.classList.add('has-tooltip');
+            const tooltipContent = String(row[maxCols - 1]);
+            $(td1).tooltip({
+              content: `<div style="padding:5px; max-width:300px; font-size:16px; white-space: pre-wrap; word-wrap: break-word;">${tooltipContent}</div>`,
+              trackMouse: true,
+              position: 'right',
+              onShow: function(){
+                  $(this).tooltip('tip').css({
+                      backgroundColor: '#FFFFE1',
+                      borderColor: '#CCCCCC'
+                  });
+              }
+            });
+
+            // const td = trSpec.insertCell();
+            // td.textContent = tooltipContent;
+          }
+          row.forEach((cell, cellIndex) => {
+            if(maxCols > 0 && cellIndex == maxCols - 1) {
+              s += (s.length > 0 ? "\n" : "") + index + ": " + cell
+            } else if(cellIndex > 1) {
+              const td = tr.insertCell();
+              td.textContent = cell;
+            }
+          });
+        }
+      });
+      // console.log(s)
+      check();
+    }
 
     function check() {
       let content = document.getElementById('content');
       content.innerHTML = "";
       const table = document.getElementById('excelTable');
+      
 
       let createDiv = (data, className, id, state) => {
         const newDiv = document.createElement('div');
@@ -169,7 +194,6 @@
         // console.log("start: " + start + ", 戶號: " + cell1)
       }
 
-
       for(let i = 1; i < table.rows[0].cells.length; i++) {
         let cell1 = table.rows[0].cells[i - 1].textContent;
         let cell2 = table.rows[0].cells[i].textContent;
@@ -180,18 +204,289 @@
           start = i;
         }
         // console.log(i + ": " + cell.textContent)
-      }
+      }   
+    }
 
-      // for (let i = 0; i < table.rows.length; i++) { 
-      //   let row = table.rows[i];
-      //   for (let j = 0; j < row.cells.length; j++) { 
-      //       // row.cells[j].style.backgroundColor = "yellow";  
-      //   }
-      // }      
+    function renderSpec(params) {
+      const spec = document.getElementById('spec');
+      spec.innerHTML = `
+        <tbody>
+          <tr>
+            <td>5</td><td>戶號</td><td style="min-width: 350px;"></td>
+          </tr>
+          <tr>
+            <td>6</td><td>戶內人口編號:(戶長為1號，其餘按戶口名簿次序填列)</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>0. 是否本人回答： <br/>
+              1.本人回答 
+              2.視同本人回答 
+              3.否</td>
+            <td>1戶只有能有1個人回答，如果全戶都没人回答47要備註</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>1. 與戶長之關係：<br/> 1.戶長 2.配偶 3.子女 4.孫子女 5.父母 6.祖父母 7.兄弟姊妹 8.子女之配偶 9.孫子女之配偶 10.兄弟姊妹之配偶 11.配偶之父母 12.配偶之兄弟姊妹 13.其他親屬
+              14.其他____ </td>
+            <td>1.關係如為巳婚者配偶要出現在戶內,如果没有的話要備源因</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>2. 性別：<br/>1.男 2.女</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>3. 出生年月日</td>
+            <td>1. 47年次後出生教育程度要為國中以上<br/>
+              2. 夫妻年齡差距10Y要跳出檢誤<br/>
+              3. 子女與父母年齡差距16Y以下跳出檢誤<br/>
+            </td>
+          </tr>
+          <tr>
+            <td>11</td>
+            <td>4.婚姻狀況:<br/> 1.未婚 2.有偶(含與人同居) 3.離婚分居 4.配偶死亡</td>
+            <td>戶內有配偶的要成雙成對</td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>5.在學、受訓狀況、教育程度及科系：<br/>
+              &nbsp;&nbsp;5A. 在學狀況: 1.在學 2.畢業 3.肄業 4.從未正規學校求學過(接B)</td>
+            <td>1.在學者要為23Y以下<br/>
+              2.肄業者跳出提示<br/>
+              3.從未正規學校求學過要為70Y以上
+            </td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>&nbsp;&nbsp;5B. 是否正在接受職業訓練；1.是(接C) 2.否(接C)</td>
+            <td>如是1跳出提示</td>
+          </tr>
+          <tr>
+            <td>14</td>
+            <td>&nbsp;&nbsp;5C. 教育程度：1.不識字 2.自修 3.國小 4.國(初)中 5.高級中等(高中、高職) 6.專科(五專前三年劃記高級中等) 7.大學 8.碩士 9.博士(5~9接D，餘轉7)</td>
+            <td>1.夫妻的教育程度差四皆以上要跳出提示<br/>
+              2.教育程度要和年齡搭配</td>
+          </tr>
+          <tr>
+            <td>15</td>
+            <td>&nbsp;&nbsp;5D. 科系: 1.文 2.法 3.商、管理、傳播 4.理 5.工 6.農 7.醫 8.軍警 9.教育 10.民生 11.藝術、設計 12.社會 13.普通
+              14.其他___(A勾選1、3項且C為7、8、9項接6，餘轉7)</td>
+          </tr>
+          <tr>
+            <td>16</td>
+            <td>6.在學或肄業者之前最高學歷: <br/> 1.高級中等(高中、高職) 2.專科(五專前三年劃記高級中等) 3.大學 4.碩士 5.博士(接7)</td>
+          </tr>
+          <tr>
+            <td>17</td>
+            <td>7.你是否曾(已)自公民營機構退休？ 1.是(接8) 2.否(接8)</td>
+            <td>本列為1請提示</td>
+          </tr>
+          <tr>
+            <td>18</td>
+            <td>8.上週你有沒有在做工作？<br/>
+              &nbsp;&nbsp; 1.從事某種工作(轉10) <br/>
+              &nbsp;&nbsp; 2.利用課餘或假期工作(轉10)<br/>
+              &nbsp;&nbsp; 3.家事餘暇從事工作(轉10)<br/>
+              &nbsp;&nbsp; 4.有工作而未做(轉12)<br/>
+              &nbsp;&nbsp; 5.無工作在找工作(含登記求職)或已找工作在等結果(轉15)<br/>
+              &nbsp;&nbsp; 6.求學及準備升學(兼有工作者圈2;無工作在找工作或已找工作在等待結果者圈5)(接9)<br/>
+              &nbsp;&nbsp; 7.料理家務(兼有工作者圈3;無工作在找工作或已找工作在等待結果者圈5)(接9)<br/>
+              &nbsp;&nbsp; 8.高齡(65歲以上)、身心障礙(接9)<br/>
+              &nbsp;&nbsp; 9.傷病或健康不良(不含身心障礙)(接9)<br/>
+              &nbsp;&nbsp; 10.賦閒(接9)<br/>
+              &nbsp;&nbsp; 11.現役軍人、監管人口、失蹤人口(停) <br/>
+              &nbsp;&nbsp; 12.其他______(接9)
+            </td>
+            <td>1.戶內人口僅1人且65Y以上又無工作，這一選項只能為8<br/>
+              2.同1戶內有2個選7跳出檢誤<br/>
+              3.65Y以下，選8,47要備註<br/>
+              4.選11要備註是三者何種
+            </td>
+          </tr>
+          <tr>
+            <td>22</td>
+            <td>9. 上週你有沒有做任何有酬工作或無酬家屬工作？
+              （如兼家教、助教、研究助理、或幫忙家人看店、送貨、打掃店面、
+              保姆工作等）<br/>
+              &nbsp;&nbsp; 9A. 上週你有沒有做任何有酬工作或無酬家屬工作？<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; 1.有利用課餘、假期或家事餘暇工作(接10)<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; 2.有從事某種工作(接10) <br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; 3.有工作而未做(轉12)<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; 4.沒有做任何工作(接B)
+            </td>
+          </tr>
+          <tr>
+            <td>23</td>
+            <td>&nbsp;&nbsp; 9B. 你在過去4週(1個月)內，有沒有找過工作(含求職登記)或已找工作在等待結果？ <br/>
+              &nbsp;&nbsp;&nbsp;&nbsp; 1.有(轉D) 
+              &nbsp;&nbsp;&nbsp;&nbsp; 2.沒有(接C)
+            </td>
+          </tr>
+          <tr>
+            <td>24</td>
+            <td>&nbsp;&nbsp; 9C. 上週你想不想工作？ 
+              &nbsp;&nbsp;&nbsp;&nbsp; 1.想(接D)
+              &nbsp;&nbsp;&nbsp;&nbsp; 2.不想 (停)</td>
+          </tr>
+          <tr>
+            <td>25</td>
+            <td>&nbsp;&nbsp; 9D. 如果現在有工作機會，你能不能開始工作？
+              &nbsp;&nbsp;&nbsp;&nbsp; 1.能(B勾選1項轉16，餘停問)
+              &nbsp;&nbsp;&nbsp;&nbsp; 2.不能 (停)</td>
+          </tr>
+          <tr>
+            <td>26</td>
+            <td>10.上週你實際工作幾小時？
+              　1.主要工作:__________小時　2.其他所有工作:__________小時
+              　(工時合計未達35小時者接11，餘轉21)</td>
+          </tr>
+          <tr>
+            <td>27</td>
+            <td>11.上週你實際工時未達35小時的主要原因是什麼？
+              1.業務不振 2.無法找到工時大於35小時之工作
+              3.季節性關係 4.天氣惡劣或災害影響
+              5.全時工作不需35小時 6.照顧未滿12歲子女
+              7.照顧滿65歲年長家屬 8.做家事(含照顧其他家人)
+              9.求學及受訓 10.傷病或健康不良
+              11.例假、事假、特別假(不含病假)(轉21) 12.不願多做(轉21)
+              13.其他_____ (本欄除11、12項外，餘轉14)</td>
+          </tr>
+          <tr>
+            <td>28</td>
+            <td>12.上週你不去工作的主要原因是什麼？
+              1.傷病或健康不良 2.季節性關係(轉14)
+              3.例假、事假、特別假(不含病假)
+              4.已定於短期內開始工作而無報酬(轉18)
+              5.已受僱用領有報酬因故未開始工作 6.等待恢復工作(接13)
+              7.其他______(本題除2、4、6項外，餘轉21)</td>
+          </tr>
+          <tr>
+            <td>29</td>
+            <td>13.上週你有工作報酬嗎？ 1.有(接14) 2.沒有(轉18)</td>
+          </tr>
+          <tr>
+            <td>30</td>
+            <td>14. 上週你實際工時未達35小時，你是否希望增加工作時數？
+              如果現在有機會，你能不能夠增加工作時數?（含現有、新增、
+              轉換的工作）
+              14A 你是否希望增加工作時數？
+              希望，你是否希望增加至35小時以上：1.是(接B) 2.否(接B)
+              3.不希望(第12問項勾選6項轉20，餘轉21)</td>
+          </tr>
+          <tr>
+            <td>31</td>
+            <td> 14B 你能不能夠增加工作時數？ 1.能 2.不能
+              (第12問項勾選6項轉20，餘轉21)</td>
+          </tr>
+          <tr>
+            <td>32</td>
+            <td>15.如果現在有工作機會，你能不能開始工作？1.能(接16)
+              2.不能，其原因是: 3.求學及準備升學 4.料理家務
+              5.高齡、身心障礙 6.傷病或健康不良(不含身心障礙)
+              7.賦閒 8.其他______(停)</td>
+          </tr>
+          <tr>
+            <td>33</td>
+            <td>16.你用什麼方法找尋工作？(可複選)
+              1.託親友師長介紹 2.向私立就業機構求職 3.應徵廣告、招貼
+              4.向公立就業機構求職 5.參加政府考試分發 6.其他__(接17)</td>
+          </tr>
+          <tr>
+            <td>34</td>
+            <td>17.你想找個全時的工作，還是只想找個部分時間工作？
+              1.全時(接18) 2.部分時間(接18)</td>
+          </tr>
+          <tr>
+            <td>35</td>
+            <td>18.你沒有工作而找尋工作或等待恢復工作多久?有__個星期(接19)</td>
+          </tr>
+          <tr>
+            <td>36</td>
+            <td>19.你從前是否有過工作？1.有(接20) 2.沒有(停)</td>
+          </tr>
+          <tr>
+            <td>37</td>
+            <td>20.你離開上次(或等待恢復)工作的主要原因是什麼？(接21)1.工作場所業務緊縮或歇業 2.對原有工作不滿意 3.傷病或健康不良 4.季節性或臨時工作結束 5.結婚或生育 6.退休 7.照顧未滿12歲子女
+              8.照顧滿65歲年長家屬 9.做家事(含照顧其他家人)10.其他__</td>
+          </tr>
+          <tr>
+            <td>38</td>
+            <td>21.你的主要工作場所是什麼?(接22)</td>
+            <td>8列選1者這裡要有數字編號</td>
+          </tr>
+          <tr>
+            <td>39</td>
+            <td> 1.地點： 縣市 鄉鎮市區</td>
+            <td>38列有數字者這列要有文字</td>
+          </tr>
+          <tr>
+            <td>40</td>
+            <td> 2.主要產品或業務及場所名稱: </td>
+            <td>38.39值這列要有編號</td>
+          </tr>
+          <tr>
+            <td>41</td>
+            <td> </td>
+            <td>40有編號這列要有文字</td>
+          </tr>
+          <tr>
+            <td>42</td>
+            <td> 3.從業員工人數: 1.1人 2.2~9人 3.10~29人 4.30~49人 5.50~99人 6.100~199人 7.200~499人 8.500以上 9.政府機關</td>
+            <td>38~41列有值這裡要有值</td>
+          </tr>
+          <tr>
+            <td>43</td>
+            <td>22.你的主要工作場所經辦工作內容、業務名稱及
+              工作部門(接23)</td>
+            <td>38~42有值這列要有值</td>
+          </tr>
+          <tr>
+            <td>44</td>
+            <td></td>
+            <td>43列有值44要有值</td>
+          </tr>
+          <tr>
+            <td>45</td>
+            <td>23.你主要工作的身分是什麼？1.雇主 2.自營作業者
+              3.受政府僱用者 4.受私人僱用者 5.無酬家屬工作者</td>
+            <td>1.42列選1本列要為2
+              2.45列選4者42列選項要為2以</td>
+          </tr>
+          <tr>
+            <td>46</td>
+            <td> ※請填註常住地點： 縣市 鄉鎮市區</td>
+            <td>本列的3個字要和39列一樣</td>
+          </tr>
+          <tr>
+            <td>47</td>
+            <td>備註：</td>
+          </tr>
+          <tr>
+            <td>48</td>
+            <td>訪問員：</td>
+          </tr>
+          <tr>
+            <td>49</td>
+            <td>審核員：</td>
+          </tr>
+        </tbody>
+      `;
+      
     }
 
 
+
+
     /*
+  [
+    {
+      row: 6,
+      left: "",
+      right: ""
+
+    }
+  ]
 6: 1戶只有能有1個人回答，如果全戶都没人回答47要備註
 7: 1.關係如為巳婚者配偶要出現在戶內,如果没有的話要備源因
 
