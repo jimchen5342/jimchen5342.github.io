@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <title>讀取 Excel 儲存格</title>
+  <title>檢核程式</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <link rel="stylesheet" type="text/css" href="../tutor/jQuery/easyui/themes/default/easyui.css">
   <script type="text/javascript" src="../tutor/jQuery/jquery.min.js"></script>
@@ -71,6 +71,9 @@
   </div>
   <script>
     let rowStart = 0, rowEnd = 0;
+    const table = document.getElementById('excelTable');
+    const content = document.getElementById('content');
+  
     window.onload = () => {
       renderSpec();
     }
@@ -97,10 +100,7 @@
     });
 
     function retrieve(rows) {
-      const table = document.getElementById('excelTable');
       table.innerHTML = ''; // 清空舊資料
-      // const spec = document.getElementById('spec');
-
       let maxCols = 0;
       for(let i = 0; i < 10; i++) {
         let row = rows[i];
@@ -122,7 +122,6 @@
         }
       });
 
-      // let s = "";
       rows.forEach((row, index) => {
         if(index >= rowStart && index <= rowEnd) {
           const tr = table.insertRow();
@@ -150,7 +149,7 @@
               // s += (s.length > 0 ? "\n" : "") + index + ": " + cell
             } else if(cellIndex > 1) {
               const td = tr.insertCell();
-              td.textContent = cell;
+              td.textContent = cell.trim();
             }
           });
         }
@@ -159,53 +158,107 @@
       check();
     }
 
+    function createDiv(data, className, id, state) {
+      const newDiv = document.createElement('div');
+      newDiv.textContent = data;
+      newDiv.classList.add(className);
+      if(state) newDiv.classList.add(state);
+      newDiv.id = id;
+      content.appendChild(newDiv);
+    }
+
     function check() {
-      let content = document.getElementById('content');
       content.innerHTML = "";
-      const table = document.getElementById('excelTable');
-      
-
-      let createDiv = (data, className, id, state) => {
-        const newDiv = document.createElement('div');
-        newDiv.textContent = data;
-        newDiv.classList.add(className);
-        if(state) newDiv.classList.add(state);
-        newDiv.id = id;
-        content.appendChild(newDiv);
-      }
-
-      let start = 1, end = -1, home = 0;
-
-      let checkGroup = () => {
-        let cell1 = table.rows[0].cells[start].textContent;
-        // content.appendChild()
-        // content.innerHTML += (content.innerHTML.length > 0 ? "<br />" : "") + "戶號: " + cell1
-        createDiv("戶號: " + cell1, "first-level", cell1);
-        let answer = "否";
-        for(let i = start; i <= end; i++) {
-          if(table.rows[2].cells[i].textContent == "1") {
-            answer = "是";
-            break;
-          }
-        }
-        createDiv("本人回答否: " + answer, "second-level", cell1 + "-7", 
-          answer != "是" ? "error" : undefined
-        );
-        home++;
-        // console.log("start: " + start + ", 戶號: " + cell1)
-      }
-
+      let start = 1, end = -1;
       for(let i = 1; i < table.rows[0].cells.length; i++) {
-        let cell1 = table.rows[0].cells[i - 1].textContent;
+        let homeNo = table.rows[0].cells[i - 1].textContent;
         let cell2 = table.rows[0].cells[i].textContent;
-        // console.log(i + ": " + cell1 + ", " + cell2)
-        if(i > 1 && cell1 != cell2) {
+        // console.log(i + ": " + homeNo + ", " + cell2)
+        if(i > 1 && homeNo != cell2) {
           end = i - 1;
-          checkGroup();
+          checkGroup(start, end);
           start = i;
         }
         // console.log(i + ": " + cell.textContent)
       }   
+    }
+
+    function checkGroup(start, end) {// Excel 第七列，本人回答否
+      let homeNo = table.rows[0].cells[start].textContent;
+      createDiv("戶號：" + homeNo, "first-level", homeNo);
+      let answer = "否";
+      for(let i = start; i <= end; i++) {
+        if(table.rows[2].cells[i].textContent == "1") {
+          answer = "是";
+          break;
+        }
+      }
+      createDiv("本人回答否： " + answer, "second-level", homeNo + "-7", 
+        answer != "是" ? "error" : undefined
+      );
+      console.log(`戶號：${homeNo}，第 ${start} 欄`);
+      checkCouple(start, end);
+      checkAge(start, end);
+    }
+
+    function checkCouple(start, end) { // Excel 第八列，戶長已婚, 是否有配偶
+      let homeNo = table.rows[0].cells[start].textContent;
+      let serial1 = table.rows[1].cells[start].textContent;
+      let married = table.rows[6].cells[start].textContent; // 婚姻狀況
+      let answer = "";
+      // console.log("checkCouple." + homeNo + ", serial: " + serial1 + ", married: " + married)
+      if(married == "2") { // 戶長已婚
+        answer = "否";
+        for(let i = start + 1; i <= end; i++) {
+          let serial2 = table.rows[1].cells[i].textContent;
+          let related = table.rows[3].cells[i].textContent;
+          // console.log("serial: " + serial2 + ", related: " + related)
+          if(related == "2") {
+            answer = "是";
+            break;
+          }
+        }
+      }
+      // console.log("戶長已婚, 是否有配偶: " + answer)
+      if(answer != "") {
+        createDiv("戶長已婚，是否有配偶：" + answer, "second-level", homeNo + "-couple", 
+          answer != "是" ? "error" : undefined
+        );        
+      }
+    }
+
+    function checkAge(start, end) { // Excel 第十列，出生年月日
+      let homeNo = table.rows[0].cells[start].textContent;
+      let ages = {};
+      // console.log("checkAge." + homeNo)
+      for(let i = start; i <= end; i++) {
+        let serial = table.rows[1].cells[i].textContent;
+        let birdthday = table.rows[5].cells[i].textContent; // 出生年月日
+        let degree = table.rows[9].cells[i].textContent; // 教育程度
+        let related = String(table.rows[3].cells[i].textContent);
+
+        if(typeof birdthday == "string" && birdthday.length > 0) {
+          let birthYear = birdthday.split("/")[0];
+          if(birthYear >= 47 && degree < 4) {
+            createDiv(`編號：${serial}，${birthYear}年次，教育程度：${degree}`, 
+              "second-level", homeNo + "-" + serial + "-age", "error");
+ 
+          }
+          console.log(`編號：${serial}，related：${related}，${birthYear}年次，教育程度：${degree}`);
+          if(typeof ages[related] == "undefined") {
+            ages[related] = birthYear;
+          } else if(ages[related] < birthYear) {
+            ages[related] = birthYear;
+          }
+        }
+      }
+      if(typeof ages["1"] != "undefined" && typeof ages["2"] != "undefined") {
+        let diff = Math.abs(ages["1"] - ages["2"]);
+        if(diff >= 10) {
+          createDiv(`夫妻年齡差距：${diff}歲`, "second-level", homeNo + "-age-diff", "error");
+        }
+      }
+      console.log(ages)
     }
 
     function renderSpec(params) {
