@@ -255,10 +255,21 @@
       if(typeof ages["1"] != "undefined" && typeof ages["2"] != "undefined") {
         let diff = Math.abs(ages["1"] - ages["2"]);
         if(diff >= 10) {
-          createDiv(`夫妻年齡差距：${diff}歲`, "second-level", homeNo + "-age-diff", "error");
+          createDiv(`夫妻年齡差距：${diff}歲`, "second-level", homeNo + "-age-diff1", "error");
         }
       }
-      console.log(ages)
+      if(typeof ages["3"] != "undefined") {
+        for(let i = 1; i <= 2; i++) {
+          if(typeof ages[i] != "undefined") {
+            let diff = Math.abs(ages[i] - ages["3"]);
+            if(diff <= 16) {
+              createDiv(`子女與父母年齡差距：${diff}歲`, "second-level", homeNo + "-age-diff2", "error");
+              break;
+            }
+          }
+        }
+      }
+      // console.log(ages)
     }
 
     function renderSpec(params) {
