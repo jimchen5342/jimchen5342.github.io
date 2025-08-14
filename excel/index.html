@@ -233,8 +233,54 @@
       // console.log("checkAge." + homeNo)
       for(let i = start; i <= end; i++) {
         let serial = table.rows[1].cells[i].textContent;
+        let birdthday = table.rows[5].cells[i].textContent; // 第十`列，出生年月日
+        let degree = table.rows[9].cells[i].textContent; // 第十四列，教育程度：1.不識字 2.自修 3.國小 4.國(初)中 5.高級中等(高中、高職) 6.專科(五專前三年劃記高級中等) 7.大學 8.碩士 9.博士
+        let related = String(table.rows[3].cells[i].textContent);
+
+        if(typeof birdthday == "string" && birdthday.length > 0) {
+          let birthYear = birdthday.split("/")[0];
+          if(birthYear >= 47 && degree < 4) {
+            createDiv(`編號：${serial}，${birthYear}年次，教育程度：${degree}`, 
+              "second-level", homeNo + "-" + serial + "-age", "error");
+ 
+          }
+          // console.log(`編號：${serial}，related：${related}，${birthYear}年次，教育程度：${degree}`);
+          if(typeof ages[related] == "undefined") {
+            ages[related] = birthYear;
+          } else if(ages[related] < birthYear) {
+            ages[related] = birthYear;
+          }
+        }
+      }
+      if(typeof ages["1"] != "undefined" && typeof ages["2"] != "undefined") { // 夫妻年齡差距
+        let diff = Math.abs(ages["1"] - ages["2"]);
+        if(diff >= 10) {
+          createDiv(`夫妻年齡差距：${diff}歲`, "second-level", homeNo + "-age-diff1", "error");
+        }
+      }
+      if(typeof ages["3"] != "undefined") { // 子女與父母年齡差距
+        for(let i = 1; i <= 2; i++) {
+          if(typeof ages[i] != "undefined") {
+            let diff = Math.abs(ages[i] - ages["3"]);
+            if(diff <= 16) {
+              createDiv(`子女與父母年齡差距：${diff}歲`, "second-level", homeNo + "-age-diff2", "error");
+              break;
+            }
+          }
+        }
+      }
+      // console.log(ages)
+    }
+
+    function checDegree(start, end) { // Excel 第十二列，在學、受訓狀況、教育程度及科系：
+      let homeNo = table.rows[0].cells[start].textContent;
+      // console.log("checkAge." + homeNo)
+      for(let i = start; i <= end; i++) {
+        let serial = table.rows[1].cells[i].textContent;
         let birdthday = table.rows[5].cells[i].textContent; // 出生年月日
-        let degree = table.rows[9].cells[i].textContent; // 教育程度
+        let status = table.rows[7].cells[i].textContent; // 第十二列，在學狀況；1.在學 2.畢業 3.肄業 4.從未正規學校求學過
+        let training = table.rows[8].cells[i].textContent; // 第十三列，是否正在接受職業訓練；1.是(接C) 2.否(接C)
+        let degree = table.rows[9].cells[i].textContent; // 第十四列，教育程度：1.不識字 2.自修 3.國小 4.國(初)中 5.高級中等(高中、高職) 6.專科(五專前三年劃記高級中等) 7.大學 8.碩士 9.博士
         let related = String(table.rows[3].cells[i].textContent);
 
         if(typeof birdthday == "string" && birdthday.length > 0) {
@@ -252,24 +298,7 @@
           }
         }
       }
-      if(typeof ages["1"] != "undefined" && typeof ages["2"] != "undefined") {
-        let diff = Math.abs(ages["1"] - ages["2"]);
-        if(diff >= 10) {
-          createDiv(`夫妻年齡差距：${diff}歲`, "second-level", homeNo + "-age-diff1", "error");
-        }
-      }
-      if(typeof ages["3"] != "undefined") {
-        for(let i = 1; i <= 2; i++) {
-          if(typeof ages[i] != "undefined") {
-            let diff = Math.abs(ages[i] - ages["3"]);
-            if(diff <= 16) {
-              createDiv(`子女與父母年齡差距：${diff}歲`, "second-level", homeNo + "-age-diff2", "error");
-              break;
-            }
-          }
-        }
-      }
-      // console.log(ages)
+
     }
 
     function renderSpec(params) {
