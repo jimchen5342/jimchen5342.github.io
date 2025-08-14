@@ -199,6 +199,8 @@
       console.log(`戶號：${homeNo}，第 ${start} 欄`);
       checkCouple(start, end);
       checkAge(start, end);
+      checkDegree(start, end);
+      checkRetire(start, end);
     }
 
     function checkCouple(start, end) { // Excel 第八列，戶長已婚, 是否有配偶
@@ -272,9 +274,10 @@
       // console.log(ages)
     }
 
-    function checDegree(start, end) { // Excel 第十二列，在學、受訓狀況、教育程度及科系：
+    function checkDegree(start, end) { // Excel 第十二、十三、十四列，在學、受訓狀況、教育程度及科系：
       let homeNo = table.rows[0].cells[start].textContent;
       // console.log("checkAge." + homeNo)
+      let degrees = {}, nCouple = 0;
       for(let i = start; i <= end; i++) {
         let serial = table.rows[1].cells[i].textContent;
         let birdthday = table.rows[5].cells[i].textContent; // 出生年月日
@@ -282,23 +285,104 @@
         let training = table.rows[8].cells[i].textContent; // 第十三列，是否正在接受職業訓練；1.是(接C) 2.否(接C)
         let degree = table.rows[9].cells[i].textContent; // 第十四列，教育程度：1.不識字 2.自修 3.國小 4.國(初)中 5.高級中等(高中、高職) 6.專科(五專前三年劃記高級中等) 7.大學 8.碩士 9.博士
         let related = String(table.rows[3].cells[i].textContent);
+        if(related == "1" || related == "2") {
+          nCouple += parseInt(related, 10);
+          degrees[related] = degree;
+        }
 
-        if(typeof birdthday == "string" && birdthday.length > 0) {
-          let birthYear = birdthday.split("/")[0];
-          if(birthYear >= 47 && degree < 4) {
-            createDiv(`編號：${serial}，${birthYear}年次，教育程度：${degree}`, 
-              "second-level", homeNo + "-" + serial + "-age", "error");
- 
-          }
-          console.log(`編號：${serial}，related：${related}，${birthYear}年次，教育程度：${degree}`);
-          if(typeof ages[related] == "undefined") {
-            ages[related] = birthYear;
-          } else if(ages[related] < birthYear) {
-            ages[related] = birthYear;
+        if(status == "3") {
+          createDiv(`編號：${serial}，肄業`, 
+            "second-level", homeNo + "-" + serial + "-dropping-out", "error");
+        } else if(typeof birdthday == "string" && birdthday.length > 0) {
+          let arr = birdthday.split("\n");
+          if(arr.length == 2) {
+            if(status == "1" && arr[1] >= 23) { // 在學者要為23Y以下
+              createDiv(`編號：${serial}，在學年齡 ${arr[1]}`, 
+                "second-level", homeNo + "-" + serial + "-degree23", "error");
+            } else if(status == "4" && arr[1] >= 70) { // 
+              createDiv(`編號：${serial}，年齡${arr[1]}，從未正規學校求學過`, 
+                "second-level", homeNo + "-" + serial + "-degree-no", "error");
+            }
           }
         }
       }
+      if(nCouple == 3) {
+        degrees["1"] = typeof degrees["1"] == "undefined" ? 0 : degrees["1"];
+        degrees["2"] = typeof degrees["2"] == "undefined" ? 0 : degrees["2"];
+        let diff = Math.abs(degrees["1"] - degrees["2"])
+        if(diff >= 4) {
+          createDiv(`夫妻的教育程度差：${diff}`, 
+                "second-level", homeNo + "-degree-diff", "error");
+        }
+      }
+    }
 
+    function checkRetire(start, end) { // Excel 工作狀況
+      let homeNo = table.rows[0].cells[start].textContent;
+      // console.log("checkAge." + homeNo)
+      let nJob = 0;
+      for(let i = start; i <= end; i++) {
+        let serial = table.rows[1].cells[i].textContent;
+        let retire = table.rows[12].cells[i].textContent; // 是否曾(已)自公民營機構退休？ 1.是(接8) 2.否(接8)
+        let job = table.rows[13].cells[i].textContent; // 上週你有沒有在做工作
+        let age = undefined;
+
+        if(retire == "1") {
+          createDiv(`編號：${serial}，退休`, 
+            "second-level", homeNo + "-" + serial + "-retire", "error");
+        }
+        if(start == end) {
+          let birdthday = table.rows[5].cells[i].textContent; // 第十`列，出生年月日
+          if(typeof birdthday == "string" && birdthday.length > 0) {
+            let arr = birdthday.split("\n");
+            age = arr[1];
+            if(arr.length == 2 && age >= 65 && job != "8") {
+              createDiv(`編號：${serial}，戶內人口僅 1 人，且 ${age} 歲以上，工作選項為 ${job}`, 
+                "second-level", homeNo + "-" + serial + "-retire", "error");
+            }
+          }
+        }
+
+        if(job == "7")  nJob++; // 料理家務
+        if(age <= 65 && (job == "8" || job == "4" || job == "7")) {
+          createDiv(`編號：${serial}，${age} 歲以下，工作選項為 ${job}`, 
+            "second-level", homeNo + "-" + serial + "-job847", "error");
+        } else if(job == "11") {
+          createDiv(`編號：${serial}，工作選項為 ${job}，要備註`, 
+            "second-level", homeNo + "-" + serial + "-job11", "error");
+        } else if(job == "1") {
+          let locate1 = table.rows[33].cells[i].textContent; // 主要工作場所
+          let locate2 = table.rows[34].cells[i].textContent; // 地點
+          let product = table.rows[35].cells[i].textContent; // 主要產品或業務及場所名稱
+          let store = table.rows[36].cells[i].textContent; // 主要產品或業務及場所名稱
+          let men = table.rows[37].cells[i].textContent; // 從業員工人數
+          let work1 = table.rows[38].cells[i].textContent; // 經辦工作內容、業務名稱及 工作部門
+          let work2 = table.rows[39].cells[i].textContent; // 經辦工作內容、業務名稱及 工作部門
+          let idenity = table.rows[40].cells[i].textContent; // 主要工作的身分
+          let live = table.rows[41].cells[i].textContent; // 常住地點
+          if(locate1.length == 0) {
+            createDiv(`編號：${serial}，主要工作場所為空`, 
+              "second-level", homeNo + "-" + serial + "-locate1", "error");
+          } else if(locate2.length == 0) {
+            createDiv(`編號：${serial}，地點為空`, 
+              "second-level", homeNo + "-" + serial + "-locate2", "error");
+          } else if(product.length == 0 || store.length.length == 0) {
+            createDiv(`編號：${serial}，主要產品或業務及場所名稱為空`, 
+              "second-level", homeNo + "-" + serial + "-locate2", "error");
+          } else if(men.length == 0) {
+            createDiv(`編號：${serial}，從業員工人數為空`, 
+              "second-level", homeNo + "-" + serial + "-men", "error");
+          } else if(work1.length == 0 || work2.length.length == 0) {
+            createDiv(`編號：${serial}，經辦工作內容、業務名稱及 工作部門為空`, 
+              "second-level", homeNo + "-" + serial + "-work", "error");              
+          }
+
+        }
+      }
+      if(nJob >= 2) { // 料理家務
+        createDiv(`同1戶內有 ${nJob} 個選 7(料理家務)`, 
+          "second-level", homeNo + "-" + serial + "-job7", "error");
+      }
     }
 
     function renderSpec(params) {
@@ -360,7 +444,7 @@
             <td>14</td>
             <td>&nbsp;&nbsp;5C. 教育程度：1.不識字 2.自修 3.國小 4.國(初)中 5.高級中等(高中、高職) 6.專科(五專前三年劃記高級中等) 7.大學 8.碩士 9.博士(5~9接D，餘轉7)</td>
             <td>1.夫妻的教育程度差四皆以上要跳出提示<br/>
-              2.教育程度要和年齡搭配</td>
+              <div style="color: red;">2.教育程度要和年齡搭配</div></td>
           </tr>
           <tr>
             <td>15</td>
