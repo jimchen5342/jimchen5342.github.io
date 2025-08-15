@@ -209,7 +209,6 @@
       let serial1 = table.rows[1].cells[start].textContent;
       let married = table.rows[6].cells[start].textContent; // 婚姻狀況
       let answer = "";
-      // console.log("checkCouple." + homeNo + ", serial: " + serial1 + ", married: " + married)
       if(married == "2") { // 戶長已婚
         answer = "否";
         for(let i = start + 1; i <= end; i++) {
@@ -222,7 +221,6 @@
           }
         }
       }
-      // console.log("戶長已婚, 是否有配偶: " + answer)
       if(answer == "否") {
         createDiv("戶長已婚，是否有配偶：" + answer, "second-level", homeNo + "-couple", "error");        
       }
