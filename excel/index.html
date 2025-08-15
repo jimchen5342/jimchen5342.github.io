@@ -193,14 +193,15 @@
           break;
         }
       }
-      createDiv("本人回答否： " + answer, "second-level", homeNo + "-7", 
-        answer != "是" ? "error" : undefined
-      );
+      if(answer != "是") {
+        createDiv("本人回答否： " + answer, "second-level", homeNo + "-7", "error");        
+      }
+
       console.log(`戶號：${homeNo}，第 ${start} 欄`);
       checkCouple(start, end);
       checkAge(start, end);
       checkDegree(start, end);
-      checkRetire(start, end);
+      checkJob(start, end);
     }
 
     function checkCouple(start, end) { // Excel 第八列，戶長已婚, 是否有配偶
@@ -222,10 +223,8 @@
         }
       }
       // console.log("戶長已婚, 是否有配偶: " + answer)
-      if(answer != "") {
-        createDiv("戶長已婚，是否有配偶：" + answer, "second-level", homeNo + "-couple", 
-          answer != "是" ? "error" : undefined
-        );        
+      if(answer == "否") {
+        createDiv("戶長已婚，是否有配偶：" + answer, "second-level", homeNo + "-couple", "error");        
       }
     }
 
@@ -317,7 +316,7 @@
       }
     }
 
-    function checkRetire(start, end) { // Excel 工作狀況
+    function checkJob(start, end) { // Excel 工作狀況
       let homeNo = table.rows[0].cells[start].textContent;
       // console.log("checkAge." + homeNo)
       let nJob = 0;
@@ -351,15 +350,15 @@
           createDiv(`編號：${serial}，工作選項為 ${job}，要備註`, 
             "second-level", homeNo + "-" + serial + "-job11", "error");
         } else if(job == "1") {
-          let locate1 = table.rows[33].cells[i].textContent; // 主要工作場所
-          let locate2 = table.rows[34].cells[i].textContent; // 地點
-          let product = table.rows[35].cells[i].textContent; // 主要產品或業務及場所名稱
-          let store = table.rows[36].cells[i].textContent; // 主要產品或業務及場所名稱
-          let men = table.rows[37].cells[i].textContent; // 從業員工人數
-          let work1 = table.rows[38].cells[i].textContent; // 經辦工作內容、業務名稱及 工作部門
-          let work2 = table.rows[39].cells[i].textContent; // 經辦工作內容、業務名稱及 工作部門
-          let idenity = table.rows[40].cells[i].textContent; // 主要工作的身分
-          let live = table.rows[41].cells[i].textContent; // 常住地點
+          let locate1 = table.rows[33].cells[i].textContent; // 38列，主要工作場所
+          let locate2 = table.rows[34].cells[i].textContent; // 39列，地點
+          let product = table.rows[35].cells[i].textContent; // 40列，主要產品或業務及場所名稱
+          let store = table.rows[36].cells[i].textContent; // 41列，主要產品或業務及場所名稱
+          let men = table.rows[37].cells[i].textContent; // 42列，從業員工人數
+          let work1 = table.rows[38].cells[i].textContent; // 43列，經辦工作內容、業務名稱及 工作部門
+          let work2 = table.rows[39].cells[i].textContent; // 44列，經辦工作內容、業務名稱及 工作部門
+          let idenity = table.rows[40].cells[i].textContent; // 45列，主要工作的身分
+          let live = table.rows[41].cells[i].textContent; // 46列，常住地點
           if(locate1.length == 0) {
             createDiv(`編號：${serial}，主要工作場所為空`, 
               "second-level", homeNo + "-" + serial + "-locate1", "error");
@@ -375,6 +374,15 @@
           } else if(work1.length == 0 || work2.length.length == 0) {
             createDiv(`編號：${serial}，經辦工作內容、業務名稱及 工作部門為空`, 
               "second-level", homeNo + "-" + serial + "-work", "error");              
+          } else if(men == "1" && idenity != "2") {
+            createDiv(`編號：${serial}，從業員工人數 1，但工作的身分為 ${idenity}`, 
+              "second-level", homeNo + "-" + serial + "-men2", "error");
+          } else if(men == "1" && idenity == "4") {
+            createDiv(`編號：${serial}，從業員工人數 1，但工作的身分為「受私人僱用者」`, 
+              "second-level", homeNo + "-" + serial + "-men2", "error");
+          } else if(locate2.substr(0, 3) != live.substr(0, 3)) {
+            createDiv(`編號：${serial}，地點與常住地點不符，地點為 ${locate2}，常住地點為 ${live}`, 
+              "second-level", homeNo + "-" + serial + "-locate2", "error");
           }
 
         }
@@ -444,7 +452,7 @@
             <td>14</td>
             <td>&nbsp;&nbsp;5C. 教育程度：1.不識字 2.自修 3.國小 4.國(初)中 5.高級中等(高中、高職) 6.專科(五專前三年劃記高級中等) 7.大學 8.碩士 9.博士(5~9接D，餘轉7)</td>
             <td>1.夫妻的教育程度差四皆以上要跳出提示<br/>
-              <div style="color: red;">2.教育程度要和年齡搭配</div></td>
+              <div style="color: red;">2.教育程度要和年齡搭配（沒有寫，也不會寫）</div></td>
           </tr>
           <tr>
             <td>15</td>
@@ -478,7 +486,7 @@
             </td>
             <td>1.戶內人口僅1人且65Y以上又無工作，這一選項只能為8<br/>
               2.同1戶內有2個選7跳出檢誤<br/>
-              3.65Y以下，選8,47要備註<br/>
+              3.65Y以下，選8,47要備註<div style="color: red;">(是 8， 4，7？)</div><br/>
               4.選11要備註是三者何種
             </td>
           </tr>
@@ -628,8 +636,8 @@
             <td>45</td>
             <td>23.你主要工作的身分是什麼？1.雇主 2.自營作業者
               3.受政府僱用者 4.受私人僱用者 5.無酬家屬工作者</td>
-            <td>1.42列選1本列要為2
-              2.45列選4者42列選項要為2以</td>
+            <td>1. 42列選 1 本列要為2 <br/>
+              2. 45列選 4 者 42 列選項要為 2 以</td>
           </tr>
           <tr>
             <td>46</td>
