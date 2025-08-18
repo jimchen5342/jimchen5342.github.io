@@ -13,7 +13,7 @@
       "items": ["俯身登山跑", "俯身側跨步", "俯身收腿跳", "肘支撐開合跳"]},
   {"key": 1004, "title": "高強度間歇訓練", "workout": 60, "rest": 30, "cycle": 2,
     "items": ["開合跳", "跨下擊掌", "單側提膝", "對側提膝", "提膝下壓", "原地踢臀", "深蹲"]},
-  {"key": 1005, "title": "", "workout": 60, "rest": 30, "cycle": 2,
+  {"key": 1005, "title": "壺鈴", "workout": 60, "rest": 30, "cycle": 2,
     "items": ["雙手擺盪", "彎舉上舉", "左上舉", "右上舉", "左右交互划船", "深蹲", "交互提膝"],
     "url": "https://www.youtube.com/watch?v=oleckDQ49KE"
   }
