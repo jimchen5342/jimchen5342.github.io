@@ -1,20 +1,24 @@
 [
-  {"key": 1000, "title": "混合訓練", "workout": 60, "rest": 30, "cycle": 2,
+  {"key": 1000, "title": "混合訓練", "workout": 60, "rest": 30, "cycle": 1,
     "items": [
       "開合跳", "啞鈴肩推", 
       "跨下擊掌", "啞鈴前平舉", 
       "單側提膝", "啞鈴側平舉", 
       "對側提膝", "啞鈴二頭彎舉"]},
-  {"key": 1001, "title": "啞鈴", "workout": 60, "rest": 30, "cycle": 2,
+  {"key": 1001, "title": "啞鈴", "workout": 60, "rest": 30, "cycle": 1,
     "items": ["肩推", "前平舉", "側平舉", "二頭彎舉"]},
-  {"key": 1002, "title": "彈力帶", "workout": 60, "rest": 30, "cycle": 2,
+  {"key": 1002, "title": "彈力帶", "workout": 60, "rest": 30, "cycle": 1,
     "items": ["過頭肩推", "二頭彎舉", "前平舉", "肩背下拉"]},
-  {"key": 1003, "title": "平板撐", "workout": 60, "rest": 60, "cycle": 2,
+  {"key": 1003, "title": "平板撐", "workout": 60, "rest": 60, "cycle": 1,
       "items": ["俯身登山跑", "俯身側跨步", "俯身收腿跳", "肘支撐開合跳"]},
-  {"key": 1004, "title": "高強度間歇訓練", "workout": 60, "rest": 30, "cycle": 2,
+  {"key": 1004, "title": "高強度間歇訓練", "workout": 60, "rest": 30, "cycle": 1,
     "items": ["開合跳", "跨下擊掌", "單側提膝", "對側提膝", "提膝下壓", "原地踢臀", "深蹲"]},
-  {"key": 1005, "title": "壺鈴", "workout": 60, "rest": 30, "cycle": 2,
-    "items": ["雙手擺盪", "彎舉上舉", "左上舉", "右上舉", "左右交互划船", "深蹲", "交互提膝"],
-    "url": "https://www.youtube.com/watch?v=oleckDQ49KE"
+  {"key": 1005, "title": "壺鈴", "workout": 60, "rest": 30, "cycle": 1,
+    "items": ["雙手擺盪", "酒杯蹲", "彎舉上舉", "左右過頭推舉", "硬舉", 
+      "單腳羅馬尼亞硬舉", "左右交互划船", "深蹲", "交互提膝"
+    ]
+  },
+  {"key": "1006", "title": "凱格爾", "workout": 60, "rest": 30, "cycle": 1,
+    "items": ["蝴蝶拍", "凱格爾橋", "鑽石推舉", "跪姿臀沖", "蟹式"]
   }
 ]

@@ -24,5 +24,10 @@
     "key": 5,
     "title": "靠牆深蹲",
     "interval": 20, "intervalUnit": "S"
+  },{
+    "key": 6,
+    "title": "平板支撐",
+    "itv1": 20,  "itv1Unit": "S", "itv1Txt": "休息",
+    "itv2": 10,  "itv2Unit": "S", "itv2Txt": "開始"
   }
 ]
