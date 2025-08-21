@@ -1,32 +1,32 @@
 [
-  {"key": 1, "title": "預設", "interval": 1},
+  {"key": 1, "title": "預設一分鐘", "interval": 1},
+  {"key": 11, "title": "預設二十秒", "interval": 20,  "intervalUnit": "S"},
+  {"key": 12, "title": "預設三十秒", "interval": 30,  "intervalUnit": "S"},
   {
-    "key": 2,
-    "title": "超慢跑",
+    "key": 2, "title": "超慢跑",
     "interval": 1,
     "itv1": 3, "itv1Txt": "休息",
     "itv2": 1, "itv2Txt": "運動"
-  },
-  {
-    "key": 3,
-    "title": "健走",
+  }, {
+    "key": 3, "title": "間歇健走一分鐘",
     "interval": 1,
     "itv1": 1, "itv1Txt": "跑步",
-    "itv2": 20, "itv2Unit": "S", "itv2Txt": "慢走"
-  },
-  {
-    "key": 4,
-    "title": "彈力帶",
+    "itv2": 30, "itv2Unit": "S", "itv2Txt": "散步"
+  }, {
+    "key": 31, "title": "間歇健走二分鐘",
+    "interval": 1,
+    "itv1": 2, "itv1Txt": "跑步",
+    "itv2": 1, "itv2Txt": "散步"
+  }, {
+    "key": 4, "title": "彈力帶",
     "interval": 0,
     "itv1": 20,  "itv1Unit": "S", "itv1Txt": "休息",
     "itv2": 10,  "itv2Unit": "S", "itv2Txt": "開始"
   },{
-    "key": 5,
-    "title": "靠牆深蹲",
+    "key": 5, "title": "靠牆深蹲",
     "interval": 20, "intervalUnit": "S"
   },{
-    "key": 6,
-    "title": "平板支撐",
+    "key": 6, "title": "平板支撐",
     "itv1": 20,  "itv1Unit": "S", "itv1Txt": "休息",
     "itv2": 10,  "itv2Unit": "S", "itv2Txt": "開始"
   }
