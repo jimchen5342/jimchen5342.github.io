@@ -1,7 +1,9 @@
 [
   {"key": 1, "title": "預設一分鐘", "interval": 1},
-  {"key": 11, "title": "預設二十秒", "interval": 20,  "intervalUnit": "S"},
-  {"key": 12, "title": "預設三十秒", "interval": 30,  "intervalUnit": "S"},
+  {"key": 11, "title": "預設五秒", "interval": 5,  "intervalUnit": "S"},
+  {"key": 12, "title": "預設十秒", "interval": 10,  "intervalUnit": "S"},
+  {"key": 13, "title": "預設二十秒", "interval": 20,  "intervalUnit": "S"},
+  {"key": 14, "title": "預設三十秒", "interval": 30,  "intervalUnit": "S"},
   {
     "key": 2, "title": "超慢跑",
     "interval": 1,
