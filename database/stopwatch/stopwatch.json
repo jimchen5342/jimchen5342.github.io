@@ -6,11 +6,9 @@
     "itv1": 50, "itv1Unit": "S", "itv1Txt": "休息",
     "itv2": 10, "itv2Unit": "S", "itv2Txt": "運動"
   },
-  {"key": 11, "title": "預設五秒", "interval": 5,  "intervalUnit": "S"},
   {"key": 12, "title": "預設十秒", "interval": 10,  "intervalUnit": "S"},
-  {"key": 13, "title": "預設二十秒", "interval": 20,  "intervalUnit": "S"},
   {"key": 14, "title": "預設三十秒", "interval": 30,  "intervalUnit": "S"},
-   {
+  {
     "key": 2, "title": "超慢跑",
     "interval": 1,
     "itv1": 3, "itv1Txt": "休息",
