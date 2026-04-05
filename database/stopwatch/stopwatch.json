@@ -1,7 +1,7 @@
 [
   {"key": 1, "title": "預設一分鐘", "interval": 1},
   {
-    "key": 11, "title": "運動四十秒, 休息十五秒",
+    "key": 11, "title": "運動四十五秒, 休息十五秒",
     "interval": 1,
     "itv1": 45, "itv1Unit": "S", "itv1Txt": "休息",
     "itv2": 15, "itv2Unit": "S", "itv2Txt": "運動"
