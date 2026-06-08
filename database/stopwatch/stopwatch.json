@@ -2,30 +2,28 @@
   {"key": 1, "title": "預設一分鐘", "interval": 1},
   {
     "key": 11, "title": "運動四十五秒, 休息十五秒",
-    "interval": 1,
     "itv1": 45, "itv1Unit": "S", "itv1Txt": "休息",
     "itv2": 15, "itv2Unit": "S", "itv2Txt": "運動"
   },
   {
     "key": 15, "title": "運動五十秒, 休息十秒",
-    "interval": 1,
     "itv1": 50, "itv1Unit": "S", "itv1Txt": "休息",
     "itv2": 10, "itv2Unit": "S", "itv2Txt": "運動"
   },
   {"key": 12, "title": "預設十秒", "interval": 10,  "intervalUnit": "S"},
   {"key": 14, "title": "預設三十秒", "interval": 30,  "intervalUnit": "S"},
   {
-    "key": 2, "title": "超慢跑",
+    "key": 2, "title": "跑步三分鐘，休息一分鐘",
     "interval": 1,
     "itv1": 3, "itv1Txt": "休息",
     "itv2": 1, "itv2Txt": "運動"
   }, {    
-    "key": 3, "title": "間歇健走一分鐘",
+    "key": 3, "title": "跑步一分鐘，休息三十秒",
     "interval": 1,
     "itv1": 1, "itv1Txt": "跑步",
     "itv2": 30, "itv2Unit": "S", "itv2Txt": "散步"
   }, {
-    "key": 31, "title": "間歇健走二分鐘",
+    "key": 31, "title": "跑步二分鐘，休息一分鐘",
     "interval": 1,
     "itv1": 2, "itv1Txt": "跑步",
     "itv2": 1, "itv2Txt": "散步"
