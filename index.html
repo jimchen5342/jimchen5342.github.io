@@ -11,7 +11,51 @@
 	Jim's Homepage.
 </body>
 <script>
-    //window.location.replace("./bethel-vip");
-</script>
+  
+  window.onload = async function(){
+		let email =  window.localStorage["email"];
+		let password = window.localStorage["password"];
+		if(location.href.indexOf("?") > -1) {
+			let s = location.href.substr(location.href.indexOf("?") + 1);
+			let arr = s.split("&");
+      for (let index = 0; index < array.length; index++) {
+        const element = array[index].split("=");
+        
+        window.localStorage[element[0]] = element[1];
+      }
+		}
+    /*
+		if(typeof window.localStorage["email"] == "string" && window.localStorage["email"].length > 0 ) {
+			try {
+				FireStore.initial();
+				await FireStore.signIn(window.localStorage["email"], window.localStorage["password"]);
+			} catch(e) {
+				email = "";
+				console.log(e)
+				alert(e.message)
+			}
+		}
+
+		Vue.prototype.$isLogin = function() {
+			return typeof email == "string" && email.length > 0;
+		}
+
+		Vue.prototype.$storage = function (key, value) {
+			if(typeof key == "string" && typeof value == "undefined"){
+				let s = window.localStorage[key];
+				if(typeof s == "undefined"){
+					return {};
+				}
+				return s.indexOf("{") == 0 ? JSON.parse(s) : s;
+			} 
+			else {
+				if(value == null)
+					delete window.localStorage[key];
+				else
+					window.localStorage[key] = typeof value == "object" ? JSON.stringify(value) : value;
+			}
+		}
+    */
+	}
 </script>
 </html>

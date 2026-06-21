@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kobo PDF Master - HTML 轉 PDF 最佳化工具</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* 設計系統與變數 */
+    :root {
+      --bg-gradient: linear-gradient(135deg, #09070f 0%, #120e24 50%, #08060c 100%);
+      --panel-bg: rgba(20, 16, 38, 0.6);
+      --panel-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-purple: #a855f7;
+      --accent-purple-glow: rgba(168, 85, 247, 0.4);
+      --accent-cyan: #06b6d4;
+      --accent-cyan-glow: rgba(6, 182, 212, 0.4);
+      --accent-gradient: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%);
+      --kobo-bezel: #1e1b29;
+      --kobo-screen-bg: #fdfbf7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans TC', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* 頂部標頭 */
+    header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--panel-border);
+      background: rgba(9, 7, 15, 0.8);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      width: 2rem;
+      height: 2rem;
+      background: var(--accent-gradient);
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #000;
+      box-shadow: 0 0 15px var(--accent-purple-glow);
+    }
+
+    header h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* 主要版面配置 */
+    .app-container {
+      flex: 1;
+      display: flex;
+      height: calc(100vh - 65px);
+      overflow: hidden;
+    }
+
+    /* 左側控制面板 */
+    .sidebar {
+      width: 380px;
+      min-width: 380px;
+      border-right: 1px solid var(--panel-border);
+      background: var(--panel-bg);
+      backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 1.5rem;
+      gap: 1.5rem;
+    }
+
+    /* 右側預覽區 */
+    .preview-area {
+      flex: 1;
+      background: rgba(5, 4, 8, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 2rem;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    /* 區塊標題與樣式 */
+    .section-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-cyan);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .panel-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--panel-border);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      transition: border-color 0.2s;
+    }
+
+    .panel-card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* 拖曳上傳區 */
+    .upload-zone {
+      border: 2px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 0.75rem;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.01);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .upload-zone:hover, .upload-zone.dragover {
+      border-color: var(--accent-purple);
+      background: rgba(168, 85, 247, 0.04);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.1);
+    }
+
+    .upload-icon {
+      font-size: 2rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      transition: color 0.2s;
+    }
+
+    .upload-zone:hover .upload-icon {
+      color: var(--accent-purple);
+    }
+
+    .upload-text {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-main);
+      margin-bottom: 0.25rem;
+    }
+
+    .upload-subtext {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .file-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .file-badge-container {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(168, 85, 247, 0.1);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      border-radius: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      margin-top: 0.75rem;
+      font-size: 0.813rem;
+    }
+
+    .file-info-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 200px;
+    }
+
+    .file-info-remove {
+      color: var(--text-muted);
+      cursor: pointer;
+      font-weight: bold;
+      padding: 0 0.25rem;
+    }
+
+    .file-info-remove:hover {
+      color: #ef4444;
+    }
+
+    /* 表單元件樣式 */
+    .control-group {
+      margin-bottom: 1rem;
+    }
+
+    .control-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 0.813rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 0.375rem;
+    }
+
+    select, input[type="text"], input[type="number"] {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--panel-border);
+      border-radius: 0.375rem;
+      padding: 0.5rem 0.75rem;
+      color: var(--text-main);
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    select:focus, input[type="text"]:focus, input[type="number"]:focus {
+      border-color: var(--accent-cyan);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    /* 滑桿樣式 */
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    input[type="range"] {
+      flex: 1;
+      height: 4px;
+      -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      cursor: pointer;
+      box-shadow: 0 0 5px var(--accent-cyan-glow);
+      transition: transform 0.1s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .slider-val {
+      font-size: 0.813rem;
+      font-weight: 600;
+      color: var(--text-main);
+      min-width: 40px;
+      text-align: right;
+    }
+
+    /* 單選按鈕組 (圖片優化選項) */
+    .filter-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .filter-radio {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--panel-border);
+      border-radius: 0.375rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-radio:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .filter-radio.active {
+      border-color: var(--accent-purple);
+      background: rgba(168, 85, 247, 0.05);
+    }
+
+    .filter-radio input {
+      accent-color: var(--accent-purple);
+    }
+
+    .filter-title {
+      font-size: 0.813rem;
+      font-weight: 500;
+    }
+
+    .filter-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.125rem;
+    }
+
+    /* 核取方塊樣式 */
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      cursor: pointer;
+      padding: 0.25rem 0;
+    }
+
+    .checkbox-group input {
+      margin-top: 0.15rem;
+      accent-color: var(--accent-cyan);
+    }
+
+    .checkbox-label {
+      font-size: 0.813rem;
+      color: var(--text-main);
+    }
+
+    /* 主按鈕 */
+    .btn-submit {
+      width: 100%;
+      background: var(--accent-gradient);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.938rem;
+      letter-spacing: 0.05em;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s ease-out;
+      box-shadow: 0 4px 15px var(--accent-purple-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5), 0 0 10px rgba(6, 182, 212, 0.3);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    .btn-submit:disabled {
+      background: var(--text-muted);
+      color: rgba(0, 0, 0, 0.5);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* 模擬 Kobo 閱讀器外框 */
+    .kobo-device-wrapper {
+      position: relative;
+      background: var(--kobo-bezel);
+      border-radius: 2rem;
+      padding: 3rem 1.5rem 3rem 2.5rem; /* 左側略寬模擬持握邊緣 */
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform-origin: top center;
+    }
+
+    /* Kobo 實體持握邊按鈕效果 */
+    .kobo-device-wrapper::after {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 3px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+    }
+
+    /* 螢幕主體 */
+    .kobo-screen {
+      background: var(--kobo-screen-bg);
+      position: relative;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      border: 2px solid #000;
+    }
+
+    /* 網頁即時預覽框架 */
+    .preview-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: transparent;
+      transform-origin: top left;
+    }
+
+    /* 分頁格線指示層 */
+    .page-break-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+      /* 依據裝置頁高背景重疊虛線 */
+      background-image: linear-gradient(to bottom, transparent calc(var(--page-height) - 2px), #a855f7 calc(var(--page-height) - 2px), #a855f7 var(--page-height));
+      background-size: 100% var(--page-height);
+    }
+
+    /* 預覽說明資訊 */
+    .preview-info {
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 0.813rem;
+      color: var(--text-muted);
+    }
+
+    .preview-info strong {
+      color: var(--accent-cyan);
+    }
+
+    /* 列印提示對話框 */
+    .guide-banner {
+      width: 100%;
+      max-width: 800px;
+      background: rgba(6, 182, 212, 0.06);
+      border: 1px solid rgba(6, 182, 212, 0.15);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      gap: 0.75rem;
+      font-size: 0.813rem;
+      line-height: 1.5;
+    }
+
+    .guide-icon {
+      font-size: 1.5rem;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+    }
+
+    .guide-text h4 {
+      color: var(--accent-cyan);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .guide-text ul {
+      margin-left: 1.25rem;
+      margin-top: 0.25rem;
+      color: var(--text-muted);
+    }
+
+    .guide-text li strong {
+      color: var(--text-main);
+    }
+
+    /* 頁碼列印樣式 (預覽時以 JS 動態產生 DOM) */
+    .kobo-print-footer {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      font-family: Georgia, 'Noto Serif TC', serif;
+      color: #666;
+      pointer-events: none;
+    }
+
+    /* 列印專用樣式隱藏區 */
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+      }
+      header, .sidebar, .preview-area, .page-break-overlay, .guide-banner, .preview-info {
+        display: none !important;
+      }
+      .app-container {
+        height: auto !important;
+        overflow: visible !important;
+        display: block !important;
+      }
+      .kobo-device-wrapper {
+        background: transparent !important;
+        padding: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        transform: none !important;
+        border-radius: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+      }
+      .kobo-device-wrapper::after {
+        display: none !important;
+      }
+      .kobo-screen {
+        width: 100% !important;
+        height: auto !important;
+        border: none !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+        background: white !important;
+      }
+      .preview-iframe {
+        width: 100% !important;
+        height: auto !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部標頭 -->
+  <header>
+    <div class="logo-container">
+      <div class="logo-icon">K</div>
+      <div>
+        <h1>Kobo PDF Master</h1>
+        <p>HTML 轉 PDF 最佳化轉換器</p>
+      </div>
+    </div>
+    <div id="device-spec-display" style="font-size: 0.813rem; color: var(--text-muted);">
+      目標裝置規格：<strong>Kobo Libra Colour (1264 × 1680)</strong>
+    </div>
+  </header>
+
+  <!-- 主版面 -->
+  <div class="app-container">
+    
+    <!-- 左側面板 -->
+    <aside class="sidebar">
+      
+      <!-- 檔案上傳區 -->
+      <section class="control-group">
+        <h3 class="section-title">1. 選擇 HTML 來源</h3>
+        <div class="upload-zone" id="drop-zone">
+          <div class="upload-icon">📄</div>
+          <p class="upload-text">點擊或拖曳檔案至此</p>
+          <p class="upload-subtext">支援 .html 或 .htm 檔案</p>
+          <input type="file" id="file-input" class="file-input" accept=".html,.htm">
+        </div>
+        <div class="file-badge-container" id="file-badge">
+          <span class="file-info-name" id="file-name">filename.html</span>
+          <span class="file-info-remove" id="file-remove">&times;</span>
+        </div>
+      </section>
+
+      <!-- 裝置預設與尺寸 -->
+      <section class="panel-card control-group">
+        <h3 class="section-title">2. 裝置頁面大小</h3>
+        <div class="control-group">
+          <label for="device-preset">預設裝置</label>
+          <select id="device-preset">
+            <option value="libra-colour" selected>Kobo Libra Colour (1264 × 1680, 3:4)</option>
+            <option value="clara-colour">Kobo Clara Colour (1072 × 1448, 3:4)</option>
+            <option value="sage">Kobo Sage (1440 × 1920, 3:4)</option>
+            <option value="elipsa">Kobo Elipsa (1404 × 1872, 3:4)</option>
+            <option value="a4">A4 紙張 (794 × 1123, 1:1.41)</option>
+            <option value="custom">自訂尺寸</option>
+          </select>
+        </div>
+        <div class="grid-2" id="custom-size-inputs" style="display: none;">
+          <div class="control-group">
+            <label for="custom-width">寬度 (px)</label>
+            <input type="number" id="custom-width" value="1264">
+          </div>
+          <div class="control-group">
+            <label for="custom-height">高度 (px)</label>
+            <input type="number" id="custom-height" value="1680">
+          </div>
+        </div>
+      </section>
+
+      <!-- 排版控制面板 -->
+      <section class="panel-card control-group">
+        <h3 class="section-title">3. 排版與文字控制</h3>
+        
+        <!-- 字型調整 -->
+        <div class="control-group">
+          <label for="font-family">閱讀字型</label>
+          <select id="font-family">
+            <option value="'Noto Serif TC', Georgia, serif" selected>明體 (Noto Serif TC)</option>
+            <option value="'Noto Sans TC', sans-serif">黑體 (Noto Sans TC)</option>
+            <option value="Georgia, serif">Georgia (英文經典)</option>
+            <option value="system-ui, sans-serif">系統預設黑體</option>
+          </select>
+        </div>
+
+        <!-- 字型大小 -->
+        <div class="control-group">
+          <label for="font-size">字型大小</label>
+          <div class="slider-container">
+            <input type="range" id="font-size" min="16" max="48" value="26">
+            <span class="slider-val" id="font-size-val">26 px</span>
+          </div>
+        </div>
+
+        <!-- 行高 -->
+        <div class="control-group">
+          <label for="line-height">行高比例</label>
+          <div class="slider-container">
+            <input type="range" id="line-height" min="1.2" max="2.4" step="0.1" value="1.7">
+            <span class="slider-val" id="line-height-val">1.7</span>
+          </div>
+        </div>
+
+        <!-- 邊界邊距 -->
+        <div class="control-group">
+          <label>邊距調整 (px)</label>
+          <div class="grid-2" style="margin-bottom: 0.5rem;">
+            <div>
+              <label for="margin-top" style="font-size: 0.75rem;">上方邊距</label>
+              <input type="number" id="margin-top" value="80">
+            </div>
+            <div>
+              <label for="margin-bottom" style="font-size: 0.75rem;">下方邊距</label>
+              <input type="number" id="margin-bottom" value="80">
+            </div>
+          </div>
+          <div class="grid-2">
+            <div>
+              <label for="margin-left" style="font-size: 0.75rem;">左側邊距</label>
+              <input type="number" id="margin-left" value="80">
+            </div>
+            <div>
+              <label for="margin-right" style="font-size: 0.75rem;">右側邊距</label>
+              <input type="number" id="margin-right" value="80">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 電子紙優化 -->
+      <section class="panel-card control-group">
+        <h3 class="section-title">4. 電子紙顯示優化</h3>
+        <div class="filter-options">
+          <label class="filter-radio active" id="lbl-filter-color">
+            <input type="radio" name="image-filter" value="color-enhance" checked>
+            <div>
+              <div class="filter-title">彩色電子紙強化 (推薦)</div>
+              <div class="filter-desc">提升飽和度與對比，極適合 Kaleido 3 螢幕</div>
+            </div>
+          </label>
+          <label class="filter-radio" id="lbl-filter-bw">
+            <input type="radio" name="image-filter" value="bw-enhance">
+            <div>
+              <div class="filter-title">高對比黑白</div>
+              <div class="filter-desc">完全去色並強化明暗對比，消除灰暗感</div>
+            </div>
+          </label>
+          <label class="filter-radio" id="lbl-filter-none">
+            <input type="radio" name="image-filter" value="none">
+            <div>
+              <div class="filter-title">原始影像</div>
+              <div class="filter-desc">保留圖片原始色彩與屬性，不套用濾鏡</div>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <!-- 智慧分頁與頁碼 -->
+      <section class="panel-card control-group">
+        <h3 class="section-title">5. 分頁與導航</h3>
+        <div class="control-group">
+          <label class="checkbox-group">
+            <input type="checkbox" id="break-h1" checked>
+            <span class="checkbox-label">在 &lt;h1&gt; 主標題前強制分頁</span>
+          </label>
+        </div>
+        <div class="control-group">
+          <label class="checkbox-group">
+            <input type="checkbox" id="break-h2">
+            <span class="checkbox-label">在 &lt;h2&gt; 次標題前強制分頁</span>
+          </label>
+        </div>
+        <div class="control-group">
+          <label for="custom-break-selector">自訂分頁 CSS 選擇器</label>
+          <input type="text" id="custom-break-selector" placeholder="例如：.chapter, .page-break">
+        </div>
+        <div class="control-group">
+          <label class="checkbox-group">
+            <input type="checkbox" id="show-page-numbers" checked>
+            <span class="checkbox-label">在每一頁底端中央產生頁碼</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- 匯出按鈕 -->
+      <button class="btn-submit" id="btn-generate" disabled>
+        <span>產生 Kobo 最佳化 PDF</span>
+      </button>
+
+    </aside>
+
+    <!-- 右側預覽區 -->
+    <main class="preview-area">
+      
+      <!-- 列印指導橫幅 -->
+      <div class="guide-banner">
+        <div class="guide-icon">💡</div>
+        <div class="guide-text">
+          <h4>匯出 PDF 關鍵步驟：</h4>
+          <p>點擊「產生 Kobo 最佳化 PDF」後將彈出瀏覽器列印視窗，請務必進行以下設定以確保排版完美：</p>
+          <ul>
+            <li>目的地選取：<strong>另存為 PDF (Save as PDF)</strong></li>
+            <li>邊距設定：<strong>無 (None)</strong> <span>（極重要，避免頁面被二次縮放）</span></li>
+            <li>選項設定：<strong>勾選「背景圖形」 (Background graphics)</strong> <span>（以顯示底色與彩色影像）</span></li>
+            <li>紙張大小：確認顯示為自訂的 1264 × 1680 px 比例尺寸</li>
+            <li>圖片路徑：若有相對路徑圖片（如 <code>src="image.png"</code>），請將該圖片與本工具 HTML 置於相同資料夾下。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Kobo 實體比例預覽 -->
+      <div class="kobo-device-wrapper" id="device-wrapper">
+        <div class="kobo-screen" id="kobo-screen" style="width: 632px; height: 840px;">
+          <!-- 虛線指示層 -->
+          <div class="page-break-overlay" id="page-overlay" style="--page-height: 840px;"></div>
+          <!-- 即時渲染頁面 -->
+          <iframe id="preview-frame" class="preview-iframe"></iframe>
+        </div>
+      </div>
+
+      <!-- 預覽資訊 -->
+      <div class="preview-info" id="preview-info">
+        目前預覽：請上傳 HTML 檔案。模擬縮放比例：<span id="zoom-factor">100</span>%
+      </div>
+
+    </main>
+
+  </div>
+
+  <script>
+    // 預設裝置尺寸對照表
+    const DEVICE_PRESETS = {
+      'libra-colour': { width: 1264, height: 1680 },
+      'clara-colour': { width: 1072, height: 1448 },
+      'sage': { width: 1440, height: 1920 },
+      'elipsa': { width: 1404, height: 1872 },
+      'a4': { width: 794, height: 1123 }
+    };
+
+    // DOM 元素選取
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const fileBadge = document.getElementById('file-badge');
+    const fileName = document.getElementById('file-name');
+    const fileRemove = document.getElementById('file-remove');
+    const devicePreset = document.getElementById('device-preset');
+    const customSizeInputs = document.getElementById('custom-size-inputs');
+    const customWidthInput = document.getElementById('custom-width');
+    const customHeightInput = document.getElementById('custom-height');
+    const fontFamily = document.getElementById('font-family');
+    const fontSize = document.getElementById('font-size');
+    const fontSizeVal = document.getElementById('font-size-val');
+    const lineHeight = document.getElementById('line-height');
+    const lineHeightVal = document.getElementById('line-height-val');
+    const marginTop = document.getElementById('margin-top');
+    const marginBottom = document.getElementById('margin-bottom');
+    const marginLeft = document.getElementById('margin-left');
+    const marginRight = document.getElementById('margin-right');
+    const breakH1 = document.getElementById('break-h1');
+    const breakH2 = document.getElementById('break-h2');
+    const customBreakSelector = document.getElementById('custom-break-selector');
+    const showPageNumbers = document.getElementById('show-page-numbers');
+    const btnGenerate = document.getElementById('btn-generate');
+    
+    const deviceWrapper = document.getElementById('device-wrapper');
+    const koboScreen = document.getElementById('kobo-screen');
+    const pageOverlay = document.getElementById('page-overlay');
+    const previewFrame = document.getElementById('preview-frame');
+    const previewInfo = document.getElementById('preview-info');
+    const zoomFactorText = document.getElementById('zoom-factor');
+    const deviceSpecDisplay = document.getElementById('device-spec-display');
+
+    // 全域狀態
+    let uploadedHtmlContent = "";
+    let scaleFactor = 0.5;
+
+    // 1. 檔案讀取與事件監聽
+    dropZone.addEventListener('click', () => fileInput.click());
+    
+    fileInput.addEventListener('change', handleFileSelect);
+    
+    // 拖曳處理
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      if (e.dataTransfer.files.length > 0) {
+        fileInput.files = e.dataTransfer.files;
+        handleFileSelect();
+      }
+    });
+
+    fileRemove.addEventListener('click', (e) => {
+      e.stopPropagation();
+      resetUploadedFile();
+    });
+
+    function handleFileSelect() {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      fileName.textContent = file.name;
+      fileBadge.style.display = 'flex';
+      dropZone.style.display = 'none';
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        uploadedHtmlContent = e.target.result;
+        btnGenerate.disabled = false;
+        updatePreview();
+      };
+      reader.readAsText(file);
+    }
+
+    function resetUploadedFile() {
+      fileInput.value = '';
+      uploadedHtmlContent = "";
+      fileBadge.style.display = 'none';
+      dropZone.style.display = 'block';
+      btnGenerate.disabled = true;
+      
+      // 清空預覽
+      const doc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+      doc.open();
+      doc.write('<html><body style="font-family:sans-serif;color:#666;text-align:center;padding-top:100px;">請上傳 HTML 檔案以進行預覽</body></html>');
+      doc.close();
+      previewInfo.textContent = "目前預覽：請上傳 HTML 檔案。";
+    }
+
+    // 2. 參數更動監聽
+    const controls = [
+      fontFamily, fontSize, lineHeight,
+      marginTop, marginBottom, marginLeft, marginRight,
+      breakH1, breakH2, customBreakSelector, showPageNumbers
+    ];
+
+    controls.forEach(control => {
+      control.addEventListener('input', () => {
+        // 更新滑桿顯示數值
+        if (control === fontSize) fontSizeVal.textContent = fontSize.value + ' px';
+        if (control === lineHeight) lineHeightVal.textContent = lineHeight.value;
+        saveSettings();
+        updatePreview();
+      });
+      control.addEventListener('change', () => {
+        saveSettings();
+        updatePreview();
+      });
+    });
+
+    // 圖片濾鏡單選按鈕事件
+    document.querySelectorAll('input[name="image-filter"]').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        // 更新 active 狀態樣式
+        document.querySelectorAll('.filter-radio').forEach(lbl => lbl.classList.remove('active'));
+        e.target.closest('.filter-radio').classList.add('active');
+        saveSettings();
+        updatePreview();
+      });
+    });
+
+    // 儲存裝置設定到 localStorage
+    function saveSettings() {
+      localStorage.setItem('kobo_pdf_preset', devicePreset.value);
+      localStorage.setItem('kobo_pdf_width', customWidthInput.value);
+      localStorage.setItem('kobo_pdf_height', customHeightInput.value);
+
+      // 儲存排版與文字控制
+      localStorage.setItem('kobo_pdf_font_family', fontFamily.value);
+      localStorage.setItem('kobo_pdf_font_size', fontSize.value);
+      localStorage.setItem('kobo_pdf_line_height', lineHeight.value);
+      localStorage.setItem('kobo_pdf_margin_top', marginTop.value);
+      localStorage.setItem('kobo_pdf_margin_bottom', marginBottom.value);
+      localStorage.setItem('kobo_pdf_margin_left', marginLeft.value);
+      localStorage.setItem('kobo_pdf_margin_right', marginRight.value);
+
+      // 儲存優化與分頁設定
+      const selectedFilter = document.querySelector('input[name="image-filter"]:checked');
+      if (selectedFilter) localStorage.setItem('kobo_pdf_image_filter', selectedFilter.value);
+      localStorage.setItem('kobo_pdf_break_h1', breakH1.checked);
+      localStorage.setItem('kobo_pdf_break_h2', breakH2.checked);
+      localStorage.setItem('kobo_pdf_custom_break_selector', customBreakSelector.value);
+      localStorage.setItem('kobo_pdf_show_page_numbers', showPageNumbers.checked);
+    }
+
+    // 讀取裝置設定
+    function loadSettings() {
+      const savedPreset = localStorage.getItem('kobo_pdf_preset');
+      if (savedPreset) {
+        devicePreset.value = savedPreset;
+        if (savedPreset === 'custom') {
+          customSizeInputs.style.display = 'grid';
+          customWidthInput.value = localStorage.getItem('kobo_pdf_width') || 1264;
+          customHeightInput.value = localStorage.getItem('kobo_pdf_height') || 1680;
+        } else {
+          const spec = DEVICE_PRESETS[savedPreset];
+          if (spec) {
+            customWidthInput.value = spec.width;
+            customHeightInput.value = spec.height;
+          }
+        }
+      }
+
+      // 載入排版與文字控制
+      if (localStorage.getItem('kobo_pdf_font_family')) fontFamily.value = localStorage.getItem('kobo_pdf_font_family');
+      if (localStorage.getItem('kobo_pdf_font_size')) {
+        fontSize.value = localStorage.getItem('kobo_pdf_font_size');
+        fontSizeVal.textContent = fontSize.value + ' px';
+      }
+      if (localStorage.getItem('kobo_pdf_line_height')) {
+        lineHeight.value = localStorage.getItem('kobo_pdf_line_height');
+        lineHeightVal.textContent = lineHeight.value;
+      }
+      if (localStorage.getItem('kobo_pdf_margin_top')) marginTop.value = localStorage.getItem('kobo_pdf_margin_top');
+      if (localStorage.getItem('kobo_pdf_margin_bottom')) marginBottom.value = localStorage.getItem('kobo_pdf_margin_bottom');
+      if (localStorage.getItem('kobo_pdf_margin_left')) marginLeft.value = localStorage.getItem('kobo_pdf_margin_left');
+      if (localStorage.getItem('kobo_pdf_margin_right')) marginRight.value = localStorage.getItem('kobo_pdf_margin_right');
+
+      // 載入優化與分頁設定
+      const savedFilter = localStorage.getItem('kobo_pdf_image_filter');
+      if (savedFilter) {
+        const radio = document.querySelector(`input[name="image-filter"][value="${savedFilter}"]`);
+        if (radio) {
+          radio.checked = true;
+          document.querySelectorAll('.filter-radio').forEach(lbl => lbl.classList.remove('active'));
+          radio.closest('.filter-radio').classList.add('active');
+        }
+      }
+      if (localStorage.getItem('kobo_pdf_break_h1') !== null) breakH1.checked = localStorage.getItem('kobo_pdf_break_h1') === 'true';
+      if (localStorage.getItem('kobo_pdf_break_h2') !== null) breakH2.checked = localStorage.getItem('kobo_pdf_break_h2') === 'true';
+      if (localStorage.getItem('kobo_pdf_custom_break_selector') !== null) customBreakSelector.value = localStorage.getItem('kobo_pdf_custom_break_selector');
+      if (localStorage.getItem('kobo_pdf_show_page_numbers') !== null) showPageNumbers.checked = localStorage.getItem('kobo_pdf_show_page_numbers') === 'true';
+    }
+
+    // 裝置規格變更
+    devicePreset.addEventListener('change', () => {
+      const val = devicePreset.value;
+      if (val === 'custom') {
+        customSizeInputs.style.display = 'grid';
+      } else {
+        customSizeInputs.style.display = 'none';
+        const spec = DEVICE_PRESETS[val];
+        customWidthInput.value = spec.width;
+        customHeightInput.value = spec.height;
+      }
+      saveSettings();
+      updateDeviceMetrics();
+    });
+
+    customWidthInput.addEventListener('input', () => {
+      saveSettings();
+      updateDeviceMetrics();
+    });
+    customHeightInput.addEventListener('input', () => {
+      saveSettings();
+      updateDeviceMetrics();
+    });
+
+    // 3. 畫面度量計算與縮放 (配合視窗寬度)
+    function updateDeviceMetrics() {
+      const width = parseInt(customWidthInput.value) || 1264;
+      const height = parseInt(customHeightInput.value) || 1680;
+      
+      // 更新標頭資訊
+      const activePresetName = devicePreset.options[devicePreset.selectedIndex].text.split('(')[0].trim();
+      deviceSpecDisplay.innerHTML = `目標裝置規格：<strong>${activePresetName} (${width} × ${height})</strong>`;
+
+      // 計算在預覽容器內部的縮放比例
+      const maxPreviewWidth = deviceWrapper.parentElement.clientWidth - 80; // 保留邊界
+      scaleFactor = Math.min(maxPreviewWidth / width, 0.65); // 最大不超過 0.65 倍以防太大
+      
+      // 更新 Kobo 實體框尺寸
+      koboScreen.style.width = (width * scaleFactor) + 'px';
+      koboScreen.style.height = (height * scaleFactor) + 'px';
+      
+      // 更新虛線分頁指示器的間距尺寸
+      pageOverlay.style.setProperty('--page-height', (height * scaleFactor) + 'px');
+
+      // 套用 iframe 尺寸與 CSS Scale
+      previewFrame.style.width = width + 'px';
+      previewFrame.style.height = 'auto'; // 讓內部高度自然延伸
+      previewFrame.style.minHeight = height + 'px';
+      previewFrame.style.transform = `scale(${scaleFactor})`;
+      
+      zoomFactorText.textContent = Math.round(scaleFactor * 100);
+
+      updatePreview();
+    }
+
+    // 視窗大小改變時重新計算縮放
+    window.addEventListener('resize', updateDeviceMetrics);
+
+    // 4. 即時預覽引擎 (預估頁數、動態 CSS 注入)
+    function updatePreview() {
+      if (!uploadedHtmlContent) return;
+
+      const doc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+      doc.open();
+      
+      // 解析 HTML 確保能提取 body 內容及原始 CSS
+      const parser = new DOMParser();
+      const tempDoc = parser.parseFromString(uploadedHtmlContent, 'text/html');
+      
+      // 擷取原始 Head 的連結與 Style 資訊
+      let originalHeadHtml = "";
+      tempDoc.querySelectorAll('head > *').forEach(node => {
+        if (node.tagName !== 'TITLE') {
+          originalHeadHtml += node.outerHTML + "\n";
+        }
+      });
+
+      // 取得 body 的 class/id 等屬性
+      const bodyAttrs = Array.from(tempDoc.body.attributes)
+        .map(attr => `${attr.name}="${attr.value}"`)
+        .join(' ');
+
+      // 自訂控制參數
+      const w = parseInt(customWidthInput.value) || 1264;
+      const h = parseInt(customHeightInput.value) || 1680;
+      const fontFam = fontFamily.value;
+      const fontSz = fontSize.value;
+      const lineH = lineHeight.value;
+      const mTop = marginTop.value;
+      const mBottom = marginBottom.value;
+      const mLeft = marginLeft.value;
+      const mRight = marginRight.value;
+      
+      // 分頁設定 CSS
+      let pageBreakCss = "";
+      if (breakH1.checked) pageBreakCss += "h1 { break-before: page !important; page-break-before: always !important; }\n";
+      if (breakH2.checked) pageBreakCss += "h2 { break-before: page !important; page-break-before: always !important; }\n";
+      if (customBreakSelector.value) {
+        pageBreakCss += `${customBreakSelector.value} { break-before: page !important; page-break-before: always !important; }\n`;
+      }
+
+      // 影像濾鏡套用
+      let imageFilterCss = "";
+      const selectedFilter = document.querySelector('input[name="image-filter"]:checked').value;
+      if (selectedFilter === 'color-enhance') {
+        imageFilterCss = "img { filter: contrast(1.2) saturate(1.35) brightness(1.02) !important; max-width: 100% !important; height: auto !important; }";
+      } else if (selectedFilter === 'bw-enhance') {
+        imageFilterCss = "img { filter: grayscale(1) contrast(1.3) brightness(1.05) !important; max-width: 100% !important; height: auto !important; }";
+      } else {
+        imageFilterCss = "img { max-width: 100% !important; height: auto !important; }";
+      }
+
+      // @page 設定與主體覆寫 CSS
+      const injectedStyles = `
+        <style>
+          /* 匯入明體黑體等中文字型（若使用者無安裝本地字型時下載） */
+          @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap');
+
+          @page {
+            size: ${w}px ${h}px;
+            margin: 0; /* 使用 padding 代替 margin 以配合完美分頁尺寸 */
+          }
+          
+          html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: ${w}px !important;
+            background-color: transparent !important;
+          }
+
+          /* 閱讀核心區域排版限制 */
+          .kobo-wrapper-container {
+            width: ${w}px !important;
+            box-sizing: border-box !important;
+            font-family: ${fontFam} !important;
+            font-size: ${fontSz}px !important;
+            line-height: ${lineH} !important;
+            color: #111111 !important;
+            text-align: justify !important;
+            word-break: break-all !important;
+            overflow-x: hidden !important;
+            padding: ${mTop}px ${mRight}px ${mBottom}px ${mLeft}px !important;
+          }
+
+          /* 段落首行縮進 */
+          .kobo-wrapper-container p {
+            margin-bottom: 0.8em !important;
+            margin-top: 0 !important;
+            text-indent: 2em;
+          }
+          
+          /* 標題不縮進 */
+          .kobo-wrapper-container h1, 
+          .kobo-wrapper-container h2, 
+          .kobo-wrapper-container h3, 
+          .kobo-wrapper-container h4, 
+          .kobo-wrapper-container h5, 
+          .kobo-wrapper-container h6 {
+            text-indent: 0 !important;
+            margin-top: 1.2em !important;
+            margin-bottom: 0.6em !important;
+            font-weight: 700 !important;
+            line-height: 1.3 !important;
+            color: #000000 !important;
+          }
+
+          ${pageBreakCss}
+          ${imageFilterCss}
+
+          /* 防止列表縮進超出 */
+          ul, ol {
+            padding-left: 2em !important;
+            text-indent: 0 !important;
+          }
+          li {
+            text-indent: 0 !important;
+            margin-bottom: 0.3em !important;
+          }
+        </style>
+      `;
+
+      // 組合 HTML 結構
+      // 將使用者的 Body 內容包裹在一層控制排版的 div 中，確保不會被原本網頁的 CSS 破壞寬度
+      const fullHtml = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          ${originalHeadHtml}
+          ${injectedStyles}
+        </head>
+        <body ${bodyAttrs}>
+          <div class="kobo-wrapper-container" id="kobo-content-root">
+            ${tempDoc.body.innerHTML}
+          </div>
+        </body>
+        </html>
+      `;
+
+      doc.write(fullHtml);
+      doc.close();
+
+      // 載入完成後計算預估頁數與產生頁碼
+      previewFrame.onload = function() {
+        const frameDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+        const root = frameDoc.getElementById('kobo-content-root');
+        if (!root) return;
+
+        // 計算頁數：測量 iframe 內容的總高度除以單頁高度 (h)
+        const totalHeight = root.offsetHeight;
+        const totalPages = Math.max(Math.ceil(totalHeight / h), 1);
+        
+        // 更新預覽狀態文字
+        previewInfo.innerHTML = `目前預覽：${fileName.textContent} | 預估總頁數：<strong>${totalPages} 頁</strong> | 模擬縮放比例：<strong>${Math.round(scaleFactor * 100)}%</strong>`;
+        
+        // 移除現有的頁碼 DOM，避免重疊
+        frameDoc.querySelectorAll('.kobo-print-footer').forEach(el => el.remove());
+        
+        // 若啟用頁碼，則動態置入絕對定位的頁碼 divs
+        if (showPageNumbers.checked) {
+          for (let i = 1; i <= totalPages; i++) {
+            const footerDiv = frameDoc.createElement('div');
+            footerDiv.className = 'kobo-print-footer';
+            // 計算此頁底部的 top 位置 (扣除 footer 距離底部約 35px)
+            // 單頁高度為 h，第 i 頁底部即為 (h * i) - 35
+            const topOffset = (h * i) - 35;
+            footerDiv.style.cssText = `
+              position: absolute;
+              top: ${topOffset}px;
+              left: 0;
+              width: ${w}px;
+              text-align: center;
+              font-size: 14px;
+              font-family: Georgia, 'Noto Serif TC', serif;
+              color: #555555;
+              z-index: 100;
+              pointer-events: none;
+            `;
+            footerDiv.textContent = `- ${i} -`;
+            frameDoc.body.appendChild(footerDiv);
+          }
+        }
+      };
+    }
+
+    // 5. PDF 列印核心引擎
+    btnGenerate.addEventListener('click', () => {
+      if (!uploadedHtmlContent) return;
+      
+      const width = parseInt(customWidthInput.value) || 1264;
+      const height = parseInt(customHeightInput.value) || 1680;
+      
+      // 取得預覽 Iframe 內的完整 HTML（此時已包含我們注入的所有 CSS 與頁碼）
+      const frameDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+      const docHtml = frameDoc.documentElement.outerHTML;
+
+      // 開啟全新獨立空白列印視窗
+      // 將尺寸寬高以 Chrome 特徵傳遞，但主要是靠 @page size 在列印對話框中決定
+      const printWindow = window.open('', '_blank', `width=${width},height=${height}`);
+      if (!printWindow) {
+        alert("無法開啟列印視窗，請確認是否被瀏覽器的彈出視窗阻擋功能封鎖！");
+        return;
+      }
+
+      // 將處理好的 HTML 寫入新視窗
+      printWindow.document.open();
+      printWindow.document.write(docHtml);
+      printWindow.document.close();
+
+      // 等待列印視窗資源載入完成後觸發列印
+      printWindow.onload = function() {
+        // 給予 250ms 延遲確保字型與圖片渲染完成
+        setTimeout(() => {
+          printWindow.print();
+          // 列印對話框關閉後關閉該新視窗
+          printWindow.close();
+        }, 250);
+      };
+    });
+
+    // 預設載入初始化
+    loadSettings();
+    updateDeviceMetrics();
+  </script>
+</body>
+</html>
