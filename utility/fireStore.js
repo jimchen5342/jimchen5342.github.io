@@ -25,9 +25,9 @@
     static uid(){
       return firebase.auth().currentUser.uid;
     }
-    static async signIn(email, password){
+    static async signIn(){
       try {
-        let result = await firebase.auth().signInWithEmailAndPassword(email, password);
+        let result = await firebase.auth().signInWithEmailAndPassword(window.localStorage["email"], window.localStorage["password"]);
         FireStore.login = true;
         // console.log(result)
         return result;

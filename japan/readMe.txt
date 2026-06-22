@@ -1,5 +1,6 @@
 https://www.youtube.com/watch?v=n6ro4MY4NwE&list=PLd_-LrksNYekUL261IPYuwfBQOfcJERzF
 大家的日本語第一冊 (改訂版) 
+用每一集的 youtube 找 PDF 來整理單字.............
 
 把 PDF 檔的單字整理成 JSON Array ，
 1. id: 流水號，從 1 開始

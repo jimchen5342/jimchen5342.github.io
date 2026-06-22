@@ -29,7 +29,6 @@
 			let s = location.href.substr(location.href.indexOf("?") + 1);
 			let arr = s.split("&");
       for (let index = 0; index < arr.length; index++) {
-        console.log(arr[index])
         const element = arr[index].split("=");
         window.localStorage[element[0]] = element[1];
       }
@@ -38,7 +37,7 @@
     if(typeof window.localStorage["email"] == "string" && window.localStorage["email"].length > 0 ) {
 			try {
 				FireStore.initial();
-				await FireStore.signIn(window.localStorage["email"], window.localStorage["password"])
+				await FireStore.signIn()
 				console.log("FireStore.mail: " + FireStore.mail() + "\n  id: " + FireStore.uid())
 
         // FireStore.setSetting("test", {a: 1, b: 2});
