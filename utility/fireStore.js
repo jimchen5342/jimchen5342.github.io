@@ -7,24 +7,13 @@
     static login = false;
   
     static initial(key){
-      var firebaseConfig = { 
+      var firebaseConfig = {
+        // 在後台名稱 jimc052，
         apiKey: "AIzaSyDo4JUSUpPqQhdZ17o1ULvhI5FeC9AqziA",
         authDomain: "project-1879557896342808990.firebaseapp.com",
         databaseURL: "https://project-1879557896342808990.firebaseio.com",
         projectId: "project-1879557896342808990",
-        storageBucket: "project-1879557896342808990.firebasestorage.app",
-        messagingSenderId: "146765116801",
         appId: "1:146765116801:web:e6f947c7134226947b6480"
-        /* //用 jimc052@bethel.com 的 mail 帳號註冊 firebase，但沒有後台可以用
-        apiKey: "AIzaSyBLvDLmJ6p9Ko44Q2gNt0NLgTqu1ewnBR8",
-        authDomain: "jvoa-3c784.firebaseapp.com",
-        databaseURL: "https://jvoa-3c784.firebaseio.com",
-        projectId: "jvoa-3c784",
-        storageBucket: "jvoa-3c784.appspot.com",
-        // messagingSenderId: "837844936578",
-        appId: "1:837844936578:web:dc0cef8a726eb73946519b",
-        // measurementId: "G-ZYH5ZW448S"
-        */
       };
 
       firebase.initializeApp(firebaseConfig);
@@ -68,7 +57,7 @@
       }
     }
 
-    static async getSetting(key){
+    static async getSetting(key){ // 沒有用到，2026-06-22
 			try {
 				let snapshot1 = await FireStore.db.collection("users").doc(FireStore.uid())
 					.collection("setting").doc(key)
@@ -79,7 +68,7 @@
         // vm.showMessage(typeof e == "object" ? JSON.stringify(e) : e);
       }
     }
-    static async setSetting(key, json){
+    static async setSetting(key, json){ // 沒有用到，2026-06-22
       let ref = FireStore.db.collection("users").doc(FireStore.uid())
         .collection("setting").doc(key);
       try {
@@ -88,88 +77,5 @@
         console.log(e)
         throw e;
       }
-    }
-
-    static async uploadString(fileName, data){ // 不知為何又不能用了
-      // https://firebase.google.com/docs/storage/web/upload-files?hl=zh-cn
-      return new Promise( (success, error) => {
-        let ref = firebase.storage().ref().child(fileName);
-        let task = ref.putString(data, 'data_url');
-        task.on('state_changed', function(snapshot){
-          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-          switch (snapshot.state) {
-            case firebase.storage.TaskState.PAUSED: // or 'paused'
-              console.log('Upload is paused');
-              break;
-            case firebase.storage.TaskState.RUNNING: // or 'running'
-              console.log('Upload is running');
-              break;
-          }
-          if(progress == 100) {
-            success();
-          }
-        }, function(err) {
-          // Handle unsuccessful uploads
-          error(err)
-        }, function() {
-          // Handle successful uploads on complete
-          // task.snapshot.ref
-          // .getDownloadURL()
-          // .then(function (downloadURL) {
-          //     console.log("downloadURL: " + downloadURL);
-          // });
-        });
-      });
-    }
-
-    static async uploadFile(file){ // 不知為何又不能用了
-      // https://firebase.google.com/docs/storage/web/upload-files?hl=zh-cn
-      let ref = firebase.storage().ref().child('mp3/'+file.name);
-      let task = ref.put(file); 
-      task.on('state_changed', function(snapshot){
-        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log('Upload is ' + progress + '% done');
-        switch (snapshot.state) {
-          case firebase.storage.TaskState.PAUSED: // or 'paused'
-            console.log('Upload is paused');
-            break;
-          case firebase.storage.TaskState.RUNNING: // or 'running'
-            console.log('Upload is running');
-            break;
-        }
-      }, function(error) {
-        // Handle unsuccessful uploads
-      }, function() {
-        // Handle successful uploads on complete
-      });
-      
-    }
-  
-    static async downloadFileURL(fileName){ // ok 可以用
-      // https://firebase.google.com/docs/storage/web/download-files?hl=zh-cn
-      return new Promise( (success, error) => {
-
-        let ref = firebase.storage().ref().child(fileName);
-        ref.getDownloadURL().then(function(url) {
-          success(url)
-          // Insert url into an <img> tag to "download"
-        }).catch(function(err) {
-          switch (err.code) {
-            case 'storage/object-not-found':
-              error("File doesn't exist")
-              break;
-            case 'storage/unauthorized':
-              error("User doesn't have permission to access the object")
-              break;
-            case 'storage/canceled':
-              error("User canceled the upload")
-              break;
-            case 'storage/unknown':
-              error("Unknown error occurred, inspect the server response")
-              break;
-          }
-        });
-      });
     }
   }
