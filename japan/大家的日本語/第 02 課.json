@@ -2,6 +2,7 @@
   {
     "id": 1,
     "kana": "これ",
+    "kanji": "此れ",
     "roma": "ko re",
     "accent": "0",
     "mean": "這(離說話者近的東西)"
@@ -9,6 +10,7 @@
   {
     "id": 2,
     "kana": "それ",
+    "kanji": "其れ",
     "roma": "so re",
     "accent": "0",
     "mean": "那(離聽者近的東西)"
@@ -16,30 +18,33 @@
   {
     "id": 3,
     "kana": "あれ",
+    "kanji": "彼れ",
     "roma": "a re",
     "accent": "0",
     "mean": "那(離說話者、聽者都遠的東西)"
   },
   {
     "id": 4,
-    "kana": "この～",
-    "roma": "ko no ~",
+    "kana": "この",
+    "roma": "ko no",
     "accent": "0",
-    "mean": "這個～"
+    "mean": "這個"
   },
   {
     "id": 5,
-    "kana": "その～",
-    "roma": "so no ~",
+    "kana": "その",
+    "kanji": "其の",
+    "roma": "so no",
     "accent": "0",
-    "mean": "那個～"
+    "mean": "那個"
   },
   {
     "id": 6,
-    "kana": "あの～",
-    "roma": "a no ~",
+    "kana": "あの",
+    "kanji": "彼の",
+    "roma": "a no",
     "accent": "0",
-    "mean": "那個～"
+    "mean": "那個"
   },
   {
     "id": 7,
@@ -60,7 +65,7 @@
   {
     "id": 9,
     "kana": "ざっし",
-    "kanji": "雜誌",
+    "kanji": "雑誌",
     "roma": "za sshi",
     "accent": "0",
     "mean": "雜誌"
@@ -128,6 +133,7 @@
   {
     "id": 18,
     "kana": "かぎ",
+    "kanji": "鍵",
     "roma": "ka gi",
     "accent": "2",
     "mean": "鑰匙"
@@ -151,6 +157,7 @@
   {
     "id": 21,
     "kana": "かばん",
+    "kanji": "鞄",
     "roma": "ka ba n",
     "accent": "0",
     "mean": "皮包、提包"
@@ -210,6 +217,7 @@
   {
     "id": 29,
     "kana": "いす",
+    "kanji": "椅子",
     "roma": "i su",
     "accent": "0",
     "mean": "椅子"
@@ -255,7 +263,7 @@
     "id": 35,
     "kana": "～ご",
     "kanji": "～語",
-    "roma": "~ go",
+    "roma": "go",
     "mean": "～語"
   },
   {

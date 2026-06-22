@@ -32,20 +32,20 @@
   {
     "id": 5,
     "kana": "~さん",
-    "roma": "~ sa n",
+    "roma": "sa n",
     "mean": "~先生、~小姐、~女士"
   },
   {
     "id": 6,
     "kana": "~ちゃん",
-    "roma": "~ cha n",
+    "roma": "cha n",
     "mean": "代替「~さん」接在小孩子字後面的接尾詞"
   },
   {
     "id": 7,
     "kana": "~じん",
     "kanji": "~人",
-    "roma": "~ji n",
+    "roma": "ji n",
     "mean": "~人(表示國籍的接尾詞)"
   },
   {
@@ -190,8 +190,8 @@
     "id": 26,
     "kana": "~からきました",
     "kanji": "~から來ました",
-    "roma": "~ ka ra ki ma shi ta",
-    "mean": "從~來的"
+    "roma": "ka ra ki ma shi ta",
+    "mean": "從 ~ 來的"
   },
   {
     "id": 27,
@@ -253,7 +253,7 @@
   {
     "id": 35,
     "kana": "かんこく",
-    "kanji": "韓國",
+    "kanji": "韓国",
     "roma": "ka n ko ku",
     "accent": "1",
     "mean": "韓國"
@@ -268,7 +268,7 @@
   {
     "id": 37,
     "kana": "ちゅうごく",
-    "kanji": "中國",
+    "kanji": "中国",
     "roma": "chū go ku",
     "accent": "1",
     "mean": "中國"

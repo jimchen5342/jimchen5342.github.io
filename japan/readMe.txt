@@ -21,38 +21,30 @@ https://www.youtube.com/watch?v=n6ro4MY4NwE&list=PLd_-LrksNYekUL261IPYuwfBQOfcJE
     "title": "第 01 課",
     "key": "jroHOffyVkE",
     "during": "10:10"
-    "during1": "00:09-04:38",
-    "during2": "04:45-09:53",
   },
   {
     "title": "第 02 課",
     "key": "jxh7b3P8HwU",
-    "during": "8:49"
   },
   {
     "title": "第 03 課",
     "key": "n6ro4MY4NwE",
-    "during": "11:09"
   },
   {
     "title": "第 04 課",
     "key": "hn1VbXnrAAo",
-    "during": "13:10"
   },
   {
     "title": "第 05 課",
     "key": "3CFMJEOEfxI",
-    "during": "13:09"
   },
   {
     "title": "第 06 課",
     "key": "amCW5aY2FlE",
-    "during": "11:51"
   },
   {
     "title": "第 07 課",
     "key": "ukOQimhfokw",
-    "during": "12:37"
   },
   {
     "title": "第 8 課",
@@ -62,12 +54,10 @@ https://www.youtube.com/watch?v=n6ro4MY4NwE&list=PLd_-LrksNYekUL261IPYuwfBQOfcJE
   {
     "title": "第 09 課",
     "key": "Ehe0BqZhVqo",
-    "during": "12:02"
   },
   {
     "title": "第 10 課",
     "key": "sgojSHSPHlY",
-    "during": "18:09"
   },
   {
     "title": "第 11 課",
@@ -77,6 +67,5 @@ https://www.youtube.com/watch?v=n6ro4MY4NwE&list=PLd_-LrksNYekUL261IPYuwfBQOfcJE
   {
     "title": "第 12 課",
     "key": "pBHFlILY2i4",
-    "during": "9:43"
   }
 ]
