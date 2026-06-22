@@ -10,18 +10,28 @@
 			flex-wrap: wrap;
 		}
   </style>
+  <!--
   <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-firestore.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-auth.js"></script>
-
+  <script src="../utility/fireStore.js"></script>
+  -->
   <script src="../utility/system.js"></script>
 	<script src="../utility/loadScript.js"></script>
-	<script src="../utility/fireStore.js"></script>
+  <script src="../cdn/vue3.js"></script>
+	
 
 </head>
 <body>
+   <div id="app">
+    <!-- 資料綁定 -->
+    <h1>{{ message }}</h1>
+    <button @click="changeMessage">點我更改文字</button>
+  </div>
 </body>
 <script type="module">
+  const { createApp, ref } = Vue;
+
   window.onload = async function(){
 		let email =  window.localStorage["email"];
 		let password = window.localStorage["password"];
@@ -46,14 +56,31 @@
         // console.log("getData: " + JSON.stringify(result));
 			} catch(e) {
 				console.log(e)
-				// alert(e.message);
+				alert(e.message);
 			}
-		} else {
-			email = "";
 		}
+
+    createApp({
+      setup() {
+        // 定義響應式資料
+        const message = ref('Hello Vue 3!');
+
+        // 定義方法
+        function changeMessage() {
+          message.value = 'Vue 3 CDN 運作成功！';
+        }
+
+        // 回傳資料與方法給樣板使用
+        return {
+          message,
+          changeMessage
+        };
+      }
+    }).mount('#app'); // 3. 掛載到 DOM 元素上
+
   }
 
-  async function getData(key){
+  async function getData(key){ //測試用
 			try {
 				let snapshot1 = await FireStore.db.collection("japan").doc(key)
           .get();
@@ -64,7 +91,7 @@
       }
     }
 
-  async function setData(key, json){
+  async function setData(key, json){ //測試用
     let ref = FireStore.db.collection("japan").doc(key);
     try {
       let x = await ref.set(json,{merge: true});
