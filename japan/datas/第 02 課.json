@@ -1,0 +1,598 @@
+[
+  {
+    "id": 1,
+    "kana": "これ",
+    "kanji": "此れ",
+    "roma": "ko re",
+    "accent": "0",
+    "mean": "這(離說話者近的東西)"
+  },
+  {
+    "id": 2,
+    "kana": "それ",
+    "kanji": "其れ",
+    "roma": "so re",
+    "accent": "0",
+    "mean": "那(離聽者近的東西)"
+  },
+  {
+    "id": 3,
+    "kana": "あれ",
+    "kanji": "彼れ",
+    "roma": "a re",
+    "accent": "0",
+    "mean": "那(離說話者、聽者都遠的東西)"
+  },
+  {
+    "id": 4,
+    "kana": "この",
+    "roma": "ko no",
+    "accent": "0",
+    "mean": "這個"
+  },
+  {
+    "id": 5,
+    "kana": "その",
+    "kanji": "其の",
+    "roma": "so no",
+    "accent": "0",
+    "mean": "那個"
+  },
+  {
+    "id": 6,
+    "kana": "あの",
+    "kanji": "彼の",
+    "roma": "a no",
+    "accent": "0",
+    "mean": "那個"
+  },
+  {
+    "id": 7,
+    "kana": "ほん",
+    "kanji": "本",
+    "roma": "ho n",
+    "accent": "1",
+    "mean": "書"
+  },
+  {
+    "id": 8,
+    "kana": "じしょ",
+    "kanji": "辞書",
+    "roma": "ji sho",
+    "accent": "1",
+    "mean": "字典"
+  },
+  {
+    "id": 9,
+    "kana": "ざっし",
+    "kanji": "雑誌",
+    "roma": "za sshi",
+    "accent": "0",
+    "mean": "雜誌"
+  },
+  {
+    "id": 10,
+    "kana": "しんぶん",
+    "kanji": "新聞",
+    "roma": "shi n bu n",
+    "accent": "0",
+    "mean": "報紙"
+  },
+  {
+    "id": 11,
+    "kana": "ノート",
+    "roma": "nō to",
+    "accent": "1",
+    "mean": "筆記本"
+  },
+  {
+    "id": 12,
+    "kana": "てちょう",
+    "kanji": "手帳",
+    "roma": "te chō",
+    "accent": "0",
+    "mean": "記事本"
+  },
+  {
+    "id": 13,
+    "kana": "めいし",
+    "kanji": "名刺",
+    "roma": "mē shi",
+    "accent": "0",
+    "mean": "名片"
+  },
+  {
+    "id": 14,
+    "kana": "カード",
+    "roma": "kā do",
+    "accent": "1",
+    "mean": "卡片"
+  },
+  {
+    "id": 15,
+    "kana": "えんぴつ",
+    "kanji": "鉛筆",
+    "roma": "e n pi tsu",
+    "accent": "0",
+    "mean": "鉛筆"
+  },
+  {
+    "id": 16,
+    "kana": "ボールペン",
+    "roma": "bō ru pe n",
+    "accent": "0",
+    "mean": "原子筆"
+  },
+  {
+    "id": 17,
+    "kana": "シャープペンシル",
+    "roma": "shā pu pe n shi ru",
+    "accent": "4",
+    "mean": "自動鉛筆"
+  },
+  {
+    "id": 18,
+    "kana": "かぎ",
+    "kanji": "鍵",
+    "roma": "ka gi",
+    "accent": "2",
+    "mean": "鑰匙"
+  },
+  {
+    "id": 19,
+    "kana": "とけい",
+    "kanji": "時計",
+    "roma": "to kē",
+    "accent": "0",
+    "mean": "鐘錶"
+  },
+  {
+    "id": 20,
+    "kana": "かさ",
+    "kanji": "傘",
+    "roma": "ka sa",
+    "accent": "1",
+    "mean": "傘"
+  },
+  {
+    "id": 21,
+    "kana": "かばん",
+    "kanji": "鞄",
+    "roma": "ka ba n",
+    "accent": "0",
+    "mean": "皮包、提包"
+  },
+  {
+    "id": 22,
+    "kana": "シーディー",
+    "kanji": "CD",
+    "roma": "shī dī",
+    "accent": "3",
+    "mean": "CD、光碟"
+  },
+  {
+    "id": 23,
+    "kana": "テレビ",
+    "roma": "te re bi",
+    "accent": "1",
+    "mean": "電視"
+  },
+  {
+    "id": 24,
+    "kana": "ラジオ",
+    "roma": "ra ji o",
+    "accent": "1",
+    "mean": "收音機"
+  },
+  {
+    "id": 25,
+    "kana": "カメラ",
+    "roma": "ka me ra",
+    "accent": "1",
+    "mean": "照相機"
+  },
+  {
+    "id": 26,
+    "kana": "コンピューター",
+    "roma": "ko n pyū tā",
+    "accent": "3",
+    "mean": "電腦"
+  },
+  {
+    "id": 27,
+    "kana": "くるま",
+    "kanji": "車",
+    "roma": "ku ru ma",
+    "accent": "0",
+    "mean": "汽車"
+  },
+  {
+    "id": 28,
+    "kana": "つくえ",
+    "kanji": "机",
+    "roma": "tsu ku e",
+    "accent": "0",
+    "mean": "桌子"
+  },
+  {
+    "id": 29,
+    "kana": "いす",
+    "kanji": "椅子",
+    "roma": "i su",
+    "accent": "0",
+    "mean": "椅子"
+  },
+  {
+    "id": 30,
+    "kana": "チョコレート",
+    "roma": "cho ko rē to",
+    "accent": "3",
+    "mean": "巧克力"
+  },
+  {
+    "id": 31,
+    "kana": "コーヒー",
+    "roma": "kō hī",
+    "accent": "3",
+    "mean": "咖啡"
+  },
+  {
+    "id": 32,
+    "kana": "おみやげ",
+    "roma": "o mi ya ge",
+    "accent": "0",
+    "mean": "伴手禮、土產"
+  },
+  {
+    "id": 33,
+    "kana": "えいご",
+    "kanji": "英語",
+    "roma": "ē go",
+    "accent": "0",
+    "mean": "英語"
+  },
+  {
+    "id": 34,
+    "kana": "にほんご",
+    "kanji": "日本語",
+    "roma": "ni ho n go",
+    "accent": "0",
+    "mean": "日語"
+  },
+  {
+    "id": 35,
+    "kana": "～ご",
+    "kanji": "～語",
+    "roma": "go",
+    "mean": "～語"
+  },
+  {
+    "id": 36,
+    "kana": "なん",
+    "kanji": "何",
+    "roma": "na n",
+    "accent": "1",
+    "mean": "什麼"
+  },
+  {
+    "id": 37,
+    "kana": "そう",
+    "roma": "sō",
+    "accent": "1",
+    "mean": "是的"
+  },
+  {
+    "id": 38,
+    "kana": "あのう",
+    "roma": "a nō",
+    "mean": "那個………(用於以客氣、躊躇的心情跟對方打招呼時)"
+  },
+  {
+    "id": 39,
+    "kana": "えっ",
+    "roma": "e",
+    "mean": "咦…(聽到意外的消息時發出的驚歎)"
+  },
+  {
+    "id": 40,
+    "kana": "どうぞ",
+    "roma": "dō zo",
+    "accent": "1",
+    "mean": "請。(用於勸別人做某事時)"
+  },
+  {
+    "id": 41,
+    "kana": "どうもありがとう [ございます]",
+    "roma": "dō mo a ri ga tō [go za i ma su]",
+    "mean": "謝謝。"
+  },
+  {
+    "id": 42,
+    "kana": "そうですか",
+    "roma": "sō de su ka",
+    "mean": "這樣啊"
+  },
+  {
+    "id": 43,
+    "kana": "ちがいます",
+    "kanji": "違います",
+    "roma": "chi ga i ma su",
+    "accent": "4",
+    "mean": "不是。"
+  },
+  {
+    "id": 44,
+    "kana": "あ",
+    "roma": "a",
+    "mean": "啊(用於意識到什麼時)"
+  },
+  {
+    "id": 45,
+    "title": "漢字",
+    "kana": "これからお世話になります",
+    "roma": "ko re ka ra o se wa ni na ri ma su",
+    "mean": "今後將承蒙您的照顧。"
+  },
+  {
+    "id": 46,
+    "kana": "こちらこそ [どうぞ] よろしく [お願いします]",
+    "roma": "ko chi ra ko so [dō zo] yo ro shi ku [o ne ga i shi ma su]",
+    "mean": "哪裡哪裡,也請您多多指教"
+  },
+  {
+    "id": 47,
+    "kana": "にほん",
+    "kanji": "日本",
+    "roma": "ni ho n",
+    "accent": "2",
+    "mean": "日本"
+  },
+  {
+    "id": 48,
+    "kana": "もと",
+    "kanji": "本",
+    "roma": "mo to",
+    "accent": "1",
+    "mean": "基本 (訓讀)"
+  },
+  {
+    "id": 49,
+    "kana": "じしょく",
+    "kanji": "辞職",
+    "roma": "ji sho ku",
+    "accent": "0",
+    "mean": "辭職"
+  },
+  {
+    "id": 50,
+    "kana": "やめる",
+    "kanji": "辞める",
+    "roma": "ya me ru",
+    "accent": "0",
+    "mean": "辭職 (訓讀)"
+  },
+  {
+    "id": 51,
+    "kana": "としょかん",
+    "kanji": "図書館",
+    "roma": "to sho ka n",
+    "accent": "2",
+    "mean": "圖書館"
+  },
+  {
+    "id": 52,
+    "kana": "かく",
+    "kanji": "書く",
+    "roma": "ka ku",
+    "accent": "1",
+    "mean": "寫 (訓讀)"
+  },
+  {
+    "id": 53,
+    "kana": "ざっし",
+    "kanji": "雑誌",
+    "roma": "za sshi",
+    "accent": "0",
+    "mean": "雜誌"
+  },
+  {
+    "id": 54,
+    "kana": "しんぶん",
+    "kanji": "新聞",
+    "roma": "shi n bu n",
+    "accent": "0",
+    "mean": "報紙"
+  },
+  {
+    "id": 55,
+    "kana": "あたらしい",
+    "kanji": "新しい",
+    "roma": "a ta ra shī",
+    "accent": "4",
+    "mean": "新的 (訓讀)"
+  },
+  {
+    "id": 56,
+    "kana": "ざつおん",
+    "kanji": "雑音",
+    "roma": "za tsu o n",
+    "accent": "0",
+    "mean": "雜音、噪音"
+  },
+  {
+    "id": 57,
+    "kana": "にっし",
+    "kanji": "日誌",
+    "roma": "ni sshi",
+    "accent": "0",
+    "mean": "日誌"
+  },
+  {
+    "id": 58,
+    "kana": "しんねん",
+    "kanji": "新年",
+    "roma": "shi n ne n",
+    "accent": "1",
+    "mean": "新年"
+  },
+  {
+    "id": 59,
+    "kana": "けんぶん",
+    "kanji": "見聞",
+    "roma": "ke n bu n",
+    "accent": "0",
+    "mean": "見識"
+  },
+  {
+    "id": 60,
+    "kana": "きく",
+    "kanji": "聞く",
+    "roma": "ki ku",
+    "accent": "0",
+    "mean": "聽、問 (訓讀)"
+  },
+  {
+    "id": 61,
+    "kana": "かしゅ",
+    "kanji": "歌手",
+    "roma": "ka shu",
+    "accent": "1",
+    "mean": "歌手"
+  },
+  {
+    "id": 62,
+    "kana": "せんしゅ",
+    "kanji": "選手",
+    "roma": "se n shu",
+    "accent": "1",
+    "mean": "選手"
+  },
+  {
+    "id": 63,
+    "kana": "てがみ",
+    "kanji": "手紙",
+    "roma": "te ga mi",
+    "accent": "0",
+    "mean": "信 (訓讀)"
+  },
+  {
+    "id": 64,
+    "kana": "きちょう",
+    "kanji": "記帳",
+    "roma": "ki chō",
+    "accent": "0",
+    "mean": "記帳"
+  },
+  {
+    "id": 65,
+    "kana": "めいし",
+    "kanji": "名刺",
+    "roma": "mē shi",
+    "accent": "0",
+    "mean": "名片"
+  },
+  {
+    "id": 66,
+    "kana": "ゆうめい",
+    "kanji": "有名",
+    "roma": "yū mē",
+    "accent": "0",
+    "mean": "有名"
+  },
+  {
+    "id": 67,
+    "kana": "な",
+    "kanji": "名",
+    "roma": "na",
+    "accent": "1",
+    "mean": "名字 (訓讀)"
+  },
+  {
+    "id": 68,
+    "kana": "なまえ",
+    "kanji": "名前",
+    "roma": "na ma e",
+    "accent": "0",
+    "mean": "名字 (訓讀)"
+  },
+  {
+    "id": 69,
+    "kana": "さす",
+    "kanji": "刺す",
+    "roma": "sa su",
+    "accent": "1",
+    "mean": "刺、扎 (訓讀)"
+  },
+  {
+    "id": 70,
+    "kana": "えんぴつ",
+    "kanji": "鉛筆",
+    "roma": "e n pi tsu",
+    "accent": "0",
+    "mean": "鉛筆"
+  },
+  {
+    "id": 71,
+    "kana": "なまり",
+    "kanji": "鉛",
+    "roma": "na ma ri",
+    "accent": "0",
+    "mean": "鉛 (訓讀)"
+  },
+  {
+    "id": 72,
+    "kana": "ひっき",
+    "kanji": "筆記",
+    "roma": "hi kki",
+    "accent": "0",
+    "mean": "筆記"
+  },
+  {
+    "id": 73,
+    "kana": "ふで",
+    "kanji": "筆",
+    "roma": "fu de",
+    "accent": "1",
+    "mean": "筆、毛筆 (訓讀)"
+  },
+  {
+    "id": 74,
+    "kana": "じかん",
+    "kanji": "時間",
+    "roma": "ji ka n",
+    "accent": "0",
+    "mean": "時間"
+  },
+  {
+    "id": 75,
+    "kana": "とけい",
+    "kanji": "時計",
+    "roma": "to kē",
+    "accent": "0",
+    "mean": "鐘錶"
+  },
+  {
+    "id": 76,
+    "kana": "とき",
+    "kanji": "時",
+    "roma": "to ki",
+    "accent": "2",
+    "mean": "時候 (訓讀)"
+  },
+  {
+    "id": 77,
+    "kana": "けいかく",
+    "kanji": "計画",
+    "roma": "kē ka ku",
+    "accent": "0",
+    "mean": "計畫"
+  },
+  {
+    "id": 78,
+    "kana": "はかる",
+    "kanji": "計る",
+    "roma": "ha ka ru",
+    "accent": "2",
+    "mean": "測量 (訓讀)"
+  }
+]

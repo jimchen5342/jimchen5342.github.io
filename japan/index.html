@@ -4,11 +4,113 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>大家的日本語</title>
+  
+  <!-- 引入 View UI Plus 樣式表 -->
+  <link rel="stylesheet" href="../cdn/iview/styles/viewuiplus.css">
+  
   <style>
-    body {
-			display: flex; 
-			flex-wrap: wrap;
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+    * {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			/* user-select: none; */
+			font-family: 'Times New Roman', 'Helvetica Neue', 微軟正黑體, 'Microsoft Jhenghei', Helvetica, Arial, sans-serif;
+			font-size: 16px;
 		}
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      font-family: 'Outfit', 'Noto Sans TC', sans-serif;
+      color: #333;
+    }
+    
+    #app {
+      padding: 10px;
+      /* max-width: 1200px; */
+      margin: 0 auto;
+      height: 100vh;
+    }
+    
+    .app-container {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      height: calc(100% - 10px);
+      flex-direction: column;
+      display: flex;
+    }
+    
+    .header-section {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    
+    .header-title {
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(120deg, #1e3c72 0%, #2a5298 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+    
+    .control-panel {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .control-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .control-label {
+      font-weight: 500;
+      color: #515a6e;
+    }
+    
+    .card-box {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      min-height: 360px;
+      /* border-radius: 12px; */
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    .table-wrapper {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    /* 調整表格標頭樣式 */
+    .ivu-table-header th {
+      background-color: #f8f9fa !important;
+      font-weight: 600 !important;
+      color: #1c2438 !important;
+    }
   </style>
   <!--
   <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
@@ -18,20 +120,124 @@
   -->
   <script src="../utility/system.js"></script>
 	<script src="../utility/loadScript.js"></script>
+
+  <!-- 引入 Vue 3 及 View UI Plus 核心 JavaScript -->
   <script src="../cdn/vue3.js"></script>
-	
+  <script src="../cdn/iview/viewuiplus.min.js"></script>
+  <script>
+    // 確保 window.viewuiplus 存在以供語系檔註冊
+    window.viewuiplus = window.ViewUIPlus;
+  </script>
 
 </head>
 <body>
-   <div id="app">
-    <!-- 資料綁定 -->
-    <h1>{{ message }}</h1>
-    <button @click="changeMessage">點我更改文字</button>
+  <div id="app">
+    <div class="app-container">
+      <div class="header-section">
+        <div class="control-panel">
+          <div class="control-item">
+            <span class="control-label">選擇課數：</span>
+            <i-select v-model="selectedLesson" style="width: 150px" @on-change="loadLesson">
+              <i-option v-for="item in lessons" :value="item" :key="item">{{ item }}</i-option>
+            </i-select>
+          </div>
+        </div>
+      </div>
+
+      <i-card class="card-box" :bordered="false" dis-hover>
+        <template #title>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <icon type="ios-book" size="18" color="#2a5298"></icon>
+            <span style="font-weight: 600; color: #2a5298;">{{ selectedLesson }} 單字列表</span>
+          </div>
+        </template>
+        
+        <div class="table-wrapper">
+          <i-table :columns="columns" :data="wordList" :loading="loading" border stripe :height="tableHeight"></i-table>
+        </div>
+      </i-card>
+    </div>
   </div>
 </body>
 <script type="module">
-  const { createApp, ref } = Vue;
+  import zhTW from '../cdn/iview/locale/zh-TW.js';
 
+  const { createApp, ref, onMounted, onBeforeUnmount } = Vue;
+
+  const app = createApp({
+    setup() {
+      const selectedLesson = ref('第 01 課');
+      const lessons = ref(['第 01 課', '第 02 課', '第 03 課']);
+      const wordList = ref([]);
+      const loading = ref(false);
+      const tableHeight = ref(320);
+
+      const updateTableHeight = () => {
+        const card = document.querySelector('.card-box');
+        if (!card) {
+          return;
+        }
+
+        const bodyHeight = card.clientHeight;
+        tableHeight.value = Math.max(bodyHeight, 220);
+      };
+
+      const columns = [
+        { title: 'ID', key: 'id', width: 80, align: 'center' },
+        { title: '假名', key: 'kana' },
+        { title: '漢字', key: 'kanji', render: (h, params) => h('span', params.row.kanji || '-') },
+        { title: '羅馬拼音', key: 'roma' },
+        { title: '重音', key: 'accent', width: 100, align: 'center', render: (h, params) => h('span', params.row.accent !== undefined ? params.row.accent : '-') },
+        { title: '中文意思', key: 'mean' }
+      ];
+
+      const loadLesson = async () => {
+        loading.value = true;
+        try {
+          const fileName = `./大家的日本語/${selectedLesson.value}.json`;
+          const response = await fetch(encodeURIComponent(fileName));
+          if (!response.ok) {
+            throw new Error(`Fetch failed: ${response.status} ${response.statusText}`);
+          }
+          wordList.value = await response.json();
+        } catch (e) {
+          console.error(e);
+          window.ViewUIPlus.Message.error('載入課文失敗');
+        } finally {
+          loading.value = false;
+        }
+      };
+
+      onMounted(() => {
+        updateTableHeight();
+        window.addEventListener('resize', updateTableHeight);
+        loadLesson();
+      });
+
+      onBeforeUnmount(() => {
+        window.removeEventListener('resize', updateTableHeight);
+      });
+
+      return {
+        selectedLesson,
+        lessons,
+        wordList,
+        columns,
+        loading,
+        tableHeight,
+        loadLesson,
+      };
+    }
+  });
+
+  // 載入繁體中文語言包
+  app.use(window.ViewUIPlus, {
+    locale: zhTW
+  });
+
+  app.mount('#app');
+
+  // 保留原有的 window.onload 邏輯與測試用函數
   window.onload = async function(){
 		let email =  window.localStorage["email"];
 		let password = window.localStorage["password"];
@@ -59,7 +265,7 @@
 				alert(e.message);
 			}
 		}
-
+    /*
     createApp({
       setup() {
         // 定義響應式資料
@@ -77,26 +283,25 @@
         };
       }
     }).mount('#app'); // 3. 掛載到 DOM 元素上
-
+    */
   }
 
   async function getData(key){ //測試用
-			try {
-				let snapshot1 = await FireStore.db.collection("japan").doc(key)
-          .get();
-        return snapshot1.data();
-      } catch(e) {
-        // console.log(e)
-        // vm.showMessage(typeof e == "object" ? JSON.stringify(e) : e);
-      }
+    try {
+      let snapshot1 = await FireStore.db.collection("japan").doc(key)
+        .get();
+      return snapshot1.data();
+    } catch(e) {
+      // console.log(e)
     }
+  }
 
   async function setData(key, json){ //測試用
     let ref = FireStore.db.collection("japan").doc(key);
     try {
       let x = await ref.set(json,{merge: true});
-        console.log("setData: " + JSON.stringify(x));
-        return x;
+      console.log("setData: " + JSON.stringify(x));
+      return x;
     } catch(e) {
       console.log(e)
       throw e;
