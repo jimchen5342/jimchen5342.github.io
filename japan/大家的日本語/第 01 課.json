@@ -207,7 +207,7 @@
     "kanji": "失礼ですが",
     "roma": "shi tsu rē de su ga",
     "accent": "2",
-    "mean": "抱歉,請問..."
+    "mean": "抱歉、請問..."
   },
   {
     "id": 29,
@@ -321,7 +321,7 @@
   },
   {
     "id": 44,
-    "kana": "おはようございます",
+    "kana": "おはよう ございます",
     "roma": "o ha yō go za i ma su",
     "accent": "0",
     "mean": "早安"
@@ -363,7 +363,7 @@
   },
   {
     "id": 50,
-    "kana": "ありがとうございます",
+    "kana": "ありがとう ございます",
     "roma": "a ri ga tō go za i ma su",
     "accent": "0",
     "mean": "謝謝"
@@ -380,7 +380,7 @@
     "kana": "どういたしまして",
     "roma": "dō i ta shi ma shi te",
     "accent": "0",
-    "mean": "不客氣,沒關係(在別人說謝謝之後說)"
+    "mean": "不客氣、沒關係(在別人說謝謝之後說)"
   },
   {
     "id": 53,
@@ -405,15 +405,15 @@
   },
   {
     "id": 56,
-    "kana": "もうしわけございません",
-    "kanji": "申し訳ございません",
+    "kana": "もうしわけ ございません",
+    "kanji": "申し訳 ございません",
     "roma": "mō shi wa ke go za i ma se n",
     "mean": "對不起、很抱歉"
   },
   {
     "id": 57,
-    "kana": "もうしわけありません",
-    "kanji": "申し訳ありません",
+    "kana": "もうしわけ ありません",
+    "kanji": "申し訳 ありません",
     "roma": "mō shi wa ke a ri ma se n",
     "mean": "對不起、很抱歉"
   },
@@ -449,14 +449,14 @@
     "kana": "ただいま",
     "roma": "ta da i ma",
     "accent": "0",
-    "mean": "我回來了(從外面回到家裡時的招呼語)"
+    "mean": "我回來了(回到家裡時的招呼語)"
   },
   {
     "id": 63,
     "kana": "おかえりなさい",
     "roma": "o ka e ri na sa i",
     "accent": "0",
-    "mean": "歡迎回家(對那個回家的人的用語)"
+    "mean": "歡迎回家(對回家的人的用語)"
   },
   {
     "id": 64,
@@ -496,7 +496,7 @@
     "kanji": "お邪魔します",
     "roma": "o ja ma shi ma su",
     "accent": "0",
-    "mean": "打擾了(進入別人家中時使用)"
+    "mean": "打擾了(進入別人家中時)"
   },
   {
     "id": 69,
@@ -532,15 +532,15 @@
   },
   {
     "id": 73,
-    "kana": "おめでとうございます",
+    "kana": "おめでとう ございます",
     "roma": "o me de tō go za i ma su",
     "accent": "0",
     "mean": "恭喜!"
   },
   {
     "id": 74,
-    "kana": "おさきにしつれいします",
-    "kanji": "お先に失礼します",
+    "kana": "おさきに しつれいします",
+    "kanji": "お先に 失礼します",
     "roma": "o sa ki ni shi tsu rē shi ma su",
     "mean": "先告辭了(離開工作場所時使用)"
   },
