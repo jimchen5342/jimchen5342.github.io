@@ -111,6 +111,10 @@
       font-weight: 600 !important;
       color: #1c2438 !important;
     }
+
+    .selected-row {
+      background-color: rgba(42, 82, 152, 0.12) !important;
+    }
   </style>
   <!--
   <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
@@ -137,7 +141,7 @@
         <div class="control-panel" style="width: 100%;">
           <div class="control-item">
             <!-- <span class="control-label">選擇課數：</span> -->
-            <i-select v-model="selectedLesson" style="width: 150px" @on-change="loadLesson">
+            <i-select v-model="selectedLesson" style="width: 150px" @on-change="onLessonChange">
               <i-option v-for="item in lessons" :value="item" :key="item">{{ item }}</i-option>
             </i-select>
           </div>
@@ -157,7 +161,16 @@
         </template>
         
         <div class="table-wrapper">
-          <i-table :columns="columns" :data="wordList" :loading="loading" border stripe :height="tableHeight"></i-table>
+          <i-table
+            :columns="columns"
+            :data="wordList"
+            :loading="loading"
+            border
+            stripe
+            :height="tableHeight"
+            @on-row-click="handleRowClick"
+            :row-class-name="rowClassName"
+          ></i-table>
         </div>
       </i-card>
     </div>
@@ -165,13 +178,15 @@
 </body>
 <script type="module">
   import zhTW from '../cdn/iview/locale/zh-TW.js';
+  import TTX from '../utility/TTX.js';
   // https://iviewui.com/view-ui-plus/guide/introduce
 
   const { createApp, ref, onMounted, onBeforeUnmount } = Vue;
 
   const app = createApp({
     setup() {
-      const selectedLesson = ref('第 01 課');
+      const savedLesson = window.localStorage.getItem('大家的日本語-dataview-selectedLesson');
+      const selectedLesson = ref(savedLesson || '第 01 課');
       const lessons = ref(['第 01 課', '第 02 課', '第 03 課']);
       const wordList = ref([]);
       const loading = ref(false);
@@ -196,6 +211,19 @@
         { title: '中文意思', key: 'mean' }
       ];
 
+      const resetTableScroll = () => {
+        const wrapper = document.querySelector('.table-wrapper');
+        if (!wrapper) {
+          return;
+        }
+        const body = wrapper.querySelector('.ivu-table-body');
+        if (body) {
+          body.scrollTop = 0;
+        } else {
+          wrapper.scrollTop = 0;
+        }
+      };
+
       const loadLesson = async () => {
         loading.value = true;
         try {
@@ -205,6 +233,7 @@
             throw new Error(`Fetch failed: ${response.status} ${response.statusText}`);
           }
           wordList.value = await response.json();
+          resetTableScroll();
         } catch (e) {
           console.error(e);
           window.ViewUIPlus.Message.error('載入課文失敗');
@@ -213,11 +242,34 @@
         }
       };
 
-      const printTable = () => {
+      const selectedRow = ref(null);
+
+      const handleRowClick = (row, index, event) => {
+        selectedRow.value = row;
+        console.log('Row clicked:', row, index, event);
+        if (TTX && typeof TTX.speak === 'function') {
+          // const text = [row.kana, row.kanji, row.roma, row.mean].filter(Boolean).join(' ');
+          TTX.speak(row.kana);
+        }
+      };
+
+      const rowClassName = (row, index) => {
+        return selectedRow.value === row ? 'selected-row' : '';
+      };
+
+      const onLessonChange = async () => {
+        window.localStorage.setItem('大家的日本語-dataview-selectedLesson', selectedLesson.value);
+        await loadLesson();
+      };
+
+      const printTable = () => { // 列印, 還沒有寫
         window.print();
       };
 
       onMounted(() => {
+        if (TTX) {
+          TTX.initial();
+        }
         updateTableHeight();
         window.addEventListener('resize', updateTableHeight);
         loadLesson();
@@ -234,7 +286,11 @@
         columns,
         loading,
         tableHeight,
+        selectedRow,
         loadLesson,
+        handleRowClick,
+        rowClassName,
+        onLessonChange,
         printTable,
       };
     }
