@@ -2,6 +2,7 @@
   {
     "id": 1,
     "kana": "わたし",
+    "kanji": "私",
     "roma": "wa ta shi",
     "accent": "0",
     "mean": "我"
@@ -54,7 +55,7 @@
     "kanji": "先生",
     "roma": "se n sē",
     "accent": "3",
-    "mean": "老師"
+    "mean": "老師、醫生、律師等專業人士的尊稱"
   },
   {
     "id": 9,
@@ -78,7 +79,7 @@
     "kanji": "会社員",
     "roma": "ka i sha i n",
     "accent": "3",
-    "mean": "公司職員"
+    "mean": "公司職員(上班族)"
   },
   {
     "id": 12,
@@ -86,7 +87,7 @@
     "kanji": "社員",
     "roma": "sha i n",
     "accent": "1",
-    "mean": "公司職員"
+    "mean": "(某公司)職員"
   },
   {
     "id": 13,
@@ -140,7 +141,7 @@
     "kana": "どなた",
     "roma": "do na ta",
     "accent": "1",
-    "mean": "誰「だれ」的禮貌說法"
+    "mean": "誰(だれ 的禮貌說法)"
   },
   {
     "id": 20,
@@ -189,7 +190,7 @@
   {
     "id": 26,
     "kana": "~からきました",
-    "kanji": "~から來ました",
+    "kanji": "~から来ました",
     "roma": "ka ra ki ma shi ta",
     "mean": "從 ~ 來的"
   },
@@ -198,7 +199,7 @@
     "kana": "どうぞ よろしく おねがいします",
     "kanji": "どうぞ よろしく お願いします",
     "roma": "dō zo yo ro shi ku o ne ga i shi ma su",
-    "mean": "請多關照,請多指教"
+    "mean": "請多多關照"
   },
   {
     "id": 28,
@@ -210,15 +211,15 @@
   },
   {
     "id": 29,
-    "kana": "おなまえは?",
-    "kanji": "お名前は?",
-    "roma": "o na ma e wa ?",
+    "kana": "おなまえは",
+    "kanji": "お名前は",
+    "roma": "o na ma e wa",
     "accent": "0",
-    "mean": "您貴姓?您叫什麼名字?"
+    "mean": "您貴姓?"
   },
   {
     "id": 30,
-    "kana": "こちらは〜さんです",
+    "kana": "こちらは 〜 さんです",
     "roma": "ko chi ra wa 〜 sa n de su",
     "mean": "這位是~"
   },
@@ -302,7 +303,7 @@
     "kanji": "初めまして",
     "roma": "ha ji me ma shi te",
     "accent": "4",
-    "mean": "初次見面,你好(第一次見面時使用)"
+    "mean": "初次見面"
   },
   {
     "id": 42,
@@ -313,10 +314,10 @@
   },
   {
     "id": 43,
-    "kana": "どうぞよろしくおねがいします",
-    "kanji": "どうぞよろしくお願いします",
+    "kana": "どうぞ よろしく おねがいします",
+    "kanji": "どうぞ よろしく お願いします",
     "roma": "dō zo yo ro shi ku o ne ga i shi ma su",
-    "mean": "彼此彼此,請多多關照"
+    "mean": "請多多關照"
   },
   {
     "id": 44,
@@ -337,14 +338,14 @@
     "kana": "こんにちは",
     "roma": "ko n ni chi wa",
     "accent": "0",
-    "mean": "你好,日安"
+    "mean": "你好、日安"
   },
   {
     "id": 47,
     "kana": "こんばんは",
     "roma": "ko n ba n wa",
     "accent": "0",
-    "mean": "晚安你好,晚上好"
+    "mean": "晚安、晚上好"
   },
   {
     "id": 48,
@@ -400,21 +401,21 @@
     "kana": "すみません",
     "roma": "su mi ma se n",
     "accent": "0",
-    "mean": "對不起,抱歉"
+    "mean": "對不起、抱歉"
   },
   {
     "id": 56,
     "kana": "もうしわけございません",
     "kanji": "申し訳ございません",
     "roma": "mō shi wa ke go za i ma se n",
-    "mean": "對不起,很抱歉"
+    "mean": "對不起、很抱歉"
   },
   {
     "id": 57,
     "kana": "もうしわけありません",
     "kanji": "申し訳ありません",
     "roma": "mō shi wa ke a ri ma se n",
-    "mean": "對不起,很抱歉"
+    "mean": "對不起、很抱歉"
   },
   {
     "id": 58,
@@ -427,7 +428,7 @@
     "id": 59,
     "kana": "ごちそうさまでした",
     "roma": "go chi sō sa ma de shi ta",
-    "mean": "多謝您的款待,我已經吃飽了"
+    "mean": "多謝您的款待，我已經吃飽了"
   },
   {
     "id": 60,
