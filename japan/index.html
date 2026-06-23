@@ -16,7 +16,7 @@
 			box-sizing: border-box;
 			/* user-select: none; */
 			font-family: 'Times New Roman', 'Helvetica Neue', 微軟正黑體, 'Microsoft Jhenghei', Helvetica, Arial, sans-serif;
-			font-size: 16px;
+			font-size: 1rem;
 		}
     body {
       margin: 0;
@@ -28,7 +28,7 @@
     }
     
     #app {
-      padding: 10px;
+      padding: 5px;
       /* max-width: 1200px; */
       margin: 0 auto;
       height: 100vh;
@@ -41,7 +41,7 @@
       padding: 10px;
       box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.18);
-      height: calc(100% - 10px);
+      height: calc(100% - 2px);
       flex-direction: column;
       display: flex;
     }
@@ -134,12 +134,16 @@
   <div id="app">
     <div class="app-container">
       <div class="header-section">
-        <div class="control-panel">
+        <div class="control-panel" style="width: 100%;">
           <div class="control-item">
-            <span class="control-label">選擇課數：</span>
+            <!-- <span class="control-label">選擇課數：</span> -->
             <i-select v-model="selectedLesson" style="width: 150px" @on-change="loadLesson">
               <i-option v-for="item in lessons" :value="item" :key="item">{{ item }}</i-option>
             </i-select>
+          </div>
+          <div style="flex: 1;"></div>
+          <div class="control-item">
+            <!-- <i-button type="primary" @click="printTable">列印</i-button> -->
           </div>
         </div>
       </div>
@@ -161,6 +165,7 @@
 </body>
 <script type="module">
   import zhTW from '../cdn/iview/locale/zh-TW.js';
+  // https://iviewui.com/view-ui-plus/guide/introduce
 
   const { createApp, ref, onMounted, onBeforeUnmount } = Vue;
 
@@ -208,6 +213,10 @@
         }
       };
 
+      const printTable = () => {
+        window.print();
+      };
+
       onMounted(() => {
         updateTableHeight();
         window.addEventListener('resize', updateTableHeight);
@@ -226,6 +235,7 @@
         loading,
         tableHeight,
         loadLesson,
+        printTable,
       };
     }
   });
