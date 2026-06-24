@@ -21,7 +21,7 @@
     body {
       margin: 0;
       padding: 0;
-      /* background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); */
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       min-height: 100vh;
       font-family: 'Outfit', 'Noto Sans TC', sans-serif;
       color: #333;
@@ -32,19 +32,44 @@
       /* max-width: 1200px; */
       margin: 0 auto;
       height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
     
-    .header-panel {
+    .app-container {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 10px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      height: calc(100% - 2px);
+      flex-direction: column;
+      display: flex;
+    }
+    
+    .header-section {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
-      padding-bottom: 4px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    
+    .header-title {
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(120deg, #1e3c72 0%, #2a5298 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+    
+    .control-panel {
+      display: flex;
       gap: 20px;
+      align-items: center;
     }
     
     .control-item {
@@ -53,16 +78,42 @@
       gap: 10px;
     }
     
+    .control-label {
+      font-weight: 500;
+      color: #515a6e;
+    }
+    
     .card-box {
       flex: 1 1 auto;
       display: flex;
       flex-direction: column;
       min-height: 360px;
-      border: 1px solid black;
       /* border-radius: 12px; */
-      overflow: auto;
+      overflow: hidden;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card-box:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    }
+
+    .table-wrapper {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    /* 調整表格標頭樣式 */
+    .ivu-table-header th {
+      background-color: #f8f9fa !important;
+      font-weight: 600 !important;
+      color: #1c2438 !important;
+    }
+
+    .selected-row {
+      background-color: rgba(42, 82, 152, 0.12) !important;
     }
   </style>
   <!--
@@ -85,27 +136,36 @@
 </head>
 <body>
   <div id="app">
-    <div class="header-panel" style="width: 100%;">
-      <div class="control-item">
-        <i-select v-model="selectedLesson" size="large" style="width: 120px" @on-change="onLessonChange">
-          <i-option v-for="item in lessons" :value="item" :key="item">{{ item }}</i-option>
-        </i-select>
+    <div class="app-container">
+      <div class="header-section">
+        <div class="control-panel" style="width: 100%;">
+          <div class="control-item">
+            <!-- <span class="control-label">選擇課數：</span> -->
+            <i-select v-model="selectedLesson" size="large" style="width: 120px" @on-change="onLessonChange">
+              <i-option v-for="item in lessons" :value="item" :key="item">{{ item }}</i-option>
+            </i-select>
+          </div>
+          <div style="flex: 1;"></div>
+          <div class="control-item">
+            <!-- <i-button type="primary" @click="printTable">列印</i-button> -->
+          </div>
+        </div>
       </div>
-      <div class="control-item">
-        <radio-group v-model="selectedType" type="button" button-style="solid" size="large" @on-change="onTypeChange" @update:modelValue="onTypeChange">
-          <radio label="單字">單字</radio>
-          <radio label="補充">補充</radio>
-        </radio-group>
-      </div>
-      <div style="flex: 1;"></div>
-      <div class="control-item">
-        <i-button type="primary" @click="printTable">列印</i-button>
-      </div>
-    </div>
 
-
-    <div class="card-box">
-
+      <i-card class="card-box" :bordered="false" dis-hover>        
+        <div class="table-wrapper">
+          <i-table
+            :columns="columns"
+            :data="wordList"
+            :loading="loading"
+            border
+            stripe
+            :height="tableHeight"
+            @on-row-click="handleRowClick"
+            :row-class-name="rowClassName"
+          ></i-table>
+        </div>
+      </i-card>
     </div>
   </div>
 </body>
@@ -119,27 +179,33 @@
 
   const app = createApp({
     setup() {
-      // selectedLesson, selectedType
-      const savedLesson = window.localStorage.getItem('大家的日本語-index');
+      const savedLesson = window.localStorage.getItem('大家的日本語-dataview-selectedLesson');
       const selectedLesson = ref(savedLesson || '第 01 課');
       const lessons = ref(setting.lessons);
-      const savedType = window.localStorage.getItem('大家的日本語-dataview-selectedType');
-      const selectedType = ref(savedType || '單字');
       const wordList = ref([]);
       const loading = ref(false);
-      const cardBoxHeight = ref(320);
+      const tableHeight = ref(320);
 
-      const updateHeight = () => { // 還沒改
+      const updateTableHeight = () => {
         const card = document.querySelector('.card-box');
         if (!card) {
           return;
         }
 
         const bodyHeight = card.clientHeight;
-        cardBoxHeight.value = Math.max(bodyHeight, 220);
+        tableHeight.value = Math.max(bodyHeight, 220);
       };
 
-      const resetScroll = () => { // 要改
+      const columns = [
+        { title: 'ID', key: 'id', width: 80, align: 'center' },
+        { title: '假名', key: 'kana' },
+        { title: '漢字', key: 'kanji', render: (h, params) => h('span', params.row.kanji || '-') },
+        { title: '羅馬拼音', key: 'roma' },
+        { title: '重音', key: 'accent', width: 100, align: 'center', render: (h, params) => h('span', params.row.accent !== undefined ? params.row.accent : '-') },
+        { title: '中文意思', key: 'mean' }
+      ];
+
+      const resetTableScroll = () => {
         const wrapper = document.querySelector('.table-wrapper');
         if (!wrapper) {
           return;
@@ -161,7 +227,7 @@
             throw new Error(`Fetch failed: ${response.status} ${response.statusText}`);
           }
           wordList.value = await response.json();
-          resetScroll();
+          resetTableScroll();
         } catch (e) {
           console.error(e);
           window.ViewUIPlus.Message.error('載入課文失敗');
@@ -170,14 +236,24 @@
         }
       };
 
+      const selectedRow = ref(null);
+
+      const handleRowClick = (row, index, event) => {
+        selectedRow.value = row;
+        console.log('Row clicked:', row, index, event);
+        if (TTX && typeof TTX.speak === 'function') {
+          // const text = [row.kana, row.kanji, row.roma, row.mean].filter(Boolean).join(' ');
+          TTX.speak(row.kana);
+        }
+      };
+
+      const rowClassName = (row, index) => {
+        return selectedRow.value === row ? 'selected-row' : '';
+      };
+
       const onLessonChange = async () => {
         window.localStorage.setItem('大家的日本語-dataview-selectedLesson', selectedLesson.value);
         await loadLesson();
-      };
-
-      const onTypeChange = (value) => {
-        window.localStorage.setItem('大家的日本語-dataview-selectedType', value);
-        console.log('selectedType changed:', value);
       };
 
       const printTable = () => { // 列印, 還沒有寫
@@ -188,25 +264,27 @@
         if (TTX) {
           TTX.initial();
         }
-        updateHeight();
-        window.addEventListener('resize', updateHeight);
+        updateTableHeight();
+        window.addEventListener('resize', updateTableHeight);
         loadLesson();
       });
 
       onBeforeUnmount(() => {
-        window.removeEventListener('resize', updateHeight);
+        window.removeEventListener('resize', updateTableHeight);
       });
 
       return {
         selectedLesson,
         lessons,
-        selectedType,
         wordList,
+        columns,
         loading,
-        cardBoxHeight,
+        tableHeight,
+        selectedRow,
         loadLesson,
+        handleRowClick,
+        rowClassName,
         onLessonChange,
-        onTypeChange,
         printTable,
       };
     }
