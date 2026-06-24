@@ -70,6 +70,9 @@
 			display: flex;
 			flex-direction: row;
 		}
+    .active {
+      border-color: #2d8cf0;
+    }
   </style>
   <!--
   <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
@@ -136,7 +139,7 @@
       const selectedLesson = ref(parsedIndex?.selectedLesson || '第 01 課');
       const lessons = ref(setting.lessons);
       const selectedType = ref(parsedIndex?.selectedType || '單字');
-      const selectedWord = ref(parsedIndex?.selectedWord || null);
+      const selectedCard = ref(parsedIndex?.selectedCard || null);
       const wordList = ref([]);
       const loading = ref(false);
       const cardWidth = ref(0);
@@ -202,24 +205,59 @@
         });
 
         renderCard.render();
+        setTimeout(() => {
+          let arr = document.querySelectorAll(".card");
+          arr.forEach((el, index) => {
+            el.addEventListener("click", () => { changeActive(el) }, false);
+            el.style.cursor = "pointer";
+          })          
+        }, 300);
+        if(typeof selectedCard.value == "string") {
+          let el = document.querySelector("#" + selectedCard.value);
+          if (el) {
+            el.classList.add("active");
+            el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+          }
+          console.log(el)
+        }
+      }
+
+      const changeActive = (el) => {
+        selectedCard.value = el.id;
+        saveStorage();
+        let arr = document.querySelectorAll(".active");
+        if(arr.length > 0) {
+          arr[0].classList.remove("active");
+        }
+        el.classList.add("active");
+
+        let id = el.id.replace("card", "")
+        const index = wordList.value.findIndex(item =>
+          item && item.id == id
+        );
+
+        let word = wordList.value[index];
+        TTX.speak(word.kana) 
       }
 
       const saveStorage = () => {
         const indexData = {
           selectedLesson: selectedLesson.value,
           selectedType: selectedType.value,
-          selectedWord: selectedWord.value
+          selectedCard: selectedCard.value
         };
         window.localStorage.setItem('大家的日本語-index', JSON.stringify(indexData));
       };
 
       const onLessonChange = async () => {
+        selectedCard.value = null;
         saveStorage();
         await loadLesson();
       };
 
       const onTypeChange = (value) => {
         selectedType.value = value;
+        selectedCard.value = null;
         saveStorage();
         renderLesson();
       };
@@ -257,6 +295,7 @@
         onLessonChange,
         onTypeChange,
         printCard,
+        changeActive
       };
     }
   });
@@ -296,25 +335,6 @@
 				alert(e.message);
 			}
 		}
-    /*
-    createApp({
-      setup() {
-        // 定義響應式資料
-        const message = ref('Hello Vue 3!');
-
-        // 定義方法
-        function changeMessage() {
-          message.value = 'Vue 3 CDN 運作成功！';
-        }
-
-        // 回傳資料與方法給樣板使用
-        return {
-          message,
-          changeMessage
-        };
-      }
-    }).mount('#app'); // 3. 掛載到 DOM 元素上
-    */
   }
 
   async function getData(key){ //測試用

@@ -46,7 +46,10 @@ export default class RenderCard {
     words.forEach((el, index) => {
       const el2 = document.createElement('div');
       el2.innerHTML = this.renderItem(el, index);
+      el2.classList.add('card');
+      el2.style.width = this.cardWidth;   
       if(typeof this.props.cardbox !== "undefined") {
+        el2.id = "card" + el.id;
         cardbox.appendChild(el2);
       }
     });
@@ -54,18 +57,17 @@ export default class RenderCard {
 
   renderItem(item, index) {
     let dom = `
-    <div class="card" style="width: ${this.cardWidth}">
-      <div style="min-width: 25px; font-size: 1rem;">${index + 1}.</div>
-      <div style="flex: 1; font-size: 1rem; display: flex; flex-direction: column;">
+      <div style="min-width: 25px; font-size: 1rem; padding-top: 2px;">${index + 1}.</div>
+      <div style="flex: 1; display: flex; flex-direction: column;">
         <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center;">
-          <div style="font-size: 1rem;">
+          <div style="font-size: 1.2rem; flex: 1;">
             ${item.kana}
           </div>
-          <div style="color: #2d8cf0; margin-left: 10px;">
+          <div style="color: #2d8cf0; margin-left: 10px; font-size: 1rem">
             ${item.accent || ""}
           </div>
         </div>
-        <div style="flex: 1;">
+        <div style="flex: 1; font-size: 1.2rem">
           ${item.kanji || ""}
         </div>
         <span style="font-size: 1rem; color: #2d8cf0">
@@ -73,7 +75,6 @@ export default class RenderCard {
         </span>
         <div>${item.mean}</div>
       </div>
-    </div>
     `
     return dom;
   }
