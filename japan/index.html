@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="../cdn/iview/styles/viewuiplus.css">
   
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap');
     * {
 			-webkit-box-sizing: border-box;
 			-moz-box-sizing: border-box;
@@ -52,18 +51,25 @@
       align-items: center;
       gap: 10px;
     }
-    
     .card-box {
       flex: 1 1 auto;
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
       min-height: 360px;
-      border: 1px solid black;
+      /* border: 1px solid black; */
       /* border-radius: 12px; */
+      padding: 0px 2px;
       overflow: auto;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease; 
     }
+    .card {
+			border-radius: 5px;
+			border: 2px #eee solid;
+			padding: 5px;
+			display: flex;
+			flex-direction: row;
+		}
   </style>
   <!--
   <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
@@ -98,13 +104,11 @@
         </radio-group>
       </div>
       <div style="flex: 1;"></div>
-      <div class="control-item">
-        <i-button type="primary" @click="printTable">列印</i-button>
+      <div class="control-item" v-if="cardWidth > 800">
+        <i-button type="primary" @click="printCard" size="large">列印</i-button>
       </div>
     </div>
-
-
-    <div class="card-box">
+    <div id="cardbox" class="card-box">
 
     </div>
   </div>
@@ -113,42 +117,40 @@
   import zhTW from '../cdn/iview/locale/zh-TW.js';
   import TTX from '../utility/TTX.js';
   import { setting } from '../utility/setting.js';
+  import RenderCard from './renderCard.js'
   // https://iviewui.com/view-ui-plus/guide/introduce
 
   const { createApp, ref, onMounted, onBeforeUnmount } = Vue;
+  let resizeId = null;
 
   const app = createApp({
     setup() {
-      // selectedLesson, selectedType
-      const savedLesson = window.localStorage.getItem('大家的日本語-index');
-      const selectedLesson = ref(savedLesson || '第 01 課');
+      const savedIndex = window.localStorage.getItem('大家的日本語-index');
+      let parsedIndex = null;
+      try {
+        parsedIndex = savedIndex ? JSON.parse(savedIndex) : null;
+      } catch (e) {
+        parsedIndex = null;
+      }
+
+      const selectedLesson = ref(parsedIndex?.selectedLesson || '第 01 課');
       const lessons = ref(setting.lessons);
-      const savedType = window.localStorage.getItem('大家的日本語-dataview-selectedType');
-      const selectedType = ref(savedType || '單字');
+      const selectedType = ref(parsedIndex?.selectedType || '單字');
+      const selectedWord = ref(parsedIndex?.selectedWord || null);
       const wordList = ref([]);
       const loading = ref(false);
-      const cardBoxHeight = ref(320);
+      const cardWidth = ref(0);
 
-      const updateHeight = () => { // 還沒改
-        const card = document.querySelector('.card-box');
-        if (!card) {
-          return;
-        }
-
-        const bodyHeight = card.clientHeight;
-        cardBoxHeight.value = Math.max(bodyHeight, 220);
-      };
-
-      const resetScroll = () => { // 要改
-        const wrapper = document.querySelector('.table-wrapper');
-        if (!wrapper) {
-          return;
-        }
-        const body = wrapper.querySelector('.ivu-table-body');
-        if (body) {
-          body.scrollTop = 0;
-        } else {
-          wrapper.scrollTop = 0;
+      const onResize = () => {
+        clearInterval(resizeId)
+        const cardbox = document.querySelector('#cardbox');
+        if (cardbox) {
+          if(cardWidth.value != cardbox.clientWidth) {
+            resizeId = setInterval(() => {
+              clearInterval(resizeId)
+              renderLesson();
+            }, 600);
+          }
         }
       };
 
@@ -161,7 +163,7 @@
             throw new Error(`Fetch failed: ${response.status} ${response.statusText}`);
           }
           wordList.value = await response.json();
-          resetScroll();
+          renderLesson();
         } catch (e) {
           console.error(e);
           window.ViewUIPlus.Message.error('載入課文失敗');
@@ -170,31 +172,77 @@
         }
       };
 
+      const renderLesson = () => {
+        const cardbox = document.querySelector('#cardbox');
+        if (cardbox) {
+          cardbox.scrollTop = 0;
+        }
+        cardWidth.value = cardbox.clientWidth;
+        // console.log("clientWidth: " + cardbox.clientWidth)
+        const titleIndex = wordList.value.findIndex(item =>
+          item && Object.prototype.hasOwnProperty.call(item, 'title')
+        );
+        let words = [];
+        if(selectedType.value == "單字") {
+          if(titleIndex > -1) {
+            words = wordList.value.slice(0, titleIndex)
+          } else {
+            words = wordList.value.slice(0)
+          }
+        } else if(titleIndex > -1) {
+          words = wordList.value.slice(titleIndex)
+        } else {
+          alert("沒有補充的資料")
+          return;
+        }
+        const renderCard = new RenderCard({
+          title: selectedLesson.value,
+          cardbox,
+          words
+        });
+
+        renderCard.render();
+      }
+
+      const saveStorage = () => {
+        const indexData = {
+          selectedLesson: selectedLesson.value,
+          selectedType: selectedType.value,
+          selectedWord: selectedWord.value
+        };
+        window.localStorage.setItem('大家的日本語-index', JSON.stringify(indexData));
+      };
+
       const onLessonChange = async () => {
-        window.localStorage.setItem('大家的日本語-dataview-selectedLesson', selectedLesson.value);
+        saveStorage();
         await loadLesson();
       };
 
       const onTypeChange = (value) => {
-        window.localStorage.setItem('大家的日本語-dataview-selectedType', value);
-        console.log('selectedType changed:', value);
+        selectedType.value = value;
+        saveStorage();
+        renderLesson();
       };
 
-      const printTable = () => { // 列印, 還沒有寫
-        window.print();
+      const printCard = () => { // 列印, 還沒有寫
+        // window.print();
+        const renderCard = new RenderCard({
+          title: selectedLesson.value,
+          A4: true,
+          words: wordList.value 
+        })
       };
 
       onMounted(() => {
         if (TTX) {
           TTX.initial();
         }
-        updateHeight();
-        window.addEventListener('resize', updateHeight);
+        window.addEventListener('resize', onResize);
         loadLesson();
       });
 
       onBeforeUnmount(() => {
-        window.removeEventListener('resize', updateHeight);
+        window.removeEventListener('resize', onResize);
       });
 
       return {
@@ -203,11 +251,12 @@
         selectedType,
         wordList,
         loading,
-        cardBoxHeight,
+        cardWidth,
         loadLesson,
+        renderLesson,
         onLessonChange,
         onTypeChange,
-        printTable,
+        printCard,
       };
     }
   });
