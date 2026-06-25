@@ -1267,6 +1267,7 @@
 
       // 開啟全新獨立空白列印視窗
       // 將尺寸寬高以 Chrome 特徵傳遞，但主要是靠 @page size 在列印對話框中決定
+      console.log(`width=${width},height=${height}`)
       const printWindow = window.open('', '_blank', `width=${width},height=${height}`);
       if (!printWindow) {
         alert("無法開啟列印視窗，請確認是否被瀏覽器的彈出視窗阻擋功能封鎖！");

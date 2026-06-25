@@ -7,14 +7,15 @@ export default class RenderCard {
     let cardboxWidth = 0;
     if(props.A4 == true || props.A5 == true) {
       let pixel = this.getPixel();
-      this.width = pixel * (props.A4 == true ? 190 : 128);
-      this.height = pixel * (props.A4 == true ? 277 : 190);
+      this.width = Math.floor(pixel * (props.A4 == true ? 200 : 138));
+      this.height = Math.floor(pixel * (props.A4 == true ? 287 : 200));
       cardboxWidth = this.width;
     } else if(typeof this.props.cardbox !== "undefined") {
       cardbox.innerHTML = "";
       cardboxWidth = this.props.cardbox.clientWidth - 20;
       this.width = cardboxWidth;
     }
+    console.log(`width: ${this.width}, height: ${this.height}`)
 
     for(let i = 8; i >= 1; i--) {
       let w = Math.floor((cardboxWidth - ((i -1))) / i);
@@ -24,6 +25,7 @@ export default class RenderCard {
         break;
       }
     }
+    // console.log(`colNum: ${this.colNum}, cardWith: ${this.cardWidth}`)
   }
 
   getPixel() {
@@ -53,6 +55,118 @@ export default class RenderCard {
     });
   }
 
+  generate() {
+    let title = (str, index) => {
+      let header = document.createElement('h2');
+      header.innerText = str;
+      header.style.fontSize = "1.5em";
+      header.style.borderBottom = "1px solid #eee";
+      header.style.marginTop = index == 0 ? "0px" : "40px";
+      header.style.marginBottom = "5px";
+      return header;
+    }
+    // document.body.innerHTML = null;
+    const container = document.createElement('div');
+    container.style.position = 'absolute';
+    container.style.visibility = 'hidden';
+    document.body.appendChild(container);
+    let words = this.props.words;
+    let page, section;
+    let generatePage = () =>{
+      page = document.createElement('div');
+      page.classList.add('page');
+      page.style.border = "1px solid blue";
+      // page.style.width = this.width + "px";
+      // page.style.height = this.height + "px";
+      container.appendChild(page);
+    };
+    let calHeight = () => {
+      let h = 0;
+      for(let i = 0; i < page.children.length; i++) {
+        h += page.children[i].getBoundingClientRect().height;
+      }
+      return h;
+    }
+    // helper to measure element height (forces layout)
+    let measure = (el) => el.getBoundingClientRect().height;
+    generatePage();
+
+    let generateSection = () =>{
+      section = document.createElement('div');
+      section.style.display = "flex";
+      section.style.flexDirection = "row";
+      section.classList.add('section');
+      page.appendChild(section);
+    }
+
+    let generateEmpty = () =>{
+      let card = document.createElement('div');
+      card.style.flex = "1";
+      section.appendChild(card);
+    }
+
+    let generateFooter = () =>{
+      let footer = document.createElement('div');
+      footer.classList.add('footer');
+      footer.innerHTML = container.children.length
+      page.appendChild(footer);
+    }
+
+    let count = 0;
+    for(let i = 0; i < words.length; i++) {
+      let el = words[i];
+      if(i == 0 || typeof el.title == "string") {
+        if(i > 0 && section.children.length < this.colNum) {
+          generateEmpty();
+        }
+        page.appendChild(title(i == 0 ? this.props.title : el.title, i));
+        generateSection();
+        count = 0;
+      }
+      let card = document.createElement('div');
+      card.innerHTML = this.renderItem(el, i);
+      card.classList.add('card');
+      card.style.display = "flex";
+      card.style.flexDirection = "row";
+      card.style.padding = "5px";
+      card.style.borderBottom = "1px solid #eee";
+      card.style.flex = "1";
+      if(this.colNum > 1) {
+        if(section.children.length > 0) {
+          card.style.marginLeft = "5px";
+          section.children[section.children.length - 1].style.marginRight = "5px";
+        }
+      }
+  
+      if(count > 0 && count % this.colNum == 0) {
+        generateSection();
+      }
+      section.appendChild(card);
+      count++;
+      if(section.children.length == this.colNum) {
+        console.log(`${i} => section.height = ${measure(section)}`)
+        console.log(`${i} => calHeight = ${calHeight()}, page.scrollHeight: ${page.scrollHeight}, page.offsetHeight = ${page.offsetHeight}`)
+      }
+      // console.log(section.children.length % this.colNum)
+      if(i == words.length -1) {
+        if(section.children.length < this.colNum) {
+          generateEmpty();
+        }
+        generateFooter()
+      } else if(calHeight() >= this.height - 20 && section.children.length == this.colNum) {
+        generateFooter();
+        generatePage();
+        generateSection();
+        count = 0;
+      }
+    }
+
+    // console.log(`clientHeight = ${page.clientHeight}, scrollHeight: ${page.scrollHeight}, offsetHeight = ${page.offsetHeight}`)
+    let innerHTML = container.innerHTML;
+    document.body.removeChild(container);
+    return innerHTML;
+  }
+
   renderItem(item, index) {
     let dom = `
       <div style="min-width: 25px; font-size: 1rem; padding-top: 2px;">${index + 1}.</div>
@@ -77,16 +191,17 @@ export default class RenderCard {
     return dom;
   }
 
-
   injectedStyles() {
     let page = this.props.A4 == true 
     ? `
-        width: 190mm; /* A4 寬度 210mm 減 margin 10mm * 2 */
-        height: 277mm; /* A4 高度 297mm 減 margin 10mm * 2 */
+        width: 200mm; /* A4 寬度 210mm 減 margin 5mm * 2 */
+        height: 287mm; /* A4 高度 297mm 減 margin 5mm * 2 */
+        margin: 5mm;
     ` 
     : `
-      width: 128mm; /* A5 寬度  148mm - 10mm*2 */
-      height: 190mm; /* A5 高度 210mm - 10mm*2 */    
+      width: 138mm; /* A5 寬度  148mm - 5mm*2 */
+      height: 200mm; /* A5 高度 210mm - 5mm*2 */    
+      margin: 5mm;
     `
 
     return `
@@ -101,18 +216,31 @@ export default class RenderCard {
       body {
         margin: 0;
         padding: 0;
+        display: flex;
+        flex-direction: column;
       }
       .page {
         ${page}
         page-break-after: always;
+        display: flex;
+        flex-direction: column;
+      }
+      h2 {
+        text-align: center;
+      }
+      .footer {
+        flex: 1;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        margin-bottom: 10px;
       }
       </style>
     `
   }
-  dom(html) {
-    // if (breakH1.checked) pageBreakCss += "h1 { break-before: page !important; page-break-before: always !important; }\n";
-    // if (breakH2.checked) pageBreakCss += "h2 { break-before: page !important; page-break-before: always !important; }\n";
-    return `
+  html() {
+    let str = `
         <!DOCTYPE html>
         <html>
         <head>
@@ -120,10 +248,12 @@ export default class RenderCard {
           ${this.injectedStyles()}
         </head>
         <body>
-            ${html}
+            ${this.generate()}
         </body>
         </html>
     `;
+    // console.log(str)
+    return str;
   }
 }
 

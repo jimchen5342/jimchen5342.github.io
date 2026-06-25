@@ -7,9 +7,7 @@ export default class TTX {
 			TTX.msg.lang = "ja-JP"; 
 			// TTX.msg.lang = "en-US";
 			TTX.voices = (await TTX.getVoices()).filter(el =>{
-				// if(el.lang == TTX.msg.lang){
-				// 	console.log(el.name)
-				// }
+				// if(el.lang == TTX.msg.lang){ console.log(el.name)}
 				return el.lang == TTX.msg.lang;
 			});
 

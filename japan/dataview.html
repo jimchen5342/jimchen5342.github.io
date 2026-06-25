@@ -171,7 +171,6 @@
 <script type="module">
   import zhTW from '../cdn/iview/locale/zh-TW.js';
   import TTX from '../utility/TTX.js';
-  import { setting } from '../utility/setting.js';
   // https://iviewui.com/view-ui-plus/guide/introduce
 
   const { createApp, ref, onMounted, onBeforeUnmount } = Vue;
@@ -180,7 +179,7 @@
     setup() {
       const savedLesson = window.localStorage.getItem('大家的日本語-dataview-selectedLesson');
       const selectedLesson = ref(savedLesson || '第 01 課');
-      const lessons = ref(setting.lessons);
+      const lessons = ref([]);
       const wordList = ref([]);
       const loading = ref(false);
       const tableHeight = ref(320);
@@ -235,6 +234,23 @@
         }
       };
 
+      const loadLessons = async () => {
+        try {
+          const fileName = `./大家的日本語/lessons.json`;
+          const resp = await fetch(encodeURI(fileName));
+          if (!resp.ok) throw new Error(`Fetch failed: ${resp.status} ${resp.statusText}`);
+          const data = await resp.json();
+          lessons.value = data;
+          // 如果尚未有 selectedLesson，嘗試用 localStorage 的選項或以第一項為預設
+          if (!selectedLesson.value) {
+            selectedLesson.value = parsedIndex?.selectedLesson || (Array.isArray(data) && data.length ? data[0] : '第 01 課');
+          }
+        } catch (e) {
+          console.error(e);
+          window.ViewUIPlus.Message.error('載入課程列表失敗');
+        }
+      };
+
       const selectedRow = ref(null);
 
       const handleRowClick = (row, index, event) => {
@@ -259,13 +275,15 @@
         window.print();
       };
 
-      onMounted(() => {
+      onMounted(async () => {
         if (TTX) {
-          TTX.initial();
+          await TTX.initial();
         }
         updateTableHeight();
+
         window.addEventListener('resize', updateTableHeight);
-        loadLesson();
+        await loadLessons();
+        await loadLesson();
       });
 
       onBeforeUnmount(() => {
@@ -280,6 +298,7 @@
         loading,
         tableHeight,
         selectedRow,
+        loadLessons,
         loadLesson,
         handleRowClick,
         rowClassName,
