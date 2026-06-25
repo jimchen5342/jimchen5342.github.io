@@ -128,7 +128,6 @@
 <script type="module">
   import zhTW from '../cdn/iview/locale/zh-TW.js';
   import TTX from '../utility/TTX.js';
-  import { setting } from '../utility/setting.js';
   import RenderCard from './renderCard.js'
   // https://iviewui.com/view-ui-plus/guide/introduce
 
@@ -146,7 +145,7 @@
       }
 
       const selectedLesson = ref(parsedIndex?.selectedLesson || '第 01 課');
-      const lessons = ref(setting.lessons);
+      const lessons = ref([]);
       const selectedType = ref(parsedIndex?.selectedType || '單字');
       const selectedCard = ref(parsedIndex?.selectedCard || null);
       const wordList = ref([]);
@@ -166,11 +165,50 @@
         }
       };
 
+      const onKeyDown = (event) => {
+        let o = document.activeElement, 
+          pk = navigator.userAgent.indexOf('Macintosh') > -1 ? event.metaKey : event.ctrlKey,
+          ck = navigator.userAgent.indexOf('Macintosh') > -1  ? event.ctrlKey : event.altKey,
+          ok = navigator.userAgent.indexOf('Macintosh') > -1  ? event.altKey : false,
+          sk = event.shiftKey, 
+          code = event.keyCode;
+      
+        if(code == 37 || code == 39) {
+          let arr = document.querySelectorAll(".card"), index = 0;
+          for(let i = 0; i < arr.length; i++) {
+            if(arr[i].id == selectedCard.value) {
+              index = i;
+              break;
+            }
+          }
+
+          if(index > -1) {
+            index += (code == 37 ? -1 : 1)
+          }
+          if(index == -1 || index == arr.length)
+            index = 0;
+          changeActive(arr[index])
+        } else if(code == 32) { // 空白鍵
+          if(typeof selectedCard.value == "string") {
+            let el = document.querySelector("#" + selectedCard.value);
+            if (el) {
+              changeActive(el)
+            }
+          }
+        } else {
+          return;
+        }
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+
+      }
+
       const loadLesson = async () => {
         loading.value = true;
         try {
           const fileName = `./大家的日本語/${selectedLesson.value}.json`;
-          const response = await fetch(encodeURIComponent(fileName));
+          const response = await fetch(encodeURI(fileName));
           if (!response.ok) {
             throw new Error(`Fetch failed: ${response.status} ${response.statusText}`);
           }
@@ -181,6 +219,23 @@
           window.ViewUIPlus.Message.error('載入課文失敗');
         } finally {
           loading.value = false;
+        }
+      };
+
+      const loadLessons = async () => {
+        try {
+          const fileName = `./大家的日本語/lessons.json`;
+          const resp = await fetch(encodeURI(fileName));
+          if (!resp.ok) throw new Error(`Fetch failed: ${resp.status} ${resp.statusText}`);
+          const data = await resp.json();
+          lessons.value = data;
+          // 如果尚未有 selectedLesson，嘗試用 localStorage 的選項或以第一項為預設
+          if (!selectedLesson.value) {
+            selectedLesson.value = parsedIndex?.selectedLesson || (Array.isArray(data) && data.length ? data[0] : '第 01 課');
+          }
+        } catch (e) {
+          console.error(e);
+          window.ViewUIPlus.Message.error('載入課程列表失敗');
         }
       };
 
@@ -219,7 +274,7 @@
           arr.forEach((el, index) => {
             el.addEventListener("click", () => { changeActive(el) }, false);
             el.style.cursor = "pointer";
-          })          
+          })
         }, 300);
         if(typeof selectedCard.value == "string") {
           let el = document.querySelector("#" + selectedCard.value);
@@ -227,7 +282,6 @@
             el.classList.add("active");
             el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
           }
-          console.log(el)
         }
       }
 
@@ -239,6 +293,24 @@
           arr[0].classList.remove("active");
         }
         el.classList.add("active");
+
+        // 判斷元素是否在容器内可視，如不可視則滾動到視圖
+        const cardbox = document.querySelector('#cardbox');
+        if (cardbox) {
+          const elementRect = el.getBoundingClientRect();
+          const containerRect = cardbox.getBoundingClientRect();
+          
+          const isVisible = (
+            elementRect.top >= containerRect.top &&
+            elementRect.left >= containerRect.left &&
+            elementRect.bottom <= containerRect.bottom &&
+            elementRect.right <= containerRect.right
+          );
+          
+          if (!isVisible) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+          }
+        }
 
         let id = el.id.replace("card", "")
         const index = wordList.value.findIndex(item =>
@@ -280,16 +352,19 @@
         })
       };
 
-      onMounted(() => {
+      onMounted(async () => {
         if (TTX) {
-          TTX.initial();
+          await TTX.initial();
         }
+        await loadLessons();
         window.addEventListener('resize', onResize);
-        loadLesson();
+        window.addEventListener('keydown', onKeyDown);
+        await loadLesson();
       });
 
       onBeforeUnmount(() => {
         window.removeEventListener('resize', onResize);
+        window.removeEventListener('keydown', onKeyDown);
       });
 
       return {
@@ -299,6 +374,7 @@
         wordList,
         loading,
         cardWidth,
+        loadLessons,
         loadLesson,
         renderLesson,
         onLessonChange,
