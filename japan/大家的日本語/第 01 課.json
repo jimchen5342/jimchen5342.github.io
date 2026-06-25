@@ -146,9 +146,9 @@
   {
     "id": 20,
     "kana": "さい",
-    "kanji": "…歳",
+    "kanji": "歳",
     "roma": "sa i",
-    "mean": "...歲"
+    "mean": "…歲"
   },
   {
     "id": 21,
@@ -207,7 +207,7 @@
     "kanji": "失礼ですが",
     "roma": "shi tsu rē de su ga",
     "accent": "2",
-    "mean": "抱歉、請問..."
+    "mean": "抱歉、請問…"
   },
   {
     "id": 29,

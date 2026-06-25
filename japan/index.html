@@ -116,8 +116,9 @@
         </radio-group>
       </div>
       <div style="flex: 1;"></div>
-      <div class="control-item" v-if="cardWidth > 800">
-        <i-button type="primary" @click="printLesson" size="large">列印</i-button>
+      <div class="control-item" v-if="cardWidth > 600">
+        <i-button type="primary" @click="printLessonA4" size="large">列印 A4</i-button>
+        <i-button type="primary" @click="printLessonA5" size="large">列印 A5</i-button>
       </div>
     </div>
     <div id="cardbox" class="card-box">
@@ -342,10 +343,17 @@
         renderLesson();
       };
 
-      const printLesson = () => { // 列印
+      const printLessonA4 = () => { // 列印
+        printLesson("A4");
+      }
+      const printLessonA5 = () => { // 列印
+        printLesson("A5");
+      }
+      const printLesson = (size) => { // 列印
         const renderCard = new RenderCard({
           title: selectedLesson.value,
-          A4: true,
+          A4: size == "A4" ? true : undefined,
+          A5: size == "A5" ? true : undefined,
           words: wordList.value 
         })
 
@@ -360,15 +368,15 @@
 
         // 將處理好的 HTML 寫入新視窗
         printWindow.document.open();
-        printWindow.document.write(renderCard.html());
+        printWindow.document.write(renderCard.generate());
         printWindow.document.close();
 
         // 等待列印視窗資源載入完成後觸發列印
         printWindow.onload = function() {
           // 給予 250ms 延遲確保字型與圖片渲染完成
           setTimeout(() => {
-            // printWindow.print();
-            // printWindow.close(); // 列印對話框關閉後關閉該新視窗
+            printWindow.print();
+            printWindow.close(); // 列印對話框關閉後關閉該新視窗
           }, 250);
         };
 
@@ -402,6 +410,8 @@
         onLessonChange,
         onTypeChange,
         printLesson,
+        printLessonA4,
+        printLessonA5,
         changeActive
       };
     }

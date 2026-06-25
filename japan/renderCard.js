@@ -55,60 +55,113 @@ export default class RenderCard {
     });
   }
 
+  renderItem(item, index) {
+    let dom = `
+      <div style="min-width: 25px; font-size: 1rem; padding-top: 2px;">${index + 1}.</div>
+      <div style="flex: 1; display: flex; flex-direction: column;">
+        <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center;">
+          <div style="font-size: 1.2rem; ">
+            ${item.accent ? window.renderAccent(item.kana, item.accent) : item.kana}
+          </div>
+          <div style="color: #2d8cf0; margin-left: 15px; font-size: 1.2rem">
+            ${item.accent || ""}
+          </div>
+        </div>
+        <div style="flex: 1; font-size: 1.1rem">
+          ${item.kanji || ""}
+        </div>
+        <span style="font-size: 1.0rem; color: #2d8cf0">
+          ${item.roma}
+        </span>
+        <div style="font-size: 1.0rem">${item.mean}</div>
+      </div>
+    `
+    return dom;
+  }
+
   generate() {
-    let title = (str, index) => {
-      let header = document.createElement('h2');
+    let title = (doc, str, index) => {
+      let header = doc.createElement('h2');
       header.innerText = str;
       header.style.fontSize = "1.5em";
-      header.style.borderBottom = "1px solid #eee";
+      header.style.borderBottom = "1px solid #ccc";
       header.style.marginTop = index == 0 ? "0px" : "40px";
       header.style.marginBottom = "5px";
       return header;
     }
-    // document.body.innerHTML = null;
-    const container = document.createElement('div');
-    container.style.position = 'absolute';
-    container.style.visibility = 'hidden';
-    document.body.appendChild(container);
+
+    // 1. 建立隱形的沙箱 iframe，隔離父視窗 CSS 污染與 rem 基準差異
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'absolute';
+    iframe.style.left = '-9999px';
+    iframe.style.top = '-9999px';
+    iframe.style.width = this.width + 'px';
+    iframe.style.height = '10000px'; // 給予足夠高度以利高度測量
+    iframe.style.visibility = 'hidden';
+    document.body.appendChild(iframe);
+
+    // 2. 初始化 iframe 內部的 document 與載入樣式
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    doc.open();
+    doc.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        ${this.injectedStyles()}
+        <style>
+          
+        </style>
+      </head>
+      <body>
+        <div id="measure-container"></div>
+      </body>
+      </html>
+    `);
+    doc.close();
+
+    const container = doc.getElementById('measure-container');
     let words = this.props.words;
     let page, section;
-    let generatePage = () =>{
-      page = document.createElement('div');
+    
+    // 注意：後續建立 DOM 元素時，必須使用 doc.createElement，使其歸屬於 iframe 的 document
+    let generatePage = () => {
+      page = doc.createElement('div');
       page.classList.add('page');
-      page.style.border = "1px solid blue";
-      // page.style.width = this.width + "px";
-      // page.style.height = this.height + "px";
+      page.style.border = "1px solid #aaa";
+      page.style.width = this.width + "px";
       container.appendChild(page);
     };
-    let calHeight = () => {
+
+    let calPageHeight = () => {
       let h = 0;
       for(let i = 0; i < page.children.length; i++) {
         h += page.children[i].getBoundingClientRect().height;
       }
       return h;
     }
-    // helper to measure element height (forces layout)
+
     let measure = (el) => el.getBoundingClientRect().height;
     generatePage();
 
-    let generateSection = () =>{
-      section = document.createElement('div');
+    let generateSection = () => {
+      section = doc.createElement('div');
       section.style.display = "flex";
       section.style.flexDirection = "row";
       section.classList.add('section');
       page.appendChild(section);
     }
 
-    let generateEmpty = () =>{
-      let card = document.createElement('div');
+    let generateEmpty = () => {
+      let card = doc.createElement('div');
       card.style.flex = "1";
       section.appendChild(card);
     }
 
-    let generateFooter = () =>{
-      let footer = document.createElement('div');
+    let generateFooter = () => {
+      let footer = doc.createElement('div');
       footer.classList.add('footer');
-      footer.innerHTML = container.children.length
+      footer.innerHTML = container.children.length;
       page.appendChild(footer);
     }
 
@@ -119,17 +172,17 @@ export default class RenderCard {
         if(i > 0 && section.children.length < this.colNum) {
           generateEmpty();
         }
-        page.appendChild(title(i == 0 ? this.props.title : el.title, i));
+        page.appendChild(title(doc, i == 0 ? this.props.title : el.title, i));
         generateSection();
         count = 0;
       }
-      let card = document.createElement('div');
+      let card = doc.createElement('div');
       card.innerHTML = this.renderItem(el, i);
       card.classList.add('card');
       card.style.display = "flex";
       card.style.flexDirection = "row";
       card.style.padding = "5px";
-      card.style.borderBottom = "1px solid #eee";
+      card.style.borderBottom = "1px solid #ccc";
       card.style.flex = "1";
       if(this.colNum > 1) {
         if(section.children.length > 0) {
@@ -143,52 +196,45 @@ export default class RenderCard {
       }
       section.appendChild(card);
       count++;
-      if(section.children.length == this.colNum) {
-        console.log(`${i} => section.height = ${measure(section)}`)
-        console.log(`${i} => calHeight = ${calHeight()}, page.scrollHeight: ${page.scrollHeight}, page.offsetHeight = ${page.offsetHeight}`)
-      }
-      // console.log(section.children.length % this.colNum)
-      if(i == words.length -1) {
-        if(section.children.length < this.colNum) {
-          generateEmpty();
+      // if(section.children.length == this.colNum) {
+      //   console.log(`${i} => section.height = ${measure(section)}`)
+      //   console.log(`${i} => calHeight = ${calPageHeight()}, page.scrollHeight: ${page.scrollHeight}, page.offsetHeight = ${page.offsetHeight}`)
+      // }
+      
+      
+      if(calPageHeight() >= this.height - 40 && section.children.length == this.colNum) {
+        let lastSection = section;
+        // 從舊頁面移除剛建立的 section
+        page.removeChild(lastSection);
+
+        let lastH2 = null;
+        if(page.lastChild.tagName.toUpperCase() == "H2") {
+          lastH2 = page.lastChild;
+          lastH2.style.marginTop = "0px";
+          page.removeChild(lastH2);
         }
-        generateFooter()
-      } else if(calHeight() >= this.height - 20 && section.children.length == this.colNum) {
+
         generateFooter();
         generatePage();
+        if(lastH2 != null) {
+          page.appendChild(lastH2);  
+        }
+        page.appendChild(lastSection);
         generateSection();
         count = 0;
       }
+      if(i == words.length - 1) {
+        if(section.children.length < this.colNum) {
+          generateEmpty();
+        }
+        generateFooter();
+      }
     }
 
-    // console.log(`clientHeight = ${page.clientHeight}, scrollHeight: ${page.scrollHeight}, offsetHeight = ${page.offsetHeight}`)
-    let innerHTML = container.innerHTML;
-    document.body.removeChild(container);
+    // 3. 取得 iframe 內部整個 document 的 HTML，並將暫時的 iframe 從父視窗移除
+    let innerHTML = doc.documentElement.outerHTML;
+    document.body.removeChild(iframe);
     return innerHTML;
-  }
-
-  renderItem(item, index) {
-    let dom = `
-      <div style="min-width: 25px; font-size: 1rem; padding-top: 2px;">${index + 1}.</div>
-      <div style="flex: 1; display: flex; flex-direction: column;">
-        <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center;">
-          <div style="font-size: 1.2rem; flex: 1;">
-            ${item.accent ? window.renderAccent(item.kana, item.accent) : item.kana}
-          </div>
-          <div style="color: #2d8cf0; margin-left: 10px; font-size: 1rem">
-            ${item.accent || ""}
-          </div>
-        </div>
-        <div style="flex: 1; font-size: 1.2rem">
-          ${item.kanji || ""}
-        </div>
-        <span style="font-size: 1rem; color: #2d8cf0">
-          ${item.roma}
-        </span>
-        <div>${item.mean}</div>
-      </div>
-    `
-    return dom;
   }
 
   injectedStyles() {
@@ -213,9 +259,12 @@ export default class RenderCard {
         font-family: 'Times New Roman', 'Helvetica Neue', 微軟正黑體, 'Microsoft Jhenghei', Helvetica, Arial, sans-serif;
         font-size: 1rem;
       }
-      body {
+      html, body {
         margin: 0;
         padding: 0;
+        width: ${this.width}px;
+      }
+      body {
         display: flex;
         flex-direction: column;
       }
@@ -230,30 +279,32 @@ export default class RenderCard {
       }
       .footer {
         flex: 1;
-        font-size: 1.2rem;
         display: flex;
         align-items: flex-end;
         justify-content: center;
+        font-size: 1.2rem;
         margin-bottom: 10px;
+      }
+      span.accent {
+        margin-top: 2px;
+        border-top: 1px solid #D3D3D3;
+        border-left: 1px solid #D3D3D3;
+        border-right: 1px solid #D3D3D3;
+        padding: 2px 2px 0 2px;
+        font-size: inherit;
+      }
+      span.accent-bottom  {
+        border-bottom: 1px solid #D3D3D3;
+        padding: 0px 2px 0px 2px;
+        font-size: inherit;
+      }
+      @media print {
+        .page {
+          border: none !important;
+        }
       }
       </style>
     `
-  }
-  html() {
-    let str = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <meta charset="UTF-8">
-          ${this.injectedStyles()}
-        </head>
-        <body>
-            ${this.generate()}
-        </body>
-        </html>
-    `;
-    // console.log(str)
-    return str;
   }
 }
 
