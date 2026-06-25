@@ -61,7 +61,7 @@ export default class RenderCard {
       <div style="flex: 1; display: flex; flex-direction: column;">
         <div style="display: flex; flex-direction: row; justify-content: flex-start; align-items: center;">
           <div style="font-size: 1.2rem; flex: 1;">
-            ${item.kana}
+            ${item.accent ? this.renderAccent(item.kana, item.accent) : item.kana}
           </div>
           <div style="color: #2d8cf0; margin-left: 10px; font-size: 1rem">
             ${item.accent || ""}
@@ -77,6 +77,183 @@ export default class RenderCard {
       </div>
     `
     return dom;
+  }
+
+  renderAccent(kana, accent) {
+    /**
+     * 渲染日語單詞的重音標記
+     * 
+     * 重音標記規則：
+     * "0" => 無聲音：第一音拔高
+     * "1" => 第一音拔高
+     * 數字 => 該位置之前的音拔高
+     * "," or "，" => 常用表記法（逗號）
+     * "~" => 連接符號（波浪號）
+     * "-" => 句子中的各單字間隔符號
+     */
+    const VOICED_SOUNDS = "ゃャゅュょョっッィ"; // 拗音、促音
+    const ACCENT_SEPARATORS = ["~", "-"];
+    const PERIOD = "。";
+    const SPAN_ACCENT = "accent";
+    const SPAN_ACCENT_BOTTOM = "accent-bottom";
+    const SEPARATOR_WAVE = "~";
+    const SEPARATOR_DASH = "-";
+
+    /**
+     * 將單個片段按重音規則分段並加上HTML標記
+     * @param {string} value - 要處理的字符串
+     * @param {string|null} accentPos - 重音位置
+     * @returns {string} HTML標記的結果
+     */
+    const segment = (value, accentPos) => {
+      if (!value) return "";
+
+      let normalizedAccent = this._normalizeAccent(accentPos);
+      
+      // 將拗音和促音與前一個字合併
+      let charArray = this._splitWithVoicedSounds(value);
+
+      // 如果沒有重音標記，直接返回
+      if (normalizedAccent === null) {
+        return charArray.join("");
+      }
+
+      // 分配字符到三個區間：前、重音、後
+      const [before, accented, after] = this._partitionByAccent(charArray, normalizedAccent);
+
+      return this._buildAccentedHTML(before, accented, after);
+    };
+
+    /**
+     * 規範化重音值
+     * @param {string|undefined} accent
+     * @returns {string|null} 規範化後的重音值
+     */
+    this._normalizeAccent = (accent) => {
+      try {
+        if (typeof accent === "string" && accent.length > 0) {
+          return accent.charAt(0); // 使用 charAt 替代廢棄的 substr
+        }
+        return null;
+      } catch (e) {
+        console.warn(`Failed to normalize accent: "${accent}"`, e);
+        return null;
+      }
+    };
+
+    /**
+     * 將字符串拆分，保持拗音和促音與前一字符連接
+     * @param {string} value
+     * @returns {string[]} 字符數組
+     */
+    this._splitWithVoicedSounds = (value) => {
+      const arr = [];
+      for (let i = 0; i < value.length; i++) {
+        const char = value.charAt(i);
+        if (char === PERIOD) {
+          // 跳過句號
+          continue;
+        } else if (VOICED_SOUNDS.includes(char)) {
+          // 拗音、促音合併到前一個字
+          if (arr.length > 0) {
+            arr[arr.length - 1] += char;
+          }
+        } else {
+          arr.push(char);
+        }
+      }
+      return arr;
+    };
+
+    /**
+     * 根據重音位置將字符數組分為三部分
+     * @param {string[]} charArray
+     * @param {string} accentPos - 重音位置（"0", "1", 或數字）
+     * @returns {[string, string, string]} [前置, 重音, 後置]
+     */
+    this._partitionByAccent = (charArray, accentPos) => {
+      let [before, accented, after] = ["", "", ""];
+      const accentIndex = parseInt(accentPos, 10);
+
+      for (let i = 0; i < charArray.length; i++) {
+        const char = charArray[i];
+        
+        if (accentPos === "0" && i > 0) {
+          // "0" 表示第一音拔高，其餘正常
+          accented += char;
+        } else if (accentPos === "1" && i === 0) {
+          // "1" 表示第一音拔高
+          accented += char;
+        } else if (!isNaN(accentIndex) && accentIndex > 0 && i > 0 && i < accentIndex) {
+          // 數字表示該位置之前的音拔高
+          accented += char;
+        } else {
+          // 其餘放在後置或前置
+          if (accented.length === 0) {
+            before += char;
+          } else {
+            after += char;
+          }
+        }
+      }
+
+      return [before, accented, after];
+    };
+
+    /**
+     * 構建帶有HTML標記的重音結果
+     * @param {string} before
+     * @param {string} accented
+     * @param {string} after
+     * @returns {string} HTML字符串
+     */
+    this._buildAccentedHTML = (before, accented, after) => {
+      let result = "";
+      
+      if (before) {
+        result += `<span class="${SPAN_ACCENT_BOTTOM}">${before}</span>`;
+      }
+      if (accented) {
+        result += `<span class="${SPAN_ACCENT}">${accented}</span>`;
+      }
+      if (after) {
+        result += `<span class="${SPAN_ACCENT_BOTTOM}">${after}</span>`;
+      }
+
+      return result;
+    };
+
+    /**
+     * 檢測並返回分隔符號
+     * @param {string} str
+     * @returns {string} 分隔符號或空字符串
+     */
+    const detectSeparator = (str) => {
+      if (str.includes(SEPARATOR_WAVE)) return SEPARATOR_WAVE;
+      if (str.includes(SEPARATOR_DASH)) return SEPARATOR_DASH;
+      return "";
+    };
+
+    // 主邏輯
+    const separator = detectSeparator(kana);
+    const kanaValues = separator ? kana.split(separator) : [kana];
+    const accentValues = separator ? accent.split(separator) : [accent];
+
+    let result = "";
+    for (let x = 0; x < kanaValues.length; x++) {
+      const kanaValue = kanaValues[x];
+      const accentValue = accentValues.length > x ? accentValues[x] : accentValues[0];
+      const segmentResult = segment(kanaValue, accentValue);
+
+      if (segmentResult) {
+        if (result.length > 0) {
+          result += separator === SEPARATOR_WAVE ? " ~ " : " ";
+        }
+        result += segmentResult;
+      }
+    }
+
+    return result;
   }
 
   injectedStyles() {
@@ -118,13 +295,10 @@ export default class RenderCard {
         <html>
         <head>
           <meta charset="UTF-8">
-          ${originalHeadHtml}
-          ${injectedStyles}
+          ${this.injectedStyles()}
         </head>
-        <body ${bodyAttrs}>
-          <div class="kobo-wrapper-container" id="kobo-content-root">
+        <body>
             ${html}
-          </div>
         </body>
         </html>
     `;
