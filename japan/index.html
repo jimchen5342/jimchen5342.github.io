@@ -193,7 +193,7 @@
           if(typeof selectedCard.value == "string") {
             let el = document.querySelector("#" + selectedCard.value);
             if (el) {
-              changeActive(el)
+              changeActive(el, 3)
             }
           }
         } else {
@@ -285,40 +285,59 @@
         }
       }
 
-      const changeActive = (el) => {
-        selectedCard.value = el.id;
-        saveStorage();
-        let arr = document.querySelectorAll(".active");
-        if(arr.length > 0) {
-          arr[0].classList.remove("active");
+      let idSpeak = null;
+      const changeActive = (el, times) => {
+        if(idSpeak != null) {
+          clearTimeout(idSpeak);
+          idSpeak = null;
         }
-        el.classList.add("active");
+        if(selectedCard.value != el.id) {
+          selectedCard.value = el.id;
+          saveStorage();
+          let arr = document.querySelectorAll(".active");
+          if(arr.length > 0) {
+            arr[0].classList.remove("active");
+          }
+          el.classList.add("active");
 
-        // 判斷元素是否在容器内可視，如不可視則滾動到視圖
-        const cardbox = document.querySelector('#cardbox');
-        if (cardbox) {
-          const elementRect = el.getBoundingClientRect();
-          const containerRect = cardbox.getBoundingClientRect();
-          
-          const isVisible = (
-            elementRect.top >= containerRect.top &&
-            elementRect.left >= containerRect.left &&
-            elementRect.bottom <= containerRect.bottom &&
-            elementRect.right <= containerRect.right
-          );
-          
-          if (!isVisible) {
-            el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+          // 判斷元素是否在容器内可視，如不可視則滾動到視圖
+          const cardbox = document.querySelector('#cardbox');
+          if (cardbox) {
+            const elementRect = el.getBoundingClientRect();
+            const containerRect = cardbox.getBoundingClientRect();
+            
+            const isVisible = (
+              elementRect.top >= containerRect.top &&
+              elementRect.left >= containerRect.left &&
+              elementRect.bottom <= containerRect.bottom &&
+              elementRect.right <= containerRect.right
+            );
+            
+            if (!isVisible) {
+              el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+            }
           }
         }
-
         let id = el.id.replace("card", "")
         const index = wordList.value.findIndex(item =>
           item && item.id == id
         );
-
         let word = wordList.value[index];
-        TTX.speak(word.kana) 
+
+        let repeat = async () => {
+          idSpeak = null;
+          await TTX.speak(word.kana);
+          times--;
+          if(times > 0) {
+            idSpeak = setTimeout(async () => {
+              repeat();
+            }, 1000);
+          }
+        }
+        if(typeof times == "number") {
+          repeat();
+        } else
+          TTX.speak(word.kana)
       }
 
       const saveStorage = () => {
