@@ -135,6 +135,12 @@
   const { createApp, ref, onMounted, onBeforeUnmount } = Vue;
   let resizeId = null;
 
+  const isSafariBrowser = () => {
+    const ua = navigator.userAgent || '';
+    const vendor = navigator.vendor || '';
+    return /Safari/.test(ua) && /Apple Computer/.test(vendor) && !/(CriOS|Chrome|Chromium|Edg|OPR|Opera)/.test(ua);
+  };
+
   const app = createApp({
     setup() {
       const savedIndex = window.localStorage.getItem('大家的日本語-index');
@@ -369,6 +375,9 @@
         printLesson("A5");
       }
       const printLesson = (size) => { // 列印
+        if(isSafariBrowser()) {
+          alert("請到 Chrome 上列印")
+        }
         const renderCard = new RenderCard({
           title: selectedLesson.value,
           A4: size == "A4" ? true : undefined,
@@ -384,7 +393,6 @@
           alert("無法開啟列印視窗，請確認是否被瀏覽器的彈出視窗阻擋功能封鎖！");
           return;
         }
-
         // 將處理好的 HTML 寫入新視窗
         printWindow.document.open();
         printWindow.document.write(renderCard.generate());

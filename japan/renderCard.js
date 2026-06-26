@@ -84,7 +84,7 @@ export default class RenderCard {
       let header = doc.createElement('h2');
       header.innerText = str;
       header.style.fontSize = "1.5em";
-      header.style.borderBottom = "1px solid #ccc";
+      header.style.borderBottom = "2px solid #ccc";
       header.style.marginTop = index == 0 ? "0px" : "40px";
       header.style.marginBottom = "5px";
       return header;
@@ -141,7 +141,6 @@ export default class RenderCard {
       return h;
     }
 
-    let measure = (el) => el.getBoundingClientRect().height;
     generatePage();
 
     let generateSection = () => {
@@ -161,7 +160,10 @@ export default class RenderCard {
     let generateFooter = () => {
       let footer = doc.createElement('div');
       footer.classList.add('footer');
-      footer.innerHTML = container.children.length;
+      // padding-top: 5px;  border-top: 2px solid #ccc
+      footer.innerHTML = `<div style="width: 100%; text-align: center; margin-bottom: 10px; font-size: 1.2rem;">
+        ${container.children.length}
+      </div>`
       page.appendChild(footer);
     }
 
@@ -196,11 +198,6 @@ export default class RenderCard {
       }
       section.appendChild(card);
       count++;
-      // if(section.children.length == this.colNum) {
-      //   console.log(`${i} => section.height = ${measure(section)}`)
-      //   console.log(`${i} => calHeight = ${calPageHeight()}, page.scrollHeight: ${page.scrollHeight}, page.offsetHeight = ${page.offsetHeight}`)
-      // }
-      
       
       if(calPageHeight() >= this.height - 40 && section.children.length == this.colNum) {
         let lastSection = section;
@@ -282,8 +279,6 @@ export default class RenderCard {
         display: flex;
         align-items: flex-end;
         justify-content: center;
-        font-size: 1.2rem;
-        margin-bottom: 10px;
       }
       span.accent {
         margin-top: 2px;
@@ -307,52 +302,3 @@ export default class RenderCard {
     `
   }
 }
-
-// .page {
-//   width: 190mm; /* A4 寬度 210mm 減 margin 10mm * 2 */
-//   height: 277mm; /* A4 高度 297mm 減 margin 10mm * 2 */
-//   page-break-after: always;
-// }
-
-// .page {
-//   width: 128mm; /* A5 寬度  148mm - 10mm*2 */
-//   height: 190mm; /* A5 高度 210mm - 10mm*2 */
-// }
-/*
-判斷 div 是否已達一頁高度
-最可靠的方式是把「一頁高度」轉成瀏覽器可測量的 px，然後比較目前容器高度。
-
-1. 先定義一頁高度
-  例如 A4 直式內容區域：
-  height: 277mm（297mm 減去上下各 10mm 邊距）
-2. 轉換 mm 到 px
-  function mmToPx(mm) {
-    const el = document.createElement('div');
-    el.style.width = '1mm';
-    el.style.height = '1mm';
-    el.style.position = 'absolute';
-    el.style.visibility = 'hidden';
-    document.body.appendChild(el);
-    const px = el.getBoundingClientRect().height;
-    document.body.removeChild(el);
-    return px * mm;
-  }
-
-  const pageHeightPx = mmToPx(277); // A4 內容高度
-3. 比較 div 高度
-  const cardbox = document.querySelector('#cardbox');
-  const currentHeight = cardbox.scrollHeight; // 或 cardbox.offsetHeight
-
-  if (currentHeight >= pageHeightPx) {
-    console.log('已達一頁高度');
-  }
-4. 更實用的方式
-  用 scrollHeight 代表內容實際高度
-  用 offsetHeight 代表目前元素實際顯示高度
-  若是追加內容，就在每次新增後檢查一次
-建議
-  如果要列印，最好用 CSS @page 與 .page { height: 277mm; }
-  然後在 JS 裡直接用 pageHeightPx 來判斷是否需要換頁
-  總結：用 scrollHeight 或 offsetHeight 比較「轉成 px 的一頁高度」，就能知道目前 div 是否已達到一頁。
-
-*/
