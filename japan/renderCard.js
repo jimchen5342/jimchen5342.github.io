@@ -79,7 +79,93 @@ export default class RenderCard {
     return dom;
   }
 
-  generate() {
+  downloadHTML(html, title) {
+    const baseName = (title || 'lesson')
+      .toString()
+      .trim()
+      .replace(/[\\/:*?"<>|]/g, '')
+      // .replace(/\s+/g, '_');
+    const fileName = `${baseName || 'lesson'}.html`;
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
+
+  generatePDF() {
+    let injectedStyles = () => {
+      let page = this.props.A4 == true 
+      ? `
+          width: 200mm; /* A4 寬度 210mm 減 margin 5mm * 2 */
+          height: 287mm; /* A4 高度 297mm 減 margin 5mm * 2 */
+          margin: 5mm;
+      ` 
+      : `
+        width: 138mm; /* A5 寬度  148mm - 5mm*2 */
+        height: 200mm; /* A5 高度 210mm - 5mm*2 */    
+        margin: 5mm;
+      `
+
+      return `
+        <style>
+        * {
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          font-family: 'Times New Roman', 'Helvetica Neue', 微軟正黑體, 'Microsoft Jhenghei', Helvetica, Arial, sans-serif;
+          font-size: 1rem;
+        }
+        html, body {
+          margin: 0;
+          padding: 0;
+          width: ${this.width}px;
+        }
+        body {
+          display: flex;
+          flex-direction: column;
+        }
+        .page {
+          ${page}
+          page-break-after: always;
+          display: flex;
+          flex-direction: column;
+        }
+        h2 {
+          text-align: center;
+        }
+        .footer {
+          flex: 1;
+          display: flex;
+          align-items: flex-end;
+          justify-content: center;
+        }
+        span.accent {
+          margin-top: 2px;
+          border-top: 1px solid #D3D3D3;
+          border-left: 1px solid #D3D3D3;
+          border-right: 1px solid #D3D3D3;
+          padding: 2px 2px 0 2px;
+          font-size: inherit;
+        }
+        span.accent-bottom  {
+          border-bottom: 1px solid #D3D3D3;
+          padding: 0px 2px 0px 2px;
+          font-size: inherit;
+        }
+        @media print {
+          .page {
+            border: none !important;
+          }
+        }
+        </style>
+      `
+    }
     let title = (doc, str, index) => {
       let header = doc.createElement('h2');
       header.innerText = str;
@@ -108,10 +194,7 @@ export default class RenderCard {
       <html>
       <head>
         <meta charset="UTF-8">
-        ${this.injectedStyles()}
-        <style>
-          
-        </style>
+        ${injectedStyles()}
       </head>
       <body>
         <div id="measure-container"></div>
@@ -234,71 +317,117 @@ export default class RenderCard {
     return innerHTML;
   }
 
-  injectedStyles() {
-    let page = this.props.A4 == true 
-    ? `
-        width: 200mm; /* A4 寬度 210mm 減 margin 5mm * 2 */
-        height: 287mm; /* A4 高度 297mm 減 margin 5mm * 2 */
-        margin: 5mm;
-    ` 
-    : `
-      width: 138mm; /* A5 寬度  148mm - 5mm*2 */
-      height: 200mm; /* A5 高度 210mm - 5mm*2 */    
-      margin: 5mm;
-    `
-
-    return `
-      <style>
-      * {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        font-family: 'Times New Roman', 'Helvetica Neue', 微軟正黑體, 'Microsoft Jhenghei', Helvetica, Arial, sans-serif;
-        font-size: 1rem;
-      }
-      html, body {
-        margin: 0;
-        padding: 0;
-        width: ${this.width}px;
-      }
-      body {
-        display: flex;
-        flex-direction: column;
-      }
-      .page {
-        ${page}
-        page-break-after: always;
-        display: flex;
-        flex-direction: column;
-      }
-      h2 {
-        text-align: center;
-      }
-      .footer {
-        flex: 1;
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-      }
-      span.accent {
-        margin-top: 2px;
-        border-top: 1px solid #D3D3D3;
-        border-left: 1px solid #D3D3D3;
-        border-right: 1px solid #D3D3D3;
-        padding: 2px 2px 0 2px;
-        font-size: inherit;
-      }
-      span.accent-bottom  {
-        border-bottom: 1px solid #D3D3D3;
-        padding: 0px 2px 0px 2px;
-        font-size: inherit;
-      }
-      @media print {
-        .page {
-          border: none !important;
+  ePub() {
+    this.colNum = 1;
+    let injectedStyles = () => {
+      return `
+        <style>
+        * {
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          font-family: 'Times New Roman', 'Helvetica Neue', 微軟正黑體, 'Microsoft Jhenghei', Helvetica, Arial, sans-serif;
+          font-size: 1rem;
         }
+        html, body {
+          margin: 0;
+          padding: 0;
+        }
+        body {
+          display: flex;
+          flex-direction: column;
+        }
+        .page {
+          display: flex;
+          flex-direction: column;
+        }
+        h2 {
+          text-align: center;
+        }
+        span.accent {
+          margin-top: 2px;
+          border-top: 1px solid #D3D3D3;
+          border-left: 1px solid #D3D3D3;
+          border-right: 1px solid #D3D3D3;
+          padding: 2px 2px 0 2px;
+          font-size: inherit;
+        }
+        span.accent-bottom  {
+          border-bottom: 1px solid #D3D3D3;
+          padding: 0px 2px 0px 2px;
+          font-size: inherit;
+        }
+        </style>
+      `
+    }
+    let title = (doc, str, index) => {
+      let header = doc.createElement('h2');
+      header.innerText = str;
+      header.style.fontSize = "1.5em";
+      header.style.borderBottom = "2px solid #ccc";
+      header.style.marginTop = index == 0 ? "0px" : "40px";
+      header.style.marginBottom = "5px";
+      return header;
+    }
+
+    // 1. 建立隱形的沙箱 iframe，隔離父視窗 CSS 污染與 rem 基準差異
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'absolute';
+    iframe.style.left = '-9999px';
+    iframe.style.top = '-9999px';
+    iframe.style.width = this.width + 'px';
+    iframe.style.height = '10000px'; // 給予足夠高度以利高度測量
+    iframe.style.visibility = 'hidden';
+    document.body.appendChild(iframe);
+
+    // 2. 初始化 iframe 內部的 document 與載入樣式
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    doc.open();
+    doc.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        ${injectedStyles()}
+      </head>
+      <body>
+        <div id="measure-container"></div>
+      </body>
+      </html>
+    `);
+    doc.close();
+
+    const container = doc.getElementById('measure-container');
+    let words = this.props.words;
+
+    // 注意：後續建立 DOM 元素時，必須使用 doc.createElement，使其歸屬於 iframe 的 document
+    let page = doc.createElement('div');
+    page.classList.add('page');
+    // page.style.border = "1px solid #aaa";
+    // page.style.width = this.width + "px";
+    container.appendChild(page);
+
+    for(let i = 0; i < words.length; i++) {
+      let el = words[i];
+      if(i == 0 || typeof el.title == "string") {
+        page.appendChild(title(doc, i == 0 ? this.props.title : el.title, i));
       }
-      </style>
-    `
+      let card = doc.createElement('div');
+      card.innerHTML = this.renderItem(el, i);
+      card.classList.add('card');
+      card.style.display = "flex";
+      card.style.flexDirection = "row";
+      card.style.padding = "5px";
+      card.style.borderBottom = "1px solid #ccc";
+      // card.style.flex = "1";
+      page.appendChild(card);
+    }
+
+    // 3. 取得 iframe 內部整個 document 的 HTML，並將暫時的 iframe 從父視窗移除
+    let innerHTML = doc.documentElement.outerHTML;
+    document.body.removeChild(iframe);
+    this.downloadHTML(innerHTML, this.props.title);
+    
+    return innerHTML;
   }
 }
