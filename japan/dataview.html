@@ -204,10 +204,12 @@
       const columns = [
         { title: 'ID', key: 'id', width: 80, align: 'center' },
         { title: '假名', key: 'kana' },
-        { title: '漢字', key: 'kanji', render: (h, params) => h('span', params.row.kanji || '-') },
+        { title: '漢字', key: 'kanji', 
+          render: (h, params) => h('span', params.row.kanji || '-') },
         { title: '羅馬拼音', key: 'roma' },
-        { title: '重音', key: 'accent', width: 100, align: 'center', render: (h, params) => h('span', params.row.accent !== undefined ? params.row.accent : '-') },
-        { title: '中文意思', key: 'mean' }
+        { title: '重音', key: 'accent', width: 100, align: 'center', 
+          render: (h, params) => h('span', params.row.accent !== undefined ? params.row.accent : '-') },
+        { title: '中文', key: 'mean' }
       ];
 
       const resetTableScroll = () => {
@@ -262,7 +264,7 @@
 
       const handleRowClick = (row, index, event) => {
         selectedRow.value = row;
-        console.log('Row clicked:', row, index, event);
+        // console.log('Row clicked:', row, index, event);
         if (TTX && typeof TTX.speak === 'function') {
           // const text = [row.kana, row.kanji, row.roma, row.mean].filter(Boolean).join(' ');
           TTX.speak(row.kana);
@@ -320,10 +322,10 @@
     locale: zhTW
   });
 
-  app.mount('#app');
-
   // 保留原有的 window.onload 邏輯與測試用函數
   window.onload = async function(){
+    app.mount('#app');
+
 		let email =  window.localStorage["email"];
 		let password = window.localStorage["password"];
 		if(location.href.indexOf("?") > -1) {
@@ -350,25 +352,6 @@
 				alert(e.message);
 			}
 		}
-    /*
-    createApp({
-      setup() {
-        // 定義響應式資料
-        const message = ref('Hello Vue 3!');
-
-        // 定義方法
-        function changeMessage() {
-          message.value = 'Vue 3 CDN 運作成功！';
-        }
-
-        // 回傳資料與方法給樣板使用
-        return {
-          message,
-          changeMessage
-        };
-      }
-    }).mount('#app'); // 3. 掛載到 DOM 元素上
-    */
   }
 
   async function getData(key){ //測試用
