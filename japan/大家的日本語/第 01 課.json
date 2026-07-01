@@ -6,7 +6,7 @@
     "roma": "wa ta shi",
     "accent": "0",
     "mean": "我",
-    "start": 9
+    "start": 10
   },
   {
     "id": 2,
@@ -23,7 +23,7 @@
     "roma": "a no hi to",
     "accent": "2",
     "mean": "他、她、那個人",
-    "start": 20
+    "start": 21
   },
   {
     "id": 4,
@@ -81,7 +81,7 @@
     "roma": "ga ku sē",
     "accent": "0",
     "mean": "學生", 
-    "start": 61
+    "start": 62
   },
   {
     "id": 11,
@@ -90,7 +90,7 @@
     "roma": "ka i sha i n",
     "accent": "3",
     "mean": "公司職員(上班族)",
-    "start": 67
+    "start": 68
   },
   {
     "id": 12,
@@ -99,7 +99,7 @@
     "roma": "sha i n",
     "accent": "1",
     "mean": "(某公司)職員",
-    "start": 73
+    "start": 74
   },
   {
     "id": 13,
@@ -117,7 +117,7 @@
     "roma": "i sha",
     "accent": "0",
     "mean": "醫生",
-    "start": 86
+    "start": 87
   },
   {
     "id": 15,
@@ -126,7 +126,7 @@
     "roma": "ke n kyū sha",
     "accent": "3",
     "mean": "研究人員",
-    "start": 92
+    "start": 93
   },
   {
     "id": 16,
@@ -135,7 +135,7 @@
     "roma": "da i ga ku",
     "accent": "0",
     "mean": "大學",
-    "start": 98
+    "start": 100
   },
   {
     "id": 17,
@@ -144,7 +144,7 @@
     "roma": "byō i n",
     "accent": "0",
     "mean": "醫院",
-    "start": 104
+    "start": 105
   },
   {
     "id": 18,
@@ -152,7 +152,7 @@
     "roma": "da re",
     "accent": "1",
     "mean": "誰(哪位)",
-    "start": 110
+    "start": 111
   },
   {
     "id": 19,
@@ -168,7 +168,7 @@
     "kanji": "歳",
     "roma": "sa i",
     "mean": "…歲",
-    "start": 122
+    "start": 123
   },
   {
     "id": 21,
@@ -177,7 +177,8 @@
     "roma": "na n sa i",
     "accent": "1",
     "mean": "幾歲",
-    "start": 127
+    "start": 128,
+    "end": 132
   },
   {
     "id": 22,
@@ -185,7 +186,7 @@
     "roma": "o i ku tsu",
     "accent": "0",
     "mean": "「なんさい」的禮貌說法",
-    "start": 133
+    "start": 134
   },
   {
     "id": 23,
@@ -626,6 +627,6 @@
     "accent": "0",
     "mean": "再見(較隨意)",
     "start": 586,
-    "end": 592
+    "end": 594
   }
 ]
