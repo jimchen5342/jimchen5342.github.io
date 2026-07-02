@@ -216,10 +216,13 @@
           render: (h, params) => {
             const start = params.row.start;
             if (start !== undefined) {
+              const minutes = Math.floor(start / 60);
+              const seconds = start % 60;
+              const label = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
               return h('a', {
                 href: 'javascript:void(0)',
                 onClick: () => playMp3(params.index)
-              }, String(start));
+              }, start + "; " + label);
             }
             return h('span', '-');
           }
