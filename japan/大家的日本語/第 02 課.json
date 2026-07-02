@@ -565,7 +565,8 @@
     "kanji": "歌手",
     "roma": "ka shu",
     "accent": "1",
-    "mean": "歌手"
+    "mean": "歌手",
+    "start": 414
   },
   {
     "id": 67,
@@ -573,7 +574,8 @@
     "kanji": "選手",
     "roma": "se n shu",
     "accent": "1",
-    "mean": "選手"
+    "mean": "選手",
+    "start": 417
   },
   {
     "id": 68,
@@ -581,7 +583,8 @@
     "kanji": "手帳",
     "roma": "te chō",
     "accent": "0",
-    "mean": "記事本"
+    "mean": "記事本",
+    "start": 422
   },
   {
     "id": 69,
@@ -589,7 +592,8 @@
     "kanji": "手紙",
     "roma": "te ga mi",
     "accent": "0",
-    "mean": "信 (訓讀)"
+    "mean": "信 (訓讀)",
+    "start": 425
   },
   {
     "id": 70,
@@ -597,7 +601,8 @@
     "kanji": "手帳",
     "roma": "te chō",
     "accent": "0",
-    "mean": "記事本"
+    "mean": "記事本",
+    "start": 430
   },
   {
     "id": 71,
@@ -605,7 +610,8 @@
     "kanji": "記帳",
     "roma": "ki chō",
     "accent": "0",
-    "mean": "記帳"
+    "mean": "記帳",
+    "start": 433
   },
   {
     "id": 72,
@@ -613,7 +619,8 @@
     "kanji": "名刺",
     "roma": "mē shi",
     "accent": "0",
-    "mean": "名片"
+    "mean": "名片",
+    "start": 438
   },
   {
     "id": 73,
@@ -621,7 +628,8 @@
     "kanji": "有名",
     "roma": "yū mē",
     "accent": "0",
-    "mean": "有名"
+    "mean": "有名",
+    "start": 442
   },
   {
     "id": 74,
@@ -629,7 +637,8 @@
     "kanji": "名",
     "roma": "na",
     "accent": "1",
-    "mean": "名字 (訓讀)"
+    "mean": "名字 (訓讀)",
+    "start": 446
   },
   {
     "id": 75,
@@ -637,7 +646,8 @@
     "kanji": "名前",
     "roma": "na ma e",
     "accent": "0",
-    "mean": "名字 (訓讀)"
+    "mean": "名字 (訓讀)",
+    "start": 449
   },
   {
     "id": 76,
@@ -645,7 +655,9 @@
     "kanji": "名刺",
     "roma": "mē shi",
     "accent": "0",
-    "mean": "名片"
+    "mean": "名片",
+    "start": 454
+
   },
   {
     "id": 77,
@@ -653,7 +665,8 @@
     "kanji": "刺す",
     "roma": "sa su",
     "accent": "1",
-    "mean": "刺、扎 (訓讀)"
+    "mean": "刺、扎 (訓讀)",
+    "start": 459
   },
   {
     "id": 78,
@@ -661,7 +674,8 @@
     "kanji": "鉛筆",
     "roma": "e n pi tsu",
     "accent": "0",
-    "mean": "鉛筆"
+    "mean": "鉛筆",
+    "start": 464
   },
   {
     "id": 79,
@@ -669,7 +683,8 @@
     "kanji": "鉛",
     "roma": "na ma ri",
     "accent": "0",
-    "mean": "鉛 (訓讀)"
+    "mean": "鉛 (訓讀)",
+    "start": 469
   },
   {
     "id": 80,
@@ -677,7 +692,8 @@
     "kanji": "鉛筆",
     "roma": "e n pi tsu",
     "accent": "0",
-    "mean": "鉛筆"
+    "mean": "鉛筆",
+    "start": 474
   },
   {
     "id": 81,
@@ -685,7 +701,8 @@
     "kanji": "筆記",
     "roma": "hi kki",
     "accent": "0",
-    "mean": "筆記"
+    "mean": "筆記",
+    "start": 478
   },
   {
     "id": 82,
@@ -693,7 +710,8 @@
     "kanji": "筆",
     "roma": "fu de",
     "accent": "1",
-    "mean": "筆、毛筆 (訓讀)"
+    "mean": "筆、毛筆 (訓讀)",
+    "start": 483
   },
   {
     "id": 83,
@@ -701,15 +719,8 @@
     "kanji": "時間",
     "roma": "ji ka n",
     "accent": "0",
-    "mean": "時間"
-  },
-  {
-    "id": 84,
-    "kana": "とけい",
-    "kanji": "時計",
-    "roma": "to kē",
-    "accent": "0",
-    "mean": "鐘錶"
+    "mean": "時間",
+    "start": 488
   },
   {
     "id": 85,
@@ -717,7 +728,17 @@
     "kanji": "時",
     "roma": "to ki",
     "accent": "2",
-    "mean": "時候 (訓讀)"
+    "mean": "時候 (訓讀)",
+    "start": 498
+  },
+  {
+    "id": 84,
+    "kana": "とけい",
+    "kanji": "時計",
+    "roma": "to kē",
+    "accent": "0",
+    "mean": "鐘錶",
+    "start": 493
   },
   {
     "id": 86,
@@ -725,7 +746,8 @@
     "kanji": "時計",
     "roma": "to kē",
     "accent": "0",
-    "mean": "鐘錶"
+    "mean": "鐘錶",
+    "start": 502
   },
   {
     "id": 87,
@@ -733,7 +755,8 @@
     "kanji": "計画",
     "roma": "kē ka ku",
     "accent": "0",
-    "mean": "計畫"
+    "mean": "計畫",
+    "start": 505
   },
   {
     "id": 88,
@@ -741,6 +764,8 @@
     "kanji": "計る",
     "roma": "ha ka ru",
     "accent": "2",
-    "mean": "測量 (訓讀)"
+    "mean": "測量 (訓讀)",
+    "start": 510,
+    "end": 512
   }
 ]
