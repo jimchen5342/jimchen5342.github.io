@@ -154,21 +154,23 @@
           <audio id="audioPlayer" controls></audio>
           <div style="flex: 1;"></div>
           <div class="control-item">
-            <!-- <i-button type="primary" @click="printTable">列印</i-button> -->
+            <i-button type="primary" @click="copyTable">複製</i-button>
           </div>
         </div>
       </div>
 
       <i-card class="card-box" :bordered="false" dis-hover>        
         <div class="table-wrapper">
-          <i-table
+          <i-table ref="tableRef"
             :columns="columns"
             :data="wordList"
             :loading="loading"
             border
             stripe
             :height="tableHeight"
+            :row-key="row => row.id"
             @on-row-click="handleRowClick"
+            @on-selection-change="handleSelectionChange"
             :row-class-name="rowClassName"
           ></i-table>
         </div>
@@ -181,7 +183,7 @@
   import TTX from '../utility/TTX.js';
   // https://iviewui.com/view-ui-plus/guide/introduce
 
-  const { createApp, ref, onMounted, onBeforeUnmount } = Vue;
+  const { createApp, ref, onMounted, onBeforeUnmount, nextTick } = Vue;
 
   const app = createApp({
     setup() {
@@ -191,6 +193,8 @@
       const wordList = ref([]);
       const loading = ref(false);
       const tableHeight = ref(320);
+      const selectedRows = ref([]);
+      const tableRef = ref(null);
       let audioElement = null;
 
       const updateTableHeight = () => {
@@ -204,6 +208,7 @@
       };
 
       const columns = [
+        { type: 'selection', width: 60, align: 'center' },
         { title: 'ID', key: 'id', width: 80, align: 'center' },
         { title: '假名', key: 'kana' },
         { title: '漢字', key: 'kanji', 
@@ -260,6 +265,71 @@
             throw new Error(`Fetch failed: ${response.status} ${response.statusText}`);
           }
           wordList.value = await response.json();
+          // 還原先前儲存的選取（僅儲存 ID）
+          try {
+            const saved = window.localStorage.getItem(`大家的日本語-dataview-${selectedLesson.value}-selectedRows`);
+            if (saved) {
+              const ids = JSON.parse(saved);
+              if (Array.isArray(ids) && ids.length) {
+                // 將已儲存的 id 對應回目前的 wordList，並寫入 selectedRows
+                selectedRows.value = wordList.value.filter(r => ids.includes(r.id));
+                // 等 Vue 更新 DOM 之後，嘗試透過表格 component API 還原勾選
+                await nextTick();
+                try {
+                  if (tableRef.value) {
+                    // 常見 API：setSelection 或 toggleRowSelection
+                    if (typeof tableRef.value.setSelection === 'function') {
+                      const rows = wordList.value.filter(r => ids.includes(r.id));
+                      tableRef.value.setSelection(rows);
+                    } else if (typeof tableRef.value.toggleRowSelection === 'function') {
+                      // 逐一標記
+                      ids.forEach(id => {
+                        const row = wordList.value.find(r => r.id === id);
+                        if (row) tableRef.value.toggleRowSelection(row, true);
+                      });
+                    } else {
+                      console.warn('table ref has no selection API, applying DOM fallback');
+                      try {
+                        // 嘗試透過 DOM 找到表格 body，並依資料順序找到對應的列 checkbox
+                        const tbody = document.querySelector('.table-wrapper .ivu-table-body table tbody') || document.querySelector('.ivu-table-body table tbody');
+                        if (tbody) {
+                          ids.forEach(id => {
+                            const idx = wordList.value.findIndex(r => r.id === id);
+                            if (idx >= 0 && tbody.children[idx]) {
+                              const tr = tbody.children[idx];
+                              const checkbox = tr.querySelector('input[type="checkbox"]') || tr.querySelector('.ivu-checkbox-input');
+                              if (checkbox) {
+                                // 若 checkbox 是自訂的 span/div，嘗試點擊可觸發勾選
+                                if (checkbox.tagName.toLowerCase() === 'input') {
+                                  if (!checkbox.checked) checkbox.click();
+                                } else {
+                                  // 非 input 元素可能需要點擊父層
+                                  checkbox.click();
+                                }
+                              }
+                            }
+                          });
+                        } else {
+                          console.warn('table tbody not found for DOM fallback');
+                        }
+                      } catch (err) {
+                        console.error('DOM fallback selection failed', err);
+                      }
+                    }
+                  }
+                } catch (err) {
+                  console.error('apply selection to table failed', err);
+                }
+              } else {
+                selectedRows.value = [];
+              }
+            } else {
+              selectedRows.value = [];
+            }
+          } catch (err) {
+            console.error('restore selectedRows failed', err);
+            selectedRows.value = [];
+          }
           resetTableScroll();
         } catch (e) {
           console.error(e);
@@ -293,7 +363,7 @@
         // console.log('Row clicked:', row, index, event);
         if (TTX && typeof TTX.speak === 'function') {
           // const text = [row.kana, row.kanji, row.roma, row.mean].filter(Boolean).join(' ');
-          TTX.speak(row.kana);
+          // TTX.speak(row.kana);
         }
       };
 
@@ -301,13 +371,60 @@
         return selectedRow.value === row ? 'selected-row' : '';
       };
 
+      const handleSelectionChange = (selection) => {
+        selectedRows.value = selection;
+      };
+
       const onLessonChange = async () => {
+        selectedRows.value = [];
         window.localStorage.setItem('大家的日本語-dataview-selectedLesson', selectedLesson.value);
         await loadLesson();
       };
 
-      const printTable = () => { // 列印, 還沒有寫
-        window.print();
+      const copyTable = async () => { // 複製勾選的表格內容到剪貼簿
+        const rowsToCopy = selectedRows.value.length > 0 ? selectedRows.value : [];
+        if (!rowsToCopy.length) {
+          window.ViewUIPlus.Message.info('請先選擇要複製的資料');
+          return;
+        }
+
+        let arr = [];
+        rowsToCopy.forEach(row => {
+          const values = {
+            kana: row.kana ?? '',
+            mean: row.mean ?? ''
+          };
+          arr.push(values);
+        });
+        
+        const content = JSON.stringify(arr, null, 2);
+
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(content);
+          } else {
+            const textarea = document.createElement('textarea');
+            textarea.value = content;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'fixed';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+          }
+          window.ViewUIPlus.Message.success('已複製選取資料到剪貼簿，請到 node/tts.js 轉成 mp3');
+          // 儲存目前選取的列（僅存 ID）以便下次載入還原
+          try {
+            const ids = rowsToCopy.map(r => r && r.id).filter(id => id !== undefined && id !== null);
+            window.localStorage.setItem(`大家的日本語-dataview-${selectedLesson.value}-selectedRows`, JSON.stringify(ids));
+          } catch (err) {
+            console.error('save selectedRows failed', err);
+          }
+        } catch (e) {
+          console.error(e);
+          window.ViewUIPlus.Message.error('複製失敗');
+        }
       };
 
 
@@ -363,12 +480,15 @@
         loading,
         tableHeight,
         selectedRow,
+        selectedRows,
+        tableRef,
         loadLessons,
         loadLesson,
         handleRowClick,
         rowClassName,
+        handleSelectionChange,
         onLessonChange,
-        printTable,
+        copyTable,
         playMp3
       };
     }
@@ -394,7 +514,7 @@
       }
 		}
 
-    if(typeof window.localStorage["email"] == "string" && window.localStorage["email"].length > 0 ) {
+    if(typeof FireStore == "object" && typeof window.localStorage["email"] == "string" && window.localStorage["email"].length > 0 ) {
 			try {
 				FireStore.initial();
 				await FireStore.signIn()

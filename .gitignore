@@ -2,3 +2,4 @@
 *.DS_Store
 readMe.txt
 *.mp3
+/japan/node/node_modules

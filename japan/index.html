@@ -476,7 +476,7 @@
       }
 		}
 
-    if(typeof window.localStorage["email"] == "string" && window.localStorage["email"].length > 0 ) {
+    if(typeof FireStore == "object" && typeof window.localStorage["email"] == "string" && window.localStorage["email"].length > 0 ) {
 			try {
 				FireStore.initial();
 				await FireStore.signIn()
