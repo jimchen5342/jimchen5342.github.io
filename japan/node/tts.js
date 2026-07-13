@@ -7,6 +7,7 @@ import ffmpeg from 'fluent-ffmpeg';
 // 相容 ESM 的目錄路徑宣告
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const __outputFile = '大家的日本語-重點.mp3';
 
 // 1. 定義您的 JSON 陣列資料來源
 const vocabularyList = [
@@ -15,8 +16,8 @@ const vocabularyList = [
     "mean": "初次見面"
   },
   {
-    "kana": "~からきました",
-    "mean": "從 ~ 來的"
+    "kana": "台湾からきました",
+    "mean": "我來自台灣"
   },
   {
     "kana": "どうぞ よろしく おねがいします",
@@ -40,11 +41,11 @@ const vocabularyList = [
   },
   {
     "kana": "どういたしまして",
-    "mean": "不客氣、沒關係"
+    "mean": "不客氣"
   },
   {
     "kana": "もうしわけ ございません",
-    "mean": "對不起、很抱歉"
+    "mean": "很抱歉"
   },
   {
     "kana": "もうしわけ ありません",
@@ -75,6 +76,7 @@ const vocabularyList = [
 // 2. 設定音色
 const ZH_VOICE = "zh-TW-HsiaoChenNeural"; // 台灣中文女聲
 const JA_VOICE = "ja-JP-NanamiNeural";     // 日本日文女聲
+const JA_VOICE_MALE = "ja-JP-KeitaNeural"; // 日本日文男聲
 
 // 封裝成一個將語音寫入檔案的 Promise 函式
 function saveSpeechToFile(text, voice, targetPath) {
@@ -100,11 +102,11 @@ function saveSpeechToFile(text, voice, targetPath) {
 }
 
 // 產生靜音檔（預設 0.5 秒）
-function generateSilence(silencePath, durationSec = 0.5) {
+function generateSilence(silencePath1000, durationSec = 0.5) {
   return new Promise((resolve, reject) => {
     // Use raw PCM zeros from /dev/zero to avoid relying on lavfi
     // ffmpeg command equivalent:
-    // ffmpeg -f s16le -ar 24000 -ac 1 -i /dev/zero -t <duration> -acodec libmp3lame <silencePath>
+    // ffmpeg -f s16le -ar 24000 -ac 1 -i /dev/zero -t <duration> -acodec libmp3lame <silencePath1000>
     ffmpeg()
       .input('/dev/zero')
       .inputOptions(['-f s16le', '-ar 24000', '-ac 1'])
@@ -113,7 +115,7 @@ function generateSilence(silencePath, durationSec = 0.5) {
       .audioChannels(1)
       .audioFrequency(24000)
       .format('mp3')
-      .save(silencePath)
+      .save(silencePath1000)
       .on('end', () => resolve())
       .on('error', (err) => reject(err));
   });
@@ -125,30 +127,64 @@ function generateSilence(silencePath, durationSec = 0.5) {
 async function main() {
     const concatFiles = [];
     const cleanupFiles = [];
-    const silencePath = path.join(__dirname, `silence.mp3`);
-    let silenceCreated = false;
-    console.log("🔍 開始讀取 JSON 陣列並依序生成語音...");
-    const outputFire = '大家的日本語-重點.mp3';
+    const silencePath1000 = path.join(__dirname, `silence_1000.mp3`);
+    let silenceCreated1000 = false;
+    let addSilence1000 = async () => {
+      // 生成 1 秒靜音檔並加入合併清單（僅建立一次， 可重複加入以產生多個間隔）
+      try {
+        if (!silenceCreated1000) {
+          if (!fs.existsSync(silencePath1000)) {
+            console.log('正在產生 1 秒靜音檔...');
+            await generateSilence(silencePath1000, 1);
+          }
+          silenceCreated1000 = true;
+          if (!cleanupFiles.includes(silencePath1000)) cleanupFiles.push(silencePath1000);
+        }
+        concatFiles.push(silencePath1000);
+      } catch (err) {
+        console.error('產生或加入靜音檔失敗', err);
+      }
+    };
+
+    const silencePath500 = path.join(__dirname, `silence_500.mp3`);
+    let silenceCreated500 = false;
+    let addSilence500 = async () => {
+      // 生成 0.5 秒靜音檔並加入合併清單（僅建立一次， 可重複加入以產生多個間隔）
+      try {
+        if (!silenceCreated500) {
+          if (!fs.existsSync(silencePath500)) {
+            console.log('正在產生 0.5 秒靜音檔...');
+            await generateSilence(silencePath500, 0.5);
+          }
+          silenceCreated500 = true;
+          if (!cleanupFiles.includes(silencePath500)) cleanupFiles.push(silencePath500);
+        }
+        concatFiles.push(silencePath500);
+      } catch (err) {
+        console.error('產生或加入靜音檔失敗', err);
+      }
+    };
     
+    console.log("🔍 開始讀取 JSON 陣列並依序生成語音...");
     try {
         let fileIndex = 0;
 
         for (const item of vocabularyList) {
             // --- A. 合成日文 (kana) ---
             if (item.kana) {
-              const jaPath = path.join(__dirname, `temp_${fileIndex++}.mp3`);
+              let jaPath = path.join(__dirname, `temp_${fileIndex++}.mp3`);
               concatFiles.push(jaPath);
               if (!cleanupFiles.includes(jaPath)) cleanupFiles.push(jaPath);
               console.log(`[JA] 正在合成: "${item.kana}"`);
-              await saveSpeechToFile(item.kana, JA_VOICE, jaPath);
-            }
+              await saveSpeechToFile(item.kana, JA_VOICE_MALE, jaPath);
+              await addSilence500(); // 加入 0.5 秒靜音
 
-            if (item.kana) {
-              const jaPath = path.join(__dirname, `temp_${fileIndex++}.mp3`);
+              jaPath = path.join(__dirname, `temp_${fileIndex++}.mp3`);
               concatFiles.push(jaPath);
               if (!cleanupFiles.includes(jaPath)) cleanupFiles.push(jaPath);
               console.log(`[JA] 正在合成: "${item.kana}"`);
               await saveSpeechToFile(item.kana, JA_VOICE, jaPath);
+              await addSilence500(); // 加入 0.5 秒靜音
             }
 
             // --- B. 合成中文 (mean) ---
@@ -158,25 +194,14 @@ async function main() {
                 if (!cleanupFiles.includes(zhPath)) cleanupFiles.push(zhPath);
                 console.log(`[ZH] 正在合成: "${item.mean}"`);
                 await saveSpeechToFile(item.mean, ZH_VOICE, zhPath);
-                // 生成 1 秒靜音檔並加入合併清單（僅建立一次， 可重複加入以產生多個間隔）
-                try {
-                  if (!silenceCreated) {
-                    if (!fs.existsSync(silencePath)) {
-                      console.log('正在產生 1 秒靜音檔...');
-                      await generateSilence(silencePath, 1);
-                    }
-                    silenceCreated = true;
-                    if (!cleanupFiles.includes(silencePath)) cleanupFiles.push(silencePath);
-                  }
-                  concatFiles.push(silencePath);
-                } catch (err) {
-                  console.error('產生或加入靜音檔失敗', err);
-                }
             }
+            await addSilence1000(); // 加入 1 秒靜音
         }
+        await addSilence1000(); // 加入 1 秒靜音
+        await addSilence1000(); // 加入 1 秒靜音
 
         console.log("🎵 正在使用 ffmpeg 拼接所有音訊片段...");
-        const finalOutput = path.join(__dirname, outputFire);
+        const finalOutput = path.join(__dirname, __outputFile);
         cleanup([finalOutput]); // 先清理舊檔案
         const command = ffmpeg();
 
@@ -193,7 +218,7 @@ async function main() {
                 cleanup(cleanupFiles);
             })
             .on('end', () => {
-                console.log('🎉 恭喜！中日文音訊已完美儲存為: ' + outputFire);
+                console.log('🎉 恭喜！中日文音訊已完美儲存為: ' + __outputFile);
                 cleanup(cleanupFiles);
                 console.log('正在關閉程式...');
                 process.exit(0); // 順利完成後安全退出 (傳回狀態碼 0)

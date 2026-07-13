@@ -1,4 +1,6 @@
 https://www.youtube.com/watch?v=n6ro4MY4NwE&list=PLd_-LrksNYekUL261IPYuwfBQOfcJERzF
+nodeJS/japan
+
 大家的日本語第一冊 (改訂版) 
 用每一集的 youtube 找 PDF 來整理單字.............
 
@@ -69,3 +71,5 @@ https://www.youtube.com/watch?v=n6ro4MY4NwE&list=PLd_-LrksNYekUL261IPYuwfBQOfcJE
     "key": "pBHFlILY2i4",
   }
 ]
+
+yt-dlp --output "第 03 課.mp3" --add-metadata --extract-audio --audio-format mp3 --audio-quality 320K "https://www.youtube.com/watch?v=n6ro4MY4NwE"
