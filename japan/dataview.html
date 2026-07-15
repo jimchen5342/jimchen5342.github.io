@@ -454,7 +454,7 @@
         ctx.textBaseline = 'top';
 
         let y = padding;
-        renderedRows.forEach(({ numberText, textLines }) => {
+        renderedRows.forEach(({ numberText, textLines }, index) => {
           ctx.textAlign = 'right';
           ctx.fillText(numberText, padding + leftColWidth, y);
           ctx.textAlign = 'left';
@@ -462,6 +462,13 @@
             ctx.fillText(line, rightColStartX, y);
             y += lineHeight;
           });
+
+          // ctx.beginPath();
+          // // ctx.strokeStyle = index % 2 == 1 ? "#2d8cf0" : "eee"; // 有問題
+          // ctx.lineWidth = 1;
+          // ctx.moveTo(padding, y - 10);
+          // ctx.lineTo(pixelWidth - (padding * 2), y - 10);
+          // ctx.stroke();
         });
 
         const link = document.createElement('a');

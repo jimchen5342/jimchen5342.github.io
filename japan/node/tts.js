@@ -7,7 +7,7 @@ import ffmpeg from 'fluent-ffmpeg';
 // 相容 ESM 的目錄路徑宣告
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const __outputFile = '大家的日本語-重點.mp3';
+const __outputFile = '重點.mp3';
 
 // 1. 定義您的 JSON 陣列資料來源
 const vocabularyList = [

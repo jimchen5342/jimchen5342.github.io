@@ -1,7 +1,7 @@
 .DS_Store
 *.DS_Store
 readMe.txt
-*.mp3
+/japan/大家的日本語/*.mp3
 /japan/node/node_modules
 readMe.txt
 japan/readMe.txt
