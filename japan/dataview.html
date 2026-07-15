@@ -155,6 +155,7 @@
           <div style="flex: 1;"></div>
           <div class="control-item">
             <i-button type="primary" @click="copyTable">複製</i-button>
+            <i-button type="primary" @click="copyAsPNG">PNG</i-button>
           </div>
         </div>
       </div>
@@ -381,6 +382,108 @@
         await loadLesson();
       };
 
+      const copyAsPNG = async () => { // 勾選的表格內容轉成 PNG
+        // [25,26,27,28,29,30,48,52,56,57,59,60,61,62,63]
+        const rowsToCopy = selectedRows.value.length > 0 ? selectedRows.value : [];
+        if (!rowsToCopy.length) {
+          window.ViewUIPlus.Message.info('請先選擇要複製的資料');
+          return;
+        }
+
+        const pixelWidth = 412;
+        const padding = 10;
+        const fontSize = 28;
+        const lineHeight = 40;
+        const fontFamily = 'Microsoft JhengHei, Arial, sans-serif';
+        const leftColWidth = 40;
+        const rightColStartX = padding + leftColWidth + 8;
+        const rightColMaxWidth = pixelWidth - rightColStartX - padding;
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        ctx.font = `${fontSize}px ${fontFamily}`; // 一定要放，不然會有問題
+        if (!ctx) {
+          window.ViewUIPlus.Message.error('無法建立 PNG 畫布');
+          return;
+        }
+        const wrapText = (text, maxWidth) => {
+          if (!text) {
+            return [''];
+          }
+
+          const lines = [];
+          let currentLine = '';
+
+          for (const char of text) {
+            const nextLine = currentLine + char;
+            if (ctx.measureText(nextLine).width <= maxWidth) {
+              currentLine = nextLine;
+            } else {
+              if (currentLine) {
+                lines.push(currentLine);
+              }
+              currentLine = char;
+            }
+          }
+
+          if (currentLine) {
+            lines.push(currentLine);
+          }
+          return lines.length ? lines : [''];
+        };
+
+        const renderedRows = [];
+        rowsToCopy.forEach((row, index) => {
+          const kana = row.kana ?? '';
+          if (kana) {
+            renderedRows.push({
+              numberText: `${String(index + 1).padStart(2, ' ')}.`,
+              textLines: wrapText(kana, rightColMaxWidth)
+            });
+          }
+        });
+
+        const totalLines = renderedRows.reduce((sum, item) => sum + item.textLines.length, 0);
+        const height = padding * 2 + totalLines * lineHeight;
+        canvas.width = pixelWidth;
+        canvas.height = height;
+
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, pixelWidth, height);
+        ctx.fillStyle = '#1f1f1f';
+        ctx.font = `${fontSize}px ${fontFamily}`; // 一定要放 2次，不然會有問題
+        ctx.textBaseline = 'top';
+
+        let y = padding;
+        renderedRows.forEach(({ numberText, textLines }) => {
+          ctx.textAlign = 'right';
+          ctx.fillText(numberText, padding + leftColWidth, y);
+          ctx.textAlign = 'left';
+          textLines.forEach(line => {
+            ctx.fillText(line, rightColStartX, y);
+            y += lineHeight;
+          });
+        });
+
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');
+        link.download = `${(selectedLesson.value || 'lesson').replace(/[^\w\u4e00-\u9fff]/g, ' ')}-重點.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        window.ViewUIPlus.Message.success('已下載 PNG');
+        saveSelectedRows(rowsToCopy);
+      }
+
+      const saveSelectedRows = (rows) => { // 儲存目前選取的列（僅存 ID）以便下次載入還原
+        try {
+          const ids = rows.map(r => r && r.id).filter(id => id !== undefined && id !== null);
+          window.localStorage.setItem(`大家的日本語-dataview-${selectedLesson.value}-selectedRows`, JSON.stringify(ids));
+        } catch (err) {
+          console.error('save selectedRows failed', err);
+        }        
+      }
+
       const copyTable = async () => { // 複製勾選的表格內容到剪貼簿
         const rowsToCopy = selectedRows.value.length > 0 ? selectedRows.value : [];
         if (!rowsToCopy.length) {
@@ -414,13 +517,7 @@
             document.body.removeChild(textarea);
           }
           window.ViewUIPlus.Message.success('已複製選取資料到剪貼簿，請到 node/tts.js 轉成 mp3');
-          // 儲存目前選取的列（僅存 ID）以便下次載入還原
-          try {
-            const ids = rowsToCopy.map(r => r && r.id).filter(id => id !== undefined && id !== null);
-            window.localStorage.setItem(`大家的日本語-dataview-${selectedLesson.value}-selectedRows`, JSON.stringify(ids));
-          } catch (err) {
-            console.error('save selectedRows failed', err);
-          }
+          saveSelectedRows(rowsToCopy);
         } catch (e) {
           console.error(e);
           window.ViewUIPlus.Message.error('複製失敗');
@@ -489,6 +586,7 @@
         handleSelectionChange,
         onLessonChange,
         copyTable,
+        copyAsPNG,
         playMp3
       };
     }
