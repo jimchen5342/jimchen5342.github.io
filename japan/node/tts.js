@@ -9,7 +9,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const __outputFile = '重點.mp3';
 
+// https://jimchen5342.github.io/japan/node/重點.mp3
+
 // 1. 定義您的 JSON 陣列資料來源
+/*
 const vocabularyList = [
   {
     "kana": "はじめまして",
@@ -72,6 +75,50 @@ const vocabularyList = [
     "mean": "歡迎回家"
   }
 ];
+ */
+
+const vocabularyList = [
+  {
+    "kana": "おひさしぶりです",
+    "mean": "好久不見"
+  },
+  {
+    "kana": "おつかれさまです",
+    "mean": "辛苦了"
+  },
+  {
+    "kana": "おじゃまします",
+    "mean": "打擾了"
+  },
+  {
+    "kana": "おせわになります",
+    "mean": "承蒙關照"
+  },
+  {
+    "kana": "きをつけて",
+    "mean": "小心"
+  },
+  {
+    "kana": "ごぶさたしております",
+    "mean": "久未聯繫"
+  },
+  {
+    "kana": "おだいじに",
+    "mean": "請保重"
+  },
+  {
+    "kana": "おめでとう ございます",
+    "mean": "恭喜!"
+  },
+  {
+    "kana": "おさきに しつれいします",
+    "mean": "先告辭了"
+  },
+  {
+    "kana": "またね",
+    "mean": "再見"
+  }
+]
 
 // 2. 設定音色
 const ZH_VOICE = "zh-TW-HsiaoChenNeural"; // 台灣中文女聲
