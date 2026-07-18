@@ -211,7 +211,8 @@
     "roma": "ha ji me ma shi te",
     "accent": "4",
     "mean": "初次見面",
-    "start": 151
+    "start": 151,
+    "level": 1
   },
   {
     "id": 26,
@@ -219,7 +220,8 @@
     "kanji": "~から来ました",
     "roma": "ka ra ki ma shi ta",
     "mean": "從 ~ 來的",
-    "start": 160
+    "start": 160,
+    "level": 1
   },
   {
     "id": 27,
@@ -227,7 +229,8 @@
     "kanji": "どうぞ よろしく お願いします",
     "roma": "dō zo yo ro shi ku o ne ga i shi ma su",
     "mean": "請多多關照",
-    "start": 169
+    "start": 169,
+    "level": 1
   },
   {
     "id": 28,
@@ -236,7 +239,8 @@
     "roma": "shi tsu rē de su ga",
     "accent": "2",
     "mean": "抱歉、請問…",
-    "start": 182
+    "start": 182,
+    "level": 1
   },
   {
     "id": 29,
@@ -245,14 +249,16 @@
     "roma": "o na ma e wa",
     "accent": "0",
     "mean": "您貴姓?",
-    "start": 191
+    "start": 191,
+    "level": 1
   },
   {
     "id": 30,
     "kana": "こちらは 〜 さんです",
     "roma": "ko chi ra wa 〜 sa n de su",
     "mean": "這位是~",
-    "start": 199
+    "start": 199,
+    "level": 1
   },
   {
     "id": 31,
@@ -401,7 +407,8 @@
     "roma": "o ya su mi na sa i",
     "accent": "0",
     "mean": "晚安(睡前)",
-    "start": 348
+    "start": 348,
+    "level": 1
 
   },
   {
@@ -434,7 +441,8 @@
     "roma": "dō i ta shi ma shi te",
     "accent": "0",
     "mean": "不客氣、沒關係(在別人說謝謝之後說)",
-    "start": 383
+    "start": 383,
+    "level": 1
   },
   {
     "id": 53,
@@ -466,7 +474,8 @@
     "kanji": "申し訳 ございません",
     "roma": "mō shi wa ke go za i ma se n",
     "mean": "對不起、很抱歉",
-    "start": 417
+    "start": 417,
+    "level": 1
   },
   {
     "id": 57,
@@ -474,7 +483,8 @@
     "kanji": "申し訳 ありません",
     "roma": "mō shi wa ke a ri ma se n",
     "mean": "對不起、很抱歉",
-    "start": 426
+    "start": 426,
+    "level": 1
   },
   {
     "id": 58,
@@ -489,7 +499,8 @@
     "kana": "ごちそうさまでした",
     "roma": "go chi sō sa ma de shi ta",
     "mean": "多謝您的款待，我已經吃飽了",
-    "start": 446
+    "start": 446,
+    "level": 1
   },
   {
     "id": 60,
@@ -497,7 +508,8 @@
     "roma": "i tte ki ma su",
     "accent": "0",
     "mean": "我出去了(當離開家時使用)",
-    "start": 454
+    "start": 454,
+    "level": 1
   },
   {
     "id": 61,
@@ -505,7 +517,8 @@
     "roma": "i tte ra ssha i",
     "accent": "0",
     "mean": "路上小心(對外出的人說的話)",
-    "start": 462
+    "start": 462,
+    "level": 1
   },
   {
     "id": 62,
@@ -513,7 +526,8 @@
     "roma": "ta da i ma",
     "accent": "0",
     "mean": "我回來了(回到家裡時的招呼語)",
-    "start": 471
+    "start": 471,
+    "level": 1
   },
   {
     "id": 63,
@@ -521,7 +535,8 @@
     "roma": "o ka e ri na sa i",
     "accent": "0",
     "mean": "歡迎回家(對回家的人的用語)",
-    "start": 479
+    "start": 479,
+    "level": 1
   },
   {
     "id": 64,
@@ -548,7 +563,8 @@
     "roma": "o hi sa shi bu ri de su",
     "accent": "0",
     "mean": "好久不見",
-    "start": 504
+    "start": 504,
+    "level": 1
   },
   {
     "id": 67,
@@ -557,7 +573,8 @@
     "roma": "o tsu ka re sa ma de su",
     "accent": "0",
     "mean": "辛苦了",
-    "start": 514
+    "start": 514,
+    "level": 1
   },
   {
     "id": 68,
@@ -566,7 +583,8 @@
     "roma": "o ja ma shi ma su",
     "accent": "0",
     "mean": "打擾了(進入別人家中時)",
-    "start": 523
+    "start": 523,
+    "level": 1
   },
   {
     "id": 69,
@@ -575,7 +593,8 @@
     "roma": "o se wa ni na ri ma su",
     "accent": "0",
     "mean": "承蒙關照",
-    "start": 532
+    "start": 532,
+    "level": 1
   },
   {
     "id": 70,
@@ -584,7 +603,8 @@
     "roma": "ki o tsu ke te",
     "accent": "1",
     "mean": "小心",
-    "start": 541
+    "start": 541,
+    "level": 1
   },
   {
     "id": 71,
@@ -593,7 +613,8 @@
     "roma": "go bu sa ta shi te o ri ma su",
     "accent": "0",
     "mean": "久未聯繫",
-    "start": 550
+    "start": 550,
+    "level": 1
   },
   {
     "id": 72,
@@ -602,7 +623,8 @@
     "roma": "o da i ji ni",
     "accent": "0",
     "mean": "請保重",
-    "start": 559
+    "start": 559,
+    "level": 1
   },
   {
     "id": 73,
@@ -610,7 +632,8 @@
     "roma": "o me de tō go za i ma su",
     "accent": "0",
     "mean": "恭喜!",
-    "start": 567
+    "start": 567,
+    "level": 1
   },
   {
     "id": 74,
@@ -618,7 +641,8 @@
     "kanji": "お先に 失礼します",
     "roma": "o sa ki ni shi tsu rē shi ma su",
     "mean": "先告辭了(離開工作場所時使用)",
-    "start": 576
+    "start": 576,
+    "level": 1
   },
   {
     "id": 75,
@@ -627,6 +651,7 @@
     "accent": "0",
     "mean": "再見(較隨意)",
     "start": 586,
-    "end": 594
+    "end": 594,
+    "level": 1
   }
 ]

@@ -113,6 +113,7 @@
         <radio-group v-model="selectedType" type="button" button-style="solid" size="large" @on-change="onTypeChange" @update:modelValue="onTypeChange">
           <radio label="單字">單字</radio>
           <radio label="補充">補充</radio>
+          <radio label="重點">重點</radio>
         </radio-group>
       </div>
       <div style="flex: 1;"></div>
@@ -252,12 +253,14 @@
           cardbox.scrollTop = 0;
         }
         cardWidth.value = cardbox.clientWidth;
-        // console.log("clientWidth: " + cardbox.clientWidth)
+
         const titleIndex = wordList.value.findIndex(item =>
           item && Object.prototype.hasOwnProperty.call(item, 'title')
         );
         let words = [];
-        if(selectedType.value == "單字") {
+        if(selectedType.value == "重點") {
+          words = wordList.value.filter((el) => typeof el.level !== "undefined");
+        } else if(selectedType.value == "單字") {
           if(titleIndex > -1) {
             words = wordList.value.slice(0, titleIndex)
           } else {
@@ -269,6 +272,11 @@
           alert("沒有補充的資料")
           return;
         }
+        if(words.length == 0) {
+          alert(`沒有「${selectedType.value}」的資料`)
+          return;
+        }
+
         const renderCard = new RenderCard({
           title: selectedLesson.value,
           cardbox,
