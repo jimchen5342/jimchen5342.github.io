@@ -177,7 +177,8 @@ function generateSilence(silencePath1000, durationSec = 0.5) {
  * 核心主程式
  */
 async function main() {
-    vocabularyList = vocabularyList2();
+    vocabularyList = vocabularyList1(); // 重點1 
+    vocabularyList = vocabularyList.concat(vocabularyList2()) // 全部
     const concatFiles = [];
     const cleanupFiles = [];
     const silencePath1000 = path.join(__dirname, `silence_1000.mp3`);
