@@ -12,113 +12,118 @@ const __outputFile = '重點.mp3';
 // https://jimchen5342.github.io/japan/node/重點.mp3
 
 // 1. 定義您的 JSON 陣列資料來源
-/*
-const vocabularyList = [
-  {
-    "kana": "はじめまして",
-    "mean": "初次見面"
-  },
-  {
-    "kana": "台湾からきました",
-    "mean": "我來自台灣"
-  },
-  {
-    "kana": "どうぞ よろしく おねがいします",
-    "mean": "請多多關照"
-  },
-  {
-    "kana": "しつれいですが",
-    "mean": "抱歉、請問…"
-  },
-  {
-    "kana": "おなまえは",
-    "mean": "您貴姓?"
-  },
-  {
-    "kana": "こちらは 〜 さんです",
-    "mean": "這位是~"
-  },
-  {
-    "kana": "おやすみなさい",
-    "mean": "晚安(睡前)"
-  },
-  {
-    "kana": "どういたしまして",
-    "mean": "不客氣"
-  },
-  {
-    "kana": "もうしわけ ございません",
-    "mean": "很抱歉"
-  },
-  {
-    "kana": "もうしわけ ありません",
-    "mean": "對不起、很抱歉"
-  },
-  {
-    "kana": "ごちそうさまでした",
-    "mean": "多謝您的款待"
-  },
-  {
-    "kana": "いってきます",
-    "mean": "我出去了"
-  },
-  {
-    "kana": "いってらっしゃい",
-    "mean": "路上小心"
-  },
-  {
-    "kana": "ただいま",
-    "mean": "我回來了"
-  },
-  {
-    "kana": "おかえりなさい",
-    "mean": "歡迎回家"
-  }
-];
- */
 
-const vocabularyList = [
-  {
-    "kana": "おひさしぶりです",
-    "mean": "好久不見"
-  },
-  {
-    "kana": "おつかれさまです",
-    "mean": "辛苦了"
-  },
-  {
-    "kana": "おじゃまします",
-    "mean": "打擾了"
-  },
-  {
-    "kana": "おせわになります",
-    "mean": "承蒙關照"
-  },
-  {
-    "kana": "きをつけて",
-    "mean": "小心"
-  },
-  {
-    "kana": "ごぶさたしております",
-    "mean": "久未聯繫"
-  },
-  {
-    "kana": "おだいじに",
-    "mean": "請保重"
-  },
-  {
-    "kana": "おめでとう ございます",
-    "mean": "恭喜!"
-  },
-  {
-    "kana": "おさきに しつれいします",
-    "mean": "先告辭了"
-  },
-  {
-    "kana": "またね",
-    "mean": "再見"
-  }
-]
+let vocabularyList = [];
+const vocabularyList1 = () => {
+  return [
+    {
+      "kana": "はじめまして",
+      "mean": "初次見面"
+    },
+    {
+      "kana": "台湾からきました",
+      "mean": "我來自台灣"
+    },
+    {
+      "kana": "どうぞ よろしく おねがいします",
+      "mean": "請多多關照"
+    },
+    {
+      "kana": "しつれいですが",
+      "mean": "抱歉、請問…"
+    },
+    {
+      "kana": "おなまえは",
+      "mean": "您貴姓?"
+    },
+    {
+      "kana": "こちらは 〜 さんです",
+      "mean": "這位是~"
+    },
+    {
+      "kana": "おやすみなさい",
+      "mean": "晚安(睡前)"
+    },
+    {
+      "kana": "どういたしまして",
+      "mean": "不客氣"
+    },
+    {
+      "kana": "もうしわけ ございません",
+      "mean": "很抱歉"
+    },
+    {
+      "kana": "もうしわけ ありません",
+      "mean": "對不起、很抱歉"
+    },
+    {
+      "kana": "ごちそうさまでした",
+      "mean": "多謝您的款待"
+    },
+    {
+      "kana": "いってきます",
+      "mean": "我出去了"
+    },
+    {
+      "kana": "いってらっしゃい",
+      "mean": "路上小心"
+    },
+    {
+      "kana": "ただいま",
+      "mean": "我回來了"
+    },
+    {
+      "kana": "おかえりなさい",
+      "mean": "歡迎回家"
+    }
+  ];
+}
+
+
+const vocabularyList2 = () => {
+ return [
+    {
+      "kana": "おひさしぶりです",
+      "mean": "好久不見"
+    },
+    {
+      "kana": "おつかれさまです",
+      "mean": "辛苦了"
+    },
+    {
+      "kana": "おじゃまします",
+      "mean": "打擾了"
+    },
+    {
+      "kana": "おせわになります",
+      "mean": "承蒙關照"
+    },
+    {
+      "kana": "きをつけて",
+      "mean": "小心"
+    },
+    {
+      "kana": "ごぶさたしております",
+      "mean": "久未聯繫"
+    },
+    {
+      "kana": "おだいじに",
+      "mean": "請保重"
+    },
+    {
+      "kana": "おめでとう ございます",
+      "mean": "恭喜!"
+    },
+    {
+      "kana": "おさきに しつれいします",
+      "mean": "先告辭了"
+    },
+    {
+      "kana": "またね",
+      "mean": "再見"
+    }
+  ]
+}
 
 // 2. 設定音色
 const ZH_VOICE = "zh-TW-HsiaoChenNeural"; // 台灣中文女聲
@@ -172,6 +177,7 @@ function generateSilence(silencePath1000, durationSec = 0.5) {
  * 核心主程式
  */
 async function main() {
+    vocabularyList = vocabularyList1();
     const concatFiles = [];
     const cleanupFiles = [];
     const silencePath1000 = path.join(__dirname, `silence_1000.mp3`);
