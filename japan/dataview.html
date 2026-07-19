@@ -151,7 +151,6 @@
               <i-option v-for="item in lessons" :value="item" :key="item">{{ item }}</i-option>
             </i-select>
           </div>
-          <audio id="audioPlayer" controls></audio>
           <div style="flex: 1;"></div>
           <div class="control-item">
             <i-button type="primary" @click="copyTable">複製</i-button>
@@ -196,7 +195,6 @@
       const tableHeight = ref(320);
       const selectedRows = ref([]);
       const tableRef = ref(null);
-      let audioElement = null;
 
       const updateTableHeight = () => {
         const card = document.querySelector('.card-box');
@@ -218,22 +216,6 @@
         { title: '重音', key: 'accent', width: 100, align: 'center', 
           render: (h, params) => h('span', params.row.accent !== undefined ? params.row.accent : '-') },
         { title: '中文', key: 'mean' },
-        { title: '開始位置', key: 'start', 
-          render: (h, params) => {
-            const start = params.row.start;
-            if (start !== undefined) {
-              const minutes = Math.floor(start / 60);
-              const seconds = start % 60;
-              const label = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-              return h('a', {
-                href: 'javascript:void(0)',
-                onClick: () => playMp3(params.index)
-              }, start + "; " + label);
-            }
-            return h('span', '-');
-          }
-        },
-        // { title: '結束位置', key: 'end' }
       ];
 
       const resetTableScroll = () => {
@@ -251,13 +233,6 @@
 
       const loadLesson = async () => {
         loading.value = true;
-
-        const mp3Path = `./大家的日本語/${selectedLesson.value}.mp3`;
-        
-        if (!audioElement) {
-          audioElement = new Audio();
-        }
-        audioElement.src = encodeURI(mp3Path);
 
         try {
           const fileName = `./大家的日本語/${selectedLesson.value}.json`;
@@ -364,7 +339,7 @@
         // console.log('Row clicked:', row, index, event);
         if (TTX && typeof TTX.speak === 'function') {
           // const text = [row.kana, row.kanji, row.roma, row.mean].filter(Boolean).join(' ');
-          // TTX.speak(row.kana);
+          TTX.speak(row.kana);
         }
       };
 
@@ -531,36 +506,6 @@
         }
       };
 
-
-      const playMp3 = (index) => {
-        let start = wordList.value[index]?.start;
-        let end = typeof wordList.value[index]?.end === 'number' ? wordList.value[index]?.end : wordList.value[index + 1]?.start - 0.3;
-        
-        if (start === undefined) {
-          alert(`playMp3: start 未定義 for index=${index}`);
-          return;
-        }
-
-        audioElement.currentTime = start;
-        audioElement.play().catch(err => {
-          alert(`播放 mp3 失敗: ${err}`);
-        });
-
-        // 如果設定了 end，計時停止播放
-        if (typeof end === 'number') {
-          const checkEnd = () => {
-            console.log(`checkEnd: currentTime=${audioElement.currentTime}, end=${end}`);
-            if (Math.floor(audioElement.currentTime) >= end) {
-              audioElement.pause();
-              audioElement.removeEventListener('timeupdate', checkEnd);
-            }
-          };
-          audioElement.addEventListener('timeupdate', checkEnd); // , { once: true }
-        }
-
-        console.log(`playMp3: index=${index}, start=${start}, end=${end}`);
-      };
-
       onMounted(async () => {
         if (TTX) {
           await TTX.initial();
@@ -594,7 +539,6 @@
         onLessonChange,
         copyTable,
         copyAsPNG,
-        playMp3
       };
     }
   });
