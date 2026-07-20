@@ -14,8 +14,7 @@
 			-moz-box-sizing: border-box;
 			box-sizing: border-box;
 			/* user-select: none; */
-			font-family: 'Times New Roman', 'Helvetica Neue', 微軟正黑體, 'Microsoft Jhenghei', Helvetica, Arial, sans-serif;
-			font-size: 1rem;
+			font-family: 'Times New Roman', 'Helvetica Neue', 微軟正黑體, 'Microsoft Jhenghei', Helvetica, Arial, sans-serif;	
 		}
     body {
       margin: 0;
@@ -24,6 +23,7 @@
       min-height: 100vh;
       font-family: 'Outfit', 'Noto Sans TC', sans-serif;
       color: #333;
+      font-size: 16px;
     }
     
     #app {
@@ -253,13 +253,14 @@
           cardbox.scrollTop = 0;
         }
         cardWidth.value = cardbox.clientWidth;
+        cardbox.innerHTML = "";
 
         const titleIndex = wordList.value.findIndex(item =>
           item && Object.prototype.hasOwnProperty.call(item, 'title')
         );
         let words = [];
         if(selectedType.value == "重點") {
-          words = wordList.value.filter((el) => typeof el.level !== "undefined");
+          words = wordList.value.filter((el) => el.level == 1);
         } else if(selectedType.value == "單字") {
           if(titleIndex > -1) {
             words = wordList.value.slice(0, titleIndex)

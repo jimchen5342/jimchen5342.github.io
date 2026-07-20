@@ -119,12 +119,12 @@ export default class RenderCard {
           -moz-box-sizing: border-box;
           box-sizing: border-box;
           font-family: 'Times New Roman', 'Helvetica Neue', 微軟正黑體, 'Microsoft Jhenghei', Helvetica, Arial, sans-serif;
-          font-size: 1rem;
         }
         html, body {
           margin: 0;
           padding: 0;
           width: ${this.width}px;
+          font-size: 16px;
         }
         body {
           display: flex;
@@ -327,11 +327,11 @@ export default class RenderCard {
           -moz-box-sizing: border-box;
           box-sizing: border-box;
           font-family: 'Times New Roman', 'Helvetica Neue', 微軟正黑體, 'Microsoft Jhenghei', Helvetica, Arial, sans-serif;
-          font-size: 1rem;
         }
         html, body {
           margin: 0;
           padding: 0;
+          font-size: 16px;
         }
         body {
           display: flex;
