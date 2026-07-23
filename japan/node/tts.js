@@ -14,7 +14,7 @@ const __outputFile = '重點.mp3';
 // 1. 定義您的 JSON 陣列資料來源
 
 let vocabularyList = [];
-const vocabularyList1 = () => {
+const vocabularyList01A = () => {
   return [
     {
       "kana": "はじめまして",
@@ -79,8 +79,7 @@ const vocabularyList1 = () => {
   ];
 }
 
-
-const vocabularyList2 = () => {
+const vocabularyList01B = () => {
  return [
     {
       "kana": "おひさしぶりです",
@@ -121,6 +120,141 @@ const vocabularyList2 = () => {
     {
       "kana": "またね",
       "mean": "再見"
+    }
+  ]
+}
+
+const vocabularyList02A = () => {
+ return [
+    {
+      "id": 8,
+      "kana": "じしょ",
+      "mean": "字典"
+    },
+    {
+      "id": 9,
+      "kana": "ざっし",
+      "mean": "雜誌"
+    },
+    {
+      "id": 10,
+      "kana": "しんぶん",
+      "mean": "報紙"
+    },
+    {
+      "id": 11,
+      "kana": "ノート",
+      "mean": "筆記本"
+    },
+    {
+      "id": 12,
+      "kana": "てちょう",
+      "mean": "記事本"
+    },
+    {
+      "id": 13,
+      "kana": "めいし",
+      "mean": "名片"
+    },
+    {
+      "id": 14,
+      "kana": "カード",
+      "mean": "卡片"
+    },
+    {
+      "id": 15,
+      "kana": "えんぴつ",
+      "mean": "鉛筆"
+    },
+    {
+      "id": 16,
+      "kana": "ボールペン",
+      "mean": "原子筆"
+    },
+    {
+      "id": 17,
+      "kana": "シャープペンシル",
+      "mean": "自動鉛筆"
+    },
+    {
+      "id": 18,
+      "kana": "かぎ",
+      "mean": "鑰匙"
+    },
+    {
+      "id": 19,
+      "kana": "とけい",
+      "mean": "鐘錶"
+    },
+    {
+      "id": 20,
+      "kana": "かさ",
+      "mean": "傘"
+    },
+    {
+      "id": 21,
+      "kana": "かばん",
+      "mean": "皮包"
+    },
+    {
+      "id": 22,
+      "kana": "シーディー",
+      "mean": "光碟"
+    },
+    {
+      "id": 23,
+      "kana": "テレビ",
+      "mean": "電視"
+    },
+    {
+      "id": 24,
+      "kana": "ラジオ",
+      "mean": "收音機"
+    },
+    {
+      "id": 25,
+      "kana": "カメラ",
+      "mean": "照相機"
+    },
+    {
+      "id": 26,
+      "kana": "コンピューター",
+      "mean": "電腦"
+    },
+    {
+      "id": 27,
+      "kana": "くるま",
+      "mean": "汽車"
+    },
+    {
+      "id": 28,
+      "kana": "つくえ",
+      "mean": "桌子"
+    },
+    {
+      "id": 29,
+      "kana": "いす",
+      "mean": "椅子"
+    },
+    {
+      "id": 30,
+      "kana": "チョコレート",
+      "mean": "巧克力"
+    },
+    {
+      "id": 31,
+      "kana": "コーヒー",
+      "mean": "咖啡"
+    },
+    {
+      "id": 32,
+      "kana": "おみやげ",
+      "mean": "伴手禮"
+    },
+    {
+      "id": 33,
+      "kana": "えいご",
+      "mean": "英語"
     }
   ]
 }
@@ -177,8 +311,11 @@ function generateSilence(silencePath1000, durationSec = 0.5) {
  * 核心主程式
  */
 async function main() {
-    vocabularyList = vocabularyList1(); // 重點1 
-    vocabularyList = vocabularyList.concat(vocabularyList2()) // 全部
+    // 第 01 課
+    // vocabularyList = vocabularyList01A(); // 重點1 
+    // vocabularyList = vocabularyList.concat(vocabularyList01B()) // 全部
+    vocabularyList = vocabularyList02A(); //
+    
     const concatFiles = [];
     const cleanupFiles = [];
     const silencePath1000 = path.join(__dirname, `silence_1000.mp3`);
