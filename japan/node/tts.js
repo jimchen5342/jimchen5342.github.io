@@ -360,6 +360,15 @@ async function main() {
     try {
         let fileIndex = 0;
 
+        {
+            const zhPath = path.join(__dirname, `temp_${fileIndex++}.mp3`);
+            concatFiles.push(zhPath);
+            if (!cleanupFiles.includes(zhPath)) cleanupFiles.push(zhPath);
+            await saveSpeechToFile("第二課", ZH_VOICE, zhPath);
+            await addSilence1000(); // 加入 1 秒靜音
+            await addSilence1000(); // 加入 1 秒靜音
+        }
+            
         for (const item of vocabularyList) {
             // --- A. 合成日文 (kana) ---
             if (item.kana) {

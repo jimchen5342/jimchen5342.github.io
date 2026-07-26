@@ -69,7 +69,8 @@
     "roma": "ji sho",
     "accent": "1",
     "mean": "字典",
-    "start": 57
+    "start": 57,
+    "level": 1
   },
   {
     "id": 9,
@@ -78,7 +79,8 @@
     "roma": "za sshi",
     "accent": "0",
     "mean": "雜誌",
-    "start": 64
+    "start": 64,
+    "level": 1
   },
   {
     "id": 10,
@@ -87,7 +89,8 @@
     "roma": "shi n bu n",
     "accent": "0",
     "mean": "報紙",
-    "start": 70
+    "start": 70,
+    "level": 1
   },
   {
     "id": 11,
@@ -95,7 +98,8 @@
     "roma": "nō to",
     "accent": "1",
     "mean": "筆記本",
-    "start": 77
+    "start": 77,
+    "level": 1
   },
   {
     "id": 12,
@@ -104,7 +108,8 @@
     "roma": "te chō",
     "accent": "0",
     "mean": "記事本",
-    "start": 84
+    "start": 84,
+    "level": 1
   },
   {
     "id": 13,
@@ -113,7 +118,8 @@
     "roma": "mē shi",
     "accent": "0",
     "mean": "名片",
-    "start": 90
+    "start": 90,
+    "level": 1
   },
   {
     "id": 14,
@@ -121,7 +127,8 @@
     "roma": "kā do",
     "accent": "1",
     "mean": "卡片",
-    "start": 97
+    "start": 97,
+    "level": 1
   },
   {
     "id": 15,
@@ -130,7 +137,8 @@
     "roma": "e n pi tsu",
     "accent": "0",
     "mean": "鉛筆",
-    "start": 104
+    "start": 104,
+    "level": 1
   },
   {
     "id": 16,
@@ -138,7 +146,8 @@
     "roma": "bō ru pe n",
     "accent": "0",
     "mean": "原子筆",
-    "start": 110
+    "start": 110,
+    "level": 1
   },
   {
     "id": 17,
@@ -146,7 +155,8 @@
     "roma": "shā pu pe n shi ru",
     "accent": "4",
     "mean": "自動鉛筆",
-    "start": 116
+    "start": 116,
+    "level": 1
   },
   {
     "id": 18,
@@ -155,7 +165,8 @@
     "roma": "ka gi",
     "accent": "2",
     "mean": "鑰匙",
-    "start": 122
+    "start": 122,
+    "level": 1
   },
   {
     "id": 19,
@@ -164,7 +175,8 @@
     "roma": "to kē",
     "accent": "0",
     "mean": "鐘錶",
-    "start": 128
+    "start": 128,
+    "level": 1
   },
   {
     "id": 20,
@@ -173,7 +185,8 @@
     "roma": "ka sa",
     "accent": "1",
     "mean": "傘",
-    "start": 136
+    "start": 136,
+    "level": 1
   },
   {
     "id": 21,
@@ -182,7 +195,8 @@
     "roma": "ka ba n",
     "accent": "0",
     "mean": "皮包、提包",
-    "start": 143
+    "start": 143,
+    "level": 1
   },
   {
     "id": 22,
@@ -191,7 +205,8 @@
     "roma": "shī dī",
     "accent": "3",
     "mean": "CD、光碟",
-    "start": 149
+    "start": 149,
+    "level": 1
   },
   {
     "id": 23,
@@ -199,7 +214,8 @@
     "roma": "te re bi",
     "accent": "1",
     "mean": "電視",
-    "start": 155
+    "start": 155,
+    "level": 1
   },
   {
     "id": 24,
@@ -207,7 +223,8 @@
     "roma": "ra ji o",
     "accent": "1",
     "mean": "收音機",
-    "start": 162
+    "start": 162,
+    "level": 1
   },
   {
     "id": 25,
@@ -215,7 +232,8 @@
     "roma": "ka me ra",
     "accent": "1",
     "mean": "照相機",
-    "start": 169
+    "start": 169,
+    "level": 1
   },
   {
     "id": 26,
@@ -223,7 +241,8 @@
     "roma": "ko n pyū tā",
     "accent": "3",
     "mean": "電腦",
-    "start": 175
+    "start": 175,
+    "level": 1
   },
   {
     "id": 27,
@@ -232,7 +251,8 @@
     "roma": "ku ru ma",
     "accent": "0",
     "mean": "汽車",
-    "start": 182
+    "start": 182,
+    "level": 1
   },
   {
     "id": 28,
@@ -241,7 +261,8 @@
     "roma": "tsu ku e",
     "accent": "0",
     "mean": "桌子",
-    "start": 189
+    "start": 189,
+    "level": 1
   },
   {
     "id": 29,
@@ -250,7 +271,8 @@
     "roma": "i su",
     "accent": "0",
     "mean": "椅子",
-    "start": 195
+    "start": 195,
+    "level": 1
   },
   {
     "id": 30,
@@ -258,7 +280,8 @@
     "roma": "cho ko rē to",
     "accent": "3",
     "mean": "巧克力",
-    "start": 202
+    "start": 202,
+    "level": 1
   },
   {
     "id": 31,
@@ -266,7 +289,8 @@
     "roma": "kō hī",
     "accent": "3",
     "mean": "咖啡",
-    "start": 208
+    "start": 208,
+    "level": 1
   },
   {
     "id": 32,
@@ -274,7 +298,8 @@
     "roma": "o mi ya ge",
     "accent": "0",
     "mean": "伴手禮、土產",
-    "start": 215
+    "start": 215,
+    "level": 1
   },
   {
     "id": 33,
@@ -283,7 +308,8 @@
     "roma": "ē go",
     "accent": "0",
     "mean": "英語",
-    "start": 221
+    "start": 221,
+    "level": 1
   },
   {
     "id": 34,
@@ -657,7 +683,6 @@
     "accent": "0",
     "mean": "名片",
     "start": 454
-
   },
   {
     "id": 77,

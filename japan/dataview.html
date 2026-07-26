@@ -155,6 +155,7 @@
           <div class="control-item">
             <i-button type="primary" @click="copyTable">複製</i-button>
             <i-button type="primary" @click="copyAsPNG">PNG</i-button>
+            <i-button type="primary" @click="copyToJSON">JSON</i-button>
           </div>
         </div>
       </div>
@@ -357,11 +358,53 @@
         await loadLesson();
       };
 
+      const copyToJSON = async () => {
+        const rowsToCopy = selectedRows.value.length > 0 ? selectedRows.value : [];
+        if (!rowsToCopy.length) {
+          window.ViewUIPlus.Message.info('請先選擇要轉檔的資料');
+          return;
+        }
+
+        for(let i = 0; i < wordList.value.length; i++){
+          let el = wordList.value[i];
+          if(el.level) {
+            delete el.level;
+          }
+          
+          const index = rowsToCopy.findIndex(r => r.id === el.id);
+          if(index > -1) {
+            el.level = 1;
+          }
+        }
+        const content = JSON.stringify(wordList.value, null, 2);
+
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(content);
+          } else {
+            const textarea = document.createElement('textarea');
+            textarea.value = content;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'fixed';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+          }
+          window.ViewUIPlus.Message.success(`已更新「${selectedLesson.value}」選取資料為重點，請複製到 ${selectedLesson.value}.json 檔`);
+          saveSelectedRows(rowsToCopy);
+        } catch (e) {
+          console.error(e);
+          window.ViewUIPlus.Message.error('複製失敗');
+        }
+      }
+
       const copyAsPNG = async () => { // 勾選的表格內容轉成 PNG
         // [25,26,27,28,29,30,48,52,56,57,59,60,61,62,63]
         const rowsToCopy = selectedRows.value.length > 0 ? selectedRows.value : [];
         if (!rowsToCopy.length) {
-          window.ViewUIPlus.Message.info('請先選擇要複製的資料');
+          window.ViewUIPlus.Message.info('請先選擇要轉檔的資料');
           return;
         }
 
@@ -540,6 +583,7 @@
         onLessonChange,
         copyTable,
         copyAsPNG,
+        copyToJSON
       };
     }
   });
