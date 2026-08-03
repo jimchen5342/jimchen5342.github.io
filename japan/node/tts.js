@@ -259,6 +259,220 @@ const vocabularyList02A = () => {
   ]
 }
 
+const vocabularyNumber = () => {
+  return [
+      {
+        "id": 1,
+        "kana": "いち",
+        "roma": "i chi",
+        "kanji": "一",
+        "accent": "2",
+        "mean": "一"
+      },
+      {
+        "id": 2,
+        "kana": "に",
+        "roma": "ni",
+        "kanji": "二",
+        "accent": "1",
+        "mean": "二"
+      },
+      {
+        "id": 3,
+        "kana": "さん",
+        "roma": "sa n",
+        "kanji": "三",
+        "accent": "3",
+        "mean": "三"
+      },
+      {
+        "id": 4,
+        "kana": "よん",
+        "roma": "yo n",
+        "kanji": "四",
+        "accent": "1",
+        "mean": "四"
+      },
+      {
+        "id": 5,
+        "kana": "ご",
+        "roma": "go",
+        "kanji": "五",
+        "accent": "1",
+        "mean": "五"
+      },
+      {
+        "id": 6,
+        "kana": "ろく",
+        "roma": "ro ku",
+        "kanji": "六",
+        "accent": "2",
+        "mean": "六"
+      },
+      {
+        "id": 7,
+        "kana": "なな",
+        "roma": "na na",
+        "kanji": "七",
+        "accent": "1",
+        "mean": "七"
+      },
+      {
+        "id": 8,
+        "kana": "はち",
+        "roma": "ha chi",
+        "kanji": "八",
+        "accent": "2",
+        "mean": "八"
+      },
+      {
+        "id": 9,
+        "kana": "きゅう",
+        "roma": "kyū",
+        "kanji": "九",
+        "accent": "1",
+        "mean": "九"
+      },
+      {
+        "id": 10,
+        "kana": "じゅう",
+        "roma": "jū",
+        "kanji": "十",
+        "accent": "1",
+        "mean": "十"
+      },
+      {
+        "id": 11,
+        "kana": "にじゅう",
+        "roma": "ni jū",
+        "kanji": "二十",
+        "accent": "1",
+        "mean": "二十"
+      },
+      {
+        "id": 12,
+        "kana": "さんじゅう",
+        "roma": "sa n jū",
+        "kanji": "三十",
+        "accent": "1",
+        "mean": "三十"
+      },
+      {
+        "id": 13,
+        "kana": "よんじゅう",
+        "roma": "yo n jū",
+        "kanji": "四十",
+        "accent": "1",
+        "mean": "四十"
+      },
+      {
+        "id": 14,
+        "kana": "ごじゅう",
+        "roma": "go jū",
+        "kanji": "五十",
+        "accent": "1",
+        "mean": "五十"
+      },
+      {
+        "id": 15,
+        "kana": "ろくじゅう",
+        "roma": "ro ku jū",
+        "kanji": "六十",
+        "accent": "1",
+        "mean": "六十"
+      },
+      {
+        "id": 16,
+        "kana": "ななじゅう",
+        "roma": "na na jū",
+        "kanji": "七十",
+        "accent": "1",
+        "mean": "七十"
+      },
+      {
+        "id": 17,
+        "kana": "はちじゅう",
+        "roma": "ha chi jū",
+        "kanji": "八十",
+        "accent": "1",
+        "mean": "八十"
+      },
+      {
+        "id": 18,
+        "kana": "きゅうじゅう",
+        "roma": "kyū jū",
+        "kanji": "九十",
+        "accent": "1",
+        "mean": "九十"
+      },
+      {
+        "id": 19,
+        "kana": "ひゃく",
+        "roma": "hya ku",
+        "kanji": "百",
+        "accent": "2",
+        "mean": "一百"
+      },
+      {
+        "id": 20,
+        "kana": "さんびゃく",
+        "roma": "sa n bya ku",
+        "kanji": "三百",
+        "accent": "3",
+        "mean": "三百"
+      },
+      {
+        "id": 21,
+        "kana": "ろっぴゃく",
+        "roma": "ro ppyaku",
+        "kanji": "六百",
+        "accent": "3",
+        "mean": "六百"
+      },
+      {
+        "id": 22,
+        "kana": "はっぴゃく",
+        "roma": "ha ppyaku",
+        "kanji": "八百",
+        "accent": "3",
+        "mean": "八百"
+      },
+      {
+        "id": 23,
+        "kana": "せん",
+        "roma": "se n",
+        "kanji": "千",
+        "accent": "1",
+        "mean": "一千"
+      },
+      {
+        "id": 24,
+        "kana": "さんぜん",
+        "roma": "sa n ze n",
+        "kanji": "三千",
+        "accent": "3",
+        "mean": "三千"
+      },
+      {
+        "id": 25,
+        "kana": "はっせん",
+        "roma": "ha ssen",
+        "kanji": "八千",
+        "accent": "3",
+        "mean": "八千"
+      },
+      {
+        "id": 26,
+        "kana": "いちまん",
+        "roma": "i chi ma n",
+        "kanji": "一万",
+        "accent": "3",
+        "mean": "一萬"
+      }
+    ]
+};
+    
+
 // 2. 設定音色
 const ZH_VOICE = "zh-TW-HsiaoChenNeural"; // 台灣中文女聲
 const JA_VOICE = "ja-JP-NanamiNeural";     // 日本日文女聲
@@ -314,7 +528,9 @@ async function main() {
     // 第 01 課
     // vocabularyList = vocabularyList01A(); // 重點1 
     // vocabularyList = vocabularyList.concat(vocabularyList01B()) // 全部
-    vocabularyList = vocabularyList02A(); //
+    // vocabularyList = vocabularyList02A(); //
+    vocabularyList = vocabularyNumber(); // 數字
+    const title = "數字";
     
     const concatFiles = [];
     const cleanupFiles = [];
@@ -364,7 +580,7 @@ async function main() {
             const zhPath = path.join(__dirname, `temp_${fileIndex++}.mp3`);
             concatFiles.push(zhPath);
             if (!cleanupFiles.includes(zhPath)) cleanupFiles.push(zhPath);
-            await saveSpeechToFile("第二課", ZH_VOICE, zhPath);
+            await saveSpeechToFile(title, ZH_VOICE, zhPath);
             await addSilence1000(); // 加入 1 秒靜音
             await addSilence1000(); // 加入 1 秒靜音
         }
