@@ -342,70 +342,6 @@ const vocabularyNumber = () => {
         "mean": "十"
       },
       {
-        "id": 11,
-        "kana": "にじゅう",
-        "roma": "ni jū",
-        "kanji": "二十",
-        "accent": "1",
-        "mean": "二十"
-      },
-      {
-        "id": 12,
-        "kana": "さんじゅう",
-        "roma": "sa n jū",
-        "kanji": "三十",
-        "accent": "1",
-        "mean": "三十"
-      },
-      {
-        "id": 13,
-        "kana": "よんじゅう",
-        "roma": "yo n jū",
-        "kanji": "四十",
-        "accent": "1",
-        "mean": "四十"
-      },
-      {
-        "id": 14,
-        "kana": "ごじゅう",
-        "roma": "go jū",
-        "kanji": "五十",
-        "accent": "1",
-        "mean": "五十"
-      },
-      {
-        "id": 15,
-        "kana": "ろくじゅう",
-        "roma": "ro ku jū",
-        "kanji": "六十",
-        "accent": "1",
-        "mean": "六十"
-      },
-      {
-        "id": 16,
-        "kana": "ななじゅう",
-        "roma": "na na jū",
-        "kanji": "七十",
-        "accent": "1",
-        "mean": "七十"
-      },
-      {
-        "id": 17,
-        "kana": "はちじゅう",
-        "roma": "ha chi jū",
-        "kanji": "八十",
-        "accent": "1",
-        "mean": "八十"
-      },
-      {
-        "id": 18,
-        "kana": "きゅうじゅう",
-        "roma": "kyū jū",
-        "kanji": "九十",
-        "accent": "1",
-        "mean": "九十"
-      },
-      {
         "id": 19,
         "kana": "ひゃく",
         "roma": "hya ku",
@@ -502,11 +438,11 @@ function saveSpeechToFile(text, voice, targetPath) {
 }
 
 // 產生靜音檔（預設 0.5 秒）
-function generateSilence(silencePath1000, durationSec = 0.5) {
+function generateSilence(silencePathLong, durationSec = 0.5) {
   return new Promise((resolve, reject) => {
     // Use raw PCM zeros from /dev/zero to avoid relying on lavfi
     // ffmpeg command equivalent:
-    // ffmpeg -f s16le -ar 24000 -ac 1 -i /dev/zero -t <duration> -acodec libmp3lame <silencePath1000>
+    // ffmpeg -f s16le -ar 24000 -ac 1 -i /dev/zero -t <duration> -acodec libmp3lame <silencePathLong>
     ffmpeg()
       .input('/dev/zero')
       .inputOptions(['-f s16le', '-ar 24000', '-ac 1'])
@@ -515,7 +451,7 @@ function generateSilence(silencePath1000, durationSec = 0.5) {
       .audioChannels(1)
       .audioFrequency(24000)
       .format('mp3')
-      .save(silencePath1000)
+      .save(silencePathLong)
       .on('end', () => resolve())
       .on('error', (err) => reject(err));
   });
@@ -534,39 +470,39 @@ async function main() {
     
     const concatFiles = [];
     const cleanupFiles = [];
-    const silencePath1000 = path.join(__dirname, `silence_1000.mp3`);
-    let silenceCreated1000 = false;
-    let addSilence1000 = async () => {
-      // 生成 1 秒靜音檔並加入合併清單（僅建立一次， 可重複加入以產生多個間隔）
+    const silencePathLong = path.join(__dirname, `silence_Long.mp3`);
+    let silenceCreatedLong = false;
+    let addSilenceLong = async () => {
+      let silenceDuration = 1.5; // 靜音檔並加入合併清單（僅建立一次， 可重複加入以產生多個間隔）
       try {
-        if (!silenceCreated1000) {
-          if (!fs.existsSync(silencePath1000)) {
-            console.log('正在產生 1 秒靜音檔...');
-            await generateSilence(silencePath1000, 1);
+        if (!silenceCreatedLong) {
+          if (!fs.existsSync(silencePathLong)) {
+            console.log('正在產生 ' + silenceDuration + ' 秒靜音檔...');
+            await generateSilence(silencePathLong, silenceDuration);
           }
-          silenceCreated1000 = true;
-          if (!cleanupFiles.includes(silencePath1000)) cleanupFiles.push(silencePath1000);
+          silenceCreatedLong = true;
+          if (!cleanupFiles.includes(silencePathLong)) cleanupFiles.push(silencePathLong);
         }
-        concatFiles.push(silencePath1000);
+        concatFiles.push(silencePathLong);
       } catch (err) {
         console.error('產生或加入靜音檔失敗', err);
       }
     };
 
-    const silencePath500 = path.join(__dirname, `silence_500.mp3`);
-    let silenceCreated500 = false;
-    let addSilence500 = async () => {
-      // 生成 0.5 秒靜音檔並加入合併清單（僅建立一次， 可重複加入以產生多個間隔）
+    const silencePathShort = path.join(__dirname, `silence_Short.mp3`);
+    let silenceCreatedShort = false;
+    let addSilenceShort = async () => {
+      let silenceDuration = 1; // 靜音檔並加入合併清單（僅建立一次， 可重複加入以產生多個間隔）
       try {
-        if (!silenceCreated500) {
-          if (!fs.existsSync(silencePath500)) {
-            console.log('正在產生 0.5 秒靜音檔...');
-            await generateSilence(silencePath500, 0.5);
+        if (!silenceCreatedShort) {
+          if (!fs.existsSync(silencePathShort)) {
+            console.log('正在產生 ' + silenceDuration + ' 秒靜音檔...');
+            await generateSilence(silencePathShort, silenceDuration);
           }
-          silenceCreated500 = true;
-          if (!cleanupFiles.includes(silencePath500)) cleanupFiles.push(silencePath500);
+          silenceCreatedShort = true;
+          if (!cleanupFiles.includes(silencePathShort)) cleanupFiles.push(silencePathShort);
         }
-        concatFiles.push(silencePath500);
+        concatFiles.push(silencePathShort);
       } catch (err) {
         console.error('產生或加入靜音檔失敗', err);
       }
@@ -575,46 +511,62 @@ async function main() {
     console.log("🔍 開始讀取 JSON 陣列並依序生成語音...");
     try {
         let fileIndex = 0;
+        const jaMan = false, jaWoman = true, zhWoman = false;
 
         {
             const zhPath = path.join(__dirname, `temp_${fileIndex++}.mp3`);
             concatFiles.push(zhPath);
             if (!cleanupFiles.includes(zhPath)) cleanupFiles.push(zhPath);
             await saveSpeechToFile(title, ZH_VOICE, zhPath);
-            await addSilence1000(); // 加入 1 秒靜音
-            await addSilence1000(); // 加入 1 秒靜音
+            await addSilenceLong(); // 加入 1 秒靜音
+            await addSilenceLong(); // 加入 1 秒靜音
         }
             
         for (const item of vocabularyList) {
             // --- A. 合成日文 (kana) ---
             if (item.kana) {
-              let jaPath = path.join(__dirname, `temp_${fileIndex++}.mp3`);
-              concatFiles.push(jaPath);
-              if (!cleanupFiles.includes(jaPath)) cleanupFiles.push(jaPath);
-              console.log(`[JA] 正在合成: "${item.kana}"`);
-              await saveSpeechToFile(item.kana, JA_VOICE_MALE, jaPath);
-              await addSilence500(); // 加入 0.5 秒靜音
+              if(jaMan) {
+                let jaPath = path.join(__dirname, `temp_${fileIndex++}.mp3`);
+                concatFiles.push(jaPath);
+                if (!cleanupFiles.includes(jaPath)) cleanupFiles.push(jaPath);
+                console.log(`[JA] 正在合成: "${item.kana}"`);
+                await saveSpeechToFile(item.kana, JA_VOICE_MALE, jaPath);
+                await addSilenceShort(); // 加入 0.5 秒靜音
+              }
 
-              jaPath = path.join(__dirname, `temp_${fileIndex++}.mp3`);
-              concatFiles.push(jaPath);
-              if (!cleanupFiles.includes(jaPath)) cleanupFiles.push(jaPath);
-              console.log(`[JA] 正在合成: "${item.kana}"`);
-              await saveSpeechToFile(item.kana, JA_VOICE, jaPath);
-              await addSilence500(); // 加入 0.5 秒靜音
+              if(jaWoman && !jaMan) {
+                let jaPath = path.join(__dirname, `temp_${fileIndex++}.mp3`);
+                concatFiles.push(jaPath);
+                if (!cleanupFiles.includes(jaPath)) cleanupFiles.push(jaPath);
+                console.log(`[JA] 正在合成: "${item.kana}"`);
+                await saveSpeechToFile(item.kana, JA_VOICE, jaPath);
+                await addSilenceShort(); // 加入 0.5 秒靜音
+              }
+              
+              
+              if(jaWoman) {
+                let jaPath = path.join(__dirname, `temp_${fileIndex++}.mp3`);
+                concatFiles.push(jaPath);
+                if (!cleanupFiles.includes(jaPath)) cleanupFiles.push(jaPath);
+                console.log(`[JA] 正在合成: "${item.kana}"`);
+                await saveSpeechToFile(item.kana, JA_VOICE, jaPath);
+                if(zhWoman)
+                  await addSilenceShort(); // 加入 0.5 秒靜音
+              }
             }
 
             // --- B. 合成中文 (mean) ---
-            if (item.mean) {
+            if (item.mean && zhWoman) {
                 const zhPath = path.join(__dirname, `temp_${fileIndex++}.mp3`);
                 concatFiles.push(zhPath);
                 if (!cleanupFiles.includes(zhPath)) cleanupFiles.push(zhPath);
                 console.log(`[ZH] 正在合成: "${item.mean}"`);
                 await saveSpeechToFile(item.mean, ZH_VOICE, zhPath);
             }
-            await addSilence1000(); // 加入 1 秒靜音
+            await addSilenceLong(); // 加入 1 秒靜音
         }
-        await addSilence1000(); // 加入 1 秒靜音
-        await addSilence1000(); // 加入 1 秒靜音
+        await addSilenceLong(); // 加入 1 秒靜音
+        await addSilenceLong(); // 加入 1 秒靜音
 
         console.log("🎵 正在使用 ffmpeg 拼接所有音訊片段...");
         const finalOutput = path.join(__dirname, __outputFile);
